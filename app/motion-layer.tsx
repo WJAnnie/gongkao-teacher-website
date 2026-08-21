@@ -8,9 +8,26 @@ export function MotionLayer() {
   useEffect(() => {
     const root = document.documentElement;
     const cursor = cursorRef.current;
+    const heroScroll = document.querySelector<HTMLElement>('.hero-scroll');
+    const libraryScroll = document.querySelector<HTMLElement>('.library-scroll');
+    const methodStory = document.querySelector<HTMLElement>('.method-story');
+    const clamp = (value: number) => Math.min(1, Math.max(0, value));
+    const sectionProgress = (element: HTMLElement | null) => {
+      if (!element) return 0;
+      const rect = element.getBoundingClientRect();
+      const distance = Math.max(1, element.offsetHeight - window.innerHeight);
+      return clamp(-rect.top / distance);
+    };
     const updateScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       root.style.setProperty('--scroll-progress', `${max > 0 ? window.scrollY / max : 0}`);
+      const heroProgress = sectionProgress(heroScroll);
+      const libraryProgress = sectionProgress(libraryScroll);
+      const methodProgress = sectionProgress(methodStory);
+      root.style.setProperty('--hero-progress', `${heroProgress}`);
+      root.style.setProperty('--library-progress', `${libraryProgress}`);
+      root.style.setProperty('--method-progress', `${methodProgress}`);
+      methodStory?.setAttribute('data-active', `${Math.min(3, Math.floor(methodProgress * 4))}`);
     };
     const updatePointer = (event: PointerEvent) => {
       root.style.setProperty('--pointer-x', `${event.clientX}px`);

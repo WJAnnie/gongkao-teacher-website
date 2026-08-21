@@ -1,6 +1,3 @@
-'use client';
-
-import { useState } from 'react';
 import { MotionLayer } from './motion-layer';
 
 const libraryItems = [
@@ -36,11 +33,14 @@ const clips = [
   { time: '04:06', label: '课堂切片 03', quote: '“自然一点，不是随便一点；是让逻辑长在自己的话里。”', topic: '面试｜摆脱模板化表达' },
 ];
 
-export default function Home() {
-  const [activeFilter, setActiveFilter] = useState('全部');
-  const filters = ['全部', '申论素材', '真题拆解', '面试表达'];
-  const visibleItems = activeFilter === '全部' ? libraryItems : libraryItems.filter((item) => item.type === activeFilter);
+const methodSteps = [
+  { no: '01', title: '看见问题', key: 'SEE', desc: '先识别材料中的主体、关系与矛盾，不被漂亮词句牵着走。' },
+  { no: '02', title: '形成判断', key: 'THINK', desc: '把零散信息组织成自己的观点，知道为什么这样答。' },
+  { no: '03', title: '清楚表达', key: 'SPEAK', desc: '让结构服务于内容，用自然、具体、有分寸的话说出来。' },
+  { no: '04', title: '复盘迁移', key: 'GROW', desc: '不只改这一道题，更找到下一道题也能使用的方法。' },
+];
 
+export default function Home() {
   return (
     <main>
       <MotionLayer />
@@ -57,26 +57,28 @@ export default function Home() {
         <a className="nav-cta" href="#contact">预约聊聊 <span>↗</span></a>
       </nav>
 
-      <section className="hero" id="top">
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="hero-orbit" aria-hidden="true"><span /></div>
-        <p className="eyebrow"><span>01</span> 一位申论与面试老师的长期内容站</p>
-        <h1>
-          公考不是背<br />
-          <span className="title-outline">标准答案</span>
-        </h1>
-        <div className="hero-bottom">
-          <p className="hero-lead">它是练习如何<span>看见</span>、如何<span>拆解</span>，<br className="desktop-break" />以及如何把自己的判断说清楚。</p>
-          <a className="round-link" href="#library" aria-label="向下浏览内容">
-            <span>向下浏览</span>
-            <b>↓</b>
-          </a>
-        </div>
-        <div className="hero-note">
-          <span className="note-line" />
-          <p>素材积累 · 真题拆解 · 课堂实录 · 表达训练</p>
-        </div>
-      </section>
+      <div className="hero-scroll">
+        <section className="hero" id="top">
+          <div className="hero-grid" aria-hidden="true" />
+          <div className="hero-orbit" aria-hidden="true"><span /></div>
+          <p className="eyebrow"><span>01</span> 一位申论与面试老师的长期内容站</p>
+          <h1>
+            公考不是背<br />
+            <span className="title-outline">标准答案</span>
+          </h1>
+          <div className="hero-bottom">
+            <p className="hero-lead">它是练习如何<span>看见</span>、如何<span>拆解</span>，<br className="desktop-break" />以及如何把自己的判断说清楚。</p>
+            <a className="round-link" href="#library" aria-label="向下浏览内容">
+              <span>向下浏览</span>
+              <b>↓</b>
+            </a>
+          </div>
+          <div className="hero-note">
+            <span className="note-line" />
+            <p>素材积累 · 真题拆解 · 课堂实录 · 表达训练</p>
+          </div>
+        </section>
+      </div>
 
       <section className="manifesto">
         <div className="section-index">02 — 站点宣言</div>
@@ -95,48 +97,33 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="library" id="library">
-        <header className="section-heading">
-          <div>
-            <p className="section-index light">03 — 最近更新</p>
-            <h2>内容档案</h2>
+      <section className="library-scroll" id="library">
+        <div className="library-sticky">
+          <header className="section-heading library-heading">
+            <div>
+              <p className="section-index">03 — 滚动浏览</p>
+              <h2>内容档案</h2>
+            </div>
+            <p>向下滚动，内容会在同一视窗中展开。<br />不离开现场，只移动阅读焦点。</p>
+          </header>
+
+          <div className="library-track">
+            {libraryItems.map((item) => (
+              <article className={`library-card ${item.tone}`} key={item.no}>
+                <div className="card-top">
+                  <span>{item.no}</span>
+                  <span>{item.type}</span>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+                <div className="card-bottom">
+                  <div>{item.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div>
+                  <span className="arrow" aria-hidden="true">↗</span>
+                </div>
+              </article>
+            ))}
           </div>
-          <p>我把课堂上反复出现的问题，<br />整理成可以慢慢读、反复用的内容。</p>
-        </header>
-
-        <div className="filter-row" aria-label="筛选内容档案">
-          {filters.map((filter) => (
-            <button
-              type="button"
-              key={filter}
-              className={activeFilter === filter ? 'active' : ''}
-              aria-pressed={activeFilter === filter}
-              onClick={() => setActiveFilter(filter)}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
-
-        <div className="library-list">
-          {visibleItems.map((item) => (
-            <article className={`library-card ${item.tone}`} key={item.no} data-reveal>
-              <div className="card-top">
-                <span>{item.no}</span>
-                <span>{item.type}</span>
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
-              <div className="card-bottom">
-                <div>{item.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div>
-                <span className="arrow" aria-hidden="true">↗</span>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div className="library-foot">
-          <p>更多笔记正在整理中</p>
-          <span>把“知道”变成“会用”</span>
+          <div className="library-scrollbar" aria-hidden="true"><span /></div>
         </div>
       </section>
 
@@ -170,17 +157,32 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="method">
-        <div className="method-heading">
-          <p className="section-index light">05 — 训练方法</p>
-          <h2>从材料到表达，<br />把思考练成一条<span>稳定路径</span>。</h2>
+      <section className="method-story" data-active="0">
+        <div className="method-sticky">
+          <div className="method-heading">
+            <p className="section-index">05 — 同一条思考路径</p>
+            <h2>从材料到表达，<br />让思考在滚动中<span>逐步成形</span>。</h2>
+            <p className="method-hint">继续向下，右侧内容会在同一位置切换。</p>
+          </div>
+          <div className="story-console">
+            <div className="story-visual" aria-hidden="true">
+              <i /><i /><i />
+              <span className="story-core" />
+            </div>
+            <div className="story-copy-list">
+              {methodSteps.map((step) => (
+                <article className="story-copy" key={step.no}>
+                  <span>{step.no} / {step.key}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.desc}</p>
+                </article>
+              ))}
+            </div>
+            <div className="story-rail" aria-label="训练路径进度">
+              {methodSteps.map((step) => <span key={step.no}>{step.no}</span>)}
+            </div>
+          </div>
         </div>
-        <ol className="method-steps">
-          <li data-reveal><b>01</b><div><h3>看见问题</h3><p>先识别材料中的主体、关系与矛盾，不被漂亮词句牵着走。</p></div></li>
-          <li data-reveal><b>02</b><div><h3>形成判断</h3><p>把零散信息组织成自己的观点，知道为什么这样答。</p></div></li>
-          <li data-reveal><b>03</b><div><h3>清楚表达</h3><p>让结构服务于内容，用自然、具体、有分寸的话说出来。</p></div></li>
-          <li data-reveal><b>04</b><div><h3>复盘迁移</h3><p>不只改这一道题，更找到下一道题也能使用的方法。</p></div></li>
-        </ol>
       </section>
 
       <section className="about" id="about">
