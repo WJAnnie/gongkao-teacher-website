@@ -78,7 +78,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="manifesto" data-reveal>
+      <section className="manifesto">
         <div className="section-index">02 — 站点宣言</div>
         <p>不是答案仓库，<br />是一间持续生长的<span>思考练习室</span>。</p>
         <div className="manifesto-meta">
@@ -183,7 +183,7 @@ export default function Home() {
         </ol>
       </section>
 
-      <section className="about" id="about" data-reveal>
+      <section className="about" id="about">
         <div className="about-stamp" aria-hidden="true">
           <span>申论</span><b>×</b><span>面试</span>
         </div>
@@ -198,7 +198,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="lead-magnet" data-reveal>
+      <section className="lead-magnet">
         <div className="lead-card">
           <p className="section-index">免费领取 · FREE DOWNLOAD</p>
           <h2>面试表达<br />自检清单</h2>
@@ -215,7 +215,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="contact" id="contact" data-reveal>
+      <section className="contact" id="contact">
         <div className="contact-grid" aria-hidden="true" />
         <p className="section-index light">07 — KEEP IN TOUCH</p>
         <h2>想把一道题<br />真正<span>想明白</span>？</h2>
