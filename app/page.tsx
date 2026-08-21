@@ -1,3 +1,8 @@
+'use client';
+
+import { useState } from 'react';
+import { MotionLayer } from './motion-layer';
+
 const libraryItems = [
   {
     no: 'A/01',
@@ -32,8 +37,13 @@ const clips = [
 ];
 
 export default function Home() {
+  const [activeFilter, setActiveFilter] = useState('全部');
+  const filters = ['全部', '申论素材', '真题拆解', '面试表达'];
+  const visibleItems = activeFilter === '全部' ? libraryItems : libraryItems.filter((item) => item.type === activeFilter);
+
   return (
     <main>
+      <MotionLayer />
       <nav className="nav-shell" aria-label="主导航">
         <a className="brand" href="#top" aria-label="答卷之外首页">
           <span className="brand-mark">答</span>
@@ -49,6 +59,7 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-grid" aria-hidden="true" />
+        <div className="hero-orbit" aria-hidden="true"><span /></div>
         <p className="eyebrow"><span>01</span> 一位申论与面试老师的长期内容站</p>
         <h1>
           公考不是背<br />
@@ -67,7 +78,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="manifesto">
+      <section className="manifesto" data-reveal>
         <div className="section-index">02 — 站点宣言</div>
         <p>不是答案仓库，<br />是一间持续生长的<span>思考练习室</span>。</p>
         <div className="manifesto-meta">
@@ -76,6 +87,13 @@ export default function Home() {
           <span>2026 —</span>
         </div>
       </section>
+
+      <div className="ticker" aria-label="内容方向">
+        <div className="ticker-track">
+          <span>素材积累</span><i>✦</i><span>真题拆解</span><i>✦</i><span>表达训练</span><i>✦</i><span>课堂实录</span><i>✦</i>
+          <span>素材积累</span><i>✦</i><span>真题拆解</span><i>✦</i><span>表达训练</span><i>✦</i><span>课堂实录</span><i>✦</i>
+        </div>
+      </div>
 
       <section className="library" id="library">
         <header className="section-heading">
@@ -86,9 +104,23 @@ export default function Home() {
           <p>我把课堂上反复出现的问题，<br />整理成可以慢慢读、反复用的内容。</p>
         </header>
 
+        <div className="filter-row" aria-label="筛选内容档案">
+          {filters.map((filter) => (
+            <button
+              type="button"
+              key={filter}
+              className={activeFilter === filter ? 'active' : ''}
+              aria-pressed={activeFilter === filter}
+              onClick={() => setActiveFilter(filter)}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+
         <div className="library-list">
-          {libraryItems.map((item) => (
-            <article className={`library-card ${item.tone}`} key={item.no}>
+          {visibleItems.map((item) => (
+            <article className={`library-card ${item.tone}`} key={item.no} data-reveal>
               <div className="card-top">
                 <span>{item.no}</span>
                 <span>{item.type}</span>
@@ -119,7 +151,7 @@ export default function Home() {
 
         <div className="clip-grid">
           {clips.map((clip, index) => (
-            <article className="clip-card" key={clip.label}>
+            <article className="clip-card" key={clip.label} data-reveal>
               <div className="clip-visual">
                 <span className="clip-number">0{index + 1}</span>
                 <span className="clip-play" aria-label="视频位置预留">▶</span>
@@ -144,14 +176,14 @@ export default function Home() {
           <h2>从材料到表达，<br />把思考练成一条<span>稳定路径</span>。</h2>
         </div>
         <ol className="method-steps">
-          <li><b>01</b><div><h3>看见问题</h3><p>先识别材料中的主体、关系与矛盾，不被漂亮词句牵着走。</p></div></li>
-          <li><b>02</b><div><h3>形成判断</h3><p>把零散信息组织成自己的观点，知道为什么这样答。</p></div></li>
-          <li><b>03</b><div><h3>清楚表达</h3><p>让结构服务于内容，用自然、具体、有分寸的话说出来。</p></div></li>
-          <li><b>04</b><div><h3>复盘迁移</h3><p>不只改这一道题，更找到下一道题也能使用的方法。</p></div></li>
+          <li data-reveal><b>01</b><div><h3>看见问题</h3><p>先识别材料中的主体、关系与矛盾，不被漂亮词句牵着走。</p></div></li>
+          <li data-reveal><b>02</b><div><h3>形成判断</h3><p>把零散信息组织成自己的观点，知道为什么这样答。</p></div></li>
+          <li data-reveal><b>03</b><div><h3>清楚表达</h3><p>让结构服务于内容，用自然、具体、有分寸的话说出来。</p></div></li>
+          <li data-reveal><b>04</b><div><h3>复盘迁移</h3><p>不只改这一道题，更找到下一道题也能使用的方法。</p></div></li>
         </ol>
       </section>
 
-      <section className="about" id="about">
+      <section className="about" id="about" data-reveal>
         <div className="about-stamp" aria-hidden="true">
           <span>申论</span><b>×</b><span>面试</span>
         </div>
@@ -166,7 +198,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="lead-magnet">
+      <section className="lead-magnet" data-reveal>
         <div className="lead-card">
           <p className="section-index">免费领取 · FREE DOWNLOAD</p>
           <h2>面试表达<br />自检清单</h2>
@@ -183,7 +215,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="contact" id="contact">
+      <section className="contact" id="contact" data-reveal>
         <div className="contact-grid" aria-hidden="true" />
         <p className="section-index light">07 — KEEP IN TOUCH</p>
         <h2>想把一道题<br />真正<span>想明白</span>？</h2>
