@@ -36,3 +36,7 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# local browser harness state
+/.browser-harness-tmp/
+/site/

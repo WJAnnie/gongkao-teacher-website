@@ -40,6 +40,8 @@ const methodSteps = [
   { no: '04', title: '复盘迁移', key: 'GROW', desc: '不只改这一道题，更找到下一道题也能使用的方法。' },
 ];
 
+const tickerItems = ['素材积累', '真题拆解', '表达训练', '课堂实录'];
+
 export default function Home() {
   return (
     <main>
@@ -59,6 +61,7 @@ export default function Home() {
 
       <div className="hero-scroll">
         <section className="hero" id="top">
+          <div className="pointer-glow hero-pointer-glow" aria-hidden="true" />
           <div className="hero-grid" aria-hidden="true" />
           <div className="hero-orbit" aria-hidden="true"><span /></div>
           <p className="eyebrow"><span>01</span> 一位申论与面试老师的长期内容站</p>
@@ -68,7 +71,7 @@ export default function Home() {
           </h1>
           <div className="hero-bottom">
             <p className="hero-lead">它是练习如何<span>看见</span>、如何<span>拆解</span>，<br className="desktop-break" />以及如何把自己的判断说清楚。</p>
-            <a className="round-link" href="#library" aria-label="向下浏览内容">
+            <a className="round-link" href="#manifesto" aria-label="向下浏览站点宣言">
               <span>向下浏览</span>
               <b>↓</b>
             </a>
@@ -80,7 +83,9 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="manifesto">
+      <section className="manifesto" id="manifesto">
+        <div className="pointer-glow manifesto-pointer-glow" aria-hidden="true" />
+        <div className="manifesto-orbit" aria-hidden="true"><i /><span /></div>
         <div className="section-index">02 — 站点宣言</div>
         <p>不是答案仓库，<br />是一间持续生长的<span>思考练习室</span>。</p>
         <div className="manifesto-meta">
@@ -91,9 +96,16 @@ export default function Home() {
       </section>
 
       <div className="ticker" aria-label="内容方向">
-        <div className="ticker-track">
-          <span>素材积累</span><i>✦</i><span>真题拆解</span><i>✦</i><span>表达训练</span><i>✦</i><span>课堂实录</span><i>✦</i>
-          <span>素材积累</span><i>✦</i><span>真题拆解</span><i>✦</i><span>表达训练</span><i>✦</i><span>课堂实录</span><i>✦</i>
+        <div className="ticker-track" aria-hidden="true">
+          {[0, 1].map((group) => (
+            <div className="ticker-group" key={group}>
+              {[0, 1, 2, 3, 4].map((repeat) => tickerItems.map((item) => (
+                <span className="ticker-pair" key={`${repeat}-${item}`}>
+                  <span>{item}</span><i>✦</i>
+                </span>
+              )))}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -128,6 +140,7 @@ export default function Home() {
       </section>
 
       <section className="clips" id="clips">
+        <div className="clips-orbit" aria-hidden="true"><i /></div>
         <header className="section-heading dark-text">
           <div>
             <p className="section-index">04 — 课堂现场</p>
