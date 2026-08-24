@@ -6,8 +6,8 @@ import { join, resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const outputDir = join(root, 'site');
 const repository = process.env.GITHUB_REPOSITORY ?? '';
-const repositoryName = repository.split('/')[1] || 'gongkao-teacher-website';
-const basePath = `/${repositoryName}`;
+const repositoryName = repository.split('/')[1] || '';
+const basePath = process.env.SITE_BASE_PATH ?? (repositoryName ? `/${repositoryName}` : '');
 const port = await findFreePort();
 
 await rm(outputDir, { recursive: true, force: true });
@@ -39,7 +39,7 @@ try {
   await cp(join(root, 'public'), outputDir, { recursive: true, force: true });
   await writeFile(join(outputDir, 'index.html'), html, 'utf8');
   await writeFile(join(outputDir, '404.html'), html, 'utf8');
-  console.log(`GitHub Pages artifact generated in ${outputDir}`);
+  console.log(`Static site artifact generated in ${outputDir}`);
 } finally {
   server.kill();
   if (logs.includes('Error')) process.stderr.write(logs);
