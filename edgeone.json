@@ -2,6 +2,5 @@
   "name": "gongkao-teacher-website",
   "buildCommand": "npm run build:static",
   "installCommand": "npm ci",
-  "outputDirectory": "site",
-  "nodeVersion": "22.11.0"
+  "outputDirectory": "site"
 }
