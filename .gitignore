@@ -40,3 +40,7 @@ next-env.d.ts
 # local browser harness state
 /.browser-harness-tmp/
 /site/
+
+# Tencent Cloud EdgeOne local credentials and build output
+/.edgeone/
+/.tef_dist/
