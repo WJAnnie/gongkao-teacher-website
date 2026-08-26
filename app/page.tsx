@@ -41,6 +41,11 @@ export default function Home() {
             <SubjectGateway />
           </div>
 
+          <div className="hero-review-corner" aria-hidden="true">
+            <span className="hero-review-stamp">阅</span>
+            <small>审题 · 找点 · 表达 · 复盘</small>
+          </div>
+
           <div className="hero-note">
             <span className="note-line" />
             <p>申论 · 面试 · 方法 · 真题 · 积累 · 课堂</p>
