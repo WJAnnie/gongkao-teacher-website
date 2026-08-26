@@ -2,14 +2,14 @@ name: Deploy Preview to EdgeOne
 
 on:
   push:
-    branches: [content-enrichment-saduck-reference]
+    branches: [learning-platform-preview]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: edgeone-preview-${{ github.ref }}
+  group: edgeone-learning-preview-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
