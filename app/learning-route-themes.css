@@ -1,0 +1,189 @@
+/* 学习页四格导航：可点击、可识别、与页面主题色统一 */
+.shenlun-page.framework {
+  --shenlun-accent: #5f73b2;
+  --shenlun-soft: #dbe3f1;
+}
+
+.shenlun-page.questions {
+  --shenlun-accent: #d87955;
+  --shenlun-soft: #f2d8cc;
+}
+
+.shenlun-page.writing {
+  --shenlun-accent: #87964b;
+  --shenlun-soft: #edf1cf;
+}
+
+.shenlun-page.videos {
+  --shenlun-accent: #aa5a4f;
+  --shenlun-soft: #efd9d2;
+}
+
+.interview-tone-methods {
+  --interview-color: #5f73b2;
+  --interview-soft: #dbe3f1;
+}
+
+.interview-tone-questions {
+  --interview-color: #d87955;
+  --interview-soft: #f2d8cc;
+}
+
+.interview-tone-expression {
+  --interview-color: #87964b;
+  --interview-soft: #edf1cf;
+}
+
+.interview-tone-videos {
+  --interview-color: #aa5a4f;
+  --interview-soft: #efd9d2;
+}
+
+/* 首页的课程现场也使用同一套砖红色记忆 */
+.subject-module-card.videos {
+  --module-accent: #aa5a4f;
+  --module-wash: #efd9d2;
+}
+
+.shenlun-route-strip,
+.interview-route-strip {
+  overflow: hidden;
+  background: rgba(244, 240, 231, .2);
+}
+
+.shenlun-route-strip > a,
+.interview-route-strip > a {
+  --route-accent: #5f73b2;
+  --route-soft: #dbe3f1;
+  position: relative;
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-right: 1px solid rgba(37,37,31,.17);
+  border-bottom: 1px solid rgba(37,37,31,.17);
+  color: rgba(37,37,31,.58);
+  text-decoration: none;
+  overflow: hidden;
+  transition: color .18s ease, background .18s ease, padding-left .18s ease;
+}
+
+.shenlun-route-strip > a::before,
+.interview-route-strip > a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--route-accent);
+  transform: scaleY(.24);
+  transform-origin: top;
+  transition: transform .2s ease;
+}
+
+.shenlun-route-strip > a::after,
+.interview-route-strip > a::after {
+  content: "↗";
+  color: var(--route-accent);
+  font: 11px Georgia, serif;
+  opacity: .42;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+/* 覆盖旧样式中对所有 span 的卡片规则 */
+.shenlun-route-strip > a > span,
+.interview-route-strip > a > span {
+  padding: 0;
+  border: 0;
+  color: var(--route-accent);
+  font: italic 8px Georgia, serif;
+  letter-spacing: .06em;
+}
+
+.shenlun-route-strip > a > b,
+.interview-route-strip > a > b {
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+
+.shenlun-route-strip > a:hover,
+.interview-route-strip > a:hover {
+  padding-left: 16px;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--route-soft) 58%, transparent);
+}
+
+.shenlun-route-strip > a:hover::before,
+.interview-route-strip > a:hover::before,
+.shenlun-route-strip > a.active::before,
+.interview-route-strip > a.active::before {
+  transform: scaleY(1);
+}
+
+.shenlun-route-strip > a:hover::after,
+.interview-route-strip > a:hover::after {
+  opacity: 1;
+  transform: translate(2px,-2px);
+}
+
+.shenlun-route-strip > a.active,
+.interview-route-strip > a.active {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--route-soft) 78%, var(--paper));
+}
+
+.shenlun-route-strip > a.active::after,
+.interview-route-strip > a.active::after {
+  opacity: .9;
+}
+
+.shenlun-route-strip .route-framework,
+.interview-route-strip .route-methods {
+  --route-accent: #5f73b2;
+  --route-soft: #dbe3f1;
+}
+
+.shenlun-route-strip .route-questions,
+.interview-route-strip .route-questions {
+  --route-accent: #d87955;
+  --route-soft: #f2d8cc;
+}
+
+.shenlun-route-strip .route-writing,
+.interview-route-strip .route-expression {
+  --route-accent: #87964b;
+  --route-soft: #edf1cf;
+}
+
+.shenlun-route-strip .route-videos,
+.interview-route-strip .route-videos {
+  --route-accent: #aa5a4f;
+  --route-soft: #efd9d2;
+}
+
+/* 当前页面的顶部导航也跟随主题色 */
+.shenlun-page .learning-nav-shenlun a.active {
+  color: var(--shenlun-accent);
+}
+
+.interview-site .learning-nav-interview a.active {
+  color: var(--interview-color);
+}
+
+@media (max-width: 700px) {
+  .shenlun-route-strip > a,
+  .interview-route-strip > a {
+    min-height: 48px;
+    padding: 9px 10px;
+  }
+
+  .shenlun-route-strip > a:hover,
+  .interview-route-strip > a:hover {
+    padding-left: 12px;
+  }
+}
