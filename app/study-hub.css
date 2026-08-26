@@ -151,6 +151,44 @@
 .record-list span, .record-list small { font-size: 10px; opacity: .7; }
 .record-list strong { font-size: 11px; font-weight: 500; }
 
+.learning-page-shell { min-height: 100svh; padding-top: 1px; }
+.learning-page-hero {
+  position: relative;
+  overflow: hidden;
+  margin: 100px clamp(22px, 6vw, 92px) 0;
+  padding: clamp(88px, 10vw, 150px) clamp(0px, 2vw, 28px) clamp(72px, 8vw, 118px);
+  border-bottom: 1px solid rgba(37,37,31,.28);
+}
+.learning-page-hero::after {
+  content: "";
+  position: absolute;
+  right: 2vw;
+  top: 10%;
+  width: min(28vw, 390px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(37,37,31,.2);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 4vw rgba(214,223,160,.18);
+  pointer-events: none;
+}
+.learning-page-hero > * { position: relative; z-index: 1; }
+.learning-page-hero .eyebrow { margin-bottom: 24px; }
+.learning-page-hero h1 {
+  max-width: 1050px;
+  margin: 0;
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+  font-size: clamp(52px, 7.8vw, 118px);
+  line-height: 1.04;
+  letter-spacing: -.065em;
+  font-weight: 500;
+}
+.learning-page-hero > p:not(.eyebrow) { max-width: 720px; margin: 38px 0 0 28%; color: rgba(37,37,31,.62); font-size: 15px; line-height: 2; }
+.learning-page-links { display: flex; gap: 9px; flex-wrap: wrap; margin: 34px 0 0 28%; }
+.learning-page-links a { padding: 10px 15px; border: 1px solid rgba(37,37,31,.35); border-radius: 100px; font-size: 11px; transition: .2s ease; }
+.learning-page-links a:hover { background: var(--acid); transform: translateY(-2px); }
+.study-hub-standalone { padding-top: clamp(62px, 6vw, 92px); }
+.learning-page-shell footer { margin-top: 24px; }
+
 @media (max-width: 1080px) {
   .question-toolbar { grid-template-columns: 1fr 1fr; }
   .toolbar-group { grid-column: 1 / -1; }
@@ -176,4 +214,8 @@
   .tool-card { min-height: 0; }
   .timer-display { font-size: clamp(64px, 24vw, 104px); }
   .record-list > div { grid-template-columns: 1fr; gap: 3px; }
+  .learning-page-hero { margin: 78px 22px 0; padding-top: 78px; }
+  .learning-page-hero h1 { font-size: clamp(45px, 15vw, 72px); }
+  .learning-page-hero > p:not(.eyebrow), .learning-page-links { margin-left: 0; }
+  .learning-page-hero::after { right: -28vw; width: 64vw; opacity: .65; }
 }
