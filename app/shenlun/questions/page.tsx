@@ -13,6 +13,21 @@ const archiveCards = [
   ['03', '按主题复盘', '治理 · 民生 · 发展', '把不同年份里相近的主题放在一起，看材料表达和命题角度怎么变化。'],
 ] as const;
 
+function suggestedTime(type: string) {
+  if (type.includes('文章写作')) return '60 MIN';
+  if (type.includes('贯彻执行')) return '30 MIN';
+  return '20 MIN';
+}
+
+function reviewNote(type: string) {
+  if (type.includes('归纳概括')) return '先找全，再合并';
+  if (type.includes('综合分析')) return '先解释题眼';
+  if (type.includes('提出对策')) return '问题要对应';
+  if (type.includes('贯彻执行')) return '看身份，也看对象';
+  if (type.includes('文章写作')) return '先把中心论点定稳';
+  return '题干先圈清楚';
+}
+
 export default function ShenlunQuestionsPage() {
   const shenlunQuestions = questions.filter((item) => item.subject === '申论');
   return (
@@ -46,14 +61,19 @@ export default function ShenlunQuestionsPage() {
         </div>
 
         <div className="shenlun-question-list">
-          {shenlunQuestions.map((item) => (
+          {shenlunQuestions.map((item, index) => (
             <article className="shenlun-question-row" key={item.id}>
-              <div className="meta">{item.year}<br />{item.exam}<br />{item.type} · {item.topic}</div>
+              <div className="meta">
+                <span className="question-paper-index">Q{String(index + 1).padStart(2, '0')}</span>
+                {item.year}<br />{item.exam}<br />{item.type} · {item.topic}
+                <span className="question-paper-time">训练建议 {suggestedTime(item.type)}</span>
+              </div>
               <div>
                 <h3>{item.summary}</h3>
                 <p>训练重点：{item.focus}<br />来源性质：{item.source}</p>
               </div>
               <div className="answer"><strong>参考作答方向</strong><br />{item.focus}</div>
+              <span className="teacher-margin-note" aria-hidden="true">{reviewNote(item.type)}</span>
             </article>
           ))}
         </div>
