@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 type Subject = '申论' | '面试';
+type StudyTab = '题库' | '资料' | '工具';
 
 type Question = {
   id: string;
@@ -113,14 +114,15 @@ function formatTime(total: number) {
   return `${mins}:${secs}`;
 }
 
-export function StudyHub() {
-  const [activeTab, setActiveTab] = useState<'题库' | '资料' | '工具'>('题库');
+export function StudyHub({ initialTab = '题库', standalone = false }: { initialTab?: StudyTab; standalone?: boolean }) {
+  const [activeTab, setActiveTab] = useState<StudyTab>(initialTab);
   const [subject, setSubject] = useState<'全部' | Subject>('全部');
   const [type, setType] = useState('全部题型');
   const [keyword, setKeyword] = useState('');
   const [randomQuestion, setRandomQuestion] = useState<Question | null>(null);
   const [draft, setDraft] = useState('');
   const [timerSeconds, setTimerSeconds] = useState(180);
+  const [timerStartSeconds, setTimerStartSeconds] = useState(180);
   const [timerRunning, setTimerRunning] = useState(false);
   const [checked, setChecked] = useState<boolean[]>(selfChecks.map(() => false));
   const [records, setRecords] = useState<PracticeRecord[]>([]);
@@ -166,25 +168,26 @@ export function StudyHub() {
 
   const setPreset = (seconds: number) => {
     setTimerRunning(false);
+    setTimerStartSeconds(seconds);
     setTimerSeconds(seconds);
   };
 
   const pickRandom = () => {
     const pool = filteredQuestions.length ? filteredQuestions : questions;
-    setRandomQuestion(pool[Math.floor(Math.random() * pool.length)]);
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+    setRandomQuestion(picked);
+    setPreset(picked.subject === '面试' ? 180 : picked.type === '文章写作' ? 3600 : 1200);
   };
 
   const saveRecord = () => {
     const target = randomQuestion ?? filteredQuestions[0];
     if (!target) return;
-    const presetTotal = target.subject === '面试' ? 180 : 1200;
-    const spent = Math.max(0, presetTotal - timerSeconds);
     const next: PracticeRecord = {
       id: Date.now(),
       date: new Date().toLocaleDateString('zh-CN'),
       subject: target.subject,
       title: `${target.year} ${target.exam}｜${target.type}`,
-      seconds: spent,
+      seconds: Math.max(0, timerStartSeconds - timerSeconds),
       words: draft.trim().length,
       rating,
     };
@@ -198,13 +201,13 @@ export function StudyHub() {
   };
 
   return (
-    <section className="study-hub" id="study">
+    <section className={`study-hub${standalone ? ' study-hub-standalone' : ''}`} id="study">
       <header className="section-heading dark-text study-heading">
         <div>
-          <p className="section-index">04 — STUDY HUB</p>
-          <h2>学习中心</h2>
+          <p className="section-index">{standalone ? 'LEARNING DESK' : '04 — STUDY HUB'}</p>
+          <h2>{standalone ? (initialTab === '题库' ? '真题题库' : initialTab === '资料' ? '学习资料' : '训练工具') : '学习中心'}</h2>
         </div>
-        <p>题库、资料和工具放在同一个地方。<br />学完马上练，练完马上复盘。</p>
+        <p>题库、资料和工具放在同一套学习系统里。<br />学完马上练，练完马上复盘。</p>
       </header>
 
       <div className="study-tabs" role="tablist" aria-label="学习中心栏目">
@@ -293,7 +296,7 @@ export function StudyHub() {
             </div>
             <div className="timer-actions">
               <button type="button" onClick={() => setTimerRunning((value) => !value)}>{timerRunning ? '暂停' : '开始'}</button>
-              <button type="button" onClick={() => { setTimerRunning(false); setTimerSeconds(180); }}>重置</button>
+              <button type="button" onClick={() => { setTimerRunning(false); setTimerSeconds(timerStartSeconds); }}>重置</button>
             </div>
           </article>
 
