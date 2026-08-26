@@ -1,0 +1,191 @@
+.about-merged {
+  padding-bottom: clamp(72px, 8vw, 112px);
+}
+
+.about-merged .about-copy {
+  min-width: 0;
+}
+
+.about-merged-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(280px, .72fr);
+  gap: clamp(36px, 6vw, 84px);
+  align-items: end;
+}
+
+.about-profile {
+  min-width: 0;
+}
+
+.about-merged .about-profile h2 {
+  margin-bottom: 44px;
+}
+
+.about-contact-card {
+  position: relative;
+  overflow: hidden;
+  align-self: stretch;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px;
+  border: 1px solid rgba(37,37,31,.28);
+  background:
+    radial-gradient(circle at 88% 12%, rgba(102,121,173,.13), transparent 28%),
+    color-mix(in srgb, var(--acid) 28%, var(--paper));
+}
+
+.about-contact-card::before {
+  content: "";
+  position: absolute;
+  right: -78px;
+  top: -78px;
+  width: 180px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(37,37,31,.22);
+  border-radius: 50%;
+}
+
+.about-contact-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 74px;
+  height: 4px;
+  background: var(--blue);
+}
+
+.about-contact-head,
+.about-contact-body {
+  position: relative;
+  z-index: 1;
+}
+
+.about-contact-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(37,37,31,.18);
+}
+
+.about-contact-head span {
+  color: rgba(37,37,31,.46);
+  font: italic 9px Georgia, serif;
+  letter-spacing: .12em;
+}
+
+.about-contact-head b {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+
+.about-contact-body {
+  display: grid;
+  grid-template-columns: 138px minmax(0,1fr);
+  gap: 22px;
+  align-items: end;
+  margin-top: 42px;
+}
+
+.about-contact-card .qr-placeholder {
+  width: 138px;
+  height: 138px;
+  border: 1px solid rgba(37,37,31,.24);
+  background: rgba(244,240,231,.84);
+}
+
+.about-contact-card .qr-pattern {
+  opacity: .18;
+}
+
+.about-contact-card .qr-placeholder span {
+  background: rgba(244,240,231,.9);
+  font: italic 12px Georgia, serif;
+  letter-spacing: .12em;
+}
+
+.about-contact-card .contact-info {
+  min-height: 138px;
+  padding: 4px 0 0;
+}
+
+.about-contact-card .contact-info > span {
+  color: var(--blue);
+  font-size: 9px;
+  letter-spacing: .14em;
+}
+
+.about-contact-card .contact-info h3 {
+  margin: 22px 0 16px;
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.about-contact-card .contact-info p {
+  margin: auto 0 0;
+  padding-top: 13px;
+  border-top: 1px solid rgba(37,37,31,.18);
+  color: rgba(37,37,31,.54);
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+@media (max-width: 1080px) {
+  .about-merged-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-contact-card {
+    min-height: 280px;
+  }
+
+  .about-contact-body {
+    grid-template-columns: 130px minmax(0,1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .about-merged {
+    padding-bottom: 76px;
+  }
+
+  .about-merged .about-profile h2 {
+    margin-bottom: 34px;
+  }
+
+  .about-contact-card {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .about-contact-head {
+    display: grid;
+    gap: 6px;
+  }
+
+  .about-contact-body {
+    grid-template-columns: 108px minmax(0,1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .about-contact-card .qr-placeholder {
+    width: 108px;
+    height: 108px;
+  }
+
+  .about-contact-card .contact-info {
+    min-height: 108px;
+  }
+
+  .about-contact-card .contact-info h3 {
+    margin: 13px 0 10px;
+    font-size: 28px;
+  }
+}
