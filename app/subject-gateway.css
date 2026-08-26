@@ -170,8 +170,18 @@
 .subject-module-panel {
   position: relative;
   overflow: hidden;
-  padding: 0 0 10px 28px;
+  padding: 1px 0 12px 28px;
   animation: subjectPanelIn .22s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.subject-module-panel::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 0;
+  bottom: 12px;
+  width: 1px;
+  background: rgba(37,37,31,.14);
 }
 
 @keyframes subjectPanelIn {
@@ -182,44 +192,86 @@
 .subject-module-grid {
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 5px;
+  gap: 0;
+  border-top: 1px solid rgba(37,37,31,.15);
+  border-left: 1px solid rgba(37,37,31,.15);
+  background: rgba(244,240,231,.08);
 }
 
 .subject-module-card {
+  --module-accent: var(--blue);
+  --module-wash: #dce4f3;
   position: relative;
-  min-height: 62px;
-  padding: 8px 9px 8px 10px;
-  border: 1px solid rgba(37,37,31,.16);
+  min-height: 60px;
+  padding: 9px 10px 9px 12px;
+  border-right: 1px solid rgba(37,37,31,.15);
+  border-bottom: 1px solid rgba(37,37,31,.15);
   color: var(--ink);
   overflow: hidden;
-  transition: transform .18s ease, filter .18s ease, border-color .18s ease;
+  background: rgba(244,240,231,.18);
+  transition: background .18s ease, padding-left .18s ease;
 }
 
-.subject-module-card.framework { background: rgba(220,228,243,.86); }
-.subject-module-card.questions { background: rgba(242,216,204,.86); }
-.subject-module-card.writing { background: rgba(238,242,206,.88); }
-.subject-module-card.videos { background: rgba(225,221,234,.88); }
+.subject-module-card.framework {
+  --module-accent: var(--blue);
+  --module-wash: #dce4f3;
+}
+
+.subject-module-card.questions {
+  --module-accent: var(--orange);
+  --module-wash: #f2d8cc;
+}
+
+.subject-module-card.writing {
+  --module-accent: #9ca95d;
+  --module-wash: #eef2ce;
+}
+
+.subject-module-card.videos {
+  --module-accent: #756f8c;
+  --module-wash: #e1ddea;
+}
 
 .subject-module-card::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: rgba(37,37,31,.18);
-  transform: scaleY(.3);
+  top: 9px;
+  bottom: 9px;
+  width: 2px;
+  background: var(--module-accent);
+  transform: scaleY(.34);
   transform-origin: top;
-  transition: transform .18s ease;
+  opacity: .75;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.subject-module-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  background: linear-gradient(100deg, color-mix(in srgb, var(--module-wash) 48%, transparent), transparent 74%);
+  transition: opacity .18s ease;
 }
 
 .subject-module-card:hover {
-  transform: translateY(-2px);
-  filter: saturate(1.08);
-  border-color: rgba(37,37,31,.3);
+  padding-left: 16px;
+  background: rgba(244,240,231,.28);
 }
 
-.subject-module-card:hover::before { transform: scaleY(1); }
+.subject-module-card:hover::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.subject-module-card:hover::after { opacity: 1; }
+
+.subject-module-card > * {
+  position: relative;
+  z-index: 1;
+}
 
 .subject-module-top {
   display: flex;
@@ -228,8 +280,16 @@
   align-items: baseline;
 }
 
-.subject-module-top span { font: italic 8px Georgia, serif; }
-.subject-module-top i { font: italic 6px Georgia, serif; letter-spacing: .1em; opacity: .4; }
+.subject-module-top span {
+  color: var(--module-accent);
+  font: italic 8px Georgia, serif;
+}
+
+.subject-module-top i {
+  color: rgba(37,37,31,.34);
+  font: italic 6px Georgia, serif;
+  letter-spacing: .1em;
+}
 
 .subject-module-card h2 {
   margin: 8px 0 3px;
@@ -237,23 +297,31 @@
   font-size: clamp(14px, 1.1vw, 18px);
   font-weight: 600;
   line-height: 1;
+  color: rgba(37,37,31,.88);
 }
 
 .subject-module-card p {
   margin: 0;
   padding-right: 18px;
-  color: rgba(37,37,31,.5);
+  color: rgba(37,37,31,.46);
   font-size: 7px;
   line-height: 1.4;
 }
 
 .subject-module-card > b {
   position: absolute;
-  right: 7px;
+  right: 8px;
   bottom: 7px;
+  color: var(--module-accent);
   font-size: 10px;
   font-weight: 400;
-  opacity: .55;
+  opacity: .62;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.subject-module-card:hover > b {
+  transform: translate(2px,-2px);
+  opacity: 1;
 }
 
 @media (max-width: 1080px) {
@@ -284,5 +352,6 @@
   .subject-track-title strong { font-size: 21px; }
   .subject-track-title i { display: none; }
   .subject-module-panel { padding-left: 24px; }
+  .subject-module-panel::before { left: 8px; }
   .subject-module-card { min-height: 58px; }
 }
