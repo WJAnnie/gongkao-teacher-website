@@ -16,6 +16,11 @@ const routes = [
   '/tools/',
   '/shenlun/',
   '/shenlun/framework/',
+  '/shenlun/framework/summary/',
+  '/shenlun/framework/analysis/',
+  '/shenlun/framework/solution/',
+  '/shenlun/framework/implementation/',
+  '/shenlun/framework/essay/',
   '/shenlun/questions/',
   '/shenlun/writing/',
   '/shenlun/videos/',
@@ -70,6 +75,11 @@ function rewriteHtml(html, pathPrefix) {
     .replaceAll('src="/_next/', `src="${prefix}/_next/`)
     .replaceAll('href="/og.png"', `href="${prefix}/og.png"`)
     .replaceAll('content="http://localhost:3000/og.png"', `content="${prefix}/og.png"`)
+    .replaceAll('href="/shenlun/framework/summary/"', `href="${prefix}/shenlun/framework/summary/"`)
+    .replaceAll('href="/shenlun/framework/analysis/"', `href="${prefix}/shenlun/framework/analysis/"`)
+    .replaceAll('href="/shenlun/framework/solution/"', `href="${prefix}/shenlun/framework/solution/"`)
+    .replaceAll('href="/shenlun/framework/implementation/"', `href="${prefix}/shenlun/framework/implementation/"`)
+    .replaceAll('href="/shenlun/framework/essay/"', `href="${prefix}/shenlun/framework/essay/"`)
     .replaceAll('href="/shenlun/framework/"', `href="${prefix}/shenlun/framework/"`)
     .replaceAll('href="/shenlun/questions/"', `href="${prefix}/shenlun/questions/"`)
     .replaceAll('href="/shenlun/writing/"', `href="${prefix}/shenlun/writing/"`)
