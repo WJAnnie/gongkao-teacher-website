@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import './content-enrichment.css';
 import './study-hub.css';
+import './material-reader.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
