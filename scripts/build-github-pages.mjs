@@ -9,7 +9,17 @@ const repository = process.env.GITHUB_REPOSITORY ?? '';
 const repositoryName = repository.split('/')[1] || '';
 const basePath = process.env.SITE_BASE_PATH ?? (repositoryName ? `/${repositoryName}` : '');
 const port = await findFreePort();
-const routes = ['/', '/questions/', '/materials/', '/tools/'];
+const routes = [
+  '/',
+  '/questions/',
+  '/materials/',
+  '/tools/',
+  '/shenlun/',
+  '/shenlun/framework/',
+  '/shenlun/questions/',
+  '/shenlun/writing/',
+  '/shenlun/videos/',
+];
 
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });
@@ -60,6 +70,11 @@ function rewriteHtml(html, pathPrefix) {
     .replaceAll('src="/_next/', `src="${prefix}/_next/`)
     .replaceAll('href="/og.png"', `href="${prefix}/og.png"`)
     .replaceAll('content="http://localhost:3000/og.png"', `content="${prefix}/og.png"`)
+    .replaceAll('href="/shenlun/framework/"', `href="${prefix}/shenlun/framework/"`)
+    .replaceAll('href="/shenlun/questions/"', `href="${prefix}/shenlun/questions/"`)
+    .replaceAll('href="/shenlun/writing/"', `href="${prefix}/shenlun/writing/"`)
+    .replaceAll('href="/shenlun/videos/"', `href="${prefix}/shenlun/videos/"`)
+    .replaceAll('href="/shenlun/"', `href="${prefix}/shenlun/"`)
     .replaceAll('href="/questions/"', `href="${prefix}/questions/"`)
     .replaceAll('href="/materials/"', `href="${prefix}/materials/"`)
     .replaceAll('href="/tools/"', `href="${prefix}/tools/"`)
