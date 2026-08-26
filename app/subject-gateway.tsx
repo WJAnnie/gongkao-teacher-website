@@ -36,17 +36,8 @@ export function SubjectGateway() {
   const [active, setActive] = useState<Track | null>(null);
 
   return (
-    <section
-      className="subject-gateway"
-      id="learn"
-      aria-label="申论与面试学习目录"
-      onMouseLeave={() => setActive(null)}
-    >
-      <div className="subject-gateway-label">
-        <span>LEARNING DIRECTORY / 学习入口</span>
-        <p>移入科目，展开二级目录</p>
-      </div>
-
+    <div className="subject-gateway" aria-label="申论与面试学习入口" onMouseLeave={() => setActive(null)}>
+      <div className="subject-gateway-kicker">LEARNING / 学习方向</div>
       <div className="subject-track-list">
         {tracks.map((track) => {
           const isActive = active === track.key;
@@ -66,7 +57,7 @@ export function SubjectGateway() {
                 <span className="subject-track-code">{track.code}</span>
                 <strong>{track.key}学习</strong>
                 <em>{track.note}</em>
-                <span className="subject-track-arrow" aria-hidden="true">{isActive ? '↘' : '→'}</span>
+                <span className="subject-track-arrow" aria-hidden="true">↗</span>
               </button>
 
               {isActive && (
@@ -80,7 +71,6 @@ export function SubjectGateway() {
                         </div>
                         <h2>{item.title}</h2>
                         <p>{item.desc}</p>
-                        <b aria-hidden="true">↗</b>
                       </a>
                     ))}
                   </div>
@@ -90,8 +80,6 @@ export function SubjectGateway() {
           );
         })}
       </div>
-
-      <p className="subject-gateway-hint">DESKTOP / 悬停展开　·　MOBILE / 点击展开</p>
-    </section>
+    </div>
   );
 }
