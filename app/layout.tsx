@@ -6,6 +6,7 @@ import './material-reader.css';
 import './advanced-tools.css';
 import './subject-gateway.css';
 import './shenlun-learning.css';
+import './question-type-knowledge.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
