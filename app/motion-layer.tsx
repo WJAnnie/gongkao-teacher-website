@@ -67,6 +67,8 @@ export function MotionLayer() {
     const updatePointer = (event: PointerEvent) => {
       pointerX = event.clientX;
       pointerY = event.clientY;
+      root.style.setProperty('--pointer-x', `${clamp(pointerX / Math.max(1, window.innerWidth))}`);
+      root.style.setProperty('--pointer-y', `${clamp(pointerY / Math.max(1, window.innerHeight))}`);
       if (!pointerFrame) pointerFrame = window.requestAnimationFrame(renderPointer);
     };
 
@@ -90,6 +92,8 @@ export function MotionLayer() {
       });
     };
 
+    root.style.setProperty('--pointer-x', '.5');
+    root.style.setProperty('--pointer-y', '.5');
     updateLibraryShift();
     updateScroll();
     renderPointer();
