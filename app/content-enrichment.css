@@ -1,0 +1,100 @@
+.start-here,
+.topic-map {
+  position: relative;
+  margin: 0 clamp(22px, 6vw, 92px);
+  padding: clamp(96px, 9vw, 138px) clamp(0px, 2vw, 28px);
+  border-top: 1px solid rgba(37,37,31,.24);
+  background: transparent;
+  scroll-margin-top: 88px;
+}
+
+.start-here .section-heading,
+.topic-map .section-heading {
+  margin-bottom: 54px;
+}
+
+.starter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(37,37,31,.35);
+  border-bottom: 1px solid rgba(37,37,31,.35);
+}
+
+.starter-item {
+  min-height: 330px;
+  padding: 24px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(37,37,31,.24);
+}
+
+.starter-item:last-child { border-right: 0; }
+.starter-item > span { color: var(--blue); font: italic 14px Georgia, serif; }
+.starter-item h3 {
+  margin: 58px 0 18px;
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+  font-size: clamp(28px, 2.5vw, 42px);
+  line-height: 1.18;
+  font-weight: 600;
+  letter-spacing: -.04em;
+}
+.starter-item p { margin: 0; color: rgba(37,37,31,.62); font-size: 13px; line-height: 1.9; }
+.starter-item small { margin-top: auto; padding-top: 28px; font-size: 10px; letter-spacing: .09em; color: rgba(37,37,31,.48); }
+.starter-item:nth-child(2) { background: rgba(214,223,160,.24); }
+.starter-item:nth-child(4) { background: rgba(102,121,173,.07); }
+
+.starter-note {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+  margin-top: 34px;
+  padding-top: 24px;
+  border-top: 1px dashed rgba(37,37,31,.28);
+}
+.starter-note strong { font-family: "Songti SC", "SimSun", Georgia, serif; font-size: 20px; font-weight: 600; }
+.starter-note p { margin: 0; max-width: 900px; color: rgba(37,37,31,.6); font-size: 13px; line-height: 1.9; }
+
+.topic-map { padding-top: clamp(72px, 7vw, 110px); }
+.topic-list { border-top: 1px solid rgba(37,37,31,.35); }
+.topic-list article {
+  display: grid;
+  grid-template-columns: 70px minmax(180px, .9fr) 2fr;
+  gap: 28px;
+  align-items: baseline;
+  padding: 25px 0;
+  border-bottom: 1px solid rgba(37,37,31,.2);
+}
+.topic-list article > span { color: var(--orange); font: italic 13px Georgia, serif; }
+.topic-list h3 { margin: 0; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(26px, 2.6vw, 42px); font-weight: 500; }
+.topic-list p { margin: 0; color: rgba(37,37,31,.58); font-size: 13px; line-height: 1.8; }
+.topic-footnote {
+  max-width: 760px;
+  margin: 34px 0 0 auto;
+  padding-left: 18px;
+  border-left: 3px solid var(--acid);
+  color: rgba(37,37,31,.58);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+/* 内容卡片增加后，延长横向滚动距离；视觉语言保持原有设计。 */
+.library-scroll { height: 330vh; }
+
+@media (max-width: 980px) {
+  .starter-grid { grid-template-columns: repeat(2, 1fr); }
+  .starter-item:nth-child(2) { border-right: 0; }
+  .starter-item:nth-child(-n+2) { border-bottom: 1px solid rgba(37,37,31,.24); }
+}
+
+@media (max-width: 760px) {
+  .start-here,
+  .topic-map { margin-inline: 22px; padding-inline: 0; }
+  .starter-grid { grid-template-columns: 1fr; }
+  .starter-item { min-height: 280px; border-right: 0; border-bottom: 1px solid rgba(37,37,31,.24); }
+  .starter-item:last-child { border-bottom: 0; }
+  .starter-item h3 { margin-top: 38px; }
+  .starter-note { grid-template-columns: 1fr; gap: 12px; }
+  .topic-list article { grid-template-columns: 42px 1fr; gap: 14px; }
+  .topic-list article p { grid-column: 2; }
+  .library-scroll { height: 315vh; }
+}
