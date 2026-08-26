@@ -10,7 +10,12 @@ const toneToActive = {
   videos: 'interview-videos',
 } as const;
 
-const routeLabels = ['题型方法', '真题实战', '表达训练', '课程现场'];
+const routes = [
+  { tone: 'methods', label: '题型方法', href: '/interview/methods/' },
+  { tone: 'questions', label: '真题实战', href: '/interview/questions/' },
+  { tone: 'expression', label: '表达训练', href: '/interview/expression/' },
+  { tone: 'videos', label: '课程现场', href: '/interview/videos/' },
+] as const;
 
 export function InterviewShell({
   tone,
@@ -25,7 +30,6 @@ export function InterviewShell({
   desc: string;
   children: ReactNode;
 }) {
-  const activeIndex = Object.keys(toneToActive).indexOf(tone);
   return (
     <main className={`interview-site interview-tone-${tone}`}>
       <LearningTopNav active={toneToActive[tone]} />
@@ -39,11 +43,18 @@ export function InterviewShell({
         <h1>{title}</h1>
         <div className="interview-hero-bottom">
           <p>{desc}</p>
-          <div className="interview-route-strip" aria-label="面试学习路径">
-            {routeLabels.map((label, index) => (
-              <span className={activeIndex === index ? 'active' : ''} key={label}>0{index + 1} {label}</span>
+          <nav className="interview-route-strip" aria-label="面试学习路径">
+            {routes.map((item, index) => (
+              <a
+                className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`}
+                href={item.href}
+                key={item.tone}
+              >
+                <span>0{index + 1}</span>
+                <b>{item.label}</b>
+              </a>
             ))}
-          </div>
+          </nav>
         </div>
       </section>
 
