@@ -1,171 +1,129 @@
 .subject-gateway {
-  margin-bottom: clamp(70px, 9vw, 130px);
+  margin: 0 clamp(22px, 6vw, 92px);
+  padding: clamp(96px, 10vw, 150px) 0;
+  border-top: 1px solid rgba(37,37,31,.24);
 }
+
 .subject-gateway-heading {
   display: grid;
   grid-template-columns: 1.1fr .9fr;
-  gap: 40px;
+  gap: 48px;
   align-items: end;
-  margin-bottom: 28px;
+  margin-bottom: 44px;
 }
+
 .subject-gateway-heading h2 {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   font-family: "Songti SC", "SimSun", Georgia, serif;
-  font-size: clamp(42px, 5.5vw, 82px);
-  line-height: 1.02;
+  font-size: clamp(46px, 6vw, 88px);
+  line-height: 1.03;
   font-weight: 500;
-  letter-spacing: -.04em;
 }
+
 .subject-gateway-heading > p {
-  max-width: 560px;
+  margin: 0;
+  max-width: 520px;
   justify-self: end;
-  margin: 0 0 8px;
-  color: rgba(37,37,31,.62);
-  line-height: 1.9;
+  color: rgba(37,37,31,.58);
+  line-height: 1.85;
 }
+
 .subject-major-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 1px solid rgba(37,37,31,.35);
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  border-top: 1px solid rgba(37,37,31,.34);
+  border-left: 1px solid rgba(37,37,31,.34);
 }
+
 .subject-major {
-  min-height: clamp(310px, 34vw, 510px);
+  appearance: none;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  min-height: 390px;
   padding: clamp(28px, 4vw, 58px);
   border: 0;
+  border-right: 1px solid rgba(37,37,31,.34);
+  border-bottom: 1px solid rgba(37,37,31,.34);
   color: var(--ink);
-  font: inherit;
+  text-align: left;
   cursor: pointer;
   overflow: hidden;
-  transition: transform .25s ease, filter .25s ease;
 }
-.subject-major + .subject-major { border-left: 1px solid rgba(37,37,31,.35); }
+
 .subject-major::after {
   content: "";
   position: absolute;
-  right: -10%;
-  bottom: -36%;
-  width: 60%;
+  width: 220px;
   aspect-ratio: 1;
   border: 1px solid currentColor;
   border-radius: 50%;
-  opacity: .2;
-  transition: transform .45s ease;
+  right: -70px;
+  top: -65px;
+  opacity: .14;
+  transition: transform .35s ease;
 }
-.subject-major:hover::after,
-.subject-major.active::after { transform: scale(1.22) translate(-7%, -7%); }
-.subject-major:hover { filter: saturate(1.08); }
-.subject-major.active { box-shadow: inset 0 -8px 0 rgba(37,37,31,.18); }
-.subject-major-shenlun { background: var(--acid); }
-.subject-major-interview { background: var(--blue); color: #fffdf5; }
-.subject-major-no {
-  font: italic 12px Georgia, serif;
-  letter-spacing: .14em;
-  opacity: .65;
-}
-.subject-major strong {
-  display: block;
-  margin-top: auto;
-  font-family: "Songti SC", "SimSun", Georgia, serif;
-  font-size: clamp(48px, 7vw, 104px);
-  line-height: .92;
-  font-weight: 500;
-  letter-spacing: -.07em;
-}
-.subject-major p {
-  margin: 22px 0 0;
-  font-size: clamp(15px, 1.4vw, 20px);
-}
-.subject-major-action {
-  margin-top: 25px;
-  padding-top: 15px;
-  width: 100%;
-  border-top: 1px solid currentColor;
-  font-size: 11px;
-  letter-spacing: .08em;
-}
-.subject-module-panel {
-  border: 1px solid rgba(37,37,31,.35);
-  border-top: 0;
-  padding: clamp(24px, 4vw, 50px);
-  background: rgba(244,240,231,.72);
-}
-.subject-panel-intro {
-  display: grid;
-  grid-template-columns: .75fr 1.25fr;
-  gap: 30px;
-  padding-bottom: 30px;
-}
-.subject-panel-intro > span {
-  font: italic 11px Georgia, serif;
-  letter-spacing: .14em;
-  color: var(--blue);
-}
-.subject-panel-intro p {
-  margin: 0;
-  line-height: 1.85;
-  color: rgba(37,37,31,.64);
-}
-.subject-module-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid rgba(37,37,31,.3);
-  border-left: 1px solid rgba(37,37,31,.3);
-}
-.subject-module-card {
-  position: relative;
-  min-height: 390px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  color: var(--ink);
-  text-decoration: none;
-  border-right: 1px solid rgba(37,37,31,.3);
-  border-bottom: 1px solid rgba(37,37,31,.3);
-  overflow: hidden;
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-.subject-module-card:hover { transform: translateY(-8px); box-shadow: 0 14px 0 rgba(37,37,31,.10); z-index: 2; }
-.subject-module-card.framework { background: #86a6e7; }
-.subject-module-card.questions { background: #e48b67; }
-.subject-module-card.writing { background: #d6dfa0; }
-.subject-module-card.videos { background: #c8bfd8; }
-.subject-module-top { display: flex; justify-content: space-between; align-items: baseline; }
-.subject-module-top span { font: italic 18px Georgia, serif; }
-.subject-module-top i { font: italic 10px Georgia, serif; letter-spacing: .12em; opacity: .55; }
-.subject-module-card h3 {
-  margin: auto 0 14px;
-  font-family: "Songti SC", "SimSun", Georgia, serif;
-  font-size: clamp(32px, 3vw, 48px);
-  font-weight: 500;
-}
-.subject-module-card p { margin: 0 0 26px; line-height: 1.75; font-size: 13px; }
-.subject-module-card small { padding-top: 18px; border-top: 1px solid rgba(37,37,31,.35); line-height: 1.7; opacity: .7; }
-.subject-module-card > b { position: absolute; right: 20px; top: 50%; font: 400 30px Georgia, serif; opacity: .45; }
-.interview-preview-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(37,37,31,.28); }
-.interview-preview-card { min-height: 250px; padding: 22px 18px; border-right: 1px solid rgba(37,37,31,.22); }
-.interview-preview-card:last-child { border-right: 0; }
-.interview-preview-card span { font: italic 13px Georgia, serif; color: var(--blue); }
-.interview-preview-card h3 { margin: 68px 0 12px; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: 28px; }
-.interview-preview-card p { min-height: 44px; font-size: 11px; line-height: 1.7; color: rgba(37,37,31,.58); }
-.interview-preview-card small { display: block; margin-top: 28px; font-size: 9px; letter-spacing: .1em; opacity: .45; }
 
-@media (max-width: 980px) {
-  .subject-module-grid, .interview-preview-grid { grid-template-columns: repeat(2, 1fr); }
-  .subject-module-card { min-height: 330px; }
+.subject-major:hover::after,
+.subject-major.active::after { transform: scale(1.22); }
+.subject-major-shenlun { background: #dce4f3; }
+.subject-major-interview { background: #f2d8cc; }
+.subject-major.active { box-shadow: inset 0 -8px 0 var(--ink); }
+.subject-major-no { display: block; font: italic 13px Georgia, serif; opacity: .55; }
+.subject-major strong { display: block; margin-top: 66px; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(48px, 6vw, 86px); font-weight: 500; line-height: 1; }
+.subject-major p { margin: 24px 0 0; max-width: 390px; color: rgba(37,37,31,.6); line-height: 1.8; }
+.subject-major-action { position: absolute; left: clamp(28px, 4vw, 58px); bottom: 28px; font-size: 11px; }
+
+.subject-module-panel { border-left: 1px solid rgba(37,37,31,.3); border-right: 1px solid rgba(37,37,31,.3); border-bottom: 1px solid rgba(37,37,31,.3); }
+.subject-panel-intro { display: grid; grid-template-columns: .5fr 1.5fr; gap: 30px; padding: 30px clamp(22px,3vw,42px); background: rgba(244,240,231,.55); border-bottom: 1px solid rgba(37,37,31,.26); }
+.subject-panel-intro > span { font: italic 11px Georgia, serif; letter-spacing: .09em; }
+.subject-panel-intro p { margin: 0; max-width: 760px; line-height: 1.8; color: rgba(37,37,31,.6); }
+.subject-panel-intro b { color: var(--ink); }
+
+.subject-module-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
+.subject-module-card { position: relative; min-height: 390px; padding: 28px; border-right: 1px solid rgba(37,37,31,.24); color: var(--ink); text-decoration: none; transition: transform .22s ease, filter .22s ease; }
+.subject-module-card:last-child { border-right: 0; }
+.subject-module-card:hover { transform: translateY(-7px); filter: saturate(1.08); z-index: 2; box-shadow: 0 12px 30px rgba(37,37,31,.09); }
+.subject-module-card.framework { background: #dce4f3; }
+.subject-module-card.questions { background: #f2d8cc; }
+.subject-module-card.writing { background: #eef2ce; }
+.subject-module-card.videos { background: #e1ddea; }
+.subject-module-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.subject-module-top span { font: italic 14px Georgia,serif; }
+.subject-module-top i { font: italic 10px Georgia,serif; opacity: .5; letter-spacing: .12em; }
+.subject-module-card h3 { margin: 62px 0 14px; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(31px,3.1vw,49px); font-weight: 500; }
+.subject-module-card > p { min-height: 82px; line-height: 1.75; color: rgba(37,37,31,.62); font-size: 12px; }
+.subject-module-card small { display: block; margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(37,37,31,.22); font-size: 10px; line-height: 1.8; }
+.subject-module-card > b { position: absolute; right: 22px; bottom: 20px; font-size: 28px; font-weight: 400; }
+
+.interview-module-panel { background: #f5e8df; }
+.interview-preview-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
+.interview-preview-card { min-height: 300px; padding: 28px; border-right: 1px solid rgba(37,37,31,.2); }
+.interview-preview-card:last-child { border-right: 0; }
+.interview-preview-card > span { font: italic 13px Georgia,serif; opacity: .5; }
+.interview-preview-card h3 { margin: 54px 0 12px; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(28px,3vw,43px); font-weight: 500; }
+.interview-preview-card p { line-height: 1.7; color: rgba(37,37,31,.58); }
+.interview-preview-card small { display: block; margin-top: 36px; color: var(--orange); font-size: 9px; letter-spacing: .08em; }
+
+@media (max-width: 1050px) {
+  .subject-module-grid,
+  .interview-preview-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .subject-module-card:nth-child(2) { border-right: 0; }
+  .subject-module-card:nth-child(-n+2) { border-bottom: 1px solid rgba(37,37,31,.24); }
+  .interview-preview-card:nth-child(2) { border-right: 0; }
+  .interview-preview-card:nth-child(-n+2) { border-bottom: 1px solid rgba(37,37,31,.2); }
 }
-@media (max-width: 720px) {
-  .subject-gateway-heading { grid-template-columns: 1fr; gap: 18px; }
+
+@media (max-width: 760px) {
+  .subject-gateway { margin-inline: 22px; padding-top: 84px; }
+  .subject-gateway-heading { grid-template-columns: 1fr; gap: 20px; }
   .subject-gateway-heading > p { justify-self: start; }
   .subject-major-grid { grid-template-columns: 1fr; }
-  .subject-major + .subject-major { border-left: 0; border-top: 1px solid rgba(37,37,31,.35); }
-  .subject-major { min-height: 330px; }
+  .subject-major { min-height: 320px; }
   .subject-panel-intro { grid-template-columns: 1fr; gap: 12px; }
-  .subject-module-grid, .interview-preview-grid { grid-template-columns: 1fr; }
-  .subject-module-card { min-height: 300px; }
+  .subject-module-grid,
+  .interview-preview-grid { grid-template-columns: 1fr; }
+  .subject-module-card,
   .interview-preview-card { border-right: 0; border-bottom: 1px solid rgba(37,37,31,.22); }
+  .subject-module-card:last-child,
+  .interview-preview-card:last-child { border-bottom: 0; }
+  .subject-module-card { min-height: 330px; }
 }
