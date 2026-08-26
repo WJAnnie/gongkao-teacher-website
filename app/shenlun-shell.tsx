@@ -10,6 +10,14 @@ const toneToActive = {
   videos: 'shenlun-videos',
 } as const;
 
+const toneToTraining = {
+  framework: '专项方法',
+  questions: '真题训练',
+  writing: '写作积累',
+  videos: '课程笔记',
+  home: '学习总览',
+} as const;
+
 const routes = [
   { tone: 'framework', label: '方法框架', href: '/shenlun/framework/' },
   { tone: 'questions', label: '真题精练', href: '/shenlun/questions/' },
@@ -28,8 +36,14 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
           <span>申 / SHENLUN</span>
           <span>答卷之外 · 申论学习</span>
         </div>
+        <span className="exam-review-stamp" aria-hidden="true">阅</span>
         <p className="shenlun-hero-eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
+        <div className="exam-meta-strip" aria-label="申论训练信息">
+          <span>科目 <b>申论</b></span>
+          <span>训练 <b>{toneToTraining[tone]}</b></span>
+          <span>复盘 <b>审题 · 要点 · 结构 · 表达</b></span>
+        </div>
         <div className="shenlun-hero-bottom">
           <p>{desc}</p>
           <nav className="shenlun-route-strip" aria-label="申论学习路径">
