@@ -1,0 +1,290 @@
+:root {
+  --review-red: #a84b3f;
+  --review-red-soft: rgba(168,75,63,.10);
+}
+
+/* 首页：把“答卷”感藏进细节里 */
+.hero-review-corner {
+  position: absolute;
+  z-index: 13;
+  left: clamp(26px, 6vw, 94px);
+  bottom: clamp(72px, 8vh, 108px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(37,37,31,.44);
+  pointer-events: none;
+}
+
+.hero-review-stamp {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--review-red) 62%, transparent);
+  border-radius: 50%;
+  color: var(--review-red);
+  font: 500 21px/1 "Songti SC", "SimSun", serif;
+  transform: translate3d(calc((var(--pointer-x, .5) - .5) * 14px), calc((var(--pointer-y, .5) - .5) * 10px), 0) rotate(calc(-8deg + (var(--pointer-x, .5) - .5) * 8deg));
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.hero-review-corner small {
+  max-width: 180px;
+  font-size: 8px;
+  line-height: 1.6;
+  letter-spacing: .11em;
+}
+
+.hero-review-corner small::before {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 1px;
+  margin-bottom: 7px;
+  background: var(--review-red);
+  opacity: .5;
+}
+
+/* 学习页页头：答题纸信息条 */
+.exam-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  width: fit-content;
+  max-width: 100%;
+  margin: 4px 0 2px;
+  border-top: 1px solid rgba(37,37,31,.16);
+  border-left: 1px solid rgba(37,37,31,.16);
+}
+
+.exam-meta-strip span {
+  padding: 7px 11px;
+  border-right: 1px solid rgba(37,37,31,.16);
+  border-bottom: 1px solid rgba(37,37,31,.16);
+  color: rgba(37,37,31,.48);
+  font-size: 8px;
+  letter-spacing: .07em;
+  background: rgba(244,240,231,.18);
+}
+
+.exam-meta-strip b {
+  margin-left: 5px;
+  color: rgba(37,37,31,.72);
+  font-weight: 500;
+}
+
+.exam-review-stamp {
+  position: absolute;
+  z-index: 3;
+  right: clamp(38px, 8vw, 132px);
+  top: clamp(118px, 18vh, 190px);
+  width: clamp(72px, 8vw, 108px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--review-red) 56%, transparent);
+  border-radius: 50%;
+  color: color-mix(in srgb, var(--review-red) 74%, transparent);
+  font: 500 clamp(28px, 3vw, 42px)/1 "Songti SC", "SimSun", serif;
+  transform: rotate(-10deg);
+  opacity: .52;
+  transition: transform .28s cubic-bezier(.2,.7,.2,1), opacity .28s ease, background .28s ease;
+}
+
+.shenlun-hero:hover .exam-review-stamp,
+.interview-site-hero:hover .exam-review-stamp {
+  transform: rotate(-3deg) scale(1.04);
+  opacity: .82;
+  background: var(--review-red-soft);
+}
+
+.exam-review-stamp::after {
+  content: "REVIEW";
+  position: absolute;
+  bottom: 17%;
+  font: italic 6px Georgia, serif;
+  letter-spacing: .16em;
+}
+
+/* 卡片经过时出现“红笔”痕迹 */
+.shenlun-map-card,
+.writing-category,
+.question-type-step,
+.question-type-detail-grid > article,
+.shenlun-question-row,
+.interview-card,
+.interview-flow-step,
+.interview-practice-board > article {
+  --review-mark-opacity: 0;
+}
+
+.shenlun-map-card::after,
+.writing-category::after,
+.question-type-step::after,
+.question-type-detail-grid > article::after,
+.interview-card::after,
+.interview-flow-step::after,
+.interview-practice-board > article::after {
+  content: "阅";
+  position: absolute;
+  z-index: 3;
+  right: 15px;
+  bottom: 13px;
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--review-red);
+  border-radius: 50%;
+  color: var(--review-red);
+  font: 500 12px/1 "Songti SC", "SimSun", serif;
+  opacity: var(--review-mark-opacity);
+  transform: rotate(-12deg) scale(.82);
+  transition: opacity .18s ease, transform .18s ease;
+  pointer-events: none;
+}
+
+.shenlun-map-card:hover,
+.writing-category:hover,
+.question-type-step:hover,
+.question-type-detail-grid > article:hover,
+.interview-card:hover,
+.interview-flow-step:hover,
+.interview-practice-board > article:hover {
+  --review-mark-opacity: .62;
+}
+
+.shenlun-map-card:hover::after,
+.writing-category:hover::after,
+.question-type-step:hover::after,
+.question-type-detail-grid > article:hover::after,
+.interview-card:hover::after,
+.interview-flow-step:hover::after,
+.interview-practice-board > article:hover::after {
+  transform: rotate(-5deg) scale(1);
+}
+
+.question-type-step,
+.question-type-detail-grid > article,
+.interview-flow-step,
+.interview-practice-board > article {
+  position: relative;
+}
+
+.question-type-step h3,
+.question-type-detail-grid h3,
+.interview-card h3,
+.interview-flow-step h3 {
+  position: relative;
+  width: fit-content;
+}
+
+.question-type-step h3::after,
+.question-type-detail-grid h3::after,
+.interview-card h3::after,
+.interview-flow-step h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 2px;
+  background: var(--review-red);
+  transform: scaleX(0) rotate(-.6deg);
+  transform-origin: left;
+  opacity: .62;
+  transition: transform .24s cubic-bezier(.2,.7,.2,1);
+}
+
+.question-type-step:hover h3::after,
+.question-type-detail-grid > article:hover h3::after,
+.interview-card:hover h3::after,
+.interview-flow-step:hover h3::after {
+  transform: scaleX(1) rotate(-.6deg);
+}
+
+/* 真题条目更像一张正在批改的答卷 */
+.shenlun-question-row {
+  position: relative;
+  overflow: hidden;
+}
+
+.shenlun-question-row::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 17px;
+  bottom: 17px;
+  width: 1px;
+  background: var(--review-red);
+  opacity: 0;
+  transform: scaleY(.2);
+  transform-origin: top;
+  transition: opacity .18s ease, transform .22s ease;
+}
+
+.shenlun-question-row:hover::before {
+  opacity: .48;
+  transform: scaleY(1);
+}
+
+.shenlun-question-row .answer {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.shenlun-question-row:hover .answer {
+  transform: translateX(-4px) rotate(-.15deg);
+  box-shadow: 5px 5px 0 var(--review-red-soft);
+}
+
+.shenlun-question-row h3 {
+  position: relative;
+}
+
+.shenlun-question-row h3::after {
+  content: "重点";
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 5px;
+  border: 1px solid var(--review-red);
+  color: var(--review-red);
+  font: 500 8px/1.2 "Songti SC", "SimSun", serif;
+  opacity: 0;
+  transform: rotate(-3deg) translateY(-3px);
+  transition: opacity .18s ease;
+}
+
+.shenlun-question-row:hover h3::after { opacity: .62; }
+
+/* 顶部快速导航也带一点阅卷感 */
+.shenlun-route-strip a,
+.interview-route-strip a {
+  position: relative;
+  overflow: hidden;
+}
+
+.shenlun-route-strip a::after,
+.interview-route-strip a::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: 5px;
+  height: 1px;
+  background: var(--review-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: .55;
+  transition: transform .2s ease;
+}
+
+.shenlun-route-strip a:hover::after,
+.interview-route-strip a:hover::after { transform: scaleX(1); }
+
+@media (max-width: 760px) {
+  .hero-review-corner { display: none; }
+  .exam-review-stamp { width: 58px; right: 20px; top: 104px; font-size: 24px; }
+  .exam-meta-strip { width: 100%; }
+  .exam-meta-strip span { flex: 1 1 33%; }
+}
