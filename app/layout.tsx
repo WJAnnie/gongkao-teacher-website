@@ -9,6 +9,7 @@ import './learning-nav.css';
 import './shenlun-learning.css';
 import './question-type-knowledge.css';
 import './interview/interview-learning.css';
+import './learning-page-refinement.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
