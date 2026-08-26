@@ -1,10 +1,11 @@
 import { MotionLayer } from './motion-layer';
+import { StudyHub } from './study-hub';
 
 const starterItems = [
   {
     no: '01',
     title: '刚开始备考',
-    desc: '先弄清国考、省考、选调等考试的基本差异，再决定时间怎么分配，不急着堆资料。',
+    desc: '先弄清申论试卷结构和面试考查方式，再建立训练节奏，不急着把所有资料囤满。',
     meta: '考试地图 · 备考节奏',
   },
   {
@@ -21,9 +22,9 @@ const starterItems = [
   },
   {
     no: '04',
-    title: '想系统查资料',
-    desc: '按政策理论、社会治理、经济发展、文化建设、生态文明等主题积累可迁移素材。',
-    meta: '素材库 · 真题库 · 复盘',
+    title: '想直接开始刷题',
+    desc: '进入学习中心，按年份、考试、题型和主题筛选申论与面试题，也可以随机抽题限时练习。',
+    meta: '真题索引 · 专项练习 · 计时',
   },
 ];
 
@@ -100,7 +101,7 @@ const topicMap = [
   ['生态文明', '绿色发展、环境治理、低碳转型'],
 ];
 
-const tickerItems = ['素材积累', '真题拆解', '表达训练', '课堂实录', '备考方法', '复盘工具'];
+const tickerItems = ['申论真题', '面试真题', '专项练习', '方法资料', '热点素材', '答题计时', '复盘记录'];
 
 export default function Home() {
   return (
@@ -113,8 +114,8 @@ export default function Home() {
         </a>
         <div className="nav-links">
           <a href="#start">从哪开始</a>
+          <a href="#study">学习中心</a>
           <a href="#library">内容档案</a>
-          <a href="#clips">课堂切片</a>
           <a href="#about">关于我</a>
         </div>
         <a className="nav-cta" href="#contact">预约聊聊 <span>↗</span></a>
@@ -125,21 +126,21 @@ export default function Home() {
           <div className="pointer-glow hero-pointer-glow" aria-hidden="true" />
           <div className="hero-grid" aria-hidden="true" />
           <div className="hero-orbit" aria-hidden="true"><span /></div>
-          <p className="eyebrow"><span>01</span> 一位申论与面试老师的长期内容站</p>
+          <p className="eyebrow"><span>01</span> 专注申论与结构化面试的长期学习站</p>
           <h1>
             公考不是背<br />
             <span className="title-outline">标准答案</span>
           </h1>
           <div className="hero-bottom">
-            <p className="hero-lead">它是练习如何<span>看见</span>、如何<span>拆解</span>，<br className="desktop-break" />以及如何把自己的判断说清楚。</p>
-            <a className="round-link" href="#manifesto" aria-label="向下浏览站点宣言">
-              <span>向下浏览</span>
+            <p className="hero-lead">这里既有<span>真题</span>、<span>方法</span>和<span>素材</span>，<br className="desktop-break" />也有能让你真正练起来的训练工具。</p>
+            <a className="round-link" href="#study" aria-label="进入学习中心">
+              <span>开始学习</span>
               <b>↓</b>
             </a>
           </div>
           <div className="hero-note">
             <span className="note-line" />
-            <p>素材积累 · 真题拆解 · 课堂实录 · 表达训练</p>
+            <p>真题题库 · 专项练习 · 学习资料 · 热点素材 · 训练工具</p>
           </div>
         </section>
       </div>
@@ -148,10 +149,10 @@ export default function Home() {
         <div className="pointer-glow manifesto-pointer-glow" aria-hidden="true" />
         <div className="manifesto-orbit" aria-hidden="true"><i /><span /></div>
         <div className="section-index">02 — 站点宣言</div>
-        <p>不是答案仓库，<br />是一间持续生长的<span>思考练习室</span>。</p>
+        <p>不是资料堆积场，<br />是一套能反复使用的<span>学习系统</span>。</p>
         <div className="manifesto-meta">
-          <span>申论 × 面试</span>
-          <span>方法 · 素材 · 真题 · 复盘</span>
+          <span>申论 × 结构化面试</span>
+          <span>学方法 → 做真题 → 限时练 → 复盘</span>
           <span>2026 — 持续更新</span>
         </div>
       </section>
@@ -175,8 +176,8 @@ export default function Home() {
           ))}
         </div>
         <div className="starter-note">
-          <strong>备考顺序建议</strong>
-          <p>先了解考试与自身基础 → 建立申论/面试方法框架 → 用真题验证 → 用复盘把方法留下来。资料越多不一定越好，能被你反复调用的方法才有价值。</p>
+          <strong>推荐使用顺序</strong>
+          <p>先用资料库建立方法框架 → 到题库按题型专项练 → 用计时器还原考场压力 → 写完或答完立即自检 → 把结果存进练习记录。网站会围绕这条闭环持续补内容。</p>
         </div>
       </section>
 
@@ -184,7 +185,7 @@ export default function Home() {
         <div className="ticker-track" aria-hidden="true">
           {[0, 1].map((group) => (
             <div className="ticker-group" key={group}>
-              {[0, 1, 2, 3].map((repeat) => tickerItems.map((item) => (
+              {[0, 1, 2].map((repeat) => tickerItems.map((item) => (
                 <span className="ticker-pair" key={`${repeat}-${item}`}>
                   <span>{item}</span><i>✦</i>
                 </span>
@@ -194,14 +195,16 @@ export default function Home() {
         </div>
       </div>
 
+      <StudyHub />
+
       <section className="library-scroll" id="library">
         <div className="library-sticky">
           <header className="section-heading library-heading">
             <div>
-              <p className="section-index">04 — 滚动浏览</p>
+              <p className="section-index">05 — 深度内容</p>
               <h2>内容档案</h2>
             </div>
-            <p>从方法、素材、真题到复盘。<br />每一篇都尽量回答一个具体问题。</p>
+            <p>学习中心解决“练什么”，这里继续回答“为什么”。<br />把课堂里反复出现的问题写成长期文章。</p>
           </header>
 
           <div className="library-track">
@@ -228,7 +231,7 @@ export default function Home() {
         <div className="clips-orbit" aria-hidden="true"><i /></div>
         <header className="section-heading dark-text">
           <div>
-            <p className="section-index">05 — 课堂现场</p>
+            <p className="section-index">06 — 课堂现场</p>
             <h2>上课，不只<br />给一个答案</h2>
           </div>
           <p>保留那些“突然想明白了”的瞬间。<br />以后可以持续替换成真实课堂片段与讲题录音。</p>
@@ -258,7 +261,7 @@ export default function Home() {
       <section className="method-story" data-active="0">
         <div className="method-sticky">
           <div className="method-heading">
-            <p className="section-index">06 — 同一条思考路径</p>
+            <p className="section-index">07 — 同一条思考路径</p>
             <h2>从材料到表达，<br />让思考在滚动中<span>逐步成形</span>。</h2>
             <p className="method-hint">继续向下，右侧内容会在同一位置切换。</p>
           </div>
@@ -286,7 +289,7 @@ export default function Home() {
       <section className="topic-map">
         <header className="section-heading dark-text">
           <div>
-            <p className="section-index">07 — 素材地图</p>
+            <p className="section-index">08 — 素材地图</p>
             <h2>素材，不按金句收藏</h2>
           </div>
           <p>按公共议题建立自己的知识坐标。<br />同一份素材，能服务申论，也能进入面试表达。</p>
@@ -300,7 +303,7 @@ export default function Home() {
             </article>
           ))}
         </div>
-        <p className="topic-footnote">素材更新原则：优先记录能解释现实问题的事实、政策与案例，而不是只收藏一句“看起来很高级”的话。</p>
+        <p className="topic-footnote">素材更新原则：优先记录能解释现实问题的事实、政策与案例，而不是只收藏一句“看起来很高级”的话。后续会增加每日晨读、热点专题和申面共用案例卡。</p>
       </section>
 
       <section className="about" id="about">
@@ -308,38 +311,38 @@ export default function Home() {
           <span>申论</span><b>×</b><span>面试</span>
         </div>
         <div className="about-copy">
-          <p className="section-index">08 — 关于老师</p>
+          <p className="section-index">09 — 关于老师</p>
           <h2>比起“教你怎么答”，<br />我更在意你是否真的<span>想清楚</span>。</h2>
           <div className="about-columns">
-            <p>这里是一位申论与面试老师的个人内容站。我会记录日常观察、课堂追问、真题拆解和备考复盘，也会把课堂里反复出现的问题整理成可以自己练习的方法。</p>
-            <p>这个网站不会追求“什么都有”。行测等内容会作为备考地图和资料索引补充，申论与面试仍然是主线。真实姓名、教学经历、授课成果和个人照片，也可以在你准备好素材后逐步替换进来。</p>
+            <p>这里是一位申论与面试老师的个人学习站。我会把日常观察、课堂追问、历年真题、题型方法、热点素材和备考复盘持续整理进来，让网站不只是介绍我，而是真的能陪你练习。</p>
+            <p>网站只专注申论与结构化面试，不扩张成全科公考站。真题区以题意摘要和训练索引为主，完整材料会优先采用公开、合法或自行整理的来源；原创专项题则用于补足真题覆盖不到的训练场景。</p>
           </div>
-          <div className="about-tags"><span>不押万能模板</span><span>重视真实表达</span><span>方法可以迁移</span><span>用真题验证方法</span></div>
+          <div className="about-tags"><span>真题驱动</span><span>不押万能模板</span><span>重视真实表达</span><span>工具服务训练</span></div>
         </div>
       </section>
 
       <section className="lead-magnet">
         <div className="lead-card">
           <p className="section-index">免费领取 · FREE DOWNLOAD</p>
-          <h2>面试表达<br />自检清单</h2>
+          <h2>申面训练<br />自检清单</h2>
           <ul>
-            <li>我的观点到底是什么？</li>
-            <li>每一层内容都在回答题目吗？</li>
-            <li>例子真的在为观点服务吗？</li>
-            <li>这句话像我平时会说的话吗？</li>
+            <li>我真正回答了题目任务吗？</li>
+            <li>每一层内容都有清楚的逻辑吗？</li>
+            <li>材料、例子和政策都在为观点服务吗？</li>
             <li>有没有可以删掉的正确废话？</li>
+            <li>这次错误，下次怎么更早识别？</li>
           </ul>
-          <a href="#contact">领取这份清单 <span>→</span></a>
+          <a href="#study">先在线练一题 <span>→</span></a>
         </div>
         <div className="lead-side">
-          <span>12</span>
-          <p>个高频表达问题<br />一张表完成自查</p>
+          <span>2</span>
+          <p>门主科持续深挖<br />申论 × 结构化面试</p>
         </div>
       </section>
 
       <section className="contact" id="contact">
         <div className="contact-grid" aria-hidden="true" />
-        <p className="section-index light">09 — KEEP IN TOUCH</p>
+        <p className="section-index light">10 — KEEP IN TOUCH</p>
         <h2>想把一道题<br />真正<span>想明白</span>？</h2>
         <p className="contact-lead">添加微信，备注「网站 + 备考阶段」<br />领取资料，也可以说说你现在最卡的一类题。</p>
         <div className="contact-box">
@@ -350,7 +353,7 @@ export default function Home() {
           <div className="contact-info">
             <span>WECHAT / 私域入口</span>
             <strong>你的微信号</strong>
-            <p>建议上线前替换为真实微信号、二维码，并明确资料领取方式。这里保持入口简单，不做复杂营销页面。</p>
+            <p>建议上线前替换为真实微信号、二维码，并明确资料领取方式。学习站本身保持开放阅读，联系方式只承担答疑和资料入口。</p>
           </div>
         </div>
       </section>
