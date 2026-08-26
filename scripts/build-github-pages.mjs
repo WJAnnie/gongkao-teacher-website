@@ -24,6 +24,10 @@ const routes = [
   '/shenlun/questions/',
   '/shenlun/writing/',
   '/shenlun/videos/',
+  '/interview/methods/',
+  '/interview/questions/',
+  '/interview/expression/',
+  '/interview/videos/',
 ];
 
 await rm(outputDir, { recursive: true, force: true });
@@ -85,6 +89,10 @@ function rewriteHtml(html, pathPrefix) {
     .replaceAll('href="/shenlun/writing/"', `href="${prefix}/shenlun/writing/"`)
     .replaceAll('href="/shenlun/videos/"', `href="${prefix}/shenlun/videos/"`)
     .replaceAll('href="/shenlun/"', `href="${prefix}/shenlun/"`)
+    .replaceAll('href="/interview/methods/"', `href="${prefix}/interview/methods/"`)
+    .replaceAll('href="/interview/questions/"', `href="${prefix}/interview/questions/"`)
+    .replaceAll('href="/interview/expression/"', `href="${prefix}/interview/expression/"`)
+    .replaceAll('href="/interview/videos/"', `href="${prefix}/interview/videos/"`)
     .replaceAll('href="/questions/"', `href="${prefix}/questions/"`)
     .replaceAll('href="/materials/"', `href="${prefix}/materials/"`)
     .replaceAll('href="/tools/"', `href="${prefix}/tools/"`)
