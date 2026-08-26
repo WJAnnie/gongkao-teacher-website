@@ -10,6 +10,13 @@ const toneToActive = {
   videos: 'interview-videos',
 } as const;
 
+const toneToTraining = {
+  methods: '题型专项',
+  questions: '真题模拟',
+  expression: '开口训练',
+  videos: '课堂笔记',
+} as const;
+
 const routes = [
   { tone: 'methods', label: '题型方法', href: '/interview/methods/' },
   { tone: 'questions', label: '真题实战', href: '/interview/questions/' },
@@ -39,8 +46,14 @@ export function InterviewShell({
           <span>面 / INTERVIEW</span>
           <span>答卷之外 · 结构化面试</span>
         </div>
+        <span className="exam-review-stamp" aria-hidden="true">阅</span>
         <p className="interview-hero-eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
+        <div className="exam-meta-strip" aria-label="面试训练信息">
+          <span>科目 <b>结构化面试</b></span>
+          <span>训练 <b>{toneToTraining[tone]}</b></span>
+          <span>复盘 <b>审题 · 观点 · 结构 · 表达</b></span>
+        </div>
         <div className="interview-hero-bottom">
           <p>{desc}</p>
           <nav className="interview-route-strip" aria-label="面试学习路径">
