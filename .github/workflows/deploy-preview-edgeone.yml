@@ -1,0 +1,38 @@
+name: Deploy Preview to EdgeOne
+
+on:
+  push:
+    branches: [content-enrichment-saduck-reference]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: edgeone-preview
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SITE_BASE_PATH: ""
+      EDGEONE_PAGES_API_TOKEN: ${{ secrets.EDGEONE_PAGES_API_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build:static
+
+      - name: Deploy preview to EdgeOne
+        run: npx --yes edgeone@1.6.28 makers deploy site --name gongkao-teacher-website-preview --env production --area global --token "$EDGEONE_PAGES_API_TOKEN" --json
