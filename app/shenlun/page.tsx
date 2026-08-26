@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 };
 
 const links = [
-  ['01 / METHOD', '方法框架', '五大题型、核心能力、表达规范与提分技巧，先把申论的知识骨架搭起来。', '/shenlun/framework/'],
-  ['02 / PRACTICE', '真题精练', '从国考到各地申论真题，按年份、地区和题型进入真实材料与参考解析。', '/shenlun/questions/'],
-  ['03 / WRITING', '写作积累', '热点、句式、比喻、模板、佳句、名言与规范表达，建立自己的写作素材系统。', '/shenlun/writing/'],
+  ['01 / METHOD', '方法框架', '五大题型、核心能力、表达规则与材料精读，先把申论的知识骨架搭起来。', '/shenlun/framework/'],
+  ['02 / PRACTICE', '真题精练', '从国考到各地申论真题，按年份、地区和题型进入真实材料，题目与答案放在同一条记录里。', '/shenlun/questions/'],
+  ['03 / WRITING', '写作积累', '热点、案例、句式、比喻、作文框架、佳句、名言与规范用词，建立自己的写作素材系统。', '/shenlun/writing/'],
   ['04 / VIDEO', '课程现场', '自己的课程精讲、课堂实录、工作日常与碎片分享，保留真实教学过程。', '/shenlun/videos/'],
 ] as const;
 
