@@ -28,16 +28,20 @@ const interviewModules: ModuleItem[] = [
 ];
 
 const tracks = [
-  { key: '申论' as const, code: 'A / SHENLUN', note: '从材料到表达', modules: shenlunModules },
-  { key: '面试' as const, code: 'B / INTERVIEW', note: '从判断到开口', modules: interviewModules },
+  { key: '申论' as const, code: 'A', en: 'SHENLUN', note: '材料 · 题型 · 写作', modules: shenlunModules },
+  { key: '面试' as const, code: 'B', en: 'INTERVIEW', note: '审题 · 观点 · 表达', modules: interviewModules },
 ];
 
 export function SubjectGateway() {
   const [active, setActive] = useState<Track | null>(null);
 
   return (
-    <div className="subject-gateway" aria-label="申论与面试学习入口" onMouseLeave={() => setActive(null)}>
-      <div className="subject-gateway-kicker">LEARNING / 学习方向</div>
+    <div className="subject-gateway" aria-label="申论与面试学习目录" onMouseLeave={() => setActive(null)}>
+      <div className="subject-gateway-kicker">
+        <span>LEARNING INDEX</span>
+        <b>学习目录</b>
+      </div>
+
       <div className="subject-track-list">
         {tracks.map((track) => {
           const isActive = active === track.key;
@@ -55,7 +59,10 @@ export function SubjectGateway() {
                 aria-expanded={isActive}
               >
                 <span className="subject-track-code">{track.code}</span>
-                <strong>{track.key}学习</strong>
+                <span className="subject-track-title">
+                  <strong>{track.key}学习</strong>
+                  <i>{track.en}</i>
+                </span>
                 <em>{track.note}</em>
                 <span className="subject-track-arrow" aria-hidden="true">↗</span>
               </button>
@@ -71,6 +78,7 @@ export function SubjectGateway() {
                         </div>
                         <h2>{item.title}</h2>
                         <p>{item.desc}</p>
+                        <b aria-hidden="true">↗</b>
                       </a>
                     ))}
                   </div>
