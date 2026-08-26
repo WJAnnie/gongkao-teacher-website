@@ -22,7 +22,13 @@ export default function Home() {
         <section className="hero" id="top">
           <div className="pointer-glow hero-pointer-glow" aria-hidden="true" />
           <div className="hero-grid" aria-hidden="true" />
-          <div className="hero-orbit" aria-hidden="true"><span /></div>
+          <div className="hero-orbit" aria-hidden="true">
+            <span />
+            <div className="hero-orbit-review">
+              <b>阅</b>
+              <small>REVIEW<br />审题 · 找点 · 表达 · 复盘</small>
+            </div>
+          </div>
 
           <p className="eyebrow"><span>01</span> 专注申论与结构化面试的长期学习站</p>
           <h1>
@@ -39,11 +45,6 @@ export default function Home() {
 
           <div className="hero-directory-slot" id="study">
             <SubjectGateway />
-          </div>
-
-          <div className="hero-review-corner" aria-hidden="true">
-            <span className="hero-review-stamp">阅</span>
-            <small>审题 · 找点 · 表达 · 复盘</small>
           </div>
 
           <div className="hero-note">
