@@ -51,45 +51,49 @@ const interviewModules = [
 ] as const;
 
 export function SubjectGateway() {
-  const [active, setActive] = useState<Track>('申论');
+  const [active, setActive] = useState<Track | null>(null);
 
   return (
-    <div className="subject-gateway" aria-label="申论与面试学习入口">
+    <div className="subject-gateway" id="subjects" aria-label="申论与面试学习入口" onMouseLeave={() => setActive(null)}>
       <div className="subject-gateway-heading">
         <div>
           <p className="section-index">04 — CHOOSE YOUR TRACK</p>
-          <h2>先选一门，<br />再往深处学。</h2>
+          <h2>申论 / 面试，<br />先选学习方向。</h2>
         </div>
-        <p>申论与面试不再混在一个资料列表里。<br />每一科都有自己的方法、真题、积累和课堂。</p>
+        <p>把鼠标移到科目上，下方展开对应学习目录。<br />手机端轻点即可展开。</p>
       </div>
 
       <div className="subject-major-grid">
         <button
           type="button"
           className={`subject-major subject-major-shenlun${active === '申论' ? ' active' : ''}`}
-          onClick={() => setActive('申论')}
+          onMouseEnter={() => setActive('申论')}
+          onFocus={() => setActive('申论')}
+          onClick={() => setActive(active === '申论' ? null : '申论')}
           aria-expanded={active === '申论'}
         >
-          <span className="subject-major-no">A / 申论</span>
+          <span className="subject-major-no">A / SHENLUN</span>
           <strong>申论学习</strong>
-          <p>读懂材料，形成判断，准确表达。</p>
-          <span className="subject-major-action">{active === '申论' ? '正在展开 ↓' : '展开学习路径 ↘'}</span>
+          <p>读懂材料 · 形成判断 · 准确表达</p>
+          <span className="subject-major-action">{active === '申论' ? '学习目录 ↓' : '移入展开 ↘'}</span>
         </button>
 
         <button
           type="button"
           className={`subject-major subject-major-interview${active === '面试' ? ' active' : ''}`}
-          onClick={() => setActive('面试')}
+          onMouseEnter={() => setActive('面试')}
+          onFocus={() => setActive('面试')}
+          onClick={() => setActive(active === '面试' ? null : '面试')}
           aria-expanded={active === '面试'}
         >
-          <span className="subject-major-no">B / 面试</span>
+          <span className="subject-major-no">B / INTERVIEW</span>
           <strong>面试学习</strong>
-          <p>看清任务，建立观点，自然表达。</p>
-          <span className="subject-major-action">{active === '面试' ? '正在展开 ↓' : '展开学习路径 ↘'}</span>
+          <p>看清任务 · 建立观点 · 自然表达</p>
+          <span className="subject-major-action">{active === '面试' ? '学习目录 ↓' : '移入展开 ↘'}</span>
         </button>
       </div>
 
-      {active === '申论' ? (
+      {active === '申论' && (
         <div className="subject-module-panel shenlun-module-panel">
           <div className="subject-panel-intro">
             <span>SHENLUN / 申论学习地图</span>
@@ -107,19 +111,21 @@ export function SubjectGateway() {
             ))}
           </div>
         </div>
-      ) : (
+      )}
+
+      {active === '面试' && (
         <div className="subject-module-panel interview-module-panel">
           <div className="subject-panel-intro">
             <span>INTERVIEW / 面试学习地图</span>
-            <p>这轮先把申论做完整，面试学习将在同一套设计逻辑下继续展开。先把栏目骨架放在这里，方便你判断整体层级。</p>
+            <p>先学题型，再练真题，再强化表达，最后回看课堂。面试内容会继续沿用同一套目录逻辑。</p>
           </div>
           <div className="interview-preview-grid">
             {interviewModules.map(([title, meta], index) => (
-              <div className="interview-preview-card" key={title}>
+              <div className={`interview-preview-card tone-${index + 1}`} key={title}>
                 <span>0{index + 1}</span>
                 <h3>{title}</h3>
                 <p>{meta}</p>
-                <small>NEXT / 下一轮完善</small>
+                <small>NEXT / 内容持续完善</small>
               </div>
             ))}
           </div>
