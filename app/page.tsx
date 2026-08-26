@@ -32,8 +32,8 @@ export default function Home() {
 
           <div className="hero-bottom">
             <p className="hero-lead">
-              这里既有<span>真题</span>、<span>方法</span>和<span>积累</span>，<br className="desktop-break" />
-              也保留课堂与日常里的真实思考。
+              <span>真题</span>、<span>方法</span>、<span>积累</span>，<br className="desktop-break" />
+              还有课堂里反复讲过的那些细节。
             </p>
           </div>
 
@@ -54,10 +54,10 @@ export default function Home() {
         </div>
         <div className="about-copy">
           <p className="section-index">02 — 关于老师</p>
-          <h2>比起“教你怎么答”，<br />我更在意你是否真的<span>想清楚</span>。</h2>
+          <h2>把题目看明白，<br />把自己的答案<span>说清楚</span>。</h2>
           <div className="about-columns">
-            <p>这里是一位申论与结构化面试老师的个人学习站。课堂里反复出现的问题、真题拆解、表达方法和日常观察，会慢慢沉淀成可以长期使用的内容。</p>
-            <p>比起记住更多标准话术，我更希望你先看清题目到底在问什么，从材料里找到依据，再用自己的语言把答案写清楚、说清楚。</p>
+            <p>课堂里反复出现的问题、真题拆解、表达方法和日常观察，我会一点点整理到这里。</p>
+            <p>读题、找依据、搭结构、写下来、说出来。每一步都尽量讲得具体，也方便你回头复习。</p>
           </div>
           <div className="about-tags">
             <span>申论方法</span><span>结构化面试</span><span>真题训练</span><span>真实表达</span>
@@ -69,7 +69,7 @@ export default function Home() {
         <div className="contact-grid" aria-hidden="true" />
         <p className="section-index">03 — KEEP IN TOUCH</p>
         <h2>资料、课程，<br />还有<span>日常分享</span>。</h2>
-        <p className="contact-lead">把学习资料、课程信息和日常内容放在同一个入口里。</p>
+        <p className="contact-lead">资料领取、课程信息和日常内容，都放在这里。</p>
         <div className="contact-box">
           <div className="qr-placeholder" aria-label="二维码区域">
             <div className="qr-pattern" aria-hidden="true" />
