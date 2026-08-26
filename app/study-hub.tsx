@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { questions, type Question, type Subject } from './question-bank-data';
+import { SubjectGateway } from './subject-gateway';
 
 type StudyTab = '题库' | '资料' | '工具';
 
@@ -168,12 +169,14 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
 
   return (
     <section className={`study-hub${standalone ? ' study-hub-standalone' : ''}`} id="study">
+      {!standalone && <SubjectGateway />}
+
       <header className="section-heading dark-text study-heading">
         <div>
-          <p className="section-index">{standalone ? 'LEARNING DESK' : '04 — STUDY HUB'}</p>
-          <h2>{standalone ? (initialTab === '题库' ? '真题题库' : initialTab === '资料' ? '学习资料' : '训练工具') : '学习中心'}</h2>
+          <p className="section-index">{standalone ? 'LEARNING DESK' : 'PRACTICE DESK / 通用训练工作台'}</p>
+          <h2>{standalone ? (initialTab === '题库' ? '真题题库' : initialTab === '资料' ? '学习资料' : '训练工具') : '通用训练中心'}</h2>
         </div>
-        <p>题库、资料和工具放在同一套学习系统里。<br />学完马上练，练完马上复盘。</p>
+        <p>{standalone ? '题库、资料和工具放在同一套学习系统里。' : '选完申论或面试，再用这里的通用题库、资料和工具完成训练。'}<br />学完马上练，练完马上复盘。</p>
       </header>
 
       {!standalone && (
