@@ -15,6 +15,7 @@ import './exam-review.css';
 import './exam-question-details.css';
 import './hero-review-orbit.css';
 import './home-about.css';
+import './mobile-refinement.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
