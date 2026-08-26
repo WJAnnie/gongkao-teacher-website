@@ -10,6 +10,7 @@ import './shenlun-learning.css';
 import './question-type-knowledge.css';
 import './interview/interview-learning.css';
 import './learning-page-refinement.css';
+import './learning-route-themes.css';
 import './home-about.css';
 
 export const metadata: Metadata = {
