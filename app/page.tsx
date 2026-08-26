@@ -48,37 +48,42 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="about" id="about">
+      <section className="about about-merged" id="about">
         <div className="about-stamp" aria-hidden="true">
           <span>申论</span><b>×</b><span>面试</span>
         </div>
-        <div className="about-copy">
-          <p className="section-index">02 — 关于老师</p>
-          <h2>把题目看明白，<br />把自己的答案<span>说清楚</span>。</h2>
-          <div className="about-columns">
-            <p>课堂里反复出现的问题、真题拆解、表达方法和日常观察，我会一点点整理到这里。</p>
-            <p>读题、找依据、搭结构、写下来、说出来。每一步都尽量讲得具体，也方便你回头复习。</p>
-          </div>
-          <div className="about-tags">
-            <span>申论方法</span><span>结构化面试</span><span>真题训练</span><span>真实表达</span>
-          </div>
-        </div>
-      </section>
 
-      <section className="contact" id="contact">
-        <div className="contact-grid" aria-hidden="true" />
-        <p className="section-index">03 — KEEP IN TOUCH</p>
-        <h2>资料、课程，<br />还有<span>日常分享</span>。</h2>
-        <p className="contact-lead">资料领取、课程信息和日常内容，都放在这里。</p>
-        <div className="contact-box">
-          <div className="qr-placeholder" aria-label="二维码区域">
-            <div className="qr-pattern" aria-hidden="true" />
-            <span>QR</span>
-          </div>
-          <div className="contact-info">
-            <span>PRIVATE / 资料与联系</span>
-            <h3>答卷之外</h3>
-            <p>申论方法 · 结构化面试 · 真题训练 · 课程现场</p>
+        <div className="about-copy">
+          <p className="section-index">02 — ABOUT / 关于我</p>
+          <div className="about-merged-grid">
+            <div className="about-profile">
+              <h2>把题目看明白，<br />把自己的答案<span>说清楚</span>。</h2>
+              <div className="about-columns">
+                <p>课堂里反复出现的问题、真题拆解、表达方法和日常观察，我会一点点整理到这里。</p>
+                <p>读题、找依据、搭结构、写下来、说出来。每一步都尽量讲得具体，也方便你回头复习。</p>
+              </div>
+              <div className="about-tags">
+                <span>申论方法</span><span>结构化面试</span><span>真题训练</span><span>真实表达</span>
+              </div>
+            </div>
+
+            <aside className="about-contact-card" id="contact">
+              <div className="about-contact-head">
+                <span>CONTACT / 联系</span>
+                <b>资料 · 课程 · 日常</b>
+              </div>
+              <div className="about-contact-body">
+                <div className="qr-placeholder" aria-label="二维码区域">
+                  <div className="qr-pattern" aria-hidden="true" />
+                  <span>QR</span>
+                </div>
+                <div className="contact-info">
+                  <span>答卷之外</span>
+                  <h3>资料与联系</h3>
+                  <p>申论方法 · 结构化面试 · 真题训练 · 课程现场</p>
+                </div>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
