@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import { ShenlunShell } from '../../shenlun-shell';
 
@@ -20,6 +21,8 @@ const flow = [
   ['04', '放回真题', '把学到的方法放到下一道真题里检验。'],
 ] as const;
 
+const shenlunFlowStyle = { '--interview-color': 'var(--shenlun-accent)' } as CSSProperties;
+
 export default function ShenlunVideosPage() {
   return (
     <ShenlunShell tone="videos" eyebrow="VIDEO ARCHIVE / 课程现场" title="课程现场" desc="课程、课堂和工作日常放在同一个地方。看一段，记一个点，再回到真题里练一遍。">
@@ -37,7 +40,7 @@ export default function ShenlunVideosPage() {
           ))}
         </div>
 
-        <div className="interview-learning-flow">
+        <div className="interview-learning-flow" style={shenlunFlowStyle}>
           {flow.map(([no, title, desc]) => <article className="interview-flow-step" key={no}><span>{no}</span><h3>{title}</h3><p>{desc}</p></article>)}
         </div>
       </section>
