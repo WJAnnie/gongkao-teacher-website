@@ -1,22 +1,23 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './content-enrichment.css';
+import './study-hub.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
-  title: '答卷之外｜申论与面试内容站',
-  description: '一位申论与面试老师的长期内容站：素材积累、真题拆解、课堂切片与表达训练。',
+  title: '答卷之外｜申论与面试学习站',
+  description: '专注申论与结构化面试：历年真题索引、专项练习、学习资料、素材积累、答题计时与复盘工具。',
   openGraph: {
-    title: '答卷之外｜申论与面试内容站',
-    description: '公考不是背标准答案。这里有素材积累、真题拆解、课堂切片与表达训练。',
+    title: '答卷之外｜申论与面试学习站',
+    description: '公考不是背标准答案。这里有申论与面试真题、方法资料、素材积累和训练工具。',
     type: 'website',
     locale: 'zh_CN',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: '答卷之外：公考不是背标准答案' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: '答卷之外：申论与面试学习站' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: '答卷之外｜申论与面试内容站',
-    description: '公考不是背标准答案。这里有素材积累、真题拆解、课堂切片与表达训练。',
+    title: '答卷之外｜申论与面试学习站',
+    description: '申论与面试真题、方法资料、素材积累和训练工具。',
     images: ['/og.png'],
   },
 };
