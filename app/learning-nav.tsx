@@ -31,7 +31,7 @@ const groups = [
   },
 ] as const;
 
-export function LearningTopNav({ active }: { active: LearningNavKey }) {
+export function LearningTopNav({ active }: { active?: LearningNavKey }) {
   return (
     <header className="learning-topnav">
       <a className="learning-topnav-brand" href="/">
