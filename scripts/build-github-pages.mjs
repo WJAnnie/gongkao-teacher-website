@@ -9,6 +9,7 @@ const repository = process.env.GITHUB_REPOSITORY ?? '';
 const repositoryName = repository.split('/')[1] || '';
 const basePath = process.env.SITE_BASE_PATH ?? (repositoryName ? `/${repositoryName}` : '');
 const port = await findFreePort();
+const routes = ['/', '/questions/', '/materials/', '/tools/'];
 
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });
@@ -26,23 +27,44 @@ server.stderr.on('data', (chunk) => { logs += chunk.toString(); });
 
 try {
   await waitForHttp(`http://127.0.0.1:${port}/`, 30000);
-  const response = await fetch(`http://127.0.0.1:${port}/`);
-  if (!response.ok) throw new Error(`Production page returned HTTP ${response.status}.`);
-  let html = await response.text();
-  html = html
-    .replaceAll('href="/_next/', `href="${basePath}/_next/`)
-    .replaceAll('src="/_next/', `src="${basePath}/_next/`)
-    .replaceAll('href="/og.png"', `href="${basePath}/og.png"`)
-    .replaceAll('content="http://localhost:3000/og.png"', `content="${basePath}/og.png"`);
 
   await cp(join(root, 'dist', 'client', '_next'), join(outputDir, '_next'), { recursive: true });
   await cp(join(root, 'public'), outputDir, { recursive: true, force: true });
-  await writeFile(join(outputDir, 'index.html'), html, 'utf8');
-  await writeFile(join(outputDir, '404.html'), html, 'utf8');
-  console.log(`Static site artifact generated in ${outputDir}`);
+
+  for (const route of routes) {
+    const response = await fetch(`http://127.0.0.1:${port}${route}`);
+    if (!response.ok) throw new Error(`Production page ${route} returned HTTP ${response.status}.`);
+    let html = await response.text();
+    html = rewriteHtml(html, basePath);
+
+    if (route === '/') {
+      await writeFile(join(outputDir, 'index.html'), html, 'utf8');
+      await writeFile(join(outputDir, '404.html'), html, 'utf8');
+    } else {
+      const routeDir = join(outputDir, route.replace(/^\/+|\/+$/g, ''));
+      await mkdir(routeDir, { recursive: true });
+      await writeFile(join(routeDir, 'index.html'), html, 'utf8');
+    }
+  }
+
+  console.log(`Static site artifact generated in ${outputDir} (${routes.length} routes)`);
 } finally {
   server.kill();
   if (logs.includes('Error')) process.stderr.write(logs);
+}
+
+function rewriteHtml(html, pathPrefix) {
+  const prefix = pathPrefix || '';
+  return html
+    .replaceAll('href="/_next/', `href="${prefix}/_next/`)
+    .replaceAll('src="/_next/', `src="${prefix}/_next/`)
+    .replaceAll('href="/og.png"', `href="${prefix}/og.png"`)
+    .replaceAll('content="http://localhost:3000/og.png"', `content="${prefix}/og.png"`)
+    .replaceAll('href="/questions/"', `href="${prefix}/questions/"`)
+    .replaceAll('href="/materials/"', `href="${prefix}/materials/"`)
+    .replaceAll('href="/tools/"', `href="${prefix}/tools/"`)
+    .replaceAll('href="/#about"', `href="${prefix}/#about"`)
+    .replaceAll('href="/"', `href="${prefix}/"`);
 }
 
 async function findFreePort() {
@@ -67,4 +89,3 @@ async function waitForHttp(url, timeoutMs) {
   }
   throw new Error(`Timed out waiting for ${url}.\n${logs}`);
 }
-
