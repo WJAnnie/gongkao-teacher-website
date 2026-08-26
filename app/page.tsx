@@ -1,5 +1,32 @@
 import { MotionLayer } from './motion-layer';
 
+const starterItems = [
+  {
+    no: '01',
+    title: '刚开始备考',
+    desc: '先弄清国考、省考、选调等考试的基本差异，再决定时间怎么分配，不急着堆资料。',
+    meta: '考试地图 · 备考节奏',
+  },
+  {
+    no: '02',
+    title: '申论总在原地打转',
+    desc: '从材料阅读、要点提取、结构组织到文字表达，逐层找出真正卡住你的那一步。',
+    meta: '阅读 · 归纳 · 作文',
+  },
+  {
+    no: '03',
+    title: '面试一开口就模板化',
+    desc: '先训练判断和结构，再练表达。不是背更多句子，而是让答案真正属于你自己。',
+    meta: '审题 · 观点 · 表达',
+  },
+  {
+    no: '04',
+    title: '想系统查资料',
+    desc: '按政策理论、社会治理、经济发展、文化建设、生态文明等主题积累可迁移素材。',
+    meta: '素材库 · 真题库 · 复盘',
+  },
+];
+
 const libraryItems = [
   {
     no: 'A/01',
@@ -25,6 +52,30 @@ const libraryItems = [
     tags: ['结构化面试', '表达训练'],
     tone: 'orange',
   },
+  {
+    no: 'A/04',
+    type: '申论方法',
+    title: '概括题不是“抄材料”，而是重新给信息分组',
+    desc: '同一段材料里可能同时有问题、原因和效果。学会按题目任务重新组织，而不是照原文顺序搬运。',
+    tags: ['要点提取', '分类归纳'],
+    tone: 'paper',
+  },
+  {
+    no: 'A/05',
+    type: '面试方法',
+    title: '综合分析题，第一句话到底该说什么？',
+    desc: '不抢着套“辩证看待”。先明确对象、矛盾和价值判断，让开头直接承担答题任务。',
+    tags: ['综合分析', '观点建立'],
+    tone: 'lime',
+  },
+  {
+    no: 'A/06',
+    type: '备考复盘',
+    title: '刷了很多题却没进步，可能只是少了一张复盘表',
+    desc: '记录错在哪里、为什么错、下次怎么识别，让每一道题都给下一道题留下方法。',
+    tags: ['错题复盘', '备考计划'],
+    tone: 'orange',
+  },
 ];
 
 const clips = [
@@ -40,7 +91,16 @@ const methodSteps = [
   { no: '04', title: '复盘迁移', key: 'GROW', desc: '不只改这一道题，更找到下一道题也能使用的方法。' },
 ];
 
-const tickerItems = ['素材积累', '真题拆解', '表达训练', '课堂实录'];
+const topicMap = [
+  ['政策理论', '政策理解、理论表述、规范词汇'],
+  ['基层治理', '社区治理、乡村振兴、公共服务'],
+  ['经济发展', '营商环境、新质生产力、就业创业'],
+  ['文化建设', '文化传承、公共文化、文旅融合'],
+  ['社会民生', '教育、医疗、养老、青年发展'],
+  ['生态文明', '绿色发展、环境治理、低碳转型'],
+];
+
+const tickerItems = ['素材积累', '真题拆解', '表达训练', '课堂实录', '备考方法', '复盘工具'];
 
 export default function Home() {
   return (
@@ -52,6 +112,7 @@ export default function Home() {
           <span>答卷之外</span>
         </a>
         <div className="nav-links">
+          <a href="#start">从哪开始</a>
           <a href="#library">内容档案</a>
           <a href="#clips">课堂切片</a>
           <a href="#about">关于我</a>
@@ -89,9 +150,33 @@ export default function Home() {
         <div className="section-index">02 — 站点宣言</div>
         <p>不是答案仓库，<br />是一间持续生长的<span>思考练习室</span>。</p>
         <div className="manifesto-meta">
-          <span>每周持续更新</span>
-          <span>开放阅读</span>
-          <span>2026 —</span>
+          <span>申论 × 面试</span>
+          <span>方法 · 素材 · 真题 · 复盘</span>
+          <span>2026 — 持续更新</span>
+        </div>
+      </section>
+
+      <section className="start-here" id="start">
+        <header className="section-heading dark-text">
+          <div>
+            <p className="section-index">03 — START HERE</p>
+            <h2>你现在卡在哪？</h2>
+          </div>
+          <p>不必从第一页按顺序读。<br />先从你眼下最真实的问题开始。</p>
+        </header>
+        <div className="starter-grid">
+          {starterItems.map((item) => (
+            <article className="starter-item" key={item.no} data-reveal>
+              <span>{item.no}</span>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              <small>{item.meta}</small>
+            </article>
+          ))}
+        </div>
+        <div className="starter-note">
+          <strong>备考顺序建议</strong>
+          <p>先了解考试与自身基础 → 建立申论/面试方法框架 → 用真题验证 → 用复盘把方法留下来。资料越多不一定越好，能被你反复调用的方法才有价值。</p>
         </div>
       </section>
 
@@ -99,7 +184,7 @@ export default function Home() {
         <div className="ticker-track" aria-hidden="true">
           {[0, 1].map((group) => (
             <div className="ticker-group" key={group}>
-              {[0, 1, 2, 3, 4].map((repeat) => tickerItems.map((item) => (
+              {[0, 1, 2, 3].map((repeat) => tickerItems.map((item) => (
                 <span className="ticker-pair" key={`${repeat}-${item}`}>
                   <span>{item}</span><i>✦</i>
                 </span>
@@ -113,10 +198,10 @@ export default function Home() {
         <div className="library-sticky">
           <header className="section-heading library-heading">
             <div>
-              <p className="section-index">03 — 滚动浏览</p>
+              <p className="section-index">04 — 滚动浏览</p>
               <h2>内容档案</h2>
             </div>
-            <p>向下滚动，内容会在同一视窗中展开。<br />不离开现场，只移动阅读焦点。</p>
+            <p>从方法、素材、真题到复盘。<br />每一篇都尽量回答一个具体问题。</p>
           </header>
 
           <div className="library-track">
@@ -143,10 +228,10 @@ export default function Home() {
         <div className="clips-orbit" aria-hidden="true"><i /></div>
         <header className="section-heading dark-text">
           <div>
-            <p className="section-index">04 — 课堂现场</p>
+            <p className="section-index">05 — 课堂现场</p>
             <h2>上课，不只<br />给一个答案</h2>
           </div>
-          <p>保留那些“突然想明白了”的瞬间。<br />真实课堂视频可在这里持续替换更新。</p>
+          <p>保留那些“突然想明白了”的瞬间。<br />以后可以持续替换成真实课堂片段与讲题录音。</p>
         </header>
 
         <div className="clip-grid">
@@ -173,7 +258,7 @@ export default function Home() {
       <section className="method-story" data-active="0">
         <div className="method-sticky">
           <div className="method-heading">
-            <p className="section-index">05 — 同一条思考路径</p>
+            <p className="section-index">06 — 同一条思考路径</p>
             <h2>从材料到表达，<br />让思考在滚动中<span>逐步成形</span>。</h2>
             <p className="method-hint">继续向下，右侧内容会在同一位置切换。</p>
           </div>
@@ -198,18 +283,38 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="topic-map">
+        <header className="section-heading dark-text">
+          <div>
+            <p className="section-index">07 — 素材地图</p>
+            <h2>素材，不按金句收藏</h2>
+          </div>
+          <p>按公共议题建立自己的知识坐标。<br />同一份素材，能服务申论，也能进入面试表达。</p>
+        </header>
+        <div className="topic-list">
+          {topicMap.map(([title, desc], index) => (
+            <article key={title} data-reveal>
+              <span>0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </article>
+          ))}
+        </div>
+        <p className="topic-footnote">素材更新原则：优先记录能解释现实问题的事实、政策与案例，而不是只收藏一句“看起来很高级”的话。</p>
+      </section>
+
       <section className="about" id="about">
         <div className="about-stamp" aria-hidden="true">
           <span>申论</span><b>×</b><span>面试</span>
         </div>
         <div className="about-copy">
-          <p className="section-index">06 — 关于老师</p>
+          <p className="section-index">08 — 关于老师</p>
           <h2>比起“教你怎么答”，<br />我更在意你是否真的<span>想清楚</span>。</h2>
           <div className="about-columns">
-            <p>这里是一位申论与面试老师的个人内容站。我会记录日常观察、课堂追问和真题拆解，也会分享那些不一定立刻提分，却能让表达更有底气的东西。</p>
-            <p>真实姓名、教学经历、授课成果和个人照片，可以在你准备好素材后替换进来。网站不会用虚构履历替你建立信任。</p>
+            <p>这里是一位申论与面试老师的个人内容站。我会记录日常观察、课堂追问、真题拆解和备考复盘，也会把课堂里反复出现的问题整理成可以自己练习的方法。</p>
+            <p>这个网站不会追求“什么都有”。行测等内容会作为备考地图和资料索引补充，申论与面试仍然是主线。真实姓名、教学经历、授课成果和个人照片，也可以在你准备好素材后逐步替换进来。</p>
           </div>
-          <div className="about-tags"><span>不押万能模板</span><span>重视真实表达</span><span>方法可以迁移</span></div>
+          <div className="about-tags"><span>不押万能模板</span><span>重视真实表达</span><span>方法可以迁移</span><span>用真题验证方法</span></div>
         </div>
       </section>
 
@@ -219,8 +324,10 @@ export default function Home() {
           <h2>面试表达<br />自检清单</h2>
           <ul>
             <li>我的观点到底是什么？</li>
+            <li>每一层内容都在回答题目吗？</li>
             <li>例子真的在为观点服务吗？</li>
             <li>这句话像我平时会说的话吗？</li>
+            <li>有没有可以删掉的正确废话？</li>
           </ul>
           <a href="#contact">领取这份清单 <span>→</span></a>
         </div>
@@ -232,9 +339,9 @@ export default function Home() {
 
       <section className="contact" id="contact">
         <div className="contact-grid" aria-hidden="true" />
-        <p className="section-index light">07 — KEEP IN TOUCH</p>
+        <p className="section-index light">09 — KEEP IN TOUCH</p>
         <h2>想把一道题<br />真正<span>想明白</span>？</h2>
-        <p className="contact-lead">添加微信，备注「网站 + 备考阶段」<br />领取资料，也可以聊聊你现在卡在哪里。</p>
+        <p className="contact-lead">添加微信，备注「网站 + 备考阶段」<br />领取资料，也可以说说你现在最卡的一类题。</p>
         <div className="contact-box">
           <div className="qr-placeholder" aria-label="微信二维码占位区域">
             <div className="qr-pattern" aria-hidden="true" />
@@ -243,7 +350,7 @@ export default function Home() {
           <div className="contact-info">
             <span>WECHAT / 私域入口</span>
             <strong>你的微信号</strong>
-            <p>建议网站上线前替换为真实微信号与二维码，完成引流闭环。</p>
+            <p>建议上线前替换为真实微信号、二维码，并明确资料领取方式。这里保持入口简单，不做复杂营销页面。</p>
           </div>
         </div>
       </section>
