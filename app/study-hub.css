@@ -19,6 +19,9 @@
 }
 .study-hub > * { position: relative; z-index: 1; }
 .study-heading { margin-bottom: 44px; }
+.study-shortcuts { display: flex; gap: 9px; flex-wrap: wrap; margin: -18px 0 30px; }
+.study-shortcuts a { padding: 9px 14px; border: 1px solid rgba(37,37,31,.35); border-radius: 100px; font-size: 11px; transition: .2s ease; background: rgba(244,240,231,.58); }
+.study-shortcuts a:hover { background: var(--acid); transform: translateY(-2px); }
 .study-tabs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
