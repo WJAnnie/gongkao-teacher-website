@@ -1,21 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { questions, type Question, type Subject } from './question-bank-data';
 
-type Subject = '申论' | '面试';
 type StudyTab = '题库' | '资料' | '工具';
-
-type Question = {
-  id: string;
-  subject: Subject;
-  year: string;
-  exam: string;
-  type: string;
-  topic: string;
-  summary: string;
-  focus: string;
-  source: string;
-};
 
 type PracticeRecord = {
   id: number;
@@ -26,28 +14,6 @@ type PracticeRecord = {
   words: number;
   rating: string;
 };
-
-const questions: Question[] = [
-  { id: 'sl-2025-01', subject: '申论', year: '2025', exam: '国考·地市级', type: '综合分析', topic: '基层治理', summary: '政企协同参与河道治理，分析双方如何形成良性互动。', focus: '主体关系 · 做法归纳 · 机制分析', source: '历年真题公开整理' },
-  { id: 'sl-2025-02', subject: '申论', year: '2025', exam: '国考·地市级', type: '提出对策', topic: '生态文明', summary: '围绕林票制度改革，梳理已有成效并提出深化改革建议。', focus: '成效提炼 · 问题反推 · 对策匹配', source: '历年真题公开整理' },
-  { id: 'sl-2024-01', subject: '申论', year: '2024', exam: '国考·地市级', type: '归纳概括', topic: '乡村振兴', summary: '从乡村实践中概括团队如何发挥“运营官”作用。', focus: '动词提炼 · 分类归纳 · 去案例化', source: '考生回忆版公开整理' },
-  { id: 'sl-2024-02', subject: '申论', year: '2024', exam: '国考·地市级', type: '综合分析', topic: '产业发展', summary: '分析一家长期从事配件生产的企业为何能成为市场主角。', focus: '因果链 · 企业能力 · 市场逻辑', source: '考生回忆版公开整理' },
-  { id: 'sl-2024-03', subject: '申论', year: '2024', exam: '国考·地市级', type: '公文写作', topic: '公共服务', summary: '根据地方经验，草拟基层医疗人才队伍建设条例的主要内容。', focus: '文种任务 · 结构完整 · 措施落地', source: '考生回忆版公开整理' },
-  { id: 'sl-2024-04', subject: '申论', year: '2024', exam: '国考·地市级', type: '提出对策', topic: '文化建设', summary: '梳理公共文化空间建设运营中的问题并提出解决建议。', focus: '问题定位 · 一一对应 · 可操作性', source: '考生回忆版公开整理' },
-  { id: 'sl-2024-05', subject: '申论', year: '2024', exam: '国考·地市级', type: '文章写作', topic: '担当实干', summary: '围绕持续“打磨”和“修补”的价值展开议论文写作。', focus: '立意 · 分论点 · 论证闭环', source: '考生回忆版公开整理' },
-  { id: 'sl-2023-01', subject: '申论', year: '2023', exam: '国考·地市级', type: '归纳概括', topic: '生态文明', summary: '概括某地如何利用生态产品价值核算推动价值实现。', focus: '做法归纳 · 规范表达 · 层次组织', source: '历年真题公开整理' },
-  { id: 'sl-sim-01', subject: '申论', year: '专项', exam: '原创仿真', type: '归纳概括', topic: '基层治理', summary: '从社区食堂、托育和适老化改造案例中概括完整社区建设经验。', focus: '主体—动作—结果 · 同类合并', source: '本站原创练习' },
-  { id: 'sl-sim-02', subject: '申论', year: '专项', exam: '原创仿真', type: '公文写作', topic: '青年发展', summary: '为青年夜校项目撰写一份面向社会的情况介绍材料。', focus: '对象意识 · 信息取舍 · 表达得体', source: '本站原创练习' },
-  { id: 'ms-2026-01', subject: '面试', year: '2026', exam: '国考·税务', type: '综合分析', topic: '乡村振兴', summary: '谈对税惠助农的理解，并说明如何让政策红利真正落到乡村。', focus: '政策理解 · 群众视角 · 落地举措', source: '考生回忆版公开整理' },
-  { id: 'ms-2026-02', subject: '面试', year: '2026', exam: '国考·税务', type: '应急应变', topic: '政务服务', summary: '体验活动现场多人集中反映线上办税平台问题，负责人如何处理。', focus: '控场 · 分类回应 · 后续闭环', source: '考生回忆版公开整理' },
-  { id: 'ms-2026-03', subject: '面试', year: '2026', exam: '国考·税务', type: '情景模拟', topic: '部门协同', summary: '因跨部门材料标准不一致影响企业享受政策，现场模拟沟通协调。', focus: '沟通目的 · 利益共识 · 协同方案', source: '考生回忆版公开整理' },
-  { id: 'ms-2025-01', subject: '面试', year: '2025', exam: '国考·税务', type: '综合分析', topic: '青年消费', summary: '根据年轻群体消费现象，从个人、他人、社会等维度展开分析。', focus: '信息解读 · 多维分析 · 价值判断', source: '考生回忆版公开整理' },
-  { id: 'ms-2025-02', subject: '面试', year: '2025', exam: '国考·税务', type: '计划组织', topic: '统筹协调', summary: '车辆和时间有限，多名评委分散抵达且出现突发故障，如何统筹接送。', focus: '优先级 · 资源调度 · 风险预案', source: '考生回忆版公开整理' },
-  { id: 'ms-2024-01', subject: '面试', year: '2024', exam: '国考·税务', type: '岗位认知', topic: '工作效能', summary: '从多种“效率”要求中选择两项，结合公职工作谈如何提升。', focus: '岗位联系 · 自我认知 · 行动计划', source: '考生回忆版公开整理' },
-  { id: 'ms-2024-02', subject: '面试', year: '2024', exam: '国考·税务', type: '计划组织', topic: '纳税服务', summary: '策划征纳双方角色互换体验活动，说明活动重点和实施过程。', focus: '目标导向 · 环节设计 · 成果转化', source: '考生回忆版公开整理' },
-  { id: 'ms-sim-01', subject: '面试', year: '专项', exam: '原创仿真', type: '综合分析', topic: '人工智能', summary: '政务服务引入AI助手后，有人担心“机器味”削弱服务温度，你怎么看。', focus: '辩证判断 · 风险边界 · 改进建议', source: '本站原创练习' },
-  { id: 'ms-sim-02', subject: '面试', year: '专项', exam: '原创仿真', type: '情景模拟', topic: '群众工作', summary: '群众因材料多次补交情绪激动，请现场模拟窗口工作人员的沟通。', focus: '共情 · 解释 · 解决路径', source: '本站原创练习' },
-];
 
 const materials = [
   {
@@ -209,6 +175,14 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
         </div>
         <p>题库、资料和工具放在同一套学习系统里。<br />学完马上练，练完马上复盘。</p>
       </header>
+
+      {!standalone && (
+        <div className="study-shortcuts" aria-label="独立学习页面入口">
+          <a href="/questions/">打开完整题库 ↗</a>
+          <a href="/materials/">进入学习资料 ↗</a>
+          <a href="/tools/">打开训练工具 ↗</a>
+        </div>
+      )}
 
       <div className="study-tabs" role="tablist" aria-label="学习中心栏目">
         {(['题库', '资料', '工具'] as const).map((tab) => (
