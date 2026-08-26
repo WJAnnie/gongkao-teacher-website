@@ -10,7 +10,12 @@ const toneToActive = {
   videos: 'shenlun-videos',
 } as const;
 
-const routeLabels = ['方法框架', '真题精练', '写作积累', '课程现场'];
+const routes = [
+  { tone: 'framework', label: '方法框架', href: '/shenlun/framework/' },
+  { tone: 'questions', label: '真题精练', href: '/shenlun/questions/' },
+  { tone: 'writing', label: '写作积累', href: '/shenlun/writing/' },
+  { tone: 'videos', label: '课程现场', href: '/shenlun/videos/' },
+] as const;
 
 export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: ShenlunTone; eyebrow: string; title: string; desc: string; children: ReactNode }) {
   const active = tone === 'home' ? undefined : toneToActive[tone];
@@ -27,13 +32,18 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
         <h1>{title}</h1>
         <div className="shenlun-hero-bottom">
           <p>{desc}</p>
-          <div className="shenlun-route-strip" aria-label="申论学习路径">
-            {routeLabels.map((label, index) => (
-              <span className={tone !== 'home' && index === Object.keys(toneToActive).indexOf(tone) ? 'active' : ''} key={label}>
-                0{index + 1} {label}
-              </span>
+          <nav className="shenlun-route-strip" aria-label="申论学习路径">
+            {routes.map((item, index) => (
+              <a
+                className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`}
+                href={item.href}
+                key={item.tone}
+              >
+                <span>0{index + 1}</span>
+                <b>{item.label}</b>
+              </a>
             ))}
-          </div>
+          </nav>
         </div>
       </header>
 
