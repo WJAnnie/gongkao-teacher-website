@@ -1,0 +1,99 @@
+.note-library {
+  margin: 0 clamp(22px, 6vw, 92px) clamp(110px, 12vw, 180px);
+  padding: clamp(70px, 8vw, 110px) clamp(0px, 2vw, 28px) 0;
+  border-top: 1px solid rgba(37,37,31,.24);
+}
+.note-library-heading {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: end;
+  gap: 8vw;
+  margin-bottom: 40px;
+}
+.note-library-heading h2 {
+  margin: 0;
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+  font-size: clamp(52px, 7vw, 104px);
+  line-height: .95;
+  font-weight: 500;
+  letter-spacing: -.06em;
+}
+.note-library-heading > p {
+  max-width: 520px;
+  margin: 0 0 8px;
+  color: rgba(37,37,31,.58);
+  font-size: 14px;
+  line-height: 1.9;
+}
+.note-toolbar {
+  display: grid;
+  grid-template-columns: auto minmax(160px, .55fr) minmax(220px, .9fr);
+  gap: 10px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(37,37,31,.28);
+  border-bottom: 1px solid rgba(37,37,31,.28);
+}
+.note-subjects { display: flex; gap: 7px; flex-wrap: wrap; }
+.note-toolbar button,
+.note-toolbar select,
+.note-toolbar input {
+  min-height: 42px;
+  border: 1px solid rgba(37,37,31,.32);
+  background: rgba(244,240,231,.7);
+  color: var(--ink);
+  font: inherit;
+  font-size: 11px;
+}
+.note-toolbar button { padding: 0 13px; border-radius: 100px; cursor: pointer; }
+.note-toolbar button.active { background: var(--ink); color: var(--paper); }
+.note-toolbar select,
+.note-toolbar input { width: 100%; padding: 0 13px; }
+.note-count { margin: 22px 0 10px; font-size: 10px; letter-spacing: .08em; color: rgba(37,37,31,.46); }
+.note-list { border-top: 1px solid rgba(37,37,31,.25); }
+.note-item { border-bottom: 1px solid rgba(37,37,31,.22); }
+.note-item summary {
+  display: grid;
+  grid-template-columns: 62px 1fr 34px;
+  gap: 22px;
+  align-items: start;
+  padding: 28px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.note-item summary::-webkit-details-marker { display: none; }
+.note-index { font: italic 17px Georgia, serif; color: var(--orange); padding-top: 4px; }
+.note-summary-main > p { margin: 0 0 8px; color: var(--blue); font-size: 9px; letter-spacing: .12em; }
+.note-summary-main h3 { margin: 0; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(23px, 2.6vw, 38px); line-height: 1.28; font-weight: 600; }
+.note-summary-main > span { display: block; max-width: 900px; margin-top: 12px; color: rgba(37,37,31,.58); font-size: 12px; line-height: 1.85; }
+.note-item summary > b { font-size: 25px; font-weight: 300; transition: transform .25s ease; }
+.note-item[open] summary > b { transform: rotate(45deg); }
+.note-item[open] summary { background: linear-gradient(90deg, rgba(214,223,160,.18), transparent 72%); }
+.note-detail {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 28px;
+  margin: 0 0 30px 84px;
+  padding: 28px;
+  border: 1px solid rgba(37,37,31,.22);
+  background: rgba(255,255,255,.16);
+}
+.note-detail strong { display: block; margin-bottom: 14px; font-size: 11px; letter-spacing: .1em; }
+.note-detail ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+.note-detail li { color: rgba(37,37,31,.72); font-size: 13px; line-height: 1.65; }
+.note-detail li::before { content: "↳"; color: var(--orange); margin-right: 9px; }
+.note-practice { padding-left: 28px; border-left: 1px solid rgba(37,37,31,.22); }
+.note-practice p { margin: 0; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(17px, 1.8vw, 24px); line-height: 1.65; }
+
+@media (max-width: 860px) {
+  .note-library-heading { grid-template-columns: 1fr; gap: 18px; }
+  .note-toolbar { grid-template-columns: 1fr; }
+  .note-detail { grid-template-columns: 1fr; margin-left: 0; }
+  .note-practice { padding-left: 0; padding-top: 22px; border-left: 0; border-top: 1px solid rgba(37,37,31,.22); }
+}
+
+@media (max-width: 760px) {
+  .note-library { margin-inline: 22px; padding-top: 70px; }
+  .note-item summary { grid-template-columns: 40px 1fr 24px; gap: 12px; }
+  .note-summary-main h3 { font-size: 24px; }
+  .note-detail { padding: 20px; }
+}

@@ -1,0 +1,129 @@
+.subject-gateway {
+  margin: 0 clamp(22px, 6vw, 92px);
+  padding: clamp(96px, 10vw, 150px) 0;
+  border-top: 1px solid rgba(37,37,31,.24);
+}
+
+.subject-gateway-heading {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 44px;
+}
+
+.subject-gateway-heading h2 {
+  margin: 8px 0 0;
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+  font-size: clamp(46px, 6vw, 88px);
+  line-height: 1.03;
+  font-weight: 500;
+}
+
+.subject-gateway-heading > p {
+  margin: 0;
+  max-width: 520px;
+  justify-self: end;
+  color: rgba(37,37,31,.58);
+  line-height: 1.85;
+}
+
+.subject-major-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  border-top: 1px solid rgba(37,37,31,.34);
+  border-left: 1px solid rgba(37,37,31,.34);
+}
+
+.subject-major {
+  appearance: none;
+  position: relative;
+  min-height: 390px;
+  padding: clamp(28px, 4vw, 58px);
+  border: 0;
+  border-right: 1px solid rgba(37,37,31,.34);
+  border-bottom: 1px solid rgba(37,37,31,.34);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.subject-major::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  aspect-ratio: 1;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  right: -70px;
+  top: -65px;
+  opacity: .14;
+  transition: transform .35s ease;
+}
+
+.subject-major:hover::after,
+.subject-major.active::after { transform: scale(1.22); }
+.subject-major-shenlun { background: #dce4f3; }
+.subject-major-interview { background: #f2d8cc; }
+.subject-major.active { box-shadow: inset 0 -8px 0 var(--ink); }
+.subject-major-no { display: block; font: italic 13px Georgia, serif; opacity: .55; }
+.subject-major strong { display: block; margin-top: 66px; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(48px, 6vw, 86px); font-weight: 500; line-height: 1; }
+.subject-major p { margin: 24px 0 0; max-width: 390px; color: rgba(37,37,31,.6); line-height: 1.8; }
+.subject-major-action { position: absolute; left: clamp(28px, 4vw, 58px); bottom: 28px; font-size: 11px; }
+
+.subject-module-panel { border-left: 1px solid rgba(37,37,31,.3); border-right: 1px solid rgba(37,37,31,.3); border-bottom: 1px solid rgba(37,37,31,.3); }
+.subject-panel-intro { display: grid; grid-template-columns: .5fr 1.5fr; gap: 30px; padding: 30px clamp(22px,3vw,42px); background: rgba(244,240,231,.55); border-bottom: 1px solid rgba(37,37,31,.26); }
+.subject-panel-intro > span { font: italic 11px Georgia, serif; letter-spacing: .09em; }
+.subject-panel-intro p { margin: 0; max-width: 760px; line-height: 1.8; color: rgba(37,37,31,.6); }
+.subject-panel-intro b { color: var(--ink); }
+
+.subject-module-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
+.subject-module-card { position: relative; min-height: 390px; padding: 28px; border-right: 1px solid rgba(37,37,31,.24); color: var(--ink); text-decoration: none; transition: transform .22s ease, filter .22s ease; }
+.subject-module-card:last-child { border-right: 0; }
+.subject-module-card:hover { transform: translateY(-7px); filter: saturate(1.08); z-index: 2; box-shadow: 0 12px 30px rgba(37,37,31,.09); }
+.subject-module-card.framework { background: #dce4f3; }
+.subject-module-card.questions { background: #f2d8cc; }
+.subject-module-card.writing { background: #eef2ce; }
+.subject-module-card.videos { background: #e1ddea; }
+.subject-module-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.subject-module-top span { font: italic 14px Georgia,serif; }
+.subject-module-top i { font: italic 10px Georgia,serif; opacity: .5; letter-spacing: .12em; }
+.subject-module-card h3 { margin: 62px 0 14px; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(31px,3.1vw,49px); font-weight: 500; }
+.subject-module-card > p { min-height: 82px; line-height: 1.75; color: rgba(37,37,31,.62); font-size: 12px; }
+.subject-module-card small { display: block; margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(37,37,31,.22); font-size: 10px; line-height: 1.8; }
+.subject-module-card > b { position: absolute; right: 22px; bottom: 20px; font-size: 28px; font-weight: 400; }
+
+.interview-module-panel { background: #f5e8df; }
+.interview-preview-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
+.interview-preview-card { min-height: 300px; padding: 28px; border-right: 1px solid rgba(37,37,31,.2); }
+.interview-preview-card:last-child { border-right: 0; }
+.interview-preview-card > span { font: italic 13px Georgia,serif; opacity: .5; }
+.interview-preview-card h3 { margin: 54px 0 12px; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(28px,3vw,43px); font-weight: 500; }
+.interview-preview-card p { line-height: 1.7; color: rgba(37,37,31,.58); }
+.interview-preview-card small { display: block; margin-top: 36px; color: var(--orange); font-size: 9px; letter-spacing: .08em; }
+
+@media (max-width: 1050px) {
+  .subject-module-grid,
+  .interview-preview-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .subject-module-card:nth-child(2) { border-right: 0; }
+  .subject-module-card:nth-child(-n+2) { border-bottom: 1px solid rgba(37,37,31,.24); }
+  .interview-preview-card:nth-child(2) { border-right: 0; }
+  .interview-preview-card:nth-child(-n+2) { border-bottom: 1px solid rgba(37,37,31,.2); }
+}
+
+@media (max-width: 760px) {
+  .subject-gateway { margin-inline: 22px; padding-top: 84px; }
+  .subject-gateway-heading { grid-template-columns: 1fr; gap: 20px; }
+  .subject-gateway-heading > p { justify-self: start; }
+  .subject-major-grid { grid-template-columns: 1fr; }
+  .subject-major { min-height: 320px; }
+  .subject-panel-intro { grid-template-columns: 1fr; gap: 12px; }
+  .subject-module-grid,
+  .interview-preview-grid { grid-template-columns: 1fr; }
+  .subject-module-card,
+  .interview-preview-card { border-right: 0; border-bottom: 1px solid rgba(37,37,31,.22); }
+  .subject-module-card:last-child,
+  .interview-preview-card:last-child { border-bottom: 0; }
+  .subject-module-card { min-height: 330px; }
+}
