@@ -25,6 +25,7 @@ export function FrameworkHeroMenu() {
       {entries.map((item) => (
         <button
           className={launching === item.key ? 'launching' : ''}
+          data-framework-hero={item.key}
           key={item.key}
           type="button"
           onClick={() => enter(item.key)}
