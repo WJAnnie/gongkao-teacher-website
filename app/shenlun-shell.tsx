@@ -64,7 +64,7 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
     <main className={`shenlun-page ${tone} shenlun-tone-${tone}`}>
       <LearningPageEffects />
       <LearningTopNav active={active} />
-      <header className="shenlun-hero">
+      <header className="shenlun-hero learning-hero-standard">
         <div className="shenlun-hero-topline"><span>申 / SHENLUN</span><span>答卷之外 · 申论学习</span></div>
         <span className="exam-review-stamp" aria-hidden="true">阅</span>
         <p className="shenlun-hero-eyebrow">{eyebrow}</p>
