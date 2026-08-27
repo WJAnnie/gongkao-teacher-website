@@ -1,0 +1,41 @@
+/* 方法框架：目录靠近视口左侧，正文保持页面视觉中心 */
+@media (min-width: 1021px) {
+  .framework-content .framework-manual {
+    width: calc(100vw - 24px);
+    margin-left: calc(50% - 50vw + 12px);
+    margin-right: 0;
+    grid-template-columns: 252px minmax(0,1fr);
+    gap: clamp(34px,3.8vw,68px);
+    padding-left: 0;
+    padding-right: clamp(28px,3.8vw,64px);
+  }
+
+  .framework-content .framework-manual-sidebar {
+    padding-left: 0;
+    transform: translateX(-4px);
+  }
+
+  .framework-content .framework-manual-reading {
+    width: 100%;
+    max-width: 1220px;
+    justify-self: center;
+  }
+
+  .framework-content .framework-manual-article {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1480px) {
+  .framework-content .framework-manual {
+    width: calc(100vw - 16px);
+    margin-left: calc(50% - 50vw + 8px);
+    padding-right: clamp(40px,4vw,76px);
+  }
+  .framework-content .framework-manual-sidebar {
+    transform: translateX(-8px);
+  }
+  .framework-content .framework-manual-reading {
+    max-width: 1280px;
+  }
+}
