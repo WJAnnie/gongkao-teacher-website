@@ -77,7 +77,16 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
             <FrameworkHeroMenu />
           ) : (
             <nav className="shenlun-route-strip" aria-label="申论学习路径">
-              {routes.map((item, index) => <a className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`} href={item.href} key={item.tone}><span>0{index + 1}</span><b>{item.label}</b></a>)}
+              {routes.map((item, index) => (
+                <a
+                  className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`}
+                  href={item.href}
+                  key={item.tone}
+                  aria-current={tone === item.tone ? 'page' : undefined}
+                >
+                  <span>0{index + 1}</span><b>{item.label}</b>
+                </a>
+              ))}
             </nav>
           )}
         </div>
