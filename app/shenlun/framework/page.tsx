@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ShenlunShell } from '../../shenlun-shell';
 import { questionTypeKnowledge } from './question-type-knowledge';
 import { QuestionTypeSwitcher } from './question-type-switcher';
+import { FrameworkExpression } from './framework-expression';
 
 export const metadata: Metadata = {
   title: '方法框架｜申论学习｜答卷之外',
@@ -9,14 +10,6 @@ export const metadata: Metadata = {
 };
 
 const questionTypes = ['summary', 'analysis', 'solution', 'implementation', 'essay'].map((slug) => questionTypeKnowledge[slug]);
-
-const expressionItems = [
-  '先回应题目，再展开说明',
-  '同类要点尽量并列',
-  '一个要点承担一个核心意思',
-  '优先使用材料中的规范用词',
-  '删掉空话和重复解释',
-] as const;
 
 const typeItems = [
   '归纳概括：找全、分准、压缩',
@@ -65,13 +58,19 @@ export default function FrameworkPage() {
         </div>
 
         <div className="framework-layer-stack">
-          <section className="framework-layer-section" id="framework-expression">
+          <section className="framework-layer-section framework-expression-layer" id="framework-expression">
             <LayerSummary
               no="01"
               title="表达规则"
-              desc="答案要让阅卷人快速看见信息。要点明确、层次清楚、用词准确，材料里的规范表达尽量用起来。"
-              items={expressionItems}
+              desc="这一部分先把申论从头讲明白：考试是什么、答题卡长什么样、题怎么审、材料怎么看、答案怎样提炼和组织。小白先建立完整认识，做过题的同学再回来补底层逻辑。"
+              items={[
+                '先认识考试和答题卡，再进入方法',
+                '审题固定看：范围、对象、问法、要求、字数',
+                '读材料始终围绕对象和要素判断',
+                '从材料到答案，要处理层级和逻辑关系',
+              ]}
             />
+            <FrameworkExpression />
           </section>
 
           <section className="framework-layer-section framework-layer-types" id="framework-types">
