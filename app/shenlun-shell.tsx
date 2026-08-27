@@ -28,11 +28,10 @@ const routes = [
 
 const guides: Record<Exclude<ShenlunTone, 'home'>, GuideItem[]> = {
   framework: [
-    { no: '01', label: '归纳概括', selector: '#framework-question-types', key: 'summary' },
-    { no: '02', label: '综合分析', selector: '#framework-question-types', key: 'analysis' },
-    { no: '03', label: '提出对策', selector: '#framework-question-types', key: 'solution' },
-    { no: '04', label: '贯彻执行', selector: '#framework-question-types', key: 'implementation' },
-    { no: '05', label: '文章写作', selector: '#framework-question-types', key: 'essay' },
+    { no: '01', label: '表达规则', selector: '#framework-expression' },
+    { no: '02', label: '题型框架', selector: '#framework-types' },
+    { no: '03', label: '核心能力', selector: '#framework-abilities' },
+    { no: '04', label: '实用技巧', selector: '#framework-tips' },
   ],
   questions: [
     { no: '01', label: '按年份看', selector: '.shenlun-map-card:nth-child(1)' },
@@ -78,8 +77,8 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
           </nav>
         </div>
       </header>
-      <div className="shenlun-color-line" aria-hidden="true" />
       {guide.length > 0 && <PageGuide items={guide} />}
+      <div className="shenlun-color-line" aria-hidden="true" />
       {children}
       <footer className="shenlun-footer">
         <div><span>申论学习</span><a href="/shenlun/framework/">方法框架</a><a href="/shenlun/questions/">真题精练</a><a href="/shenlun/writing/">写作积累</a><a href="/shenlun/videos/">课程现场</a></div>
