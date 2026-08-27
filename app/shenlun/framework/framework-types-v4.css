@@ -1,0 +1,93 @@
+.type-v3-course .expression-v2-subtitle > span {
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:8px 14px 8px 15px;
+  border-left:3px solid var(--shenlun-accent);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--shenlun-accent) 13%,transparent),color-mix(in srgb,var(--shenlun-accent) 4%,transparent));
+  box-shadow:0 8px 24px color-mix(in srgb,var(--shenlun-accent) 8%,transparent);
+  color:var(--shenlun-accent);
+  font:700 13px/1.15 system-ui,-apple-system,"PingFang SC",sans-serif;
+  letter-spacing:.06em;
+}
+
+.type-v3-course .type-v2-case > span,
+.type-v3-course .type-v3-format-sheet .format-tag,
+.type-v3-course .type-v3-public-subtypes span,
+.type-v3-course .type-v3-critique .critique-copy > span,
+.type-v3-course .type-v3-article-structure span,
+.type-v3-course .type-v3-plan-flow span,
+.type-v3-course .type-v3-thesis-groups span,
+.type-v3-course .type-v3-evidence-grid span {
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+}
+
+.type-v3-course .type-v3-critique aside b {
+  font-size:12px;
+  line-height:1.45;
+}
+
+.type-v4-analysis-examples { margin-top:54px; }
+.type-v4-analysis-lead { margin:0 0 26px; color:rgba(37,37,31,.58); font-size:13px; line-height:2; }
+.type-v4-analysis-case {
+  display:grid;
+  grid-template-columns:minmax(0,1.65fr) minmax(250px,.7fr);
+  margin:0 0 22px;
+  border:1px solid var(--v2-line);
+  background:linear-gradient(135deg,rgba(255,255,255,.46),color-mix(in srgb,var(--shenlun-accent) 3%,transparent));
+}
+.type-v4-analysis-case .case-copy { padding:32px 36px; }
+.type-v4-analysis-case .case-copy > span {
+  display:inline-flex;
+  padding:6px 10px;
+  border-left:2px solid var(--shenlun-accent);
+  background:color-mix(in srgb,var(--shenlun-accent) 8%,transparent);
+  color:var(--shenlun-accent);
+  font:700 12px/1 system-ui,sans-serif;
+  letter-spacing:.08em;
+}
+.type-v4-analysis-case h5 { margin:16px 0 20px; font:500 25px/1.45 "Songti SC","SimSun",serif; }
+.type-v4-analysis-case .case-copy p { margin:0 0 12px; color:rgba(37,37,31,.68); font-size:13px; line-height:2.05; }
+.type-v4-analysis-case aside { padding:32px 28px; border-left:1px solid var(--v2-line); background:color-mix(in srgb,var(--shenlun-accent) 5%,transparent); }
+.type-v4-analysis-case aside b { display:block; margin-bottom:15px; color:var(--shenlun-accent); font-size:12px; letter-spacing:.08em; }
+.type-v4-analysis-case aside p { margin:0; color:rgba(37,37,31,.58); font-size:12px; line-height:1.95; }
+
+.type-v4-outline-wrap { margin:46px 0 52px; }
+.type-v4-outline-example {
+  display:grid;
+  grid-template-columns:minmax(0,1.7fr) minmax(260px,.72fr);
+  margin-top:26px;
+  border:1px solid var(--v2-line);
+  background:linear-gradient(135deg,rgba(255,255,255,.46),color-mix(in srgb,var(--shenlun-accent) 3%,transparent));
+}
+.type-v4-outline-example .outline-copy { padding:36px 40px; }
+.type-v4-outline-example .outline-copy > span {
+  color:var(--shenlun-accent);
+  font:700 12px/1 system-ui,sans-serif;
+  letter-spacing:.1em;
+}
+.type-v4-outline-example h5 { margin:15px 0 24px; font:500 27px/1.45 "Songti SC","SimSun",serif; }
+.type-v4-outline-example .outline-copy p { margin:0 0 14px; color:rgba(37,37,31,.68); font-size:13px; line-height:2.05; }
+.type-v4-outline-example aside { padding:36px 30px; border-left:1px solid var(--v2-line); background:color-mix(in srgb,var(--shenlun-accent) 5%,transparent); }
+.type-v4-outline-example aside b { display:block; margin-bottom:18px; color:var(--shenlun-accent); font-size:12px; letter-spacing:.08em; }
+.type-v4-outline-example aside p { position:relative; margin:0 0 15px; padding-left:14px; color:rgba(37,37,31,.58); font-size:12px; line-height:1.95; }
+.type-v4-outline-example aside p::before { content:""; position:absolute; left:0; top:.82em; width:6px; height:1px; background:var(--shenlun-accent); }
+
+@media (max-width:900px) {
+  .type-v4-analysis-case,
+  .type-v4-outline-example { grid-template-columns:1fr; }
+  .type-v4-analysis-case aside,
+  .type-v4-outline-example aside { border-left:0; border-top:1px solid var(--v2-line); }
+}
+
+@media (max-width:760px) {
+  .type-v3-course .expression-v2-subtitle > span { min-height:30px; padding:7px 11px; font-size:12px; }
+  .type-v4-analysis-case .case-copy,
+  .type-v4-analysis-case aside,
+  .type-v4-outline-example .outline-copy,
+  .type-v4-outline-example aside { padding:26px 22px; }
+  .type-v4-analysis-case h5,
+  .type-v4-outline-example h5 { font-size:22px; }
+}
