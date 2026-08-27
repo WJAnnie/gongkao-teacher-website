@@ -1,5 +1,6 @@
 import { MotionLayer } from './motion-layer';
 import { SubjectGateway } from './subject-gateway';
+import { HomeLearningRepeat } from './home-learning-repeat';
 
 export default function Home() {
   return (
@@ -123,6 +124,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <HomeLearningRepeat />
 
       <footer className="footer">
         <span>答卷之外 · 高老师 · 申论 × 结构化面试</span>
