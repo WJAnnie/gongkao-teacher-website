@@ -29,7 +29,7 @@ export function FrameworkHeroMenu() {
           type="button"
           onClick={() => enter(item.key)}
         >
-          <span>{item.no}</span>
+          <span style={{ padding: 0, border: 0 }}>{item.no}</span>
           <b>{item.label}</b>
           <i aria-hidden="true">↘</i>
         </button>
