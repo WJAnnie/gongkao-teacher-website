@@ -28,11 +28,11 @@ const routes = [
 
 const guides: Record<Exclude<ShenlunTone, 'home'>, GuideItem[]> = {
   framework: [
-    { no: '01', label: '归纳概括', selector: '.question-type-inline:nth-child(1)' },
-    { no: '02', label: '综合分析', selector: '.question-type-inline:nth-child(2)' },
-    { no: '03', label: '提出对策', selector: '.question-type-inline:nth-child(3)' },
-    { no: '04', label: '贯彻执行', selector: '.question-type-inline:nth-child(4)' },
-    { no: '05', label: '文章写作', selector: '.question-type-inline:nth-child(5)' },
+    { no: '01', label: '归纳概括', selector: '#framework-question-types', key: 'summary' },
+    { no: '02', label: '综合分析', selector: '#framework-question-types', key: 'analysis' },
+    { no: '03', label: '提出对策', selector: '#framework-question-types', key: 'solution' },
+    { no: '04', label: '贯彻执行', selector: '#framework-question-types', key: 'implementation' },
+    { no: '05', label: '文章写作', selector: '#framework-question-types', key: 'essay' },
   ],
   questions: [
     { no: '01', label: '按年份看', selector: '.shenlun-map-card:nth-child(1)' },
@@ -65,36 +65,22 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
     <main className={`shenlun-page ${tone} shenlun-tone-${tone}`}>
       <LearningPageEffects />
       <LearningTopNav active={active} />
-
       <header className="shenlun-hero">
-        <div className="shenlun-hero-topline">
-          <span>申 / SHENLUN</span>
-          <span>答卷之外 · 申论学习</span>
-        </div>
+        <div className="shenlun-hero-topline"><span>申 / SHENLUN</span><span>答卷之外 · 申论学习</span></div>
         <span className="exam-review-stamp" aria-hidden="true">阅</span>
         <p className="shenlun-hero-eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
-        <div className="exam-meta-strip" aria-label="申论训练信息">
-          <span>科目 <b>申论</b></span>
-          <span>训练 <b>{toneToTraining[tone]}</b></span>
-          <span>复盘 <b>审题 · 要点 · 结构 · 表达</b></span>
-        </div>
+        <div className="exam-meta-strip" aria-label="申论训练信息"><span>科目 <b>申论</b></span><span>训练 <b>{toneToTraining[tone]}</b></span><span>复盘 <b>审题 · 要点 · 结构 · 表达</b></span></div>
         <div className="shenlun-hero-bottom">
           <p>{desc}</p>
           <nav className="shenlun-route-strip" aria-label="申论学习路径">
-            {routes.map((item, index) => (
-              <a className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`} href={item.href} key={item.tone}>
-                <span>0{index + 1}</span><b>{item.label}</b>
-              </a>
-            ))}
+            {routes.map((item, index) => <a className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`} href={item.href} key={item.tone}><span>0{index + 1}</span><b>{item.label}</b></a>)}
           </nav>
         </div>
       </header>
-
       <div className="shenlun-color-line" aria-hidden="true" />
       {guide.length > 0 && <PageGuide items={guide} />}
       {children}
-
       <footer className="shenlun-footer">
         <div><span>申论学习</span><a href="/shenlun/framework/">方法框架</a><a href="/shenlun/questions/">真题精练</a><a href="/shenlun/writing/">写作积累</a><a href="/shenlun/videos/">课程现场</a></div>
         <div><span>面试学习</span><a href="/interview/methods/">题型方法</a><a href="/interview/questions/">真题实战</a><a href="/interview/expression/">表达训练</a><a href="/interview/videos/">课程现场</a></div>
