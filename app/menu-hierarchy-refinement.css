@@ -1,0 +1,246 @@
+/* 全站菜单层级：最后加载，用于统一可点击、分组、选中与展开状态 */
+
+/* 二级页首屏四格导航：真正的链接必须有按钮感，当前页直接作用在 a.active */
+.shenlun-route-strip > a,
+.interview-route-strip > a {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 12px;
+  border-right: 1px solid rgba(37,37,31,.17);
+  border-bottom: 1px solid rgba(37,37,31,.17);
+  color: rgba(37,37,31,.66);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.shenlun-route-strip > a::after,
+.interview-route-strip > a::after {
+  content: "→";
+  opacity: .28;
+  transform: translateX(-3px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.shenlun-route-strip > a:hover,
+.interview-route-strip > a:hover {
+  color: var(--ink);
+  background: rgba(255,255,255,.32);
+}
+
+.shenlun-route-strip > a:hover::after,
+.interview-route-strip > a:hover::after {
+  opacity: .8;
+  transform: translateX(0);
+}
+
+.shenlun-route-strip > a.active {
+  color: var(--ink);
+  font-weight: 700;
+  background: color-mix(in srgb, var(--shenlun-accent) 14%, var(--paper));
+  box-shadow: inset 4px 0 0 var(--shenlun-accent);
+}
+
+.interview-route-strip > a.active {
+  color: var(--ink);
+  font-weight: 700;
+  background: color-mix(in srgb, var(--interview-color) 14%, var(--paper));
+  box-shadow: inset 4px 0 0 var(--interview-color);
+}
+
+.shenlun-route-strip > a.active::after,
+.interview-route-strip > a.active::after {
+  content: "当前";
+  opacity: .6;
+  transform: none;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+
+.shenlun-route-strip > a > span,
+.interview-route-strip > a > span {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font: italic 9px Georgia, serif;
+  opacity: .62;
+}
+
+.shenlun-route-strip > a > b,
+.interview-route-strip > a > b {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* 方法框架左栏：一级项与其子目录成为一个视觉组，单次只展开一个组 */
+.framework-layer-nav {
+  display: grid;
+  gap: 7px;
+}
+
+.framework-layer-group {
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.framework-layer-group.open {
+  border-color: color-mix(in srgb, var(--shenlun-accent) 19%, rgba(37,37,31,.11));
+  background: color-mix(in srgb, var(--shenlun-accent) 5%, transparent);
+  box-shadow: 0 8px 22px rgba(37,37,31,.035);
+}
+
+.framework-layer-nav .framework-layer-trigger {
+  position: relative;
+  width: 100%;
+  min-height: 50px;
+  display: grid;
+  grid-template-columns: 32px 1fr 20px;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 11px 10px 18px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease;
+}
+
+.framework-layer-nav .framework-layer-trigger:hover {
+  background: color-mix(in srgb, var(--shenlun-accent) 7%, transparent);
+}
+
+.framework-layer-nav .framework-layer-trigger::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.framework-layer-nav .framework-layer-trigger.active {
+  background: color-mix(in srgb, var(--shenlun-accent) 10%, transparent);
+}
+
+.framework-layer-nav .framework-layer-trigger.active::before {
+  background: var(--shenlun-accent);
+}
+
+.framework-layer-nav .framework-layer-trigger > span {
+  color: var(--shenlun-accent);
+  font: italic 10px Georgia,serif;
+}
+
+.framework-layer-nav .framework-layer-trigger > b {
+  font: 600 16px/1.2 "Songti SC","SimSun",serif;
+}
+
+.framework-layer-nav .framework-layer-trigger > i {
+  justify-self: end;
+  color: rgba(37,37,31,.45);
+  font-style: normal;
+  font-size: 14px;
+  transition: transform .2s ease, color .2s ease;
+}
+
+.framework-layer-group.open .framework-layer-trigger > i {
+  color: var(--shenlun-accent);
+  transform: rotate(180deg);
+}
+
+.framework-layer-children {
+  padding: 0 8px 9px 10px;
+}
+
+.framework-layer-group .framework-sub-nav {
+  position: relative;
+  margin: 0 0 0 14px;
+  padding: 7px 0 5px 15px;
+  border-top: 0;
+  border-left: 1px solid color-mix(in srgb, var(--shenlun-accent) 30%, rgba(37,37,31,.10));
+}
+
+.framework-layer-group .framework-sub-nav::before { display: none; }
+
+.framework-layer-group .framework-sub-nav button {
+  min-height: 36px;
+  grid-template-columns: 27px 1fr;
+  gap: 7px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  color: rgba(37,37,31,.68);
+}
+
+.framework-layer-group .framework-sub-nav button:hover {
+  transform: translateX(2px);
+  background: color-mix(in srgb, var(--shenlun-accent) 7%, transparent);
+}
+
+.framework-layer-group .framework-sub-nav button.active {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--shenlun-accent) 11%, var(--paper));
+  box-shadow: inset 3px 0 0 var(--shenlun-accent);
+}
+
+.framework-layer-group .framework-sub-nav button.active::before { display: none; }
+
+.framework-layer-group .framework-sub-nav button > span {
+  color: color-mix(in srgb, var(--shenlun-accent) 82%, var(--ink));
+  font-size: 9px;
+}
+
+.framework-layer-group .framework-sub-nav button > b {
+  color: inherit;
+  font: 500 12px/1.35 "Songti SC","SimSun",serif;
+}
+
+/* 展开阅读：无论滚动方向，展开正文都以固定视觉顶边开始 */
+.tips-article {
+  scroll-margin-top: 92px;
+}
+
+.tips-article-body {
+  scroll-margin-top: 88px;
+}
+
+.tips-article.open {
+  position: relative;
+}
+
+.tips-article.open > .tips-article-trigger {
+  position: relative;
+  z-index: 1;
+  background: color-mix(in srgb, var(--shenlun-accent) 8%, var(--paper));
+}
+
+.tips-article.open > .tips-article-body {
+  animation: reading-focus-in .2s ease-out;
+}
+
+@keyframes reading-focus-in {
+  from { opacity: .45; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tips-article.open > .tips-article-body { animation: none; }
+}
+
+@media (max-width: 820px) {
+  .framework-layer-group { border-radius: 9px; }
+  .framework-layer-nav .framework-layer-trigger { min-height: 48px; }
+  .framework-layer-group .framework-sub-nav button { min-height: 40px; }
+  .tips-article,
+  .tips-article-body { scroll-margin-top: 120px; }
+}
