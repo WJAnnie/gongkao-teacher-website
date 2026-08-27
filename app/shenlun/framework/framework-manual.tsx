@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FrameworkExpressionStepper } from './framework-expression-stepper';
 import { FrameworkTypeStepper, typeChapters } from './framework-type-stepper';
 import { FrameworkAbilities, coreAbilityChapters } from './framework-abilities';
+import { FrameworkCaseContext } from './framework-case-context';
 
 const layers = [
   { key: 'expression', no: '01', label: '表达规则' },
@@ -77,6 +78,7 @@ export function FrameworkManual() {
 
   return (
     <div className="framework-manual" id="framework-manual-top">
+      <FrameworkCaseContext activeLayer={activeLayer} />
       <button className="framework-mobile-index" type="button" onClick={() => setDrawerOpen(true)}>
         <span>本页目录</span>
         <b>{mobileLabel}</b>
