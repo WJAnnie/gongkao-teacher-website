@@ -22,6 +22,7 @@ import './home-refresh.css';
 import './learning-page-guide-polish.css';
 import './hero-content-index.css';
 import './learning-hero-standard.css';
+import './home-song-player.css';
 import './shenlun/framework/framework-expression.css';
 import './shenlun/framework/framework-expression-stepper.css';
 import './shenlun/framework/framework-manual.css';
