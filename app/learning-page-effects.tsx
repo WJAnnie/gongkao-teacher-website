@@ -65,7 +65,6 @@ export function PageGuide({ items, embedded = false }: { items: GuideItem[]; emb
   return (
     <>
       <nav className={`page-guide-inline${embedded ? ' hero-page-guide' : ''}`} aria-label="本页三级内容导览">
-        <div className="page-guide-heading"><span>CONTENT INDEX</span><b>本页内容导览</b></div>
         <div className="page-guide-items">
           {items.map((item, index) => (
             <button className={active === index ? 'active' : ''} key={`${item.label}-${index}`} onClick={() => go(item, index)} type="button">
