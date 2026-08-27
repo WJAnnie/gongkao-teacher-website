@@ -78,7 +78,7 @@ export function FrameworkManual() {
 
   return (
     <div className="framework-manual" id="framework-manual-top">
-      <FrameworkCaseContext activeLayer={activeLayer} />
+      <FrameworkCaseContext activeLayer={`${activeLayer}-${activeExpression}-${activeType}`} />
       <button className="framework-mobile-index" type="button" onClick={() => setDrawerOpen(true)}>
         <span>本页目录</span>
         <b>{mobileLabel}</b>
