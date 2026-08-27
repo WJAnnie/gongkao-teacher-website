@@ -5,64 +5,65 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 const AUDIO_URL = 'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3';
 const FALLBACK_DURATION = 234.072;
 
-// 时间轴依据用户上传的 3:54 成品音频，结合实际波形段落与歌曲结构校准到行。
+// 时间点来自仓库 Audit Xiangan Lyrics 对同一份成品 MP3 的强制对齐产物，
+// 播放器只以 HTMLAudioElement.currentTime 为时钟，不另开独立歌词计时器。
 const LYRICS = [
-  { at: 8.90, text: '清晨的灯还亮在窗' },
-  { at: 13.35, text: '桌上的书翻过几章' },
-  { at: 17.80, text: '行测的题做了又想' },
-  { at: 22.25, text: '申论的字写了又改几行' },
-  { at: 26.70, text: '有时候路显得很长' },
-  { at: 31.15, text: '有时候心也会迷茫' },
-  { at: 35.60, text: '可昨天不会替你登场' },
-  { at: 40.05, text: '今天的你还要继续向前闯' },
-  { at: 44.50, text: '一道题，一页纸，一段时光' },
-  { at: 49.35, text: '一点点，把未知变成日常' },
-  { at: 54.20, text: '别急着问还有多远的地方' },
-  { at: 59.05, text: '先把今天走得坦荡' },
-  { at: 63.90, text: '乘一程云帆，向心中的岸启航' },
-  { at: 66.85, text: '穿过几阵风，也穿过几场迷茫' },
-  { at: 69.80, text: '行测练判断，申论写下主张' },
-  { at: 72.75, text: '一笔一画，都在靠近梦想' },
-  { at: 75.70, text: '乘一程云帆，朝想去的地方' },
-  { at: 78.41, text: '不用比谁快，也不用四处张望' },
-  { at: 81.12, text: '今天坐书桌，明天走进考场' },
-  { at: 83.84, text: '走过的每一步，终会有回响' },
-  { at: 86.55, text: '资料分析算到天亮' },
-  { at: 90.80, text: '判断推理绕过几场' },
-  { at: 95.05, text: '有些答案曾经勉强' },
-  { at: 99.30, text: '后来才懂方法比答案更长' },
-  { at: 103.55, text: '申论不是辞藻漂亮' },
-  { at: 107.80, text: '也不是模板写满纸张' },
-  { at: 112.05, text: '读懂材料厘清思想' },
-  { at: 116.30, text: '才能让每一句话都有分量' },
-  { at: 120.55, text: '一道题，一次错，一次成长' },
-  { at: 124.80, text: '一次次，把慌张变成平常' },
-  { at: 129.05, text: '那些没人知道的晚上' },
-  { at: 133.30, text: '都在替未来积攒力量' },
-  { at: 137.55, text: '乘一程云帆，向心中的岸启航' },
-  { at: 140.50, text: '穿过几阵风，也穿过几场迷茫' },
-  { at: 143.45, text: '行测练判断，申论写下主张' },
-  { at: 146.40, text: '一笔一画，都在靠近梦想' },
-  { at: 149.35, text: '乘一程云帆，朝想去的地方' },
-  { at: 152.32, text: '不用比谁快，也不用四处张望' },
-  { at: 155.30, text: '今天坐书桌，明天走进考场' },
-  { at: 158.28, text: '走过的每一步，终会有回响' },
-  { at: 161.25, text: '是遇到难题，不再慌张' },
-  { at: 165.45, text: '是面对材料，学会判断' },
-  { at: 169.65, text: '是一次次想清楚以后' },
-  { at: 173.85, text: '再写下自己的主张' },
-  { at: 178.05, text: '有人陪你看过几页文章' },
-  { at: 182.25, text: '有人提醒你别急着找答案' },
-  { at: 186.45, text: '云起的时候，帆自然会扬' },
-  { at: 190.65, text: '剩下的路，要由你自己去闯' },
-  { at: 194.85, text: '乘一程云帆，向心中的岸启航' },
-  { at: 197.80, text: '走过这段路，也走过年少时光' },
-  { at: 200.75, text: '行测有方法，申论自有文章' },
-  { at: 203.70, text: '提笔的时候，心里已有方向' },
-  { at: 206.65, text: '乘一程云帆，朝想去的地方' },
-  { at: 209.60, text: '等有一天，你真的站在人群中央' },
-  { at: 212.55, text: '回头看那些，伏案许久的晚上' },
-  { at: 215.50, text: '你会发现，坚持早已经有了模样' },
+  { at: 11.88, text: '清晨的灯还亮在窗' },
+  { at: 16.42, text: '桌上的书翻过几章' },
+  { at: 19.80, text: '行测的题做了又想' },
+  { at: 22.86, text: '申论的字写了又改几行' },
+  { at: 26.50, text: '有时候路显得很长' },
+  { at: 29.90, text: '有时候心也会迷茫' },
+  { at: 32.94, text: '可昨天不会替你登场' },
+  { at: 36.34, text: '今天的你还要继续向前闯' },
+  { at: 40.12, text: '一道题，一页纸，一段时光' },
+  { at: 43.76, text: '一点点，把未知变成日常' },
+  { at: 47.44, text: '别急着问还有多远的地方' },
+  { at: 50.40, text: '先把今天走得坦荡' },
+  { at: 53.42, text: '乘一程云帆，向心中的岸启航' },
+  { at: 57.06, text: '穿过几阵风，也穿过几场迷茫' },
+  { at: 60.88, text: '行测练判断，申论写下主张' },
+  { at: 64.28, text: '一笔一画，都在靠近梦想' },
+  { at: 67.18, text: '乘一程云帆，朝想去的地方' },
+  { at: 70.84, text: '不用比谁快，也不用四处张望' },
+  { at: 74.52, text: '今天坐书桌，明天走进考场' },
+  { at: 77.86, text: '走过的每一步，终会有回响' },
+  { at: 84.26, text: '资料分析算到天亮' },
+  { at: 90.34, text: '判断推理绕过几场' },
+  { at: 93.82, text: '有些答案曾经勉强' },
+  { at: 96.88, text: '后来才懂方法比答案更长' },
+  { at: 100.50, text: '申论不是辞藻漂亮' },
+  { at: 104.06, text: '也不是模板写满纸张' },
+  { at: 107.30, text: '读懂材料理清思想' },
+  { at: 110.34, text: '才能让每一句话都有分量' },
+  { at: 114.22, text: '一道题，一次错，一次成长' },
+  { at: 117.80, text: '一次次，把慌张变成平常' },
+  { at: 121.32, text: '那些没人知道的晚上' },
+  { at: 124.40, text: '都在替未来积攒力量' },
+  { at: 127.40, text: '乘一程云帆，向心中的岸启航' },
+  { at: 131.08, text: '穿过几阵风，也穿过几场迷茫' },
+  { at: 134.90, text: '行测练判断，申论写下主张' },
+  { at: 138.30, text: '一笔一画，都在靠近梦想' },
+  { at: 141.18, text: '乘一程云帆，朝想去的地方' },
+  { at: 144.86, text: '不用比谁快，也不用四处张望' },
+  { at: 148.54, text: '今天坐书桌，明天走进考场' },
+  { at: 151.86, text: '走过的每一步，终会有回响' },
+  { at: 157.70, text: '是遇到难题，不再慌张' },
+  { at: 161.68, text: '是面对材料，学会判断' },
+  { at: 165.02, text: '是一次次想清楚以后' },
+  { at: 168.40, text: '再写下自己的主张' },
+  { at: 171.44, text: '有人陪你看过几页文章' },
+  { at: 174.94, text: '有人提醒你别急着找答案' },
+  { at: 178.48, text: '云起的时候，帆自然会扬' },
+  { at: 181.80, text: '剩下的路，要由你自己去闯' },
+  { at: 187.30, text: '乘一程云帆，向心中的岸启航' },
+  { at: 191.72, text: '走过这段路，也走过年少时光' },
+  { at: 195.28, text: '行测有方法，申论自有文章' },
+  { at: 198.70, text: '提笔的时候，心里已有方向' },
+  { at: 201.76, text: '乘一程云帆，朝想去的地方' },
+  { at: 205.42, text: '等有一天，你真的站在人群中央' },
+  { at: 209.04, text: '回头看那些，伏案许久的晚上' },
+  { at: 212.46, text: '你会发现，坚持早已经有了模样' },
 ] as const;
 
 function formatTime(value: number) {
@@ -84,8 +85,14 @@ export function HomeSongPlayer() {
   const [audioError, setAudioError] = useState(false);
   const [playerVisible, setPlayerVisible] = useState(false);
 
-  // 进站先主动尝试播放；播放器本身仍在第二屏以后才显示。
-  // 若浏览器拦截有声自动播放，后面的首次交互逻辑会立即补播。
+  const syncFromAudio = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    setCurrentTime(Number.isFinite(audio.currentTime) ? audio.currentTime : 0);
+    if (Number.isFinite(audio.duration) && audio.duration > 0) setDuration(audio.duration);
+  };
+
+  // 只由这个播放器负责自动播放。若浏览器拦截，等待首次用户交互后补播。
   useEffect(() => {
     let wasDismissed = false;
     try {
@@ -103,14 +110,13 @@ export function HomeSongPlayer() {
       setStarted(true);
       setPlaying(true);
       setAudioError(false);
+      syncFromAudio();
     }).catch(() => {
-      // Chrome / Edge / Safari 可能阻止未经过用户手势的有声自动播放。
-      // 保持静默，等待首次页面交互后自动补播。
+      // 浏览器可能阻止未经过用户手势的有声自动播放。
     });
   }, []);
 
-  // 首屏保持干净：只有当第二屏 ABOUT 真正开始进入阅读位置后才显示播放器。
-  // 继续向下阅读时保持显示；如果用户重新滚回首屏，则再次隐藏。
+  // 首屏保持干净：ABOUT 进入阅读位置后显示播放器；滚回首屏再次隐藏。
   useEffect(() => {
     let frame = 0;
     const updateVisibility = () => {
@@ -136,17 +142,26 @@ export function HomeSongPlayer() {
     };
   }, []);
 
+  // 播放时用 rAF 提供更顺滑的进度显示；歌词时间仍直接读取 audio.currentTime。
   useEffect(() => {
     if (!playing) return;
     let frame = 0;
     const tick = () => {
-      const audio = audioRef.current;
-      if (audio) setCurrentTime(audio.currentTime);
+      syncFromAudio();
       frame = window.requestAnimationFrame(tick);
     };
     frame = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(frame);
   }, [playing]);
+
+  // 浏览器后台标签页会节流 rAF；回到页面时立即重新取真实音频时间。
+  useEffect(() => {
+    const syncOnVisibility = () => {
+      if (!document.hidden) syncFromAudio();
+    };
+    document.addEventListener('visibilitychange', syncOnVisibility);
+    return () => document.removeEventListener('visibilitychange', syncOnVisibility);
+  }, []);
 
   useEffect(() => {
     if (dismissed || started) return;
@@ -157,6 +172,7 @@ export function HomeSongPlayer() {
         setStarted(true);
         setPlaying(true);
         setAudioError(false);
+        syncFromAudio();
       }).catch(() => undefined);
     };
 
@@ -195,12 +211,14 @@ export function HomeSongPlayer() {
         setStarted(true);
         setPlaying(true);
         setAudioError(false);
+        syncFromAudio();
       } catch {
         setAudioError(true);
       }
     } else {
       audio.pause();
       setPlaying(false);
+      syncFromAudio();
     }
   };
 
@@ -213,6 +231,7 @@ export function HomeSongPlayer() {
 
   const reopenPlayer = () => {
     setDismissed(false);
+    syncFromAudio();
     try { window.sessionStorage.removeItem('xiang-an-dismissed'); } catch { /* noop */ }
   };
 
@@ -220,11 +239,11 @@ export function HomeSongPlayer() {
     const audio = audioRef.current;
     if (!audio) return;
     audio.currentTime = value;
-    setCurrentTime(value);
+    syncFromAudio();
   };
 
   const currentLyric = activeIndex >= 0 ? LYRICS[activeIndex].text : '♪ 前奏 · 向岸';
-  const nextLyric = LYRICS[Math.min(activeIndex + 1, LYRICS.length - 1)]?.text ?? '';
+  const nextLyric = activeIndex + 1 < LYRICS.length ? LYRICS[activeIndex + 1].text : '';
   const safeDuration = duration || FALLBACK_DURATION;
 
   return (
@@ -233,10 +252,29 @@ export function HomeSongPlayer() {
         ref={audioRef}
         src={AUDIO_URL}
         preload="metadata"
-        onLoadedMetadata={(event) => setDuration(event.currentTarget.duration || FALLBACK_DURATION)}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={() => { setPlaying(false); setCurrentTime(0); }}
+        onLoadedMetadata={(event) => {
+          const audio = event.currentTarget;
+          setDuration(audio.duration || FALLBACK_DURATION);
+          setCurrentTime(audio.currentTime || 0);
+        }}
+        onDurationChange={syncFromAudio}
+        onTimeUpdate={syncFromAudio}
+        onSeeking={syncFromAudio}
+        onSeeked={syncFromAudio}
+        onPlay={() => {
+          setStarted(true);
+          setPlaying(true);
+          setAudioError(false);
+          syncFromAudio();
+        }}
+        onPause={() => {
+          setPlaying(false);
+          syncFromAudio();
+        }}
+        onEnded={() => {
+          setPlaying(false);
+          setCurrentTime(0);
+        }}
         onError={() => setAudioError(true)}
       />
 
@@ -258,7 +296,7 @@ export function HomeSongPlayer() {
 
           <div className="home-song-live" aria-live="polite">
             <p>{audioError ? '音频暂时无法加载，请稍后再试。' : currentLyric}</p>
-            {!audioError && <span>{nextLyric}</span>}
+            {!audioError && nextLyric && <span>{nextLyric}</span>}
           </div>
 
           <div className="home-song-controls">
@@ -271,7 +309,7 @@ export function HomeSongPlayer() {
                 type="range"
                 min="0"
                 max={safeDuration}
-                step="0.1"
+                step="0.05"
                 value={Math.min(currentTime, safeDuration)}
                 onChange={(event) => seek(Number(event.target.value))}
               />
