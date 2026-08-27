@@ -30,7 +30,7 @@ export function LearningPageEffects() {
   return <div ref={glowRef} className="learning-theme-glow" aria-hidden="true" />;
 }
 
-export function PageGuide({ items }: { items: GuideItem[] }) {
+export function PageGuide({ items, embedded = false }: { items: GuideItem[]; embedded?: boolean }) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -64,12 +64,12 @@ export function PageGuide({ items }: { items: GuideItem[] }) {
 
   return (
     <>
-      <nav className="page-guide-inline" aria-label="本页三级内容导览">
+      <nav className={`page-guide-inline${embedded ? ' hero-page-guide' : ''}`} aria-label="本页三级内容导览">
         <div className="page-guide-heading"><span>CONTENT INDEX</span><b>本页内容导览</b></div>
         <div className="page-guide-items">
           {items.map((item, index) => (
             <button className={active === index ? 'active' : ''} key={`${item.label}-${index}`} onClick={() => go(item, index)} type="button">
-              <span>{item.no ?? String(index + 1).padStart(2, '0')}</span><b>{item.label}</b><i>↓</i>
+              <span>{item.no ?? String(index + 1).padStart(2, '0')}</span><b>{item.label}</b><i>↘</i>
             </button>
           ))}
         </div>
