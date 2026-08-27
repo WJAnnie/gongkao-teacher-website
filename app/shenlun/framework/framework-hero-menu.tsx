@@ -31,7 +31,7 @@ export function FrameworkHeroMenu() {
         >
           <span style={{ padding: 0, border: 0 }}>{item.no}</span>
           <b>{item.label}</b>
-          <i aria-hidden="true">↘</i>
+          <i aria-hidden="true">{launching === item.key ? '进入中' : '进入'}</i>
         </button>
       ))}
     </nav>
