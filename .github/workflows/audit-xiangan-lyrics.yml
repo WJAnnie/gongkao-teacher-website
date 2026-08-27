@@ -87,16 +87,27 @@ jobs:
           from pathlib import Path
           text=Path('lyrics.txt').read_text(encoding='utf-8')
           print('lines=',len([x for x in text.splitlines() if x.strip()]))
-          print(text)
           PY
 
-      - name: Install stable-ts
+      - name: Install aligner and ffmpeg binary
         run: |
           python -m pip install --upgrade pip
-          python -m pip install stable-ts
+          python -m pip install stable-ts imageio-ffmpeg
+          python - <<'PY'
+          import imageio_ffmpeg, os
+          src=imageio_ffmpeg.get_ffmpeg_exe()
+          dst=os.path.expanduser('~/.local/bin/ffmpeg')
+          os.makedirs(os.path.dirname(dst), exist_ok=True)
+          if os.path.lexists(dst): os.remove(dst)
+          os.symlink(src,dst)
+          print('ffmpeg=',src)
+          PY
+          export PATH="$HOME/.local/bin:$PATH"
+          ffmpeg -version | head -n 1
 
       - name: Force-align exact lyrics to audio
         run: |
+          export PATH="$HOME/.local/bin:$PATH"
           python - <<'PY'
           import json
           from pathlib import Path
@@ -129,10 +140,11 @@ jobs:
           PY
 
       - name: Upload alignment files
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: xiangan-forced-alignment
-          if-no-files-found: error
+          if-no-files-found: warn
           path: |
             lyrics.txt
             aligned-small.json
