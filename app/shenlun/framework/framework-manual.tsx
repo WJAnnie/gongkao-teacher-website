@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FrameworkExpressionStepper } from './framework-expression-stepper';
 import { FrameworkTypeStepper, typeChapters } from './framework-type-stepper';
+import { FrameworkAbilities, coreAbilityChapters } from './framework-abilities';
 
 const layers = [
   { key: 'expression', no: '01', label: '表达规则' },
@@ -21,14 +22,6 @@ const expressionChapters = [
   { id: 'expression-transform', no: '05', label: '从材料到答案' },
   { id: 'expression-logic', no: '06', label: '组织答案' },
   { id: 'expression-finish', no: '07', label: '完成一道题' },
-] as const;
-
-const abilities = [
-  ['01', '概括能力', '把复杂、冗长、口语化的材料压缩成可以直接进入答案的信息。'],
-  ['02', '归纳能力', '从多个具体内容里找到共同点，提高一个层级，形成能罩住下位内容的归纳表达。'],
-  ['03', '分析能力', '判断一段、一句话，对题目所问的主体和对象来说究竟在说什么。'],
-  ['04', '综合能力', '把不同材料、不同要素重新组织，判断先后、并列、递进和整体答案结构。'],
-  ['05', '表达能力', '把已经理解清楚的内容写得准确、简明、规范、有层次。'],
 ] as const;
 
 const tips = [
@@ -123,7 +116,7 @@ export function FrameworkManual() {
 
         {activeLayer === 'abilities' && (
           <nav className="framework-sub-nav" aria-label="核心能力目录">
-            {abilities.map(([no, title]) => <button key={title} type="button" onClick={() => goTo(`ability-${no}`)}><span>{no}</span><b>{title}</b></button>)}
+            {coreAbilityChapters.map((item) => <button key={item.id} type="button" onClick={() => goTo(item.id)}><span>{item.no}</span><b>{item.title}</b></button>)}
           </nav>
         )}
 
@@ -161,11 +154,13 @@ export function FrameworkManual() {
         )}
 
         {activeLayer === 'abilities' && (
-          <section className="framework-manual-article" id="framework-abilities">
-            <header className="framework-article-intro"><span>03 / CORE ABILITIES</span><h2>核心能力</h2><p>题型会变，能力反复出现。这里先把你真正需要长期练的几项基本功摆出来，后面再逐项补充课堂案例。</p></header>
-            <div className="framework-manual-prose-list">
-              {abilities.map(([no, title, text]) => <section id={`ability-${no}`} key={title}><span>{no}</span><h3>{title}</h3><p>{text}</p></section>)}
-            </div>
+          <section className="framework-manual-article framework-abilities-layer" id="framework-abilities">
+            <header className="framework-article-intro">
+              <span>03 / CORE ABILITIES</span>
+              <h2>核心能力</h2>
+              <p>同一道题，真正拉开差距的往往不是记住了哪个题型模板，而是能不能把材料看懂、拆开、重新组织，再在有限字数里写成准确的答案。这里按实际做题过程，把分析、综合、概括、归纳和表达五项能力拆开讲。</p>
+            </header>
+            <FrameworkAbilities />
           </section>
         )}
 
