@@ -42,6 +42,7 @@ import './menu-hierarchy-refinement.css';
 import './interaction-semantics.css';
 import './clickable-menu-affordance.css';
 import './framework-scene-transition.css';
+import './entry-badge-unification.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
