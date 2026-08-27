@@ -25,6 +25,8 @@ import './learning-hero-standard.css';
 import './shenlun/framework/framework-expression.css';
 import './shenlun/framework/framework-expression-stepper.css';
 import './shenlun/framework/framework-manual.css';
+import './shenlun/framework/framework-expression-article.css';
+import './shenlun/framework/framework-expression-polish.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
