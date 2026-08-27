@@ -20,9 +20,8 @@ jobs:
           curl -L --fail --retry 3 -A 'Mozilla/5.0' -H 'Referer: https://suno.com/' \
             'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3' \
             -o xiangan.mp3
-          ls -lh xiangan.mp3
 
-      - name: Prepare exact lyric text
+      - name: Prepare exact lyric text and char-spaced transcript
         run: |
           cat > lyrics.txt <<'LYRICS'
           清晨的灯还亮在窗
@@ -85,8 +84,15 @@ jobs:
           sed -i 's/^          //' lyrics.txt
           python - <<'PY'
           from pathlib import Path
-          text=Path('lyrics.txt').read_text(encoding='utf-8')
-          print('lines=',len([x for x in text.splitlines() if x.strip()]))
+          import unicodedata
+          lines=Path('lyrics.txt').read_text(encoding='utf-8').splitlines()
+          clean=[]
+          for line in lines:
+              chars=[c for c in line.strip() if c.strip() and not unicodedata.category(c).startswith('P')]
+              clean.append(' '.join(chars))
+          Path('lyrics-char-spaced.txt').write_text('\n'.join(clean),encoding='utf-8')
+          print('lines=',len(clean))
+          print('\n'.join(clean[:5]))
           PY
 
       - name: Install aligner and ffmpeg binary
@@ -100,12 +106,9 @@ jobs:
           os.makedirs(os.path.dirname(dst), exist_ok=True)
           if os.path.lexists(dst): os.remove(dst)
           os.symlink(src,dst)
-          print('ffmpeg=',src)
           PY
-          export PATH="$HOME/.local/bin:$PATH"
-          ffmpeg -version | head -n 1
 
-      - name: Force-align exact lyrics to audio
+      - name: Force-align character-spaced lyrics to audio
         run: |
           export PATH="$HOME/.local/bin:$PATH"
           python - <<'PY'
@@ -113,29 +116,23 @@ jobs:
           from pathlib import Path
           import stable_whisper
 
-          lyrics = Path('lyrics.txt').read_text(encoding='utf-8').strip()
+          lyrics = Path('lyrics-char-spaced.txt').read_text(encoding='utf-8').strip()
           model = stable_whisper.load_model('small')
           result = model.align(
-              'xiangan.mp3',
-              lyrics,
-              language='zh',
-              original_split=True,
-              nonspeech_skip=None,
-              remove_instant_words=False,
+              'xiangan.mp3', lyrics, language='zh', original_split=True,
+              nonspeech_skip=None, remove_instant_words=False,
           )
-          if result is None:
-              raise RuntimeError('alignment returned None')
-          result.save_as_json('aligned-small.json')
-
+          if result is None: raise RuntimeError('alignment returned None')
+          result.save_as_json('aligned-char-small.json')
           out=[]
           for si, seg in enumerate(result.segments):
               row={'segment':si,'start':seg.start,'end':seg.end,'text':seg.text,'words':[]}
               for w in seg.words:
                   row['words'].append({'word':w.word,'start':w.start,'end':w.end,'probability':w.probability})
               out.append(row)
-          Path('aligned-readable.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          Path('aligned-char-readable.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
           for row in out:
-              print(f"LINE {row['segment']+1:02d} {row['start']:.3f}-{row['end']:.3f} {row['text']}")
+              print(f"LINE {row['segment']+1:02d} {row['start']:.3f}-{row['end']:.3f}")
               print('  '+' | '.join(f"{w['word']}@{w['start']:.3f}-{w['end']:.3f}" for w in row['words']))
           PY
 
@@ -143,10 +140,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: xiangan-forced-alignment
+          name: xiangan-char-alignment
           if-no-files-found: warn
           path: |
             lyrics.txt
-            aligned-small.json
-            aligned-readable.json
+            lyrics-char-spaced.txt
+            aligned-char-small.json
+            aligned-char-readable.json
           retention-days: 1
