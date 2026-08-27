@@ -149,9 +149,7 @@
   transform: scaleX(1) !important;
 }
 
-.about-detail-grid h3 {
-  margin-top: 30px;
-}
+.about-detail-grid h3 { margin-top: 30px; }
 
 /* 原来的胶囊标签很像筛选按钮；改成一行“内容关键词”。 */
 .about-profile-expanded .about-tags,
@@ -234,10 +232,13 @@
   .video-card,
   .interview-card,
   .shenlun-question-row,
+  .question-type-step,
+  .question-type-detail-grid > article,
   .interview-flow-step,
   .interview-practice-board > article
 ) {
   cursor: default;
+  --review-mark-opacity: 0 !important;
 }
 
 :where(
@@ -245,7 +246,11 @@
   .writing-category,
   .video-card,
   .interview-card,
-  .shenlun-question-row
+  .shenlun-question-row,
+  .question-type-step,
+  .question-type-detail-grid > article,
+  .interview-flow-step,
+  .interview-practice-board > article
 ) {
   transition: none !important;
 }
@@ -254,7 +259,12 @@
 .writing-category:hover,
 .video-card:hover,
 .interview-card:hover,
-.shenlun-question-row:hover {
+.shenlun-question-row:hover,
+.question-type-step:hover,
+.question-type-detail-grid > article:hover,
+.interview-flow-step:hover,
+.interview-practice-board > article:hover {
+  --review-mark-opacity: 0 !important;
   transform: none !important;
   box-shadow: none !important;
 }
@@ -268,15 +278,41 @@
   transform: scaleY(.18) !important;
 }
 
-.interview-card:hover {
-  background: rgba(255,255,255,.12) !important;
+.interview-card:hover { background: rgba(255,255,255,.12) !important; }
+.shenlun-question-row:hover { background: rgba(255,255,255,.13) !important; }
+
+/* 收掉“阅卷红笔”里只在 hover 才出现的痕迹。 */
+.shenlun-map-card:hover::after,
+.writing-category:hover::after,
+.question-type-step:hover::after,
+.question-type-detail-grid > article:hover::after,
+.interview-card:hover::after,
+.interview-flow-step:hover::after,
+.interview-practice-board > article:hover::after {
+  opacity: 0 !important;
+  transform: rotate(-12deg) scale(.82) !important;
 }
 
-.shenlun-question-row:hover {
-  background: rgba(255,255,255,.13) !important;
+.question-type-step:hover h3::after,
+.question-type-detail-grid > article:hover h3::after,
+.interview-card:hover h3::after,
+.interview-flow-step:hover h3::after {
+  transform: scaleX(0) rotate(-.6deg) !important;
 }
 
-/* 静态内容块不使用手型，也不出现键盘交互轮廓。 */
+.shenlun-question-row:hover::before {
+  opacity: 0 !important;
+  transform: scaleY(.2) !important;
+}
+
+.shenlun-question-row:hover .answer {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.shenlun-question-row:hover h3::after { opacity: 0 !important; }
+
+/* 静态内容块不使用手型，也不出现触屏点击高亮。 */
 .about-detail-grid article,
 .about-tags span,
 .shenlun-question-toolbar span,
@@ -285,6 +321,8 @@
 .video-card,
 .interview-card,
 .shenlun-question-row,
+.question-type-step,
+.question-type-detail-grid > article,
 .interview-flow-step,
 .interview-practice-board > article {
   -webkit-tap-highlight-color: transparent;
