@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { FrameworkTypeArticleV4 } from './framework-type-article-v4';
+import { TypeDeep } from './framework-deep-enrichment';
 
 export const typeChapters = [
   { id: 'type-summary', slug: 'summary', no: '01', label: '归纳概括' },
@@ -53,6 +54,7 @@ export function FrameworkTypeStepper({ onActiveTypeChange }: { onActiveTypeChang
   return (
     <div className="expression-stepper type-stepper">
       <FrameworkTypeArticleV4 />
+      {chapterTargets.map((target, index) => target ? createPortal(<TypeDeep id={typeChapters[index].id} />, target) : null)}
       {chapterTargets.map((target, index) => {
         if (!target || index >= typeChapters.length - 1) return null;
         const next = typeChapters[index + 1];
