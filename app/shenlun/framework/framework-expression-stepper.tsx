@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FrameworkExpression } from './framework-expression';
+import { FrameworkExpressionArticle } from './framework-expression-article';
 
 const chapters = [
   { id: 'expression-know', no: '01', label: '认识申论' },
@@ -14,23 +14,12 @@ const chapters = [
   { id: 'expression-finish', no: '07', label: '完成一道题' },
 ] as const;
 
-function SheetGrid({ rows }: { rows: number }) {
-  return <div className="expression-answer-grid expression-answer-grid-extra" aria-hidden="true">{Array.from({ length: rows * 25 }).map((_, index) => <i key={index} />)}</div>;
-}
-
 export function FrameworkExpressionStepper({ onActiveChapterChange }: { onActiveChapterChange?: (index: number) => void }) {
   const [chapterTargets, setChapterTargets] = useState<(HTMLElement | null)[]>([]);
-  const [sheetTarget, setSheetTarget] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     const targets = chapters.map((chapter) => document.getElementById(chapter.id));
     setChapterTargets(targets);
-    setSheetTarget(document.querySelector<HTMLElement>('.expression-sheet-paper'));
-
-    const lineCounts = ['8 行', '12 行', '16 行'];
-    document.querySelectorAll<HTMLElement>('.expression-grid-math > div > b').forEach((node, index) => {
-      if (lineCounts[index]) node.textContent = lineCounts[index];
-    });
 
     const visibleTargets = targets.filter(Boolean) as HTMLElement[];
     const observer = new IntersectionObserver((entries) => {
@@ -51,28 +40,17 @@ export function FrameworkExpressionStepper({ onActiveChapterChange }: { onActive
 
   return (
     <div className="expression-stepper">
-      <FrameworkExpression />
-
+      <FrameworkExpressionArticle />
       {chapterTargets.map((target, index) => {
         if (!target || index >= chapters.length - 1) return null;
         const next = chapters[index + 1];
         return createPortal(
           <a href={`#${next.id}`} className="expression-next-link" onClick={(event) => { event.preventDefault(); goToChapter(index + 1); }}>
-            <span>CONTINUE READING</span><b>{next.no}　{next.label}</b><em>↘</em>
+            <span>CONTINUE READING / 继续阅读</span><b>{next.no}　{next.label}</b><em>↘</em>
           </a>,
           target,
         );
       })}
-
-      {sheetTarget && createPortal(
-        <div className="expression-sheet-extra" aria-label="答题卡后续作答区域示意">
-          <div className="sheet-question-label">第（三）题</div><SheetGrid rows={3} />
-          <div className="sheet-question-label">第（四）题</div><SheetGrid rows={3} />
-          <div className="sheet-question-label sheet-essay-label">文章写作区</div><SheetGrid rows={6} />
-          <p className="sheet-extra-note">整张答题卡通常由考生信息区、若干小题作答区和文章写作区组成。这里用完整结构帮助你建立空间意识，具体版式以当年实际答题卡为准。</p>
-        </div>,
-        sheetTarget,
-      )}
     </div>
   );
 }
