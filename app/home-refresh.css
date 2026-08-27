@@ -1,98 +1,29 @@
 /* 首页本轮排版修正 */
-.hero {
-  padding-top: clamp(142px, 17vh, 182px);
-}
-.hero h1 {
-  max-width: 1060px;
-  font-size: clamp(70px, 10.7vw, 154px);
-  line-height: .96;
-  letter-spacing: -.072em;
-}
-.title-outline {
-  display: inline-block;
-  margin-left: 10.5vw;
-  margin-top: .08em;
-}
-.hero-bottom {
-  margin-top: clamp(54px, 7.2vh, 76px);
-  margin-left: 10.5vw;
-}
+.hero { padding-top: clamp(142px, 17vh, 182px); }
+.hero h1 { max-width: 1060px; font-size: clamp(70px, 10.7vw, 154px); line-height: .96; letter-spacing: -.072em; }
+.title-outline { display: inline-block; margin-left: 10.5vw; margin-top: .08em; }
+.hero-bottom { margin-top: clamp(54px, 7.2vh, 76px); margin-left: 10.5vw; }
 .hero-lead { font-size: clamp(15px, 1.35vw, 19px); }
 
-.about.about-merged {
-  position: relative;
-  display: block;
-  margin: 0;
-  padding: clamp(86px, 10vw, 132px) clamp(24px, 6vw, 92px) clamp(82px, 9vw, 118px);
-  overflow: hidden;
-}
-.about-visual-art {
-  position: absolute;
-  z-index: 0;
-  left: -3vw;
-  top: 5%;
-  width: min(34vw, 520px);
-  height: 90%;
-  background: url('/about-study-art.svg') left center / contain no-repeat;
-  opacity: .58;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 47%, rgba(0,0,0,.72) 68%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 47%, rgba(0,0,0,.72) 68%, transparent 100%);
-}
-.about-merged .about-copy {
-  position: relative;
-  z-index: 1;
-  width: min(1180px, calc(100% - 13vw));
-  margin-left: clamp(12vw, 18vw, 310px);
-}
+.about.about-merged { position: relative; display: block; margin: 0; padding: clamp(86px, 10vw, 132px) clamp(24px, 6vw, 92px) clamp(82px, 9vw, 118px); overflow: hidden; }
+.about-visual-art { position: absolute; z-index: 0; left: -3vw; top: 5%; width: min(34vw, 520px); height: 90%; object-fit: contain; object-position: left center; opacity: .58; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 47%, rgba(0,0,0,.72) 68%, transparent 100%); mask-image: linear-gradient(90deg, #000 0%, #000 47%, rgba(0,0,0,.72) 68%, transparent 100%); }
+.about-merged .about-copy { position: relative; z-index: 1; width: min(1180px, calc(100% - 13vw)); margin-left: clamp(12vw, 18vw, 310px); }
 .about-merged-grid { display: block; }
 .about-profile-expanded { width: 100%; }
 .about-identity-line { margin-bottom: 26px; }
-.about-merged .about-profile h2 {
-  max-width: 900px;
-  font-size: clamp(48px, 5.2vw, 82px);
-  line-height: 1.08;
-}
+.about-merged .about-profile h2 { max-width: 900px; font-size: clamp(48px, 5.2vw, 82px); line-height: 1.08; }
 .about-intro-lead { max-width: 950px; }
 .about-detail-grid { max-width: 1020px; }
 
-/* 资料入口移到全页最下方，和关于区分开 */
-.bottom-materials {
-  width: min(1500px, calc(100% - 12vw));
-  margin: 32px auto 72px;
-  padding-top: 22px;
-  border-top: 1px solid rgba(37,37,31,.18);
-}
-.bottom-materials .about-contact-card {
-  min-height: 240px;
-  padding: 24px 28px;
-}
-.bottom-materials .about-contact-body {
-  grid-template-columns: 120px minmax(0,1fr);
-  margin-top: 32px;
-}
+.bottom-materials { width: min(1500px, calc(100% - 12vw)); margin: 32px auto 72px; padding-top: 22px; border-top: 1px solid rgba(37,37,31,.18); }
+.bottom-materials .about-contact-card { min-height: 240px; padding: 24px 28px; }
+.bottom-materials .about-contact-body { grid-template-columns: 120px minmax(0,1fr); margin-top: 32px; }
 .bottom-materials .about-contact-card .qr-placeholder { width: 120px; height: 120px; }
 .bottom-materials .about-contact-card .contact-info { min-height: 120px; }
 
-/* 五大题型切换 */
 .question-type-switcher { margin-top: 42px; scroll-margin-top: 120px; }
-.question-type-switcher-tabs {
-  display: grid;
-  grid-template-columns: repeat(5,minmax(0,1fr));
-  border-top: 1px solid rgba(37,37,31,.18);
-  border-left: 1px solid rgba(37,37,31,.18);
-}
-.question-type-switcher-tabs button {
-  min-height: 82px;
-  padding: 14px;
-  border: 0;
-  border-right: 1px solid rgba(37,37,31,.18);
-  border-bottom: 1px solid rgba(37,37,31,.18);
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-  transition: background .2s ease, transform .2s ease;
-}
+.question-type-switcher-tabs { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); border-top: 1px solid rgba(37,37,31,.18); border-left: 1px solid rgba(37,37,31,.18); }
+.question-type-switcher-tabs button { min-height: 82px; padding: 14px; border: 0; border-right: 1px solid rgba(37,37,31,.18); border-bottom: 1px solid rgba(37,37,31,.18); background: transparent; text-align: left; cursor: pointer; transition: background .2s ease, transform .2s ease; }
 .question-type-switcher-tabs button span { display: block; margin-bottom: 8px; color: var(--shenlun-accent); font: italic 9px Georgia,serif; }
 .question-type-switcher-tabs button b { font: 500 18px/1.2 "Songti SC","SimSun",Georgia,serif; }
 .question-type-switcher-tabs button.active { background: color-mix(in srgb, var(--shenlun-soft) 74%, var(--paper)); }
@@ -102,7 +33,6 @@
   .about-visual-art { left: -16vw; width: 58vw; opacity: .35; }
   .about-merged .about-copy { width: 100%; margin-left: 0; padding-left: 14vw; }
 }
-
 @media (max-width: 760px) {
   .hero { padding-top: 126px; }
   .hero h1 { font-size: clamp(52px, 16vw, 72px); line-height: 1.02; letter-spacing: -.065em; }
