@@ -40,6 +40,7 @@ import './shenlun/framework/framework-deep-enrichment.css';
 import './shenlun/framework/framework-tips-articles.css';
 import './menu-hierarchy-refinement.css';
 import './interaction-semantics.css';
+import './clickable-menu-affordance.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
