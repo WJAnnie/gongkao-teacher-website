@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { FrameworkExpressionStepper } from './framework-expression-stepper';
 import { FrameworkTypeStepper, typeChapters } from './framework-type-stepper';
 import { FrameworkAbilities, coreAbilityChapters } from './framework-abilities';
@@ -14,6 +15,14 @@ const layers = [
 ] as const;
 
 type LayerKey = (typeof layers)[number]['key'];
+
+type ViewTransitionHandle = {
+  finished: Promise<void>;
+};
+
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (update: () => void) => ViewTransitionHandle;
+};
 
 const expressionChapters = [
   { id: 'expression-know', no: '01', label: '认识申论' },
@@ -48,8 +57,11 @@ export function FrameworkManual() {
 
   useEffect(() => {
     let arrivalTimer: number | null = null;
-    let sidebarTimer: number | null = null;
-    let sceneTimer: number | null = null;
+    let drawerTimer: number | null = null;
+
+    // 清理上一版“折叠 Hero”留下的状态；首屏始终保留在正常文档流中。
+    const page = document.querySelector<HTMLElement>('.shenlun-page.framework');
+    page?.classList.remove('framework-reading-mode', 'framework-scene-entering');
 
     const onHeroSelect = (event: Event) => {
       const key = (event as CustomEvent<{ key?: string }>).detail?.key;
@@ -58,48 +70,76 @@ export function FrameworkManual() {
       const nextLayer = key as LayerKey;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const mobile = window.innerWidth <= 820;
-      const page = document.querySelector<HTMLElement>('.shenlun-page.framework');
+      const manual = document.getElementById('framework-manual-top');
+      if (!manual) return;
 
-      setActiveLayer(nextLayer);
-      setDrawerOpen(false);
-      setHeroArrival(nextLayer);
+      const source = document.querySelector<HTMLElement>(`[data-framework-hero="${nextLayer}"]`);
+      const targetTop = manual.getBoundingClientRect().top + window.scrollY - (mobile ? 64 : 78);
 
-      // 首屏入口不再触发页面滚动：直接把 Hero 折叠成上一页 PPT，
-      // 让学习手册在同一个视口里自然顶上来。
-      if (page) {
-        page.classList.add('framework-scene-entering');
-        window.requestAnimationFrame(() => page.classList.add('framework-reading-mode'));
+      const applyDestination = () => {
+        flushSync(() => {
+          setActiveLayer(nextLayer);
+          setDrawerOpen(false);
+          setHeroArrival(nextLayer);
+        });
+
+        // 真实页面位置瞬时切换，不播放滚动动画；视觉变化交给共享元素过渡。
+        window.scrollTo({ top: targetTop, behavior: 'auto' });
+
+        const sidebar = document.querySelector<HTMLElement>('.framework-manual-sidebar');
+        const target = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
+        if (sidebar && target) {
+          const sidebarRect = sidebar.getBoundingClientRect();
+          const targetRect = target.getBoundingClientRect();
+          const desired = Math.max(0, sidebar.scrollTop + targetRect.top - sidebarRect.top - 18);
+          sidebar.scrollTo({ top: desired, behavior: 'auto' });
+        }
+      };
+
+      const transitionDocument = document as ViewTransitionDocument;
+      if (!reducedMotion && !mobile && source && transitionDocument.startViewTransition) {
+        let sharedTarget: HTMLElement | null = null;
+        const root = document.documentElement;
+
+        source.style.setProperty('view-transition-name', 'framework-chapter-shared');
+        root.classList.add('framework-shared-transition-active');
+
+        try {
+          const transition = transitionDocument.startViewTransition(() => {
+            source.style.removeProperty('view-transition-name');
+            applyDestination();
+            sharedTarget = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
+            sharedTarget?.style.setProperty('view-transition-name', 'framework-chapter-shared');
+          });
+
+          transition.finished.finally(() => {
+            source.style.removeProperty('view-transition-name');
+            sharedTarget?.style.removeProperty('view-transition-name');
+            root.classList.remove('framework-shared-transition-active');
+            setHeroArrival(null);
+          });
+        } catch {
+          source.style.removeProperty('view-transition-name');
+          root.classList.remove('framework-shared-transition-active');
+          applyDestination();
+          arrivalTimer = window.setTimeout(() => setHeroArrival(null), 900);
+        }
+      } else {
+        applyDestination();
+        arrivalTimer = window.setTimeout(() => setHeroArrival(null), reducedMotion ? 0 : 900);
       }
 
-      sidebarTimer = window.setTimeout(() => {
-        const sidebar = document.querySelector<HTMLElement>('.framework-manual-sidebar');
-        const trigger = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
-        if (sidebar && trigger) {
-          const sidebarRect = sidebar.getBoundingClientRect();
-          const triggerRect = trigger.getBoundingClientRect();
-          const desired = Math.max(0, sidebar.scrollTop + triggerRect.top - sidebarRect.top - 18);
-          sidebar.scrollTo({ top: desired, behavior: reducedMotion ? 'auto' : 'smooth' });
-        }
-        if (mobile) setDrawerOpen(true);
-      }, reducedMotion ? 0 : mobile ? 620 : 430);
-
-      arrivalTimer = window.setTimeout(
-        () => setHeroArrival(null),
-        reducedMotion ? 0 : mobile ? 1450 : 1100,
-      );
-
-      sceneTimer = window.setTimeout(
-        () => page?.classList.remove('framework-scene-entering'),
-        reducedMotion ? 0 : 920,
-      );
+      if (mobile) {
+        drawerTimer = window.setTimeout(() => setDrawerOpen(true), reducedMotion ? 0 : 180);
+      }
     };
 
     window.addEventListener('framework-hero-select', onHeroSelect);
     return () => {
       window.removeEventListener('framework-hero-select', onHeroSelect);
       if (arrivalTimer) window.clearTimeout(arrivalTimer);
-      if (sidebarTimer) window.clearTimeout(sidebarTimer);
-      if (sceneTimer) window.clearTimeout(sceneTimer);
+      if (drawerTimer) window.clearTimeout(drawerTimer);
+      document.documentElement.classList.remove('framework-shared-transition-active');
     };
   }, []);
 
