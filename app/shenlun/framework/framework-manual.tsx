@@ -26,20 +26,28 @@ const expressionChapters = [
 ] as const;
 
 function goTo(id: string) {
-  window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 20);
+  window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30);
+}
+
+function focusExpandedTip(id: string) {
+  window.setTimeout(() => {
+    const section = document.getElementById(id);
+    const body = section?.querySelector<HTMLElement>('.tips-article-body');
+    (body ?? section)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
 }
 
 export function FrameworkManual() {
   const [activeLayer, setActiveLayer] = useState<LayerKey>('expression');
   const [activeExpression, setActiveExpression] = useState(0);
   const [activeType, setActiveType] = useState('summary');
+  const [activeAbility, setActiveAbility] = useState(coreAbilityChapters[0]?.id ?? '');
   const [activeTip, setActiveTip] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const chooseLayer = (key: LayerKey) => {
     setActiveLayer(key);
-    setDrawerOpen(false);
-    window.setTimeout(() => document.getElementById('framework-manual-top')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 20);
+    window.setTimeout(() => document.getElementById('framework-manual-top')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30);
   };
 
   const chooseExpression = (index: number) => {
@@ -57,29 +65,90 @@ export function FrameworkManual() {
     if (chapter) goTo(chapter.id);
   };
 
-  const chooseTip = (id: string) => {
-    if (activeLayer !== 'tips') setActiveLayer('tips');
-    setActiveTip(id);
+  const chooseAbility = (id: string) => {
+    if (activeLayer !== 'abilities') setActiveLayer('abilities');
+    setActiveAbility(id);
     setDrawerOpen(false);
     goTo(id);
   };
 
+  const changeTip = (id: string | null) => {
+    setActiveTip(id);
+    if (id) focusExpandedTip(id);
+  };
+
+  const chooseTip = (id: string) => {
+    if (activeLayer !== 'tips') setActiveLayer('tips');
+    setDrawerOpen(false);
+    changeTip(id);
+  };
+
   const typeIndex = Math.max(0, typeChapters.findIndex((item) => item.slug === activeType));
+  const abilityIndex = Math.max(0, coreAbilityChapters.findIndex((item) => item.id === activeAbility));
   const tipIndex = activeTip ? Math.max(0, tipArticles.findIndex((item) => item.id === activeTip)) : 0;
   const mobileLabel = activeLayer === 'expression'
-    ? `${String(activeExpression + 1).padStart(2, '0')} / 07`
+    ? `${String(activeExpression + 1).padStart(2, '0')} / ${String(expressionChapters.length).padStart(2, '0')}`
     : activeLayer === 'types'
-      ? `${String(typeIndex + 1).padStart(2, '0')} / 05`
-      : activeLayer === 'tips' && activeTip
-        ? `${String(tipIndex + 1).padStart(2, '0')} / 10`
-        : layers.find((item) => item.key === activeLayer)?.label;
+      ? `${String(typeIndex + 1).padStart(2, '0')} / ${String(typeChapters.length).padStart(2, '0')}`
+      : activeLayer === 'abilities'
+        ? `${String(abilityIndex + 1).padStart(2, '0')} / ${String(coreAbilityChapters.length).padStart(2, '0')}`
+        : activeLayer === 'tips' && activeTip
+          ? `${String(tipIndex + 1).padStart(2, '0')} / ${String(tipArticles.length).padStart(2, '0')}`
+          : layers.find((item) => item.key === activeLayer)?.label;
   const progressHeight = activeLayer === 'expression'
-    ? `${((activeExpression + 1) / 7) * 100}%`
+    ? `${((activeExpression + 1) / expressionChapters.length) * 100}%`
     : activeLayer === 'types'
-      ? `${((typeIndex + 1) / 5) * 100}%`
-      : activeLayer === 'tips' && activeTip
-        ? `${((tipIndex + 1) / 10) * 100}%`
-        : '100%';
+      ? `${((typeIndex + 1) / typeChapters.length) * 100}%`
+      : activeLayer === 'abilities'
+        ? `${((abilityIndex + 1) / Math.max(1, coreAbilityChapters.length)) * 100}%`
+        : activeLayer === 'tips' && activeTip
+          ? `${((tipIndex + 1) / tipArticles.length) * 100}%`
+          : '100%';
+
+  const renderSubNav = (key: LayerKey) => {
+    if (key === 'expression') {
+      return (
+        <nav className="framework-sub-nav expression-sub-nav" aria-label="表达规则目录">
+          {expressionChapters.map((item, index) => (
+            <button key={item.id} className={activeExpression === index ? 'active' : ''} type="button" onClick={() => chooseExpression(index)}>
+              <span>{item.no}</span><b>{item.label}</b>
+            </button>
+          ))}
+        </nav>
+      );
+    }
+    if (key === 'types') {
+      return (
+        <nav className="framework-sub-nav type-sub-nav" aria-label="题型框架目录">
+          {typeChapters.map((item) => (
+            <button key={item.slug} className={activeType === item.slug ? 'active' : ''} type="button" onClick={() => chooseType(item.slug)}>
+              <span>{item.no}</span><b>{item.label}</b>
+            </button>
+          ))}
+        </nav>
+      );
+    }
+    if (key === 'abilities') {
+      return (
+        <nav className="framework-sub-nav ability-sub-nav" aria-label="核心能力目录">
+          {coreAbilityChapters.map((item) => (
+            <button key={item.id} className={activeAbility === item.id ? 'active' : ''} type="button" onClick={() => chooseAbility(item.id)}>
+              <span>{item.no}</span><b>{item.title}</b>
+            </button>
+          ))}
+        </nav>
+      );
+    }
+    return (
+      <nav className="framework-sub-nav tips-sub-nav" aria-label="实用技巧目录">
+        {tipArticles.map((item) => (
+          <button key={item.id} className={activeTip === item.id ? 'active' : ''} type="button" onClick={() => chooseTip(item.id)}>
+            <span>{item.no}</span><b>{item.title}</b>
+          </button>
+        ))}
+      </nav>
+    );
+  };
 
   return (
     <div className="framework-manual" id="framework-manual-top">
@@ -92,45 +161,24 @@ export function FrameworkManual() {
       <aside className={`framework-manual-sidebar${drawerOpen ? ' open' : ''}`} aria-label="方法框架学习目录">
         <button className="framework-drawer-close" type="button" onClick={() => setDrawerOpen(false)}>×</button>
         <div className="framework-sidebar-kicker">申论方法 / METHOD</div>
-        <nav className="framework-layer-nav">
-          {layers.map((item) => (
-            <button key={item.key} className={activeLayer === item.key ? 'active' : ''} type="button" onClick={() => chooseLayer(item.key)}>
-              <span>{item.no}</span><b>{item.label}</b>
-            </button>
-          ))}
+        <nav className="framework-layer-nav" aria-label="方法框架章节">
+          {layers.map((item) => {
+            const open = activeLayer === item.key;
+            return (
+              <div className={`framework-layer-group${open ? ' open' : ''}`} key={item.key}>
+                <button
+                  className={`framework-layer-trigger${open ? ' active' : ''}`}
+                  type="button"
+                  aria-expanded={open}
+                  onClick={() => chooseLayer(item.key)}
+                >
+                  <span>{item.no}</span><b>{item.label}</b><i aria-hidden="true">⌄</i>
+                </button>
+                {open && <div className="framework-layer-children">{renderSubNav(item.key)}</div>}
+              </div>
+            );
+          })}
         </nav>
-
-        {activeLayer === 'expression' && (
-          <nav className="framework-sub-nav expression-sub-nav" aria-label="表达规则目录">
-            {expressionChapters.map((item, index) => (
-              <button key={item.id} className={activeExpression === index ? 'active' : ''} type="button" onClick={() => chooseExpression(index)}>
-                <span>{item.no}</span><b>{item.label}</b>
-              </button>
-            ))}
-          </nav>
-        )}
-
-        {activeLayer === 'types' && (
-          <nav className="framework-sub-nav type-sub-nav" aria-label="题型框架目录">
-            {typeChapters.map((item) => (
-              <button key={item.slug} className={activeType === item.slug ? 'active' : ''} type="button" onClick={() => chooseType(item.slug)}>
-                <span>{item.no}</span><b>{item.label}</b>
-              </button>
-            ))}
-          </nav>
-        )}
-
-        {activeLayer === 'abilities' && (
-          <nav className="framework-sub-nav" aria-label="核心能力目录">
-            {coreAbilityChapters.map((item) => <button key={item.id} type="button" onClick={() => goTo(item.id)}><span>{item.no}</span><b>{item.title}</b></button>)}
-          </nav>
-        )}
-
-        {activeLayer === 'tips' && (
-          <nav className="framework-sub-nav tips-sub-nav" aria-label="实用技巧目录">
-            {tipArticles.map((item) => <button key={item.id} className={activeTip === item.id ? 'active' : ''} type="button" onClick={() => chooseTip(item.id)}><span>{item.no}</span><b>{item.title}</b></button>)}
-          </nav>
-        )}
 
         <div className="framework-sidebar-progress" aria-hidden="true"><i style={{ height: progressHeight }} /></div>
       </aside>
@@ -177,7 +225,7 @@ export function FrameworkManual() {
               <h2>实用技巧</h2>
               <p>这里不按教材顺序讲知识，而是把做题时最容易卡住、最值得单独说清楚的问题写成一篇篇短文章。先看标题，遇到自己正在犯的问题再点开读；切换文章时，上一篇会自动收起。</p>
             </header>
-            <FrameworkTipsArticles activeId={activeTip} onChange={setActiveTip} />
+            <FrameworkTipsArticles activeId={activeTip} onChange={changeTip} />
           </section>
         )}
       </article>
