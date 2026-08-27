@@ -1,0 +1,237 @@
+/* 二级页首屏一体化三级内容索引 */
+.shenlun-hero,
+.interview-site-hero {
+  padding-bottom: clamp(24px, 3.2vw, 44px);
+}
+
+.shenlun-hero .hero-page-guide,
+.interview-site-hero .hero-page-guide {
+  width: 100%;
+  margin: clamp(28px, 4vw, 52px) 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.hero-page-guide .page-guide-heading {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 0 0 13px;
+  border: 0;
+}
+
+.hero-page-guide .page-guide-heading::after {
+  content: "";
+  height: 1px;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 62%, transparent),
+    rgba(37,37,31,.11) 38%,
+    transparent 100%);
+}
+
+.interview-site .hero-page-guide .page-guide-heading::after {
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--interview-color) 62%, transparent),
+    rgba(37,37,31,.11) 38%,
+    transparent 100%);
+}
+
+.hero-page-guide .page-guide-heading span {
+  color: var(--shenlun-accent, var(--interview-color));
+  opacity: .82;
+  font-size: 7px;
+  letter-spacing: .16em;
+}
+
+.interview-site .hero-page-guide .page-guide-heading span { color: var(--interview-color); }
+
+.hero-page-guide .page-guide-heading b {
+  color: rgba(37,37,31,.62);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+
+.hero-page-guide .page-guide-items {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  border-top: 1px solid rgba(37,37,31,.17);
+  border-bottom: 1px solid rgba(37,37,31,.17);
+  background: linear-gradient(180deg, rgba(244,240,231,.08), rgba(244,240,231,.2));
+}
+
+.hero-page-guide .page-guide-items::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: clamp(46px, 5vw, 82px);
+  height: 2px;
+  background: var(--shenlun-accent, var(--interview-color));
+}
+
+.interview-site .hero-page-guide .page-guide-items::before { background: var(--interview-color); }
+
+.hero-page-guide .page-guide-items button {
+  position: relative;
+  min-height: 70px;
+  padding: 14px 14px 13px;
+  border-right: 1px solid rgba(37,37,31,.12);
+  border-left: 0;
+  background: transparent;
+  transform: none;
+  overflow: hidden;
+}
+
+.hero-page-guide .page-guide-items button:first-child { border-left: 0; }
+.hero-page-guide .page-guide-items button:last-child { border-right: 0; }
+
+.hero-page-guide .page-guide-items button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--shenlun-accent, var(--interview-color));
+  transform: scaleX(.16);
+  transform-origin: left;
+  opacity: .42;
+  transition: transform .22s ease, opacity .22s ease;
+}
+
+.interview-site .hero-page-guide .page-guide-items button::before { background: var(--interview-color); }
+
+.hero-page-guide .page-guide-items button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background: linear-gradient(110deg,
+    color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 13%, transparent),
+    transparent 68%);
+  transition: opacity .22s ease;
+}
+
+.interview-site .hero-page-guide .page-guide-items button::after {
+  background: linear-gradient(110deg, color-mix(in srgb, var(--interview-color) 13%, transparent), transparent 68%);
+}
+
+.hero-page-guide .page-guide-items button > span {
+  font-size: 8px;
+  opacity: .9;
+}
+
+.hero-page-guide .page-guide-items button > b {
+  font-family: "Songti SC", "SimSun", Georgia, serif;
+  font-size: clamp(14px, 1.15vw, 18px);
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+
+.hero-page-guide .page-guide-items button > i {
+  opacity: .28;
+  transition: transform .22s ease, opacity .22s ease;
+}
+
+.hero-page-guide .page-guide-items button:hover,
+.hero-page-guide .page-guide-items button.active {
+  color: var(--ink);
+  background: transparent;
+  transform: none;
+}
+
+.hero-page-guide .page-guide-items button:hover::before,
+.hero-page-guide .page-guide-items button.active::before {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.hero-page-guide .page-guide-items button:hover::after,
+.hero-page-guide .page-guide-items button.active::after { opacity: 1; }
+
+.hero-page-guide .page-guide-items button:hover > i,
+.hero-page-guide .page-guide-items button.active > i {
+  opacity: .85;
+  transform: translate(2px, 2px);
+}
+
+/* 避免旧 active 规则再次画一条短下划线 */
+.hero-page-guide .page-guide-items button.active::after {
+  width: auto;
+  height: auto;
+}
+
+/* 首屏标题、二级路径、三级内容索引形成同一纵向节奏 */
+.shenlun-hero-bottom,
+.interview-hero-bottom {
+  margin-top: clamp(18px, 2.4vw, 30px);
+}
+
+/* 右侧导览保持明确，但比首屏索引更轻 */
+.page-guide-float {
+  opacity: 1;
+  width: 166px;
+  right: 22px;
+  border-color: rgba(37,37,31,.22);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  box-shadow: 0 10px 30px rgba(37,37,31,.07);
+}
+
+.page-guide-float > span {
+  color: rgba(37,37,31,.56);
+  font-size: 7px;
+}
+
+.page-guide-float button {
+  min-height: 32px;
+  color: rgba(37,37,31,.72);
+}
+
+.page-guide-float button.active {
+  background: color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 12%, var(--paper));
+}
+
+.interview-site .page-guide-float button.active {
+  background: color-mix(in srgb, var(--interview-color) 12%, var(--paper));
+}
+
+@media (max-width: 1180px) {
+  .hero-page-guide .page-guide-items { grid-template-columns: repeat(4, minmax(0,1fr)); }
+}
+
+@media (max-width: 760px) {
+  .shenlun-hero,
+  .interview-site-hero { padding-bottom: 18px; }
+
+  .shenlun-hero .hero-page-guide,
+  .interview-site-hero .hero-page-guide { margin-top: 24px; }
+
+  .hero-page-guide .page-guide-heading {
+    grid-template-columns: auto auto 1fr;
+    gap: 8px;
+    padding-bottom: 10px;
+  }
+
+  .hero-page-guide .page-guide-items {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .hero-page-guide .page-guide-items::-webkit-scrollbar { display: none; }
+
+  .hero-page-guide .page-guide-items button {
+    flex: 0 0 min(44vw, 164px);
+    min-height: 60px;
+    padding: 11px 10px;
+  }
+
+  .hero-page-guide .page-guide-items button > b { font-size: 14px; }
+}
