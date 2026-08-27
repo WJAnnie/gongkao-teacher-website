@@ -82,6 +82,7 @@ export function HomeSongPlayer() {
   const [dismissed, setDismissed] = useState(false);
   const [started, setStarted] = useState(false);
   const [audioError, setAudioError] = useState(false);
+  const [playerVisible, setPlayerVisible] = useState(false);
 
   useEffect(() => {
     try {
@@ -89,6 +90,33 @@ export function HomeSongPlayer() {
     } catch {
       setDismissed(false);
     }
+  }, []);
+
+  // 首屏保持干净：只有当第二屏 ABOUT 真正开始进入阅读位置后才显示播放器。
+  // 继续向下阅读时保持显示；如果用户重新滚回首屏，则再次隐藏。
+  useEffect(() => {
+    let frame = 0;
+    const updateVisibility = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const about = document.getElementById('about');
+        if (!about) {
+          setPlayerVisible(false);
+          return;
+        }
+        const threshold = Math.min(120, window.innerHeight * 0.14);
+        setPlayerVisible(about.getBoundingClientRect().top <= threshold);
+      });
+    };
+
+    updateVisibility();
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', updateVisibility);
+      window.removeEventListener('resize', updateVisibility);
+    };
   }, []);
 
   useEffect(() => {
@@ -195,7 +223,7 @@ export function HomeSongPlayer() {
         onError={() => setAudioError(true)}
       />
 
-      {dismissed ? (
+      {playerVisible && (dismissed ? (
         <button className="home-song-reopen" type="button" onClick={reopenPlayer} aria-label="重新打开向岸播放器">
           <span>♪</span><b>向岸</b>
         </button>
@@ -252,7 +280,7 @@ export function HomeSongPlayer() {
             </div>
           )}
         </aside>
-      )}
+      ))}
     </>
   );
 }
