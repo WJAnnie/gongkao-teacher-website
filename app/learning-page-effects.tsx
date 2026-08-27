@@ -33,6 +33,29 @@ export function LearningPageEffects() {
 export function PageGuide({ items }: { items: GuideItem[] }) {
   const [active, setActive] = useState(0);
 
+  useEffect(() => {
+    const targets = items
+      .map((item, index) => ({ node: document.querySelector(item.selector), index }))
+      .filter((item): item is { node: Element; index: number } => Boolean(item.node));
+
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const match = targets.find((item) => item.node === visible.target);
+        if (match) setActive(match.index);
+      },
+      { rootMargin: '-18% 0px -62% 0px', threshold: [0, 0.12, 0.35, 0.6] },
+    );
+
+    targets.forEach((item) => observer.observe(item.node));
+    return () => observer.disconnect();
+  }, [items]);
+
   const go = (item: GuideItem, index: number) => {
     setActive(index);
     if (item.key) window.dispatchEvent(new CustomEvent('page-guide-select', { detail: item.key }));
