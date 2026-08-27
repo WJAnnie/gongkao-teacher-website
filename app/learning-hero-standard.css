@@ -1,0 +1,301 @@
+/*
+ * 二级页标准首屏
+ * 以“写作积累”页的构图作为唯一标准，覆盖历史样式中的位置差异。
+ * 桌面端强制统一坐标；移动端继续使用流式布局。
+ */
+
+@media (min-width: 1041px) {
+  .shenlun-page .learning-hero-standard,
+  .interview-site .learning-hero-standard {
+    --standard-x: clamp(38px, 6vw, 104px);
+    position: relative !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 740px !important;
+    min-height: 740px !important;
+    max-height: 740px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    align-content: initial !important;
+    justify-content: initial !important;
+    gap: 0 !important;
+  }
+
+  /* 01 顶部学科线 */
+  .shenlun-page .learning-hero-standard .shenlun-hero-topline,
+  .interview-site .learning-hero-standard .interview-hero-topline {
+    position: absolute !important;
+    top: 34px !important;
+    left: var(--standard-x) !important;
+    right: var(--standard-x) !important;
+    bottom: auto !important;
+    width: auto !important;
+    height: 28px !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 0 12px !important;
+    display: flex !important;
+    grid-template-columns: none !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px !important;
+    transform: none !important;
+  }
+
+  /* 02 英文小标题 */
+  .shenlun-page .learning-hero-standard .shenlun-hero-eyebrow,
+  .interview-site .learning-hero-standard .interview-hero-eyebrow {
+    position: absolute !important;
+    top: 112px !important;
+    left: var(--standard-x) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    justify-self: auto !important;
+  }
+
+  /* 03 主标题：八个二级页完全同位、同尺寸 */
+  .shenlun-page .learning-hero-standard > h1,
+  .interview-site .learning-hero-standard > h1 {
+    position: absolute !important;
+    top: 148px !important;
+    left: var(--standard-x) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(900px, 64vw) !important;
+    max-width: min(900px, 64vw) !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "Songti SC", "SimSun", Georgia, serif !important;
+    font-size: clamp(58px, 8vw, 120px) !important;
+    font-weight: 500 !important;
+    line-height: .9 !important;
+    letter-spacing: -.055em !important;
+    transform: none !important;
+    justify-self: auto !important;
+  }
+
+  /* 04 训练信息条 */
+  .shenlun-page .learning-hero-standard > .exam-meta-strip,
+  .interview-site .learning-hero-standard > .exam-meta-strip {
+    position: absolute !important;
+    top: 292px !important;
+    left: var(--standard-x) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: fit-content !important;
+    max-width: min(720px, 58vw) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    grid-template-columns: none !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    transform: none !important;
+  }
+
+  /* 05 说明文字 + 右侧四格二级导航：各自绝对定位，不再互相推挤 */
+  .shenlun-page .learning-hero-standard > .shenlun-hero-bottom,
+  .interview-site .learning-hero-standard > .interview-hero-bottom {
+    position: absolute !important;
+    top: 400px !important;
+    left: var(--standard-x) !important;
+    right: var(--standard-x) !important;
+    bottom: auto !important;
+    width: auto !important;
+    height: 132px !important;
+    min-height: 132px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    grid-template-columns: none !important;
+    align-items: initial !important;
+    gap: 0 !important;
+    transform: none !important;
+  }
+
+  .shenlun-page .learning-hero-standard > .shenlun-hero-bottom > p,
+  .interview-site .learning-hero-standard > .interview-hero-bottom > p {
+    position: absolute !important;
+    left: 0 !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: 0 !important;
+    width: min(760px, 48vw) !important;
+    max-width: min(760px, 48vw) !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-self: auto !important;
+    font-size: 13px !important;
+    line-height: 1.9 !important;
+    transform: none !important;
+  }
+
+  .shenlun-page .learning-hero-standard .shenlun-route-strip,
+  .interview-site .learning-hero-standard .interview-route-strip {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: min(640px, 42vw) !important;
+    height: 104px !important;
+    min-height: 104px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, 52px) !important;
+    align-self: auto !important;
+    transform: none !important;
+  }
+
+  .shenlun-page .learning-hero-standard .shenlun-route-strip > a,
+  .interview-site .learning-hero-standard .interview-route-strip > a {
+    min-height: 52px !important;
+    height: 52px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 06 三级内容导览：与标准页一样贴住首屏底部、横向铺满 */
+  .shenlun-page .learning-hero-standard > .hero-page-guide,
+  .interview-site .learning-hero-standard > .hero-page-guide {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    transform: none !important;
+  }
+
+  .learning-hero-standard > .hero-page-guide > .page-guide-items {
+    width: 100% !important;
+    height: 100px !important;
+    min-height: 100px !important;
+    margin: 0 !important;
+    grid-auto-rows: 100px !important;
+    align-items: stretch !important;
+  }
+
+  .learning-hero-standard > .hero-page-guide > .page-guide-items > button {
+    min-height: 100px !important;
+    height: 100px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 07 阅卷图形也固定，避免不同页视觉重心漂移 */
+  .shenlun-page .learning-hero-standard > .exam-review-stamp,
+  .interview-site .learning-hero-standard > .exam-review-stamp {
+    position: absolute !important;
+    top: 118px !important;
+    right: clamp(72px, 8vw, 132px) !important;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+  }
+}
+
+/* 中等屏幕也保持相同纵向逻辑，只缩小左右间距和右侧导航 */
+@media (min-width: 761px) and (max-width: 1040px) {
+  .shenlun-page .learning-hero-standard,
+  .interview-site .learning-hero-standard {
+    --standard-x: clamp(28px, 5vw, 52px);
+    position: relative !important;
+    display: block !important;
+    height: 720px !important;
+    min-height: 720px !important;
+    max-height: 720px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .learning-hero-standard .shenlun-hero-topline,
+  .learning-hero-standard .interview-hero-topline { top: 30px !important; left: var(--standard-x) !important; right: var(--standard-x) !important; }
+
+  .learning-hero-standard .shenlun-hero-eyebrow,
+  .learning-hero-standard .interview-hero-eyebrow { top: 104px !important; left: var(--standard-x) !important; }
+
+  .learning-hero-standard > h1 {
+    top: 138px !important;
+    left: var(--standard-x) !important;
+    width: min(680px, 70vw) !important;
+    max-width: min(680px, 70vw) !important;
+    font-size: clamp(58px, 10vw, 96px) !important;
+  }
+
+  .learning-hero-standard > .exam-meta-strip { top: 270px !important; left: var(--standard-x) !important; }
+
+  .learning-hero-standard > .shenlun-hero-bottom,
+  .learning-hero-standard > .interview-hero-bottom {
+    top: 370px !important;
+    left: var(--standard-x) !important;
+    right: var(--standard-x) !important;
+    height: 142px !important;
+    display: block !important;
+  }
+
+  .learning-hero-standard > .shenlun-hero-bottom > p,
+  .learning-hero-standard > .interview-hero-bottom > p {
+    position: absolute !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 48% !important;
+    max-width: 48% !important;
+    min-height: 0 !important;
+  }
+
+  .learning-hero-standard .shenlun-route-strip,
+  .learning-hero-standard .interview-route-strip {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 46% !important;
+    height: 104px !important;
+  }
+
+  .learning-hero-standard > .hero-page-guide {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 136px !important;
+  }
+
+  .learning-hero-standard > .hero-page-guide > .page-guide-items {
+    height: 136px !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-auto-rows: 68px !important;
+  }
+
+  .learning-hero-standard > .hero-page-guide > .page-guide-items > button {
+    min-height: 68px !important;
+    height: 68px !important;
+  }
+}
+
+/* 手机端不做绝对坐标，避免影响已有移动端阅读体验 */
+@media (max-width: 760px) {
+  .shenlun-page .learning-hero-standard,
+  .interview-site .learning-hero-standard {
+    height: auto !important;
+    max-height: none !important;
+  }
+}
