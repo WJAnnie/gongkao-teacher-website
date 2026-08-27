@@ -1,0 +1,145 @@
+/* 方法框架首屏 → 学习手册：不是滚动跳转，而是同一视口里的场景切换 */
+
+.shenlun-page.framework .shenlun-hero,
+.shenlun-page.framework .shenlun-color-line,
+.shenlun-page.framework .framework-content,
+.shenlun-page.framework .framework-content > .shenlun-section-head,
+.shenlun-page.framework .framework-manual {
+  will-change: transform, opacity, max-height, padding, margin;
+}
+
+.shenlun-page.framework .shenlun-hero {
+  max-height: 100svh;
+  transition:
+    max-height .78s cubic-bezier(.22,.78,.18,1),
+    min-height .78s cubic-bezier(.22,.78,.18,1),
+    padding-top .78s cubic-bezier(.22,.78,.18,1),
+    padding-bottom .78s cubic-bezier(.22,.78,.18,1),
+    opacity .46s ease,
+    transform .78s cubic-bezier(.22,.78,.18,1),
+    border-color .35s ease;
+}
+
+.shenlun-page.framework .framework-content {
+  transition: padding-top .72s cubic-bezier(.22,.78,.18,1), transform .72s cubic-bezier(.22,.78,.18,1);
+}
+
+.shenlun-page.framework .framework-content > .shenlun-section-head {
+  max-height: 420px;
+  overflow: hidden;
+  transition:
+    max-height .56s cubic-bezier(.22,.78,.18,1),
+    padding .56s cubic-bezier(.22,.78,.18,1),
+    margin .56s cubic-bezier(.22,.78,.18,1),
+    border-color .32s ease,
+    opacity .28s ease,
+    transform .56s cubic-bezier(.22,.78,.18,1);
+}
+
+.shenlun-page.framework .framework-manual {
+  transition: opacity .55s .18s ease, transform .72s .08s cubic-bezier(.22,.78,.18,1);
+}
+
+/* 点击首屏 01/02/03/04 后：Hero 像上一页 PPT 一样向上退出，手册在原视口顶上来。 */
+.shenlun-page.framework.framework-reading-mode .shenlun-hero {
+  max-height: 0 !important;
+  min-height: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  opacity: 0;
+  transform: translateY(-18svh) scale(.985);
+  border-color: transparent;
+  pointer-events: none;
+}
+
+.shenlun-page.framework.framework-reading-mode .shenlun-color-line {
+  height: 0;
+  opacity: 0;
+  transition: height .38s ease, opacity .24s ease;
+}
+
+.shenlun-page.framework.framework-reading-mode .framework-content {
+  padding-top: clamp(18px, 2.4vw, 34px);
+  transform: translateY(0);
+}
+
+/* 进入阅读态后不再插入一整屏说明，目录直接接管视线。 */
+.shenlun-page.framework.framework-reading-mode .framework-content > .shenlun-section-head {
+  max-height: 0;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-color: transparent;
+  opacity: 0;
+  transform: translateY(-36px);
+}
+
+.shenlun-page.framework.framework-reading-mode .framework-manual {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 切换瞬间，右下四格先向左上“交棒”；左侧目录随后接住。 */
+.shenlun-page.framework.framework-scene-entering .framework-hero-entry-strip {
+  animation: framework-hero-menu-hand-off .58s cubic-bezier(.22,.78,.18,1) both;
+}
+
+.shenlun-page.framework.framework-scene-entering .shenlun-hero > :not(.shenlun-hero-bottom),
+.shenlun-page.framework.framework-scene-entering .shenlun-hero-bottom > p {
+  animation: framework-hero-copy-exit .46s ease both;
+}
+
+.shenlun-page.framework.framework-scene-entering .framework-manual-sidebar {
+  animation: framework-sidebar-stage-in .66s .20s cubic-bezier(.18,.78,.18,1) both;
+}
+
+.shenlun-page.framework.framework-scene-entering .framework-manual-reading {
+  animation: framework-reading-stage-in .72s .16s cubic-bezier(.18,.78,.18,1) both;
+}
+
+@keyframes framework-hero-menu-hand-off {
+  0% { opacity: 1; transform: translate(0,0) scale(1); }
+  55% { opacity: .9; transform: translate(-7vw,-4vh) scale(.985); }
+  100% { opacity: 0; transform: translate(-13vw,-10vh) scale(.965); }
+}
+
+@keyframes framework-hero-copy-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-34px); }
+}
+
+@keyframes framework-sidebar-stage-in {
+  from { opacity: 0; transform: translate(-38px,28px); }
+  to { opacity: 1; transform: translate(0,0); }
+}
+
+@keyframes framework-reading-stage-in {
+  from { opacity: 0; transform: translateY(52px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 820px) {
+  .shenlun-page.framework.framework-reading-mode .framework-content {
+    padding-top: 8px;
+  }
+
+  .shenlun-page.framework.framework-scene-entering .framework-mobile-index {
+    animation: framework-reading-stage-in .62s .18s cubic-bezier(.18,.78,.18,1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shenlun-page.framework .shenlun-hero,
+  .shenlun-page.framework .shenlun-color-line,
+  .shenlun-page.framework .framework-content,
+  .shenlun-page.framework .framework-content > .shenlun-section-head,
+  .shenlun-page.framework .framework-manual,
+  .shenlun-page.framework.framework-scene-entering .framework-hero-entry-strip,
+  .shenlun-page.framework.framework-scene-entering .shenlun-hero > :not(.shenlun-hero-bottom),
+  .shenlun-page.framework.framework-scene-entering .shenlun-hero-bottom > p,
+  .shenlun-page.framework.framework-scene-entering .framework-manual-sidebar,
+  .shenlun-page.framework.framework-scene-entering .framework-manual-reading {
+    animation: none !important;
+    transition-duration: .01ms !important;
+  }
+}

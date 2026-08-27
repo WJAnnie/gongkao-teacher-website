@@ -49,6 +49,7 @@ export function FrameworkManual() {
   useEffect(() => {
     let arrivalTimer: number | null = null;
     let sidebarTimer: number | null = null;
+    let sceneTimer: number | null = null;
 
     const onHeroSelect = (event: Event) => {
       const key = (event as CustomEvent<{ key?: string }>).detail?.key;
@@ -57,33 +58,40 @@ export function FrameworkManual() {
       const nextLayer = key as LayerKey;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const mobile = window.innerWidth <= 820;
+      const page = document.querySelector<HTMLElement>('.shenlun-page.framework');
+
       setActiveLayer(nextLayer);
       setDrawerOpen(false);
       setHeroArrival(nextLayer);
 
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => {
-          const manual = document.getElementById('framework-manual-top');
-          if (!manual) return;
-          const offset = mobile ? 116 : 82;
-          const top = manual.getBoundingClientRect().top + window.scrollY - offset;
-          window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' });
+      // 首屏入口不再触发页面滚动：直接把 Hero 折叠成上一页 PPT，
+      // 让学习手册在同一个视口里自然顶上来。
+      if (page) {
+        page.classList.add('framework-scene-entering');
+        window.requestAnimationFrame(() => page.classList.add('framework-reading-mode'));
+      }
 
-          sidebarTimer = window.setTimeout(() => {
-            const sidebar = document.querySelector<HTMLElement>('.framework-manual-sidebar');
-            const trigger = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
-            if (sidebar && trigger) {
-              const sidebarRect = sidebar.getBoundingClientRect();
-              const triggerRect = trigger.getBoundingClientRect();
-              const desired = Math.max(0, sidebar.scrollTop + triggerRect.top - sidebarRect.top - 18);
-              sidebar.scrollTo({ top: desired, behavior: reducedMotion ? 'auto' : 'smooth' });
-            }
-            if (mobile) setDrawerOpen(true);
-          }, reducedMotion ? 0 : mobile ? 520 : 320);
+      sidebarTimer = window.setTimeout(() => {
+        const sidebar = document.querySelector<HTMLElement>('.framework-manual-sidebar');
+        const trigger = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
+        if (sidebar && trigger) {
+          const sidebarRect = sidebar.getBoundingClientRect();
+          const triggerRect = trigger.getBoundingClientRect();
+          const desired = Math.max(0, sidebar.scrollTop + triggerRect.top - sidebarRect.top - 18);
+          sidebar.scrollTo({ top: desired, behavior: reducedMotion ? 'auto' : 'smooth' });
+        }
+        if (mobile) setDrawerOpen(true);
+      }, reducedMotion ? 0 : mobile ? 620 : 430);
 
-          arrivalTimer = window.setTimeout(() => setHeroArrival(null), reducedMotion ? 0 : mobile ? 1450 : 1100);
-        });
-      });
+      arrivalTimer = window.setTimeout(
+        () => setHeroArrival(null),
+        reducedMotion ? 0 : mobile ? 1450 : 1100,
+      );
+
+      sceneTimer = window.setTimeout(
+        () => page?.classList.remove('framework-scene-entering'),
+        reducedMotion ? 0 : 920,
+      );
     };
 
     window.addEventListener('framework-hero-select', onHeroSelect);
@@ -91,6 +99,7 @@ export function FrameworkManual() {
       window.removeEventListener('framework-hero-select', onHeroSelect);
       if (arrivalTimer) window.clearTimeout(arrivalTimer);
       if (sidebarTimer) window.clearTimeout(sidebarTimer);
+      if (sceneTimer) window.clearTimeout(sceneTimer);
     };
   }, []);
 
