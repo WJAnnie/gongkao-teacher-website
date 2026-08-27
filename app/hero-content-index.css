@@ -1,45 +1,93 @@
-/* 二级页首屏：固定标题坐标 + 主题色三级内容索引 */
+/* 二级页首屏：统一固定坐标 + 主题色三级内容索引 */
 .shenlun-hero,
 .interview-site-hero {
+  --hero-pad-x: clamp(38px, 6vw, 104px);
   position: relative;
-  min-height: clamp(650px, 72svh, 780px);
-  align-content: start;
-  padding-top: clamp(96px, 11vh, 132px);
-  padding-bottom: 118px;
+  display: block !important;
+  min-height: 700px;
+  height: 700px;
+  padding: 0 var(--hero-pad-x) 118px !important;
+  overflow: hidden;
 }
 
-/* 标题区使用固定纵向节奏，导览数量不再影响标题位置 */
+/* 桌面端八个二级页面严格使用同一组坐标 */
 .shenlun-hero-topline,
-.interview-hero-topline { margin: 0; }
+.interview-hero-topline {
+  position: absolute !important;
+  top: 34px;
+  left: var(--hero-pad-x);
+  right: var(--hero-pad-x);
+  height: 28px;
+  margin: 0 !important;
+}
 
 .shenlun-hero-eyebrow,
 .interview-hero-eyebrow {
-  margin: clamp(38px, 5vh, 54px) 0 0;
+  position: absolute !important;
+  top: 112px;
+  left: var(--hero-pad-x);
+  margin: 0 !important;
 }
 
 .shenlun-hero h1,
 .interview-site-hero h1 {
-  margin: 4px 0 0;
-  max-width: 980px;
+  position: absolute !important;
+  top: 148px;
+  left: var(--hero-pad-x);
+  width: min(720px, 54vw);
+  max-width: none;
+  margin: 0 !important;
   font-size: clamp(58px, 7.2vw, 112px);
   line-height: .92;
   letter-spacing: -.05em;
 }
 
 .shenlun-hero .exam-meta-strip,
-.interview-site-hero .exam-meta-strip { margin-top: 18px; }
+.interview-site-hero .exam-meta-strip {
+  position: absolute !important;
+  top: 292px;
+  left: var(--hero-pad-x);
+  margin: 0 !important;
+}
 
 .shenlun-hero-bottom,
 .interview-hero-bottom {
-  margin-top: 26px;
+  position: absolute !important;
+  top: 400px;
+  left: var(--hero-pad-x);
+  right: var(--hero-pad-x);
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
+  gap: clamp(34px, 5vw, 76px);
+  align-items: end;
+  margin: 0 !important;
 }
 
-/* 三级导览直接嵌入首屏底部，不再单独出现标题或上方分隔线 */
+.shenlun-hero-bottom > p,
+.interview-hero-bottom > p {
+  align-self: end;
+  min-height: 72px;
+  margin: 0 !important;
+}
+
+.shenlun-route-strip,
+.interview-route-strip {
+  align-self: end;
+  margin: 0 !important;
+}
+
+/* 右上阅卷图形始终保持同一位置 */
+.shenlun-hero .exam-review-stamp,
+.interview-site-hero .exam-review-stamp {
+  position: absolute !important;
+}
+
+/* 三级导览直接嵌入首屏底部 */
 .shenlun-hero .hero-page-guide,
 .interview-site-hero .hero-page-guide {
   position: absolute !important;
-  left: clamp(22px, 7vw, 112px);
-  right: clamp(22px, 7vw, 112px);
+  left: var(--hero-pad-x);
+  right: var(--hero-pad-x);
   bottom: 0;
   width: auto !important;
   margin: 0 !important;
@@ -73,7 +121,6 @@
       color-mix(in srgb, var(--interview-soft) 76%, var(--paper)) 100%);
 }
 
-/* 去掉此前导览顶部的强调短线 */
 .hero-page-guide .page-guide-items::before { display: none !important; }
 
 .hero-page-guide .page-guide-items button {
@@ -175,7 +222,7 @@
   transform: translate(2px, 2px);
 }
 
-/* 右侧快速导览也使用当前页面的主题底色，不做白色漂浮卡片 */
+/* 右侧快速导览使用当前页面主题底色 */
 .page-guide-float {
   opacity: 1;
   width: 166px;
@@ -208,38 +255,74 @@
   background: color-mix(in srgb, var(--interview-color) 13%, var(--interview-soft));
 }
 
+/* 中等屏幕仍保持同一坐标，仅为多项三级导览预留第二行 */
 @media (max-width: 1180px) and (min-width: 761px) {
   .shenlun-hero,
   .interview-site-hero {
-    min-height: 720px;
-    padding-bottom: 156px;
+    min-height: 730px;
+    height: 730px;
+    padding-bottom: 156px !important;
+  }
+
+  .shenlun-hero-bottom,
+  .interview-hero-bottom {
+    top: 392px;
+    grid-template-columns: minmax(0,1fr) minmax(320px,.9fr);
   }
 
   .hero-page-guide .page-guide-items { grid-template-columns: repeat(4, minmax(0,1fr)); }
   .hero-page-guide .page-guide-items button { min-height: 68px; }
 }
 
+/* 手机恢复流式排版，保证可读性和触控 */
 @media (max-width: 760px) {
   .shenlun-hero,
   .interview-site-hero {
+    --hero-pad-x: 18px;
+    display: grid !important;
     min-height: 600px;
-    padding-top: 86px;
-    padding-bottom: 82px;
+    height: auto;
+    padding: 86px 18px 82px !important;
     align-content: start;
   }
 
+  .shenlun-hero-topline,
+  .interview-hero-topline,
   .shenlun-hero-eyebrow,
-  .interview-hero-eyebrow { margin-top: 28px; }
+  .interview-hero-eyebrow,
+  .shenlun-hero h1,
+  .interview-site-hero h1,
+  .shenlun-hero .exam-meta-strip,
+  .interview-site-hero .exam-meta-strip,
+  .shenlun-hero-bottom,
+  .interview-hero-bottom {
+    position: relative !important;
+    inset: auto !important;
+    width: auto;
+  }
+
+  .shenlun-hero-eyebrow,
+  .interview-hero-eyebrow { margin-top: 28px !important; }
 
   .shenlun-hero h1,
   .interview-site-hero h1 {
-    margin-top: 4px;
+    margin-top: 4px !important;
     font-size: clamp(48px, 15vw, 72px);
     line-height: .94;
   }
 
+  .shenlun-hero .exam-meta-strip,
+  .interview-site-hero .exam-meta-strip { margin-top: 18px !important; }
+
   .shenlun-hero-bottom,
-  .interview-hero-bottom { margin-top: 18px; }
+  .interview-hero-bottom {
+    margin-top: 18px !important;
+    display: grid !important;
+    grid-template-columns: 1fr;
+  }
+
+  .shenlun-hero-bottom > p,
+  .interview-hero-bottom > p { min-height: 0; }
 
   .shenlun-hero .hero-page-guide,
   .interview-site-hero .hero-page-guide {
