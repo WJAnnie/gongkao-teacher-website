@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ShenlunShell } from '../../shenlun-shell';
 import { questionTypeKnowledge } from './question-type-knowledge';
 import { QuestionTypeSwitcher } from './question-type-switcher';
-import { FrameworkExpression } from './framework-expression';
+import { FrameworkExpressionStepper } from './framework-expression-stepper';
 
 export const metadata: Metadata = {
   title: '方法框架｜申论学习｜答卷之外',
@@ -70,7 +70,7 @@ export default function FrameworkPage() {
                 '从材料到答案，要处理层级和逻辑关系',
               ]}
             />
-            <FrameworkExpression />
+            <FrameworkExpressionStepper />
           </section>
 
           <section className="framework-layer-section framework-layer-types" id="framework-types">
