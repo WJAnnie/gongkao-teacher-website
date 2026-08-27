@@ -12,7 +12,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 25
     steps:
       - name: Download exact audio
         run: |
@@ -22,33 +22,119 @@ jobs:
             -o xiangan.mp3
           ls -lh xiangan.mp3
 
-      - name: Try Suno public clip and native aligned lyrics
+      - name: Prepare exact lyric text
         run: |
-          set +e
-          curl -L -sS -D clip-headers.txt \
-            'https://studio-api.prod.suno.com/api/clip/9699b383-feba-4acb-80af-38c15fe7dfd8' \
-            -o clip.json
-          curl -L -sS -D aligned-headers.txt \
-            'https://studio-api.prod.suno.com/api/gen/9699b383-feba-4acb-80af-38c15fe7dfd8/aligned_lyrics/v2/' \
-            -o aligned-lyrics.json
-          echo '--- clip ---'
-          grep -E '^HTTP/' clip-headers.txt || true
-          head -c 3000 clip.json || true
-          echo
-          echo '--- aligned ---'
-          grep -E '^HTTP/' aligned-headers.txt || true
-          head -c 5000 aligned-lyrics.json || true
-          echo
+          cat > lyrics.txt <<'LYRICS'
+          清晨的灯还亮在窗
+          桌上的书翻过几章
+          行测的题做了又想
+          申论的字写了又改几行
+          有时候路显得很长
+          有时候心也会迷茫
+          可昨天不会替你登场
+          今天的你还要继续向前闯
+          一道题，一页纸，一段时光
+          一点点，把未知变成日常
+          别急着问还有多远的地方
+          先把今天走得坦荡
+          乘一程云帆，向心中的岸启航
+          穿过几阵风，也穿过几场迷茫
+          行测练判断，申论写下主张
+          一笔一画，都在靠近梦想
+          乘一程云帆，朝想去的地方
+          不用比谁快，也不用四处张望
+          今天坐书桌，明天走进考场
+          走过的每一步，终会有回响
+          资料分析算到天亮
+          判断推理绕过几场
+          有些答案曾经勉强
+          后来才懂方法比答案更长
+          申论不是辞藻漂亮
+          也不是模板写满纸张
+          读懂材料理清思想
+          才能让每一句话都有分量
+          一道题，一次错，一次成长
+          一次次，把慌张变成平常
+          那些没人知道的晚上
+          都在替未来积攒力量
+          乘一程云帆，向心中的岸启航
+          穿过几阵风，也穿过几场迷茫
+          行测练判断，申论写下主张
+          一笔一画，都在靠近梦想
+          乘一程云帆，朝想去的地方
+          不用比谁快，也不用四处张望
+          今天坐书桌，明天走进考场
+          走过的每一步，终会有回响
+          是遇到难题，不再慌张
+          是面对材料，学会判断
+          是一次次想清楚以后
+          再写下自己的主张
+          有人陪你看过几页文章
+          有人提醒你别急着找答案
+          云起的时候，帆自然会扬
+          剩下的路，要由你自己去闯
+          乘一程云帆，向心中的岸启航
+          走过这段路，也走过年少时光
+          行测有方法，申论自有文章
+          提笔的时候，心里已有方向
+          乘一程云帆，朝想去的地方
+          等有一天，你真的站在人群中央
+          回头看那些，伏案许久的晚上
+          你会发现，坚持早已经有了模样
+          LYRICS
+          sed -i 's/^          //' lyrics.txt
+          python - <<'PY'
+          from pathlib import Path
+          text=Path('lyrics.txt').read_text(encoding='utf-8')
+          print('lines=',len([x for x in text.splitlines() if x.strip()]))
+          print(text)
+          PY
 
-      - name: Upload audit files
+      - name: Install stable-ts
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install stable-ts
+
+      - name: Force-align exact lyrics to audio
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import stable_whisper
+
+          lyrics = Path('lyrics.txt').read_text(encoding='utf-8').strip()
+          model = stable_whisper.load_model('small')
+          result = model.align(
+              'xiangan.mp3',
+              lyrics,
+              language='zh',
+              original_split=True,
+              nonspeech_skip=None,
+              remove_instant_words=False,
+          )
+          if result is None:
+              raise RuntimeError('alignment returned None')
+          result.save_as_json('aligned-small.json')
+
+          out=[]
+          for si, seg in enumerate(result.segments):
+              row={'segment':si,'start':seg.start,'end':seg.end,'text':seg.text,'words':[]}
+              for w in seg.words:
+                  row['words'].append({'word':w.word,'start':w.start,'end':w.end,'probability':w.probability})
+              out.append(row)
+          Path('aligned-readable.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          for row in out:
+              print(f"LINE {row['segment']+1:02d} {row['start']:.3f}-{row['end']:.3f} {row['text']}")
+              print('  '+' | '.join(f"{w['word']}@{w['start']:.3f}-{w['end']:.3f}" for w in row['words']))
+          PY
+
+      - name: Upload alignment files
         uses: actions/upload-artifact@v4
         with:
-          name: xiangan-audit
-          if-no-files-found: warn
+          name: xiangan-forced-alignment
+          if-no-files-found: error
           path: |
-            xiangan.mp3
-            clip-headers.txt
-            clip.json
-            aligned-headers.txt
-            aligned-lyrics.json
+            lyrics.txt
+            aligned-small.json
+            aligned-readable.json
           retention-days: 1
