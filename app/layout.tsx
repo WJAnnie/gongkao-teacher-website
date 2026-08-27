@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description: '专注申论与结构化面试：历年真题索引、专项练习、学习资料、素材积累、答题计时与复盘工具。',
   openGraph: {
     title: '答卷之外｜申论与面试学习站',
-    description: '公考不是背标准答案。这里有申论与面试真题、方法资料、素材积累和训练工具。',
+    description: '把公考题做懂，把话说清。这里有申论与面试真题、方法资料、素材积累和训练工具。',
     type: 'website',
     locale: 'zh_CN',
     images: [{ url: '/og.png', width: 1200, height: 630, alt: '答卷之外：申论与面试学习站' }],
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: '答卷之外｜申论与面试学习站',
-    description: '申论与面试真题、方法资料、素材积累和训练工具。',
+    description: '把公考题做懂，把话说清。申论与面试真题、方法资料、素材积累和训练工具。',
     images: ['/og.png'],
   },
 };
