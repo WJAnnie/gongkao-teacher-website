@@ -36,6 +36,7 @@ import './shenlun/framework/framework-expression-polish.css';
 import './shenlun/framework/framework-expression-reading-refine.css';
 import './shenlun/framework/framework-layout-centering.css';
 import './shenlun/framework/framework-voice-reading.css';
+import './shenlun/framework/framework-deep-enrichment.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
