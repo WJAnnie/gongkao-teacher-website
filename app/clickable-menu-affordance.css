@@ -1,0 +1,284 @@
+/*
+ * 可点击目录显性提示层
+ * 目标：用户不用先把鼠标移上去，也能一眼判断“这是入口，可以点击”。
+ * 本文件最后加载，只强化真实 button / a，不改变静态内容块。
+ */
+
+/* 四格/多格目录在静止状态就给出明确的“入口”身份。 */
+.shenlun-route-strip,
+.interview-route-strip,
+.framework-hero-entry-strip,
+.page-guide-inline {
+  position: relative;
+  overflow: visible;
+}
+
+.shenlun-route-strip::before,
+.interview-route-strip::before,
+.framework-hero-entry-strip::before {
+  position: absolute;
+  left: 0;
+  top: -23px;
+  color: rgba(37,37,31,.50);
+  font: italic 8px/1 Georgia, serif;
+  letter-spacing: .12em;
+  pointer-events: none;
+}
+
+.shenlun-route-strip::before { content: "LEARNING PATH / 点击切换栏目"; }
+.interview-route-strip::before { content: "LEARNING PATH / 点击切换栏目"; }
+.framework-hero-entry-strip::before { content: "CHAPTER INDEX / 点击进入章节"; }
+
+/* 首屏栏目入口：默认就像可按下的导航，而不是普通信息表格。 */
+.shenlun-route-strip > a,
+.interview-route-strip > a,
+.framework-hero-entry-strip > button {
+  --menu-accent: var(--shenlun-accent, var(--blue));
+  background: color-mix(in srgb, var(--menu-accent) 4%, rgba(255,255,255,.20));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease !important;
+}
+
+.interview-route-strip > a { --menu-accent: var(--interview-color, var(--blue)); }
+
+.shenlun-route-strip > a:hover,
+.interview-route-strip > a:hover,
+.framework-hero-entry-strip > button:hover {
+  background: color-mix(in srgb, var(--menu-accent) 12%, var(--paper));
+  box-shadow: inset 4px 0 0 var(--menu-accent), 0 6px 18px rgba(37,37,31,.055);
+  transform: translateY(-2px);
+}
+
+.shenlun-route-strip > a:active,
+.interview-route-strip > a:active,
+.framework-hero-entry-strip > button:active {
+  transform: translateY(0) scale(.99);
+}
+
+/* 链接右端统一使用可见的圆角“进入”徽标。 */
+.shenlun-route-strip > a::after,
+.interview-route-strip > a::after {
+  content: "进入";
+  position: static;
+  width: auto;
+  min-width: 34px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  padding: 0 7px;
+  border: 1px solid color-mix(in srgb, var(--menu-accent) 46%, rgba(37,37,31,.14));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--menu-accent) 9%, var(--paper));
+  color: color-mix(in srgb, var(--menu-accent) 76%, var(--ink));
+  opacity: .92;
+  transform: none;
+  font: 600 8px/1 system-ui, sans-serif;
+  letter-spacing: .06em;
+  transition: background .2s ease, color .2s ease, transform .2s ease !important;
+}
+
+.shenlun-route-strip > a:hover::after,
+.interview-route-strip > a:hover::after {
+  opacity: 1;
+  transform: translateX(2px);
+  background: var(--menu-accent);
+  color: #fff;
+}
+
+.shenlun-route-strip > a.active::after,
+.interview-route-strip > a.active::after {
+  content: "当前";
+  background: var(--menu-accent);
+  border-color: var(--menu-accent);
+  color: #fff;
+  opacity: 1;
+}
+
+/* 方法框架四格按钮本身已有 i 箭头，把它变成持续可见的进入按钮。 */
+.framework-hero-entry-strip > button > i {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--shenlun-accent) 48%, rgba(37,37,31,.12));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--shenlun-accent) 9%, var(--paper));
+  color: color-mix(in srgb, var(--shenlun-accent) 80%, var(--ink));
+  opacity: .95;
+  transform: none;
+  font-size: 12px;
+}
+
+.framework-hero-entry-strip > button:hover > i,
+.framework-hero-entry-strip > button:focus-visible > i {
+  background: var(--shenlun-accent);
+  color: #fff;
+  opacity: 1;
+  transform: translate(2px,2px);
+}
+
+/* 页面内三级导览：截图里这类 01/02/03/04 目录也必须在静止状态可识别。 */
+.page-guide-items {
+  position: relative;
+}
+
+.page-guide-items::before {
+  content: "PAGE INDEX / 点击定位本页内容";
+  position: absolute;
+  left: 0;
+  top: -18px;
+  color: rgba(37,37,31,.45);
+  font: italic 7px/1 Georgia, serif;
+  letter-spacing: .11em;
+  pointer-events: none;
+}
+
+.page-guide-items button {
+  background: color-mix(in srgb, var(--interaction-accent, var(--blue)) 4%, rgba(255,255,255,.18));
+  transition: background .18s ease, color .18s ease, box-shadow .18s ease, transform .18s ease !important;
+}
+
+.page-guide-items button > i {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  border: 1px solid color-mix(in srgb, var(--interaction-accent, var(--blue)) 42%, rgba(37,37,31,.12));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--interaction-accent, var(--blue)) 8%, var(--paper));
+  color: color-mix(in srgb, var(--interaction-accent, var(--blue)) 78%, var(--ink));
+  opacity: .92;
+  font-style: normal;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+
+.page-guide-items button:hover,
+.page-guide-items button:focus-visible {
+  background: color-mix(in srgb, var(--interaction-accent, var(--blue)) 11%, var(--paper));
+  box-shadow: inset 3px 0 0 var(--interaction-accent, var(--blue));
+  transform: translateY(-1px);
+}
+
+.page-guide-items button:hover > i,
+.page-guide-items button:focus-visible > i,
+.page-guide-items button.active > i {
+  background: var(--interaction-accent, var(--blue));
+  color: #fff;
+  transform: translate(1px,1px);
+}
+
+/* 首页学习目录：一级和展开后的二级入口都持续显示“可进入”符号。 */
+.subject-track-arrow {
+  border-color: color-mix(in srgb, var(--track-accent) 52%, rgba(37,37,31,.18));
+  background: color-mix(in srgb, var(--track-accent) 10%, var(--paper));
+  color: color-mix(in srgb, var(--track-accent) 78%, var(--ink));
+  opacity: 1;
+}
+
+.subject-module-card > b,
+.repeat-learning-link > i {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, currentColor 48%, transparent);
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  opacity: .9;
+}
+
+.subject-module-card:hover > b,
+.repeat-learning-link:hover > i {
+  opacity: 1;
+  transform: translate(2px,-2px);
+}
+
+/* 左侧手风琴：一级明确是“展开”，二级明确是“进入”。 */
+.framework-layer-nav .framework-layer-trigger > i {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--shenlun-accent) 38%, rgba(37,37,31,.14));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--shenlun-accent) 7%, var(--paper));
+}
+
+.framework-layer-group .framework-sub-nav button {
+  grid-template-columns: 27px 1fr 20px !important;
+}
+
+.framework-layer-group .framework-sub-nav button::after {
+  content: "›";
+  justify-self: end;
+  color: color-mix(in srgb, var(--shenlun-accent) 72%, var(--ink));
+  font: 600 16px/1 Georgia, serif;
+  opacity: .72;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.framework-layer-group .framework-sub-nav button:hover::after,
+.framework-layer-group .framework-sub-nav button.active::after {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* 真正用于切换内容的题型 tabs，也给出文字级切换暗示。 */
+.question-type-switcher-tabs button {
+  position: relative;
+  padding-right: 52px !important;
+}
+
+.question-type-switcher-tabs button::after {
+  content: "切换";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  min-width: 30px;
+  padding: 4px 5px;
+  border: 1px solid color-mix(in srgb, var(--shenlun-accent) 38%, rgba(37,37,31,.12));
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--shenlun-accent) 75%, var(--ink));
+  font: 600 7px/1 system-ui, sans-serif;
+  letter-spacing: .05em;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+.question-type-switcher-tabs button.active::after {
+  content: "当前";
+  background: var(--shenlun-accent);
+  border-color: var(--shenlun-accent);
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .shenlun-route-strip::before,
+  .interview-route-strip::before,
+  .framework-hero-entry-strip::before {
+    top: -20px;
+    font-size: 7px;
+  }
+
+  .page-guide-items::before {
+    top: -16px;
+  }
+
+  .subject-module-card > b,
+  .repeat-learning-link > i {
+    width: 23px;
+    height: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shenlun-route-strip > a,
+  .interview-route-strip > a,
+  .framework-hero-entry-strip > button,
+  .page-guide-items button,
+  .page-guide-items button > i,
+  .framework-layer-group .framework-sub-nav button::after {
+    transition: none !important;
+  }
+}
