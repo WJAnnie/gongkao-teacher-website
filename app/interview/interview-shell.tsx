@@ -82,8 +82,8 @@ export function InterviewShell({ tone, eyebrow, title, desc, children }: { tone:
         </div>
       </section>
 
-      <div className="interview-color-line" aria-hidden="true" />
       <PageGuide items={guides[tone]} />
+      <div className="interview-color-line" aria-hidden="true" />
       {children}
 
       <footer className="interview-footer">
