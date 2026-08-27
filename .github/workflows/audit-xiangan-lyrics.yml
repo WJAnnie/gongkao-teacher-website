@@ -1,0 +1,48 @@
+name: Audit Xiangan Lyrics
+
+on:
+  push:
+    paths:
+      - '.github/workflows/audit-xiangan-lyrics.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download exact audio
+        run: |
+          set -euxo pipefail
+          curl -L --fail --retry 3 -A 'Mozilla/5.0' -H 'Referer: https://suno.com/' \
+            'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3' \
+            -o xiangan.mp3
+          ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 xiangan.mp3 > duration.txt
+          ls -lh xiangan.mp3
+          cat duration.txt
+
+      - name: Try Suno native aligned lyrics
+        continue-on-error: true
+        run: |
+          set -x
+          curl -L -sS -D aligned-headers.txt \
+            'https://studio-api.prod.suno.com/api/gen/9699b383-feba-4acb-80af-38c15fe7dfd8/aligned_lyrics/v2/' \
+            -o aligned-lyrics.json || true
+          echo '--- headers ---'
+          cat aligned-headers.txt || true
+          echo '--- body preview ---'
+          head -c 4000 aligned-lyrics.json || true
+
+      - name: Upload audit files
+        uses: actions/upload-artifact@v4
+        with:
+          name: xiangan-audit
+          path: |
+            xiangan.mp3
+            duration.txt
+            aligned-headers.txt
+            aligned-lyrics.json
+          retention-days: 1
