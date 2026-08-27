@@ -1,14 +1,60 @@
-/* 三级内容导览的当前状态与轻量阅卷感 */
+/* 二级页导览、标题位置与方法框架内容顺序 */
 .page-guide-items button,
 .page-guide-float button { position: relative; }
+
+/* 首屏标题固定到同一视觉坐标，四个二级页切换时不跳位 */
+.shenlun-hero,
+.interview-site-hero {
+  min-height: 54svh !important;
+  padding-left: clamp(22px, 7vw, 112px) !important;
+  padding-right: clamp(22px, 7vw, 112px) !important;
+}
+
+.shenlun-hero-eyebrow,
+.interview-hero-eyebrow,
+.shenlun-hero h1,
+.interview-site-hero h1,
+.exam-meta-strip,
+.shenlun-hero-bottom,
+.interview-hero-bottom {
+  margin-left: 0 !important;
+  transform: none !important;
+  justify-self: stretch;
+}
+
+.shenlun-hero h1,
+.interview-site-hero h1 {
+  width: min(900px, 64vw);
+  max-width: 900px;
+  font-size: clamp(58px, 8vw, 120px) !important;
+  line-height: .9 !important;
+  letter-spacing: -.055em !important;
+}
+
+/* 主内容导览紧贴首屏底部，并处于主题长线之上 */
+.page-guide-inline {
+  position: relative;
+  z-index: 8;
+  width: min(1500px, calc(100% - 12vw));
+  margin: 0 auto;
+  padding: 18px 0 0;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+}
+
+.page-guide-heading {
+  min-height: 31px;
+  padding-bottom: 10px;
+}
 
 .page-guide-items button.active {
   color: var(--ink);
   background: color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 13%, transparent);
 }
+
 .interview-site .page-guide-items button.active {
   background: color-mix(in srgb, var(--interview-color) 13%, transparent);
 }
+
 .page-guide-items button.active::after {
   content: "";
   position: absolute;
@@ -18,55 +64,221 @@
   height: 2px;
   background: var(--shenlun-accent, var(--interview-color));
 }
+
 .interview-site .page-guide-items button.active::after { background: var(--interview-color); }
+
+/* 右侧导览默认可见，不再作为隐藏彩蛋 */
+.page-guide-float {
+  right: 22px !important;
+  top: 118px !important;
+  width: 168px !important;
+  padding: 11px 12px 12px !important;
+  border: 1px solid rgba(37,37,31,.22) !important;
+  background: color-mix(in srgb, var(--paper) 94%, transparent) !important;
+  box-shadow: 0 10px 28px rgba(37,37,31,.055);
+  backdrop-filter: blur(14px);
+  opacity: .94 !important;
+  transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease !important;
+}
+
+.page-guide-float:hover,
+.page-guide-float:focus-within {
+  opacity: 1 !important;
+  transform: translateX(-3px);
+  box-shadow: 0 14px 34px rgba(37,37,31,.085);
+}
+
+.page-guide-float > span {
+  padding: 4px 5px 10px !important;
+  color: rgba(37,37,31,.56) !important;
+  font-size: 7px !important;
+  letter-spacing: .13em !important;
+}
+
+.page-guide-float button {
+  min-height: 34px;
+  padding: 8px 5px !important;
+  color: rgba(37,37,31,.72) !important;
+}
 
 .page-guide-float button b {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
 }
+
+.page-guide-float button:hover { color: var(--ink) !important; }
+
 .page-guide-float button.active {
-  color: var(--ink);
-  background: color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 10%, transparent);
+  color: var(--ink) !important;
+  background: color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 12%, transparent) !important;
 }
+
 .interview-site .page-guide-float button.active {
-  background: color-mix(in srgb, var(--interview-color) 10%, transparent);
+  background: color-mix(in srgb, var(--interview-color) 12%, transparent) !important;
 }
+
 .page-guide-float button.active::after {
   content: "";
   position: absolute;
-  right: 3px;
-  width: 4px;
-  height: 4px;
+  right: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--shenlun-accent, var(--interview-color));
 }
+
 .interview-site .page-guide-float button.active::after { background: var(--interview-color); }
+.page-guide-float::after { display: none !important; }
+
+/* 方法框架：表达规则 → 题型框架 → 核心能力 → 实用技巧 */
+.framework-content .shenlun-section-head { margin-bottom: 44px; }
+
+.framework-layer-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.framework-layer-section {
+  scroll-margin-top: 118px;
+  position: relative;
+  border: 1px solid rgba(37,37,31,.19);
+  background: rgba(255,255,255,.10);
+  overflow: hidden;
+}
+
+.framework-layer-section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 88px;
+  height: 4px;
+  background: var(--shenlun-accent);
+}
+
+.framework-layer-section:nth-child(even) {
+  background: color-mix(in srgb, var(--shenlun-soft) 42%, var(--paper));
+}
+
+.framework-layer-summary {
+  display: grid;
+  grid-template-columns: minmax(150px,.42fr) minmax(0,1.58fr);
+  column-gap: clamp(32px,5vw,74px);
+  padding: clamp(30px,4vw,58px);
+}
+
+.framework-layer-summary > span {
+  grid-row: 1 / span 3;
+  color: var(--shenlun-accent);
+  font: italic 10px Georgia, serif;
+  letter-spacing: .1em;
+}
+
+.framework-layer-summary h3 {
+  margin: 0;
+  font: 500 clamp(38px,5vw,72px)/1.02 "Songti SC","SimSun",Georgia,serif;
+  letter-spacing: -.035em;
+}
+
+.framework-layer-summary p {
+  max-width: 820px;
+  margin: 18px 0 0;
+  color: rgba(37,37,31,.61);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.framework-layer-summary ul {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 9px 28px;
+  margin: 28px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid rgba(37,37,31,.16);
+  list-style: none;
+}
+
+.framework-layer-summary li {
+  color: rgba(37,37,31,.63);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.framework-layer-summary li::before {
+  content: "↳";
+  margin-right: 8px;
+  color: var(--shenlun-accent);
+}
+
+.framework-type-detail-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 clamp(30px,4vw,58px);
+  padding: 20px 0 15px;
+  border-top: 1px solid rgba(37,37,31,.18);
+}
+
+.framework-type-detail-head span {
+  color: var(--shenlun-accent);
+  font: italic 9px Georgia,serif;
+  letter-spacing: .12em;
+}
+
+.framework-type-detail-head p {
+  margin: 0;
+  color: rgba(37,37,31,.5);
+  font-size: 10px;
+}
+
+.framework-layer-types .question-type-switcher {
+  margin: 0 clamp(30px,4vw,58px) clamp(30px,4vw,58px);
+  scroll-margin-top: 118px;
+}
 
 .learning-theme-glow {
   filter: blur(9px);
   opacity: .2;
 }
 
-@media (hover: hover) {
-  .page-guide-float { cursor: default; }
-  .page-guide-float::after {
-    content: "靠近查看";
-    display: block;
-    margin-top: 7px;
-    padding: 6px 5px 1px;
-    color: rgba(37,37,31,.28);
-    font: italic 6px Georgia, serif;
-    letter-spacing: .1em;
+@media (max-width: 1180px) {
+  .page-guide-float {
+    display: block !important;
+    width: 150px !important;
+    right: 14px !important;
   }
-  .page-guide-float:hover::after,
-  .page-guide-float:focus-within::after { opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  .page-guide-float { display: none !important; }
 }
 
 @media (max-width: 760px) {
+  .shenlun-hero h1,
+  .interview-site-hero h1 {
+    width: 100%;
+    max-width: none;
+  }
+
+  .page-guide-inline {
+    width: calc(100% - 36px);
+    padding-top: 14px;
+  }
+
   .page-guide-heading { position: sticky; left: 0; }
   .page-guide-items button.active::after { width: 46%; }
+
+  .framework-content .shenlun-section-head { margin-bottom: 30px; }
+  .framework-layer-summary { grid-template-columns: 1fr; padding: 24px 20px 26px; }
+  .framework-layer-summary > span { grid-row: auto; margin-bottom: 24px; }
+  .framework-layer-summary h3 { font-size: 38px; }
+  .framework-layer-summary p { font-size: 11px; }
+  .framework-layer-summary ul { grid-column: 1; grid-template-columns: 1fr; gap: 8px; }
+  .framework-type-detail-head { display: grid; gap: 8px; margin-inline: 20px; }
+  .framework-layer-types .question-type-switcher { margin: 0 20px 24px; }
 }
