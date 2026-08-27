@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FrameworkExpressionStepper } from './framework-expression-stepper';
 import { FrameworkTypeStepper, typeChapters } from './framework-type-stepper';
 import { FrameworkAbilities, coreAbilityChapters } from './framework-abilities';
-import { FrameworkCaseContext } from './framework-case-context';
+import { FrameworkTipsArticles, tipArticles } from './framework-tips-articles';
 
 const layers = [
   { key: 'expression', no: '01', label: '表达规则' },
@@ -25,14 +25,6 @@ const expressionChapters = [
   { id: 'expression-finish', no: '07', label: '完成一道题' },
 ] as const;
 
-const tips = [
-  ['01', '先看对象，再判断要素', '同一句话放到不同对象、不同题目里，承担的作用可能完全不同。'],
-  ['02', '案例先删故事，再留方法', '人物、地点和过程可以压缩，真正需要留下的是案例背后的工作方式和作用。'],
-  ['03', '字数先算，再决定写多细', '一行25格的训练习惯，会直接影响你对答案层级和取舍的判断。'],
-  ['04', '归纳词别贪大', '能直接回答题目、能覆盖下位内容，又不把其他要点一起吞进去，才是合适的归纳。'],
-  ['05', '做完一定复盘', '检查漏点、错分、层级、表达和时间，比单纯再刷一道题更重要。'],
-] as const;
-
 function goTo(id: string) {
   window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 20);
 }
@@ -41,6 +33,7 @@ export function FrameworkManual() {
   const [activeLayer, setActiveLayer] = useState<LayerKey>('expression');
   const [activeExpression, setActiveExpression] = useState(0);
   const [activeType, setActiveType] = useState('summary');
+  const [activeTip, setActiveTip] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const chooseLayer = (key: LayerKey) => {
@@ -64,21 +57,32 @@ export function FrameworkManual() {
     if (chapter) goTo(chapter.id);
   };
 
+  const chooseTip = (id: string) => {
+    if (activeLayer !== 'tips') setActiveLayer('tips');
+    setActiveTip(id);
+    setDrawerOpen(false);
+    goTo(id);
+  };
+
   const typeIndex = Math.max(0, typeChapters.findIndex((item) => item.slug === activeType));
+  const tipIndex = activeTip ? Math.max(0, tipArticles.findIndex((item) => item.id === activeTip)) : 0;
   const mobileLabel = activeLayer === 'expression'
     ? `${String(activeExpression + 1).padStart(2, '0')} / 07`
     : activeLayer === 'types'
       ? `${String(typeIndex + 1).padStart(2, '0')} / 05`
-      : layers.find((item) => item.key === activeLayer)?.label;
+      : activeLayer === 'tips' && activeTip
+        ? `${String(tipIndex + 1).padStart(2, '0')} / 10`
+        : layers.find((item) => item.key === activeLayer)?.label;
   const progressHeight = activeLayer === 'expression'
     ? `${((activeExpression + 1) / 7) * 100}%`
     : activeLayer === 'types'
       ? `${((typeIndex + 1) / 5) * 100}%`
-      : '100%';
+      : activeLayer === 'tips' && activeTip
+        ? `${((tipIndex + 1) / 10) * 100}%`
+        : '100%';
 
   return (
     <div className="framework-manual" id="framework-manual-top">
-      <FrameworkCaseContext activeLayer={`${activeLayer}-${activeExpression}-${activeType}`} />
       <button className="framework-mobile-index" type="button" onClick={() => setDrawerOpen(true)}>
         <span>本页目录</span>
         <b>{mobileLabel}</b>
@@ -123,8 +127,8 @@ export function FrameworkManual() {
         )}
 
         {activeLayer === 'tips' && (
-          <nav className="framework-sub-nav" aria-label="实用技巧目录">
-            {tips.map(([no, title]) => <button key={title} type="button" onClick={() => goTo(`tip-${no}`)}><span>{no}</span><b>{title}</b></button>)}
+          <nav className="framework-sub-nav tips-sub-nav" aria-label="实用技巧目录">
+            {tipArticles.map((item) => <button key={item.id} className={activeTip === item.id ? 'active' : ''} type="button" onClick={() => chooseTip(item.id)}><span>{item.no}</span><b>{item.title}</b></button>)}
           </nav>
         )}
 
@@ -167,11 +171,13 @@ export function FrameworkManual() {
         )}
 
         {activeLayer === 'tips' && (
-          <section className="framework-manual-article" id="framework-tips">
-            <header className="framework-article-intro"><span>04 / PRACTICAL NOTES</span><h2>实用技巧</h2><p>这一栏以后更像我的教学心得和做题札记。每次遇到一个值得单独讲清楚的问题，就整理成一篇短文章放进来。</p></header>
-            <div className="framework-manual-prose-list">
-              {tips.map(([no, title, text]) => <section id={`tip-${no}`} key={title}><span>{no}</span><h3>{title}</h3><p>{text}</p></section>)}
-            </div>
+          <section className="framework-manual-article framework-tips-layer" id="framework-tips">
+            <header className="framework-article-intro">
+              <span>04 / PRACTICAL NOTES</span>
+              <h2>实用技巧</h2>
+              <p>这里不按教材顺序讲知识，而是把做题时最容易卡住、最值得单独说清楚的问题写成一篇篇短文章。先看标题，遇到自己正在犯的问题再点开读；切换文章时，上一篇会自动收起。</p>
+            </header>
+            <FrameworkTipsArticles activeId={activeTip} onChange={setActiveTip} />
           </section>
         )}
       </article>
