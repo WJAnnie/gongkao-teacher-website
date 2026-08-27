@@ -84,12 +84,29 @@ export function HomeSongPlayer() {
   const [audioError, setAudioError] = useState(false);
   const [playerVisible, setPlayerVisible] = useState(false);
 
+  // 进站先主动尝试播放；播放器本身仍在第二屏以后才显示。
+  // 若浏览器拦截有声自动播放，后面的首次交互逻辑会立即补播。
   useEffect(() => {
+    let wasDismissed = false;
     try {
-      setDismissed(window.sessionStorage.getItem('xiang-an-dismissed') === '1');
+      wasDismissed = window.sessionStorage.getItem('xiang-an-dismissed') === '1';
+      setDismissed(wasDismissed);
     } catch {
       setDismissed(false);
     }
+
+    if (wasDismissed) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    void audio.play().then(() => {
+      setStarted(true);
+      setPlaying(true);
+      setAudioError(false);
+    }).catch(() => {
+      // Chrome / Edge / Safari 可能阻止未经过用户手势的有声自动播放。
+      // 保持静默，等待首次页面交互后自动补播。
+    });
   }, []);
 
   // 首屏保持干净：只有当第二屏 ABOUT 真正开始进入阅读位置后才显示播放器。
@@ -133,22 +150,22 @@ export function HomeSongPlayer() {
 
   useEffect(() => {
     if (dismissed || started) return;
-    const startFromHero = (event: PointerEvent) => {
-      if (event.button !== 0) return;
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-      if (target.closest('a, button, input, textarea, select, label, [role="button"]')) return;
-      const hero = document.getElementById('top');
-      if (!hero || !hero.contains(target)) return;
+    const startFromFirstInteraction = () => {
       const audio = audioRef.current;
       if (!audio) return;
       void audio.play().then(() => {
         setStarted(true);
         setPlaying(true);
+        setAudioError(false);
       }).catch(() => undefined);
     };
-    document.addEventListener('pointerdown', startFromHero);
-    return () => document.removeEventListener('pointerdown', startFromHero);
+
+    document.addEventListener('pointerdown', startFromFirstInteraction, { once: true });
+    document.addEventListener('keydown', startFromFirstInteraction, { once: true });
+    return () => {
+      document.removeEventListener('pointerdown', startFromFirstInteraction);
+      document.removeEventListener('keydown', startFromFirstInteraction);
+    };
   }, [dismissed, started]);
 
   const activeIndex = useMemo(() => {
@@ -234,7 +251,7 @@ export function HomeSongPlayer() {
             <div className="home-song-meta">
               <small>STUDY TRACK / 学习歌单</small>
               <strong>向岸</strong>
-              <em>{started ? (playing ? '正在播放' : '已暂停') : '点击首页空白处或播放键开始'}</em>
+              <em>{started ? (playing ? '正在播放' : '已暂停') : '浏览器未允许自动播放，点击播放键即可开始'}</em>
             </div>
             <button className="home-song-close" type="button" onClick={closePlayer} aria-label="关闭向岸播放器">×</button>
           </div>
