@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { questionTypeKnowledge } from './question-type-knowledge';
-import { QuestionTypeSwitcher } from './question-type-switcher';
 import { FrameworkExpressionStepper } from './framework-expression-stepper';
+import { FrameworkTypeStepper, typeChapters } from './framework-type-stepper';
 
 const layers = [
   { key: 'expression', no: '01', label: '表达规则' },
@@ -23,8 +22,6 @@ const expressionChapters = [
   { id: 'expression-logic', no: '06', label: '组织答案' },
   { id: 'expression-finish', no: '07', label: '完成一道题' },
 ] as const;
-
-const questionTypes = ['summary', 'analysis', 'solution', 'implementation', 'essay'].map((slug) => questionTypeKnowledge[slug]);
 
 const abilities = [
   ['01', '概括能力', '把复杂、冗长、口语化的材料压缩成可以直接进入答案的信息。'],
@@ -69,17 +66,27 @@ export function FrameworkManual() {
     if (activeLayer !== 'types') setActiveLayer('types');
     setActiveType(slug);
     setDrawerOpen(false);
-    window.setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('page-guide-select', { detail: slug }));
-      goTo('framework-question-types');
-    }, 30);
+    const chapter = typeChapters.find((item) => item.slug === slug);
+    if (chapter) goTo(chapter.id);
   };
+
+  const typeIndex = Math.max(0, typeChapters.findIndex((item) => item.slug === activeType));
+  const mobileLabel = activeLayer === 'expression'
+    ? `${String(activeExpression + 1).padStart(2, '0')} / 07`
+    : activeLayer === 'types'
+      ? `${String(typeIndex + 1).padStart(2, '0')} / 05`
+      : layers.find((item) => item.key === activeLayer)?.label;
+  const progressHeight = activeLayer === 'expression'
+    ? `${((activeExpression + 1) / 7) * 100}%`
+    : activeLayer === 'types'
+      ? `${((typeIndex + 1) / 5) * 100}%`
+      : '100%';
 
   return (
     <div className="framework-manual" id="framework-manual-top">
       <button className="framework-mobile-index" type="button" onClick={() => setDrawerOpen(true)}>
         <span>本页目录</span>
-        <b>{activeLayer === 'expression' ? `${String(activeExpression + 1).padStart(2, '0')} / 07` : layers.find((item) => item.key === activeLayer)?.label}</b>
+        <b>{mobileLabel}</b>
         <em>☰</em>
       </button>
 
@@ -105,10 +112,10 @@ export function FrameworkManual() {
         )}
 
         {activeLayer === 'types' && (
-          <nav className="framework-sub-nav" aria-label="题型框架目录">
-            {questionTypes.map((item) => (
+          <nav className="framework-sub-nav type-sub-nav" aria-label="题型框架目录">
+            {typeChapters.map((item) => (
               <button key={item.slug} className={activeType === item.slug ? 'active' : ''} type="button" onClick={() => chooseType(item.slug)}>
-                <span>{item.no}</span><b>{item.title}</b>
+                <span>{item.no}</span><b>{item.label}</b>
               </button>
             ))}
           </nav>
@@ -126,7 +133,7 @@ export function FrameworkManual() {
           </nav>
         )}
 
-        <div className="framework-sidebar-progress" aria-hidden="true"><i style={{ height: activeLayer === 'expression' ? `${((activeExpression + 1) / 7) * 100}%` : '100%' }} /></div>
+        <div className="framework-sidebar-progress" aria-hidden="true"><i style={{ height: progressHeight }} /></div>
       </aside>
       {drawerOpen && <button className="framework-drawer-backdrop" aria-label="关闭目录" type="button" onClick={() => setDrawerOpen(false)} />}
 
@@ -143,13 +150,13 @@ export function FrameworkManual() {
         )}
 
         {activeLayer === 'types' && (
-          <section className="framework-manual-article" id="framework-types">
+          <section className="framework-manual-article framework-types-layer" id="framework-types">
             <header className="framework-article-intro">
               <span>02 / FIVE QUESTION TYPES</span>
               <h2>题型框架</h2>
-              <p>五大题型先解决“题目让我完成什么任务”。这里先保留现有知识内容，接下来我们再逐个题型按同一套文章方式重新打磨。</p>
+              <p>题型框架不是为了让你背五套模板。它更像一张任务地图：同样是读材料，不同题目最后要完成的任务不同，所以答案的“长相”也会不同。先把五类题的本质和边界想清楚，再去做真题。</p>
             </header>
-            <QuestionTypeSwitcher items={questionTypes} />
+            <FrameworkTypeStepper onActiveTypeChange={setActiveType} />
           </section>
         )}
 
