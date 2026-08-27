@@ -1,0 +1,153 @@
+.expression-stepper {
+  position: relative;
+}
+
+.expression-stepper-hint {
+  display: grid;
+  grid-template-columns: minmax(150px,.34fr) 1fr;
+  gap: clamp(20px,4vw,62px);
+  align-items: center;
+  padding: 18px clamp(20px,5vw,76px);
+  border-top: 1px solid rgba(37,37,31,.12);
+  border-bottom: 1px solid rgba(37,37,31,.12);
+  background: color-mix(in srgb, var(--shenlun-accent) 5%, var(--paper));
+}
+.expression-stepper-hint span {
+  color: var(--shenlun-accent);
+  font: italic 9px Georgia,serif;
+  letter-spacing: .12em;
+}
+.expression-stepper-hint p {
+  margin: 0;
+  color: rgba(37,37,31,.58);
+  font-size: 10px;
+  line-height: 1.75;
+}
+
+.expression-stepper .expression-chapter {
+  display: none;
+}
+.expression-stepper[data-active="0"] #expression-know,
+.expression-stepper[data-active="1"] #expression-sheet,
+.expression-stepper[data-active="2"] #expression-audit,
+.expression-stepper[data-active="3"] #expression-read,
+.expression-stepper[data-active="4"] #expression-transform,
+.expression-stepper[data-active="5"] #expression-logic,
+.expression-stepper[data-active="6"] #expression-finish {
+  display: block;
+  animation: expressionChapterIn .35s ease both;
+}
+@keyframes expressionChapterIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.expression-stepper:not([data-active="6"]) .expression-references {
+  display: none;
+}
+
+.expression-stepper .expression-course-index a.active,
+.expression-stepper[data-active="0"] .expression-course-index a:nth-child(1),
+.expression-stepper[data-active="1"] .expression-course-index a:nth-child(2),
+.expression-stepper[data-active="2"] .expression-course-index a:nth-child(3),
+.expression-stepper[data-active="3"] .expression-course-index a:nth-child(4),
+.expression-stepper[data-active="4"] .expression-course-index a:nth-child(5),
+.expression-stepper[data-active="5"] .expression-course-index a:nth-child(6),
+.expression-stepper[data-active="6"] .expression-course-index a:nth-child(7) {
+  background: color-mix(in srgb, var(--shenlun-accent) 12%, var(--paper));
+}
+.expression-stepper[data-active="0"] .expression-course-index a:nth-child(1)::before,
+.expression-stepper[data-active="1"] .expression-course-index a:nth-child(2)::before,
+.expression-stepper[data-active="2"] .expression-course-index a:nth-child(3)::before,
+.expression-stepper[data-active="3"] .expression-course-index a:nth-child(4)::before,
+.expression-stepper[data-active="4"] .expression-course-index a:nth-child(5)::before,
+.expression-stepper[data-active="5"] .expression-course-index a:nth-child(6)::before,
+.expression-stepper[data-active="6"] .expression-course-index a:nth-child(7)::before {
+  transform: scaleX(1);
+}
+
+.expression-next-link {
+  width: 100%;
+  min-height: 92px;
+  margin-top: clamp(48px,6vw,82px);
+  display: grid;
+  grid-template-columns: minmax(120px,.34fr) 1fr auto;
+  gap: clamp(20px,4vw,62px);
+  align-items: center;
+  padding: 20px 24px;
+  border-top: 1px solid color-mix(in srgb, var(--shenlun-accent) 34%, rgba(37,37,31,.14));
+  border-bottom: 1px solid rgba(37,37,31,.14);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--shenlun-accent) 8%, transparent), transparent 72%);
+  transition: background .2s ease, padding-left .2s ease;
+}
+.expression-next-link:hover {
+  padding-left: 32px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--shenlun-accent) 15%, transparent), transparent 78%);
+}
+.expression-next-link span {
+  color: var(--shenlun-accent);
+  font: italic 9px Georgia,serif;
+  letter-spacing: .12em;
+}
+.expression-next-link b {
+  font: 500 clamp(20px,2.2vw,32px)/1.2 "Songti SC","SimSun",serif;
+}
+.expression-next-link em {
+  color: var(--shenlun-accent);
+  font: 22px Georgia,serif;
+  font-style: normal;
+  transition: transform .2s ease;
+}
+.expression-next-link:hover em { transform: translate(4px,4px); }
+
+.expression-sheet-extra {
+  margin-top: 14px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(168,75,63,.28);
+}
+.expression-sheet-extra .sheet-question-label {
+  margin-top: 11px;
+}
+.expression-sheet-extra .sheet-essay-label {
+  margin-top: 16px;
+  border-left-color: rgba(168,75,63,.72);
+  color: rgba(168,75,63,.82);
+}
+.expression-answer-grid-extra i {
+  min-width: 0;
+}
+.sheet-extra-note {
+  margin: 14px 0 0;
+  color: rgba(37,37,31,.46);
+  font-size: 8px;
+  line-height: 1.7;
+}
+
+.expression-stepper .expression-grid-math > div > b {
+  letter-spacing: .02em;
+}
+
+@media (max-width: 900px) {
+  .expression-stepper-hint,
+  .expression-next-link {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .expression-next-link em {
+    justify-self: end;
+    margin-top: -28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .expression-stepper-hint {
+    padding: 14px 18px;
+  }
+  .expression-next-link {
+    min-height: 82px;
+    padding: 16px 18px;
+  }
+  .expression-next-link:hover { padding-left: 18px; }
+  .expression-next-link b { font-size: 22px; }
+  .expression-sheet-extra .expression-answer-grid { grid-template-columns: repeat(25,minmax(4px,1fr)); }
+}
