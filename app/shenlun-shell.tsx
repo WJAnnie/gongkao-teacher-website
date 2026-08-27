@@ -76,8 +76,8 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
             {routes.map((item, index) => <a className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`} href={item.href} key={item.tone}><span>0{index + 1}</span><b>{item.label}</b></a>)}
           </nav>
         </div>
+        {guide.length > 0 && <PageGuide items={guide} embedded />}
       </header>
-      {guide.length > 0 && <PageGuide items={guide} />}
       <div className="shenlun-color-line" aria-hidden="true" />
       {children}
       <footer className="shenlun-footer">
