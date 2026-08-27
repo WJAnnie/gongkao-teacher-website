@@ -64,7 +64,7 @@ export function SubjectGateway() {
                   <i>{track.en}</i>
                 </span>
                 <em>{track.note}</em>
-                <span className="subject-track-arrow" aria-hidden="true">↗</span>
+                <span className="subject-track-arrow" aria-hidden="true">{isActive ? '收起' : '展开'}</span>
               </button>
 
               {isActive && (
@@ -78,7 +78,7 @@ export function SubjectGateway() {
                         </div>
                         <h2>{item.title}</h2>
                         <p>{item.desc}</p>
-                        <b aria-hidden="true">↗</b>
+                        <b aria-hidden="true">进入</b>
                       </a>
                     ))}
                   </div>
