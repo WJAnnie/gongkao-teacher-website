@@ -1,0 +1,285 @@
+.home-song-player,
+.home-song-reopen {
+  --song-ink: #292821;
+  --song-paper: rgba(247,243,234,.95);
+  --song-blue: #5878bd;
+  --song-orange: #c66f50;
+}
+
+.home-song-player {
+  position: fixed;
+  z-index: 86;
+  left: 22px;
+  bottom: 20px;
+  width: min(430px, calc(100vw - 44px));
+  border: 1px solid rgba(41,40,33,.18);
+  background:
+    linear-gradient(120deg, rgba(88,120,189,.07), transparent 36%),
+    linear-gradient(310deg, rgba(198,111,80,.08), transparent 42%),
+    var(--song-paper);
+  color: var(--song-ink);
+  box-shadow: 0 18px 55px rgba(41,40,33,.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.home-song-player::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--song-blue), rgba(88,120,189,.1) 44%, var(--song-orange));
+}
+.home-song-player.is-playing { box-shadow: 0 22px 70px rgba(41,40,33,.18), 0 0 36px rgba(88,120,189,.08); }
+
+.home-song-head {
+  display: grid;
+  grid-template-columns: 48px minmax(0,1fr) 30px;
+  gap: 12px;
+  align-items: center;
+  padding: 15px 16px 10px;
+}
+.home-song-orbit {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(88,120,189,.42);
+  border-radius: 50%;
+  color: var(--song-blue);
+}
+.home-song-orbit::before,
+.home-song-orbit::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(88,120,189,.18);
+  border-radius: 50%;
+  inset: 5px;
+}
+.home-song-orbit::after { inset: 11px; }
+.home-song-orbit i {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d8e68b;
+  border: 1px solid rgba(41,40,33,.28);
+  box-shadow: 0 0 12px rgba(216,230,139,.7);
+}
+.home-song-orbit span { position: relative; z-index: 1; font-size: 18px; }
+.home-song-player.is-playing .home-song-orbit { animation: songOrbit 8s linear infinite; }
+.home-song-player.is-playing .home-song-orbit span { animation: songOrbitReverse 8s linear infinite; }
+@keyframes songOrbit { to { transform: rotate(360deg); } }
+@keyframes songOrbitReverse { to { transform: rotate(-360deg); } }
+
+.home-song-meta { min-width: 0; }
+.home-song-meta small {
+  display: block;
+  color: rgba(41,40,33,.43);
+  font: italic 8px/1.2 Georgia,serif;
+  letter-spacing: .13em;
+}
+.home-song-meta strong {
+  display: inline-block;
+  margin-top: 3px;
+  font: 500 22px/1.05 "Songti SC","SimSun",serif;
+  letter-spacing: .04em;
+}
+.home-song-meta em {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: rgba(41,40,33,.52);
+  font: normal 10px/1.4 system-ui,sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.home-song-close {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(41,40,33,.5);
+  font-size: 20px;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.home-song-close:hover { background: rgba(41,40,33,.06); color: var(--song-ink); transform: rotate(8deg); }
+
+.home-song-live {
+  min-height: 62px;
+  padding: 8px 16px 12px 76px;
+  border-top: 1px solid rgba(41,40,33,.08);
+}
+.home-song-live p {
+  margin: 0;
+  color: var(--song-ink);
+  font: 500 16px/1.55 "Songti SC","SimSun",serif;
+  transition: color .2s ease;
+}
+.home-song-player.is-playing .home-song-live p { color: color-mix(in srgb,var(--song-blue) 76%,var(--song-ink)); }
+.home-song-live span {
+  display: block;
+  margin-top: 3px;
+  color: rgba(41,40,33,.36);
+  font: 400 11px/1.5 "Songti SC","SimSun",serif;
+}
+
+.home-song-controls {
+  display: grid;
+  grid-template-columns: 36px minmax(90px,1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 16px 14px;
+  border-top: 1px solid rgba(41,40,33,.08);
+}
+.home-song-play {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(88,120,189,.45);
+  border-radius: 50%;
+  background: rgba(88,120,189,.06);
+  color: var(--song-blue);
+  font-size: 12px;
+  cursor: pointer;
+}
+.home-song-progress { display: block; min-width: 0; }
+.home-song-progress input {
+  width: 100%;
+  height: 3px;
+  display: block;
+  appearance: none;
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(88,120,189,.46), rgba(198,111,80,.26));
+  cursor: pointer;
+}
+.home-song-progress input::-webkit-slider-thumb {
+  width: 11px;
+  height: 11px;
+  appearance: none;
+  border: 1px solid var(--song-blue);
+  border-radius: 50%;
+  background: #f7f3ea;
+  box-shadow: 0 0 0 3px rgba(88,120,189,.08);
+}
+.home-song-progress input::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--song-blue);
+  border-radius: 50%;
+  background: #f7f3ea;
+}
+.home-song-time {
+  color: rgba(41,40,33,.45);
+  font: 9px/1 Georgia,serif;
+  white-space: nowrap;
+}
+.home-song-lyrics-toggle {
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid rgba(41,40,33,.13);
+  background: transparent;
+  color: rgba(41,40,33,.65);
+  font-size: 10px;
+  cursor: pointer;
+}
+.home-song-lyrics-toggle:hover { border-color: rgba(88,120,189,.4); color: var(--song-blue); }
+
+.home-song-lyrics-list {
+  position: relative;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 12px 18px 24px 76px;
+  border-top: 1px solid rgba(41,40,33,.09);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(88,120,189,.28) transparent;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+}
+.home-song-lyrics-list p {
+  margin: 0;
+  padding: 6px 0;
+  color: rgba(41,40,33,.39);
+  font: 400 12px/1.6 "Songti SC","SimSun",serif;
+  cursor: pointer;
+  transition: color .2s ease, transform .2s ease, font-size .2s ease;
+}
+.home-song-lyrics-list p.group-start { padding-top: 18px; }
+.home-song-lyrics-list p span {
+  display: inline-block;
+  width: 42px;
+  color: rgba(88,120,189,.45);
+  font: italic 8px Georgia,serif;
+}
+.home-song-lyrics-list p.active {
+  color: var(--song-ink);
+  font-size: 15px;
+  transform: translateX(4px);
+}
+.home-song-lyrics-list p.active span { color: var(--song-blue); }
+
+.home-song-reopen {
+  position: fixed;
+  z-index: 86;
+  left: 22px;
+  bottom: 20px;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 13px;
+  border: 1px solid rgba(41,40,33,.18);
+  background: rgba(247,243,234,.92);
+  color: var(--song-ink);
+  box-shadow: 0 10px 32px rgba(41,40,33,.12);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+.home-song-reopen span { color: var(--song-blue); }
+.home-song-reopen b { font: 500 13px "Songti SC","SimSun",serif; }
+
+.home-song-player .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  .home-song-player {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+  .home-song-head { grid-template-columns: 42px minmax(0,1fr) 28px; padding: 12px 12px 8px; }
+  .home-song-orbit { width: 38px; height: 38px; }
+  .home-song-meta strong { font-size: 19px; }
+  .home-song-live { min-height: 56px; padding: 7px 12px 10px 66px; }
+  .home-song-live p { font-size: 14px; }
+  .home-song-controls { grid-template-columns: 34px minmax(70px,1fr) auto; padding: 9px 12px 12px; }
+  .home-song-time { display: none; }
+  .home-song-lyrics-list { max-height: 42vh; padding-left: 66px; padding-right: 12px; }
+  .home-song-lyrics-list p { font-size: 11px; }
+  .home-song-lyrics-list p.active { font-size: 14px; }
+  .home-song-reopen { left: 12px; bottom: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-song-player.is-playing .home-song-orbit,
+  .home-song-player.is-playing .home-song-orbit span { animation: none; }
+  .home-song-player *, .home-song-reopen { scroll-behavior: auto !important; transition: none !important; }
+}
