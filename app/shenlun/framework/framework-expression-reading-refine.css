@@ -44,7 +44,7 @@
   line-height: 2.05;
 }
 
-/* 左栏再靠左，但宽度不压缩 */
+/* 左栏靠左，但宽度不压缩 */
 .framework-manual {
   grid-template-columns: 252px minmax(0,1fr);
   gap: clamp(30px,3.4vw,60px);
@@ -56,7 +56,7 @@
 .framework-layer-nav button { padding-left: 16px; }
 .framework-sub-nav { margin-left: 16px; }
 
-/* 下一节入口：卡通手势替代大号数字 */
+/* 下一节入口：统一为轨道式章节印记，和全站“阅”的圆轨道语言保持一致 */
 .framework-manual .expression-next-link {
   grid-template-columns: 190px 96px minmax(0,1fr) auto;
   align-items: center;
@@ -64,38 +64,59 @@
   min-height: 132px;
   padding: 24px 30px;
 }
-.framework-manual .expression-next-link > span {
-  align-self: center;
-}
+.framework-manual .expression-next-link > span { align-self: center; }
 .framework-manual .expression-next-link b {
   font-size: clamp(28px,3vw,42px);
   line-height: 1.1;
 }
-.expression-chapter-hand {
+.expression-chapter-mark {
   position: relative;
-  width: 86px;
-  height: 82px;
+  width: 84px;
+  height: 84px;
   display: grid;
   place-items: center;
   color: var(--shenlun-accent);
 }
-.expression-chapter-hand svg {
-  width: 78px;
-  height: 76px;
-  overflow: visible;
-}
-.expression-chapter-hand svg path,
-.expression-chapter-hand svg circle {
-  fill: color-mix(in srgb,var(--shenlun-accent) 14%,#f2d5c4);
-  stroke: color-mix(in srgb,var(--shenlun-accent) 52%,#805f52);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.expression-chapter-hand small {
+.expression-chapter-mark::before {
+  content: "";
   position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 65% 30%, color-mix(in srgb,var(--shenlun-accent) 12%,transparent), transparent 56%);
+  filter: blur(1px);
+}
+.expression-chapter-mark svg {
+  position: relative;
+  z-index: 1;
+  width: 78px;
+  height: 78px;
+  overflow: visible;
+  transition: transform .25s ease;
+}
+.expression-chapter-mark .mark-orbit {
+  fill: none;
+  stroke: color-mix(in srgb,var(--shenlun-accent) 42%,rgba(37,37,31,.2));
+  stroke-width: 1.2;
+}
+.expression-chapter-mark .mark-arc {
+  fill: none;
+  stroke: var(--shenlun-accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.expression-chapter-mark .mark-arc-secondary { opacity: .46; stroke-width: 1.2; }
+.expression-chapter-mark .mark-dot { fill: color-mix(in srgb,var(--shenlun-accent) 72%,#f0ba73); stroke: var(--paper); stroke-width: 1.5; }
+.expression-chapter-mark .mark-axis {
+  fill: none;
+  stroke: color-mix(in srgb,var(--shenlun-accent) 35%,rgba(37,37,31,.2));
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+.expression-chapter-mark small {
+  position: absolute;
+  z-index: 2;
   right: 0;
-  bottom: 2px;
+  bottom: 0;
   width: 26px;
   height: 26px;
   display: grid;
@@ -106,10 +127,8 @@
   color: var(--shenlun-accent);
   font: 700 9px/1 Georgia,serif;
 }
-.expression-chapter-hand.hand-4 svg { transform: rotate(-2deg); }
-.expression-chapter-hand.hand-5 svg { transform: scale(1.05); }
-.expression-chapter-hand.hand-6 svg { transform: rotate(4deg); }
-.expression-chapter-hand.hand-7 svg { transform: rotate(-5deg); }
+.expression-next-link:hover .expression-chapter-mark svg { transform: rotate(8deg) scale(1.04); }
+.expression-next-link:hover .expression-chapter-mark .mark-dot { filter: drop-shadow(0 0 7px color-mix(in srgb,var(--shenlun-accent) 50%,transparent)); }
 
 /* 副标题与正文拉开层级 */
 .expression-v2-subtitle {
@@ -160,13 +179,13 @@
   .expression-v2-prose p { font-size: 14px; line-height: 1.95; }
   .framework-manual .expression-next-link {
     grid-template-columns: 1fr auto;
-    grid-template-areas: "label hand" "title arrow";
+    grid-template-areas: "label mark" "title arrow";
     gap: 12px 16px;
     padding: 20px 22px;
   }
   .framework-manual .expression-next-link > span { grid-area: label; }
-  .framework-manual .expression-next-link .expression-chapter-hand { grid-area: hand; width: 64px; height: 62px; }
-  .framework-manual .expression-next-link .expression-chapter-hand svg { width: 60px; height: 58px; }
+  .framework-manual .expression-next-link .expression-chapter-mark { grid-area: mark; width: 64px; height: 64px; }
+  .framework-manual .expression-next-link .expression-chapter-mark svg { width: 60px; height: 60px; }
   .framework-manual .expression-next-link b { grid-area: title; font-size: 28px; }
   .framework-manual .expression-next-link em { grid-area: arrow; }
 }
