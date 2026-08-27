@@ -80,9 +80,9 @@ export function InterviewShell({ tone, eyebrow, title, desc, children }: { tone:
             {routes.map((item, index) => <a className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`} href={item.href} key={item.tone}><span>0{index + 1}</span><b>{item.label}</b></a>)}
           </nav>
         </div>
+        <PageGuide items={guides[tone]} embedded />
       </section>
 
-      <PageGuide items={guides[tone]} />
       <div className="interview-color-line" aria-hidden="true" />
       {children}
 
