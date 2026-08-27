@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-export type GuideItem = { label: string; selector: string; no?: string };
+export type GuideItem = { label: string; selector: string; no?: string; key?: string };
 
 export function LearningPageEffects() {
   const glowRef = useRef<HTMLDivElement>(null);
@@ -21,8 +21,9 @@ export function LearningPageEffects() {
 }
 
 export function PageGuide({ items }: { items: GuideItem[] }) {
-  const go = (selector: string) => {
-    document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const go = (item: GuideItem) => {
+    if (item.key) window.dispatchEvent(new CustomEvent('page-guide-select', { detail: item.key }));
+    window.setTimeout(() => document.querySelector(item.selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30);
   };
 
   return (
@@ -31,7 +32,7 @@ export function PageGuide({ items }: { items: GuideItem[] }) {
         <div className="page-guide-heading"><span>CONTENT INDEX</span><b>本页导览</b></div>
         <div className="page-guide-items">
           {items.map((item, index) => (
-            <button key={`${item.label}-${index}`} onClick={() => go(item.selector)} type="button">
+            <button key={`${item.label}-${index}`} onClick={() => go(item)} type="button">
               <span>{item.no ?? String(index + 1).padStart(2, '0')}</span><b>{item.label}</b><i>↓</i>
             </button>
           ))}
@@ -41,7 +42,7 @@ export function PageGuide({ items }: { items: GuideItem[] }) {
       <nav className="page-guide-float" aria-label="快速内容导览">
         <span>本页导览</span>
         {items.map((item, index) => (
-          <button key={`${item.label}-float-${index}`} onClick={() => go(item.selector)} type="button">
+          <button key={`${item.label}-float-${index}`} onClick={() => go(item)} type="button">
             <i>{item.no ?? String(index + 1).padStart(2, '0')}</i>{item.label}
           </button>
         ))}
