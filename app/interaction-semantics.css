@@ -1,0 +1,343 @@
+/*
+ * 全站交互语义统一
+ * 目标只有两条：真正能点的必须有一致的交互反馈；纯内容不能再伪装成按钮或入口。
+ * 本文件最后加载，用于收口此前各页面分散的 hover / card 样式。
+ */
+
+/* ---------- 01 / 真正可点击的导航与目录 ---------- */
+
+:where(
+  .nav-shell a,
+  .learning-topnav a,
+  .learning-mobile-group-trigger,
+  .subject-track-button,
+  .subject-module-card,
+  .repeat-learning-link,
+  .shenlun-route-strip > a,
+  .interview-route-strip > a,
+  .framework-hero-entry-strip > button,
+  .page-guide-items button,
+  .page-guide-float button,
+  .framework-layer-trigger,
+  .framework-sub-nav button,
+  .framework-mobile-index,
+  .framework-drawer-close,
+  .question-type-switcher-tabs button,
+  .tips-article-trigger
+) {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 所有真实交互控件使用同一套键盘焦点语言。 */
+:where(
+  .nav-shell a,
+  .learning-topnav a,
+  .learning-mobile-group-trigger,
+  .subject-track-button,
+  .subject-module-card,
+  .repeat-learning-link,
+  .shenlun-route-strip > a,
+  .interview-route-strip > a,
+  .framework-hero-entry-strip > button,
+  .page-guide-items button,
+  .page-guide-float button,
+  .framework-layer-trigger,
+  .framework-sub-nav button,
+  .framework-mobile-index,
+  .framework-drawer-close,
+  .question-type-switcher-tabs button,
+  .tips-article-trigger
+):focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--interaction-accent, var(--blue)) 62%, transparent);
+  outline-offset: 3px;
+}
+
+.shenlun-page { --interaction-accent: var(--shenlun-accent, var(--blue)); }
+.interview-site { --interaction-accent: var(--interview-color, var(--blue)); }
+.subject-track-group { --interaction-accent: var(--track-accent, var(--blue)); }
+.subject-module-card { --interaction-accent: var(--module-accent, var(--blue)); }
+.repeat-learning-link { --interaction-accent: var(--repeat-accent, var(--blue)); }
+
+/* 鼠标环境下，只有真实可点击项获得“靠近 + 高亮”的反馈。 */
+@media (hover: hover) and (pointer: fine) {
+  .page-guide-items button:hover,
+  .page-guide-float button:hover,
+  .framework-sub-nav button:hover,
+  .question-type-switcher-tabs button:hover,
+  .tips-article-trigger:hover {
+    box-shadow: inset 3px 0 0 color-mix(in srgb, var(--interaction-accent, var(--blue)) 72%, transparent);
+  }
+}
+
+/* 触屏按下时也要给出明确反馈，而不是只有桌面 hover 才看得出能点。 */
+:where(
+  .learning-mobile-group-trigger,
+  .subject-track-button,
+  .subject-module-card,
+  .repeat-learning-link,
+  .shenlun-route-strip > a,
+  .interview-route-strip > a,
+  .framework-hero-entry-strip > button,
+  .page-guide-items button,
+  .page-guide-float button,
+  .framework-layer-trigger,
+  .framework-sub-nav button,
+  .question-type-switcher-tabs button,
+  .tips-article-trigger
+):active {
+  background-color: color-mix(in srgb, var(--interaction-accent, var(--blue)) 9%, transparent);
+}
+
+/* 当前页 / 当前项保持统一的“强调色 + 实体状态”，避免只靠文字颜色。 */
+:where(
+  .learning-nav-items a.active,
+  .learning-mobile-group-items a.active,
+  .shenlun-route-strip > a.active,
+  .interview-route-strip > a.active,
+  .page-guide-items button.active,
+  .page-guide-float button.active,
+  .framework-layer-trigger.active,
+  .framework-sub-nav button.active,
+  .question-type-switcher-tabs button.active
+) {
+  font-weight: 700;
+}
+
+/* ---------- 02 / 首页 ABOUT：纯说明内容不再做成“可点击卡片” ---------- */
+
+.about-detail-grid {
+  max-width: 1120px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(34px, 4.4vw, 68px);
+  row-gap: 0;
+  border: 0 !important;
+}
+
+.about-detail-grid article,
+.about-detail-grid article:nth-child(2),
+.about-detail-grid article:nth-child(3) {
+  min-height: 190px;
+  padding: 28px 0 32px;
+  border: 0 !important;
+  border-top: 1px solid rgba(37,37,31,.18) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+  cursor: default;
+}
+
+.about-detail-grid article::before {
+  width: 22px !important;
+  height: 2px !important;
+  opacity: .65;
+  transform: scaleX(1) !important;
+  transition: none !important;
+}
+
+.about-detail-grid article:hover,
+.about-detail-grid article:nth-child(2):hover,
+.about-detail-grid article:nth-child(3):hover {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.about-detail-grid article:hover::before {
+  transform: scaleX(1) !important;
+}
+
+.about-detail-grid h3 {
+  margin-top: 30px;
+}
+
+/* 原来的胶囊标签很像筛选按钮；改成一行“内容关键词”。 */
+.about-profile-expanded .about-tags,
+.about-tags {
+  display: flex;
+  align-items: baseline;
+  gap: 8px 0;
+  margin-top: 24px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(37,37,31,.14);
+}
+
+.about-tags::before {
+  content: "内容关键词";
+  margin-right: 18px;
+  color: rgba(37,37,31,.42);
+  font: italic 8px Georgia, serif;
+  letter-spacing: .12em;
+  white-space: nowrap;
+}
+
+.about-tags span {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: rgba(37,37,31,.58);
+  font-size: 10px;
+  line-height: 1.6;
+  cursor: default;
+}
+
+.about-tags span:not(:last-child)::after {
+  content: "·";
+  margin: 0 11px;
+  color: color-mix(in srgb, var(--blue) 65%, rgba(37,37,31,.32));
+}
+
+/* ---------- 03 / 真题页：题型名称是说明标签，不是假筛选器 ---------- */
+
+.shenlun-question-toolbar {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  margin: 38px 0 24px;
+  padding: 13px 0;
+  border-top: 1px solid rgba(37,37,31,.14);
+  border-bottom: 1px solid rgba(37,37,31,.14);
+}
+
+.shenlun-question-toolbar::before {
+  content: "题型范围";
+  margin-right: 18px;
+  color: rgba(37,37,31,.42);
+  font: italic 8px Georgia, serif;
+  letter-spacing: .12em;
+  white-space: nowrap;
+}
+
+.shenlun-question-toolbar span {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: rgba(37,37,31,.58);
+  cursor: default;
+}
+
+.shenlun-question-toolbar span:not(:last-child)::after {
+  content: "·";
+  margin: 0 11px;
+  color: var(--shenlun-accent);
+}
+
+/* ---------- 04 / 全站静态内容卡：取消“悬停上浮 = 可点击”的误导 ---------- */
+
+:where(
+  .shenlun-map-card,
+  .writing-category,
+  .video-card,
+  .interview-card,
+  .shenlun-question-row,
+  .interview-flow-step,
+  .interview-practice-board > article
+) {
+  cursor: default;
+}
+
+:where(
+  .shenlun-map-card,
+  .writing-category,
+  .video-card,
+  .interview-card,
+  .shenlun-question-row
+) {
+  transition: none !important;
+}
+
+.shenlun-map-card:hover,
+.writing-category:hover,
+.video-card:hover,
+.interview-card:hover,
+.shenlun-question-row:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.shenlun-map-card:hover::before,
+.writing-category:hover::before {
+  transform: scaleX(.22) !important;
+}
+
+.interview-card:hover::before {
+  transform: scaleY(.18) !important;
+}
+
+.interview-card:hover {
+  background: rgba(255,255,255,.12) !important;
+}
+
+.shenlun-question-row:hover {
+  background: rgba(255,255,255,.13) !important;
+}
+
+/* 静态内容块不使用手型，也不出现键盘交互轮廓。 */
+.about-detail-grid article,
+.about-tags span,
+.shenlun-question-toolbar span,
+.shenlun-map-card,
+.writing-category,
+.video-card,
+.interview-card,
+.shenlun-question-row,
+.interview-flow-step,
+.interview-practice-board > article {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- 05 / 小屏幕 ---------- */
+
+@media (max-width: 760px) {
+  .about-detail-grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .about-detail-grid article {
+    min-height: 0;
+    padding: 23px 0 27px;
+  }
+
+  .about-tags,
+  .shenlun-question-toolbar {
+    align-items: flex-start;
+  }
+
+  .about-tags::before,
+  .shenlun-question-toolbar::before {
+    flex: 0 0 100%;
+    margin: 0 0 7px;
+  }
+
+  .about-tags span:not(:last-child)::after,
+  .shenlun-question-toolbar span:not(:last-child)::after {
+    margin-inline: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    .nav-shell a,
+    .learning-topnav a,
+    .learning-mobile-group-trigger,
+    .subject-track-button,
+    .subject-module-card,
+    .repeat-learning-link,
+    .shenlun-route-strip > a,
+    .interview-route-strip > a,
+    .framework-hero-entry-strip > button,
+    .page-guide-items button,
+    .page-guide-float button,
+    .framework-layer-trigger,
+    .framework-sub-nav button,
+    .question-type-switcher-tabs button,
+    .tips-article-trigger
+  ) {
+    transition-duration: 0.01ms !important;
+  }
+}
