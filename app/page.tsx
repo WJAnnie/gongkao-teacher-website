@@ -32,8 +32,8 @@ export default function Home() {
 
           <p className="eyebrow"><span>01</span> 专注申论与结构化面试的长期学习站</p>
           <h1>
-            公考不是背<br />
-            <span className="title-outline">标准答案</span>
+            把公考题做懂<br />
+            <span className="title-outline">把话说清</span>
           </h1>
 
           <div className="hero-bottom">
@@ -98,11 +98,6 @@ export default function Home() {
                 </article>
               </div>
 
-              <div className="about-independence-note">
-                <span>PERSONAL SITE / 身份说明</span>
-                <p>我在阳光公考从事教学工作。「答卷之外」由我个人建立与维护，是高老师的个人内容网站。站内个人内容、资料及后续个人服务以个人名义发布，不代表阳光公考官方账号、官网或官方产品；机构相关信息请以其官方渠道为准。</p>
-              </div>
-
               <div className="about-tags">
                 <span>申论方法</span><span>结构化面试</span><span>真题训练</span><span>写作积累</span><span>表达训练</span><span>课堂复盘</span>
               </div>
@@ -110,7 +105,7 @@ export default function Home() {
 
             <aside className="about-contact-card" id="contact">
               <div className="about-contact-head">
-                <span>PERSONAL / 个人入口</span>
+                <span>MATERIALS / 资料入口</span>
                 <b>资料 · 内容 · 日常</b>
               </div>
               <div className="about-contact-body">
@@ -121,7 +116,7 @@ export default function Home() {
                 <div className="contact-info">
                   <span>答卷之外 · 高老师</span>
                   <h3>获取资料</h3>
-                  <p>申论方法 · 结构化面试 · 真题训练 · 个人内容</p>
+                  <p>申论方法 · 结构化面试 · 真题训练 · 课堂内容</p>
                 </div>
               </div>
             </aside>
