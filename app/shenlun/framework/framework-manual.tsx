@@ -55,7 +55,8 @@ export function FrameworkManual() {
       if (!key || !layers.some((item) => item.key === key)) return;
 
       const nextLayer = key as LayerKey;
-      const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const mobile = window.innerWidth <= 820;
       setActiveLayer(nextLayer);
       setDrawerOpen(false);
       setHeroArrival(nextLayer);
@@ -64,7 +65,7 @@ export function FrameworkManual() {
         window.requestAnimationFrame(() => {
           const manual = document.getElementById('framework-manual-top');
           if (!manual) return;
-          const offset = window.innerWidth <= 820 ? 116 : 82;
+          const offset = mobile ? 116 : 82;
           const top = manual.getBoundingClientRect().top + window.scrollY - offset;
           window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' });
 
@@ -72,12 +73,15 @@ export function FrameworkManual() {
             const sidebar = document.querySelector<HTMLElement>('.framework-manual-sidebar');
             const trigger = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
             if (sidebar && trigger) {
-              const desired = Math.max(0, trigger.offsetTop - 18);
+              const sidebarRect = sidebar.getBoundingClientRect();
+              const triggerRect = trigger.getBoundingClientRect();
+              const desired = Math.max(0, sidebar.scrollTop + triggerRect.top - sidebarRect.top - 18);
               sidebar.scrollTo({ top: desired, behavior: reducedMotion ? 'auto' : 'smooth' });
             }
-          }, reducedMotion ? 0 : 320);
+            if (mobile) setDrawerOpen(true);
+          }, reducedMotion ? 0 : mobile ? 520 : 320);
 
-          arrivalTimer = window.setTimeout(() => setHeroArrival(null), reducedMotion ? 0 : 1100);
+          arrivalTimer = window.setTimeout(() => setHeroArrival(null), reducedMotion ? 0 : mobile ? 1450 : 1100);
         });
       });
     };
