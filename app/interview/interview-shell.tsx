@@ -66,7 +66,7 @@ export function InterviewShell({ tone, eyebrow, title, desc, children }: { tone:
       <LearningPageEffects />
       <LearningTopNav active={toneToActive[tone]} />
 
-      <section className="interview-site-hero">
+      <section className="interview-site-hero learning-hero-standard">
         <div className="interview-hero-topline"><span>面 / INTERVIEW</span><span>答卷之外 · 结构化面试</span></div>
         <span className="exam-review-stamp" aria-hidden="true">阅</span>
         <p className="interview-hero-eyebrow">{eyebrow}</p>
