@@ -16,11 +16,6 @@ const routes = [
   '/tools/',
   '/shenlun/',
   '/shenlun/framework/',
-  '/shenlun/framework/summary/',
-  '/shenlun/framework/analysis/',
-  '/shenlun/framework/solution/',
-  '/shenlun/framework/implementation/',
-  '/shenlun/framework/essay/',
   '/shenlun/questions/',
   '/shenlun/writing/',
   '/shenlun/videos/',
@@ -46,7 +41,6 @@ server.stderr.on('data', (chunk) => { logs += chunk.toString(); });
 
 try {
   await waitForHttp(`http://127.0.0.1:${port}/`, 30000);
-
   await cp(join(root, 'dist', 'client', '_next'), join(outputDir, '_next'), { recursive: true });
   await cp(join(root, 'public'), outputDir, { recursive: true, force: true });
 
@@ -55,7 +49,6 @@ try {
     if (!response.ok) throw new Error(`Production page ${route} returned HTTP ${response.status}.`);
     let html = await response.text();
     html = rewriteHtml(html, basePath);
-
     if (route === '/') {
       await writeFile(join(outputDir, 'index.html'), html, 'utf8');
       await writeFile(join(outputDir, '404.html'), html, 'utf8');
@@ -65,7 +58,6 @@ try {
       await writeFile(join(routeDir, 'index.html'), html, 'utf8');
     }
   }
-
   console.log(`Static site artifact generated in ${outputDir} (${routes.length} routes)`);
 } finally {
   server.kill();
@@ -77,13 +69,9 @@ function rewriteHtml(html, pathPrefix) {
   return html
     .replaceAll('href="/_next/', `href="${prefix}/_next/`)
     .replaceAll('src="/_next/', `src="${prefix}/_next/`)
+    .replaceAll('src="/about-study-art.svg"', `src="${prefix}/about-study-art.svg"`)
     .replaceAll('href="/og.png"', `href="${prefix}/og.png"`)
     .replaceAll('content="http://localhost:3000/og.png"', `content="${prefix}/og.png"`)
-    .replaceAll('href="/shenlun/framework/summary/"', `href="${prefix}/shenlun/framework/summary/"`)
-    .replaceAll('href="/shenlun/framework/analysis/"', `href="${prefix}/shenlun/framework/analysis/"`)
-    .replaceAll('href="/shenlun/framework/solution/"', `href="${prefix}/shenlun/framework/solution/"`)
-    .replaceAll('href="/shenlun/framework/implementation/"', `href="${prefix}/shenlun/framework/implementation/"`)
-    .replaceAll('href="/shenlun/framework/essay/"', `href="${prefix}/shenlun/framework/essay/"`)
     .replaceAll('href="/shenlun/framework/"', `href="${prefix}/shenlun/framework/"`)
     .replaceAll('href="/shenlun/questions/"', `href="${prefix}/shenlun/questions/"`)
     .replaceAll('href="/shenlun/writing/"', `href="${prefix}/shenlun/writing/"`)
