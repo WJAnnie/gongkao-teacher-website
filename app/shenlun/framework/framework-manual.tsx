@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FrameworkExpressionStepper } from './framework-expression-stepper';
 import { FrameworkTypeStepper, typeChapters } from './framework-type-stepper';
 import { FrameworkAbilities, coreAbilityChapters } from './framework-abilities';
@@ -44,6 +44,51 @@ export function FrameworkManual() {
   const [activeAbility, setActiveAbility] = useState(coreAbilityChapters[0]?.id ?? '');
   const [activeTip, setActiveTip] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [heroArrival, setHeroArrival] = useState<LayerKey | null>(null);
+
+  useEffect(() => {
+    let arrivalTimer: number | null = null;
+    let sidebarTimer: number | null = null;
+
+    const onHeroSelect = (event: Event) => {
+      const key = (event as CustomEvent<{ key?: string }>).detail?.key;
+      if (!key || !layers.some((item) => item.key === key)) return;
+
+      const nextLayer = key as LayerKey;
+      const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+      setActiveLayer(nextLayer);
+      setDrawerOpen(false);
+      setHeroArrival(nextLayer);
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          const manual = document.getElementById('framework-manual-top');
+          if (!manual) return;
+          const offset = window.innerWidth <= 820 ? 116 : 82;
+          const top = manual.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' });
+
+          sidebarTimer = window.setTimeout(() => {
+            const sidebar = document.querySelector<HTMLElement>('.framework-manual-sidebar');
+            const trigger = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
+            if (sidebar && trigger) {
+              const desired = Math.max(0, trigger.offsetTop - 18);
+              sidebar.scrollTo({ top: desired, behavior: reducedMotion ? 'auto' : 'smooth' });
+            }
+          }, reducedMotion ? 0 : 320);
+
+          arrivalTimer = window.setTimeout(() => setHeroArrival(null), reducedMotion ? 0 : 1100);
+        });
+      });
+    };
+
+    window.addEventListener('framework-hero-select', onHeroSelect);
+    return () => {
+      window.removeEventListener('framework-hero-select', onHeroSelect);
+      if (arrivalTimer) window.clearTimeout(arrivalTimer);
+      if (sidebarTimer) window.clearTimeout(sidebarTimer);
+    };
+  }, []);
 
   const chooseLayer = (key: LayerKey) => {
     setActiveLayer(key);
@@ -151,7 +196,7 @@ export function FrameworkManual() {
   };
 
   return (
-    <div className="framework-manual" id="framework-manual-top">
+    <div className={`framework-manual${heroArrival ? ' hero-entry-arrival' : ''}`} id="framework-manual-top">
       <button className="framework-mobile-index" type="button" onClick={() => setDrawerOpen(true)}>
         <span>本页目录</span>
         <b>{mobileLabel}</b>
@@ -164,10 +209,12 @@ export function FrameworkManual() {
         <nav className="framework-layer-nav" aria-label="方法框架章节">
           {layers.map((item) => {
             const open = activeLayer === item.key;
+            const arriving = heroArrival === item.key;
             return (
-              <div className={`framework-layer-group${open ? ' open' : ''}`} key={item.key}>
+              <div className={`framework-layer-group${open ? ' open' : ''}${arriving ? ' hero-arrival' : ''}`} key={item.key}>
                 <button
                   className={`framework-layer-trigger${open ? ' active' : ''}`}
+                  data-framework-layer={item.key}
                   type="button"
                   aria-expanded={open}
                   onClick={() => chooseLayer(item.key)}
