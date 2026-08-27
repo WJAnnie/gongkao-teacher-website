@@ -1,0 +1,72 @@
+/* 三级内容导览的当前状态与轻量阅卷感 */
+.page-guide-items button,
+.page-guide-float button { position: relative; }
+
+.page-guide-items button.active {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 13%, transparent);
+}
+.interview-site .page-guide-items button.active {
+  background: color-mix(in srgb, var(--interview-color) 13%, transparent);
+}
+.page-guide-items button.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 34%;
+  height: 2px;
+  background: var(--shenlun-accent, var(--interview-color));
+}
+.interview-site .page-guide-items button.active::after { background: var(--interview-color); }
+
+.page-guide-float button b {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 9px;
+  font-weight: 500;
+}
+.page-guide-float button.active {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 10%, transparent);
+}
+.interview-site .page-guide-float button.active {
+  background: color-mix(in srgb, var(--interview-color) 10%, transparent);
+}
+.page-guide-float button.active::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--shenlun-accent, var(--interview-color));
+}
+.interview-site .page-guide-float button.active::after { background: var(--interview-color); }
+
+.learning-theme-glow {
+  filter: blur(9px);
+  opacity: .2;
+}
+
+@media (hover: hover) {
+  .page-guide-float { cursor: default; }
+  .page-guide-float::after {
+    content: "靠近查看";
+    display: block;
+    margin-top: 7px;
+    padding: 6px 5px 1px;
+    color: rgba(37,37,31,.28);
+    font: italic 6px Georgia, serif;
+    letter-spacing: .1em;
+  }
+  .page-guide-float:hover::after,
+  .page-guide-float:focus-within::after { opacity: 0; }
+}
+
+@media (max-width: 760px) {
+  .page-guide-heading { position: sticky; left: 0; }
+  .page-guide-items button.active::after { width: 46%; }
+}
