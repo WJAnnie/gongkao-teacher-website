@@ -1,22 +1,23 @@
-/* 向岸：桌面端作为 ABOUT 版面的一个音乐角，而不是左下悬浮工具 */
+/* 向岸：桌面端固定在右侧，随页面滚动持续可见 */
 .about-merged {
   position: relative;
   overflow: visible;
 }
 
 .about-merged .home-song-player {
-  position: absolute;
-  z-index: 14;
+  position: fixed;
+  z-index: 86;
   left: auto;
-  right: clamp(22px, 3.2vw, 58px);
-  top: clamp(190px, 14vw, 238px);
+  right: clamp(20px, 2.4vw, 38px);
+  top: 52%;
   bottom: auto;
-  width: clamp(292px, 20vw, 348px);
+  width: clamp(286px, 19vw, 336px);
+  transform: translateY(-50%);
   background:
     radial-gradient(circle at 82% 18%, rgba(216,230,139,.18), transparent 35%),
     linear-gradient(135deg, rgba(88,120,189,.05), transparent 40%),
-    rgba(247,243,234,.76);
-  box-shadow: 0 18px 52px rgba(41,40,33,.08);
+    rgba(247,243,234,.78);
+  box-shadow: 0 18px 52px rgba(41,40,33,.10);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -48,23 +49,24 @@
 }
 
 .about-merged .home-song-reopen {
-  position: absolute;
-  z-index: 14;
+  position: fixed;
+  z-index: 86;
   left: auto;
-  right: clamp(24px, 4vw, 70px);
-  top: clamp(250px, 17vw, 300px);
+  right: clamp(22px, 2.8vw, 44px);
+  top: 52%;
   bottom: auto;
-  box-shadow: 0 10px 32px rgba(41,40,33,.08);
+  transform: translateY(-50%);
+  box-shadow: 0 10px 32px rgba(41,40,33,.10);
 }
 
-/* 让右侧音乐角有一点与原有圆轨道呼应的空间层次 */
+/* 与首页原有圆轨道呼应 */
 .about-merged .home-song-player::after {
   content: "";
   position: absolute;
   z-index: -1;
-  right: -48px;
-  top: -42px;
-  width: 150px;
+  right: -44px;
+  top: -40px;
+  width: 142px;
   aspect-ratio: 1;
   border: 1px solid rgba(88,120,189,.12);
   border-radius: 50%;
@@ -73,14 +75,14 @@
 
 @media (max-width: 1180px) {
   .about-merged .home-song-player {
-    right: 20px;
-    width: 300px;
+    right: 16px;
+    width: 292px;
   }
-  .about-merged .home-song-player.lyrics-open { width: 340px; }
+  .about-merged .home-song-player.lyrics-open { width: 336px; }
 }
 
 @media (max-width: 920px) {
-  /* 平板/手机恢复为容易操作的底部播放器 */
+  /* 平板/手机固定到底部，仍然随滚动保持可见 */
   .about-merged .home-song-player {
     position: fixed;
     z-index: 86;
@@ -89,6 +91,7 @@
     top: auto;
     bottom: 12px;
     width: auto;
+    transform: none;
   }
   .about-merged .home-song-player.lyrics-open { width: auto; }
   .about-merged .home-song-player::after { display: none; }
@@ -99,5 +102,6 @@
     right: auto;
     top: auto;
     bottom: 12px;
+    transform: none;
   }
 }
