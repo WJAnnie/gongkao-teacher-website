@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100">
+  <defs>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#25251f" stop-opacity=".28"/>
+      <stop offset=".68" stop-color="#25251f" stop-opacity=".10"/>
+      <stop offset="1" stop-color="#25251f" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="acid"><stop stop-color="#d8ff3e" stop-opacity=".32"/><stop offset="1" stop-color="#d8ff3e" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="900" height="1100" fill="none"/>
+  <circle cx="170" cy="540" r="270" fill="url(#acid)"/>
+  <g fill="none" stroke="url(#fade)" stroke-width="2">
+    <path d="M50 120H730M50 188H680M50 256H760M50 324H650"/>
+    <path d="M112 70V940M212 70V940M312 70V940" stroke-dasharray="5 11" opacity=".45"/>
+    <rect x="74" y="104" width="580" height="360" rx="4"/>
+    <path d="M108 400c90-70 170-12 250-88s170-82 282-28" stroke="#a84b3f" stroke-opacity=".28" stroke-width="4"/>
+    <ellipse cx="250" cy="666" rx="145" ry="82" transform="rotate(-8 250 666)" stroke="#a84b3f" stroke-opacity=".24" stroke-width="5"/>
+    <path d="M118 790c155-30 275-20 475 8M118 842h390M118 894h470"/>
+  </g>
+  <g font-family="serif" fill="#25251f" opacity=".18">
+    <text x="104" y="160" font-size="27">第 1 题 · 审题 / 找点 / 分类 / 表达</text>
+    <text x="108" y="230" font-size="46">材料</text>
+    <text x="232" y="230" font-size="46">→</text>
+    <text x="300" y="230" font-size="46">要点</text>
+    <text x="108" y="306" font-size="20">主体　问题　原因　做法　成效</text>
+    <text x="145" y="655" font-size="56">阅</text>
+    <text x="205" y="700" font-size="18">这里再具体一点</text>
+    <text x="120" y="830" font-size="26">面试：观点 · 结构 · 例证 · 表达</text>
+  </g>
+  <g fill="#6679ad" opacity=".22">
+    <circle cx="610" cy="180" r="10"/><circle cx="655" cy="180" r="4"/><circle cx="695" cy="180" r="4"/>
+  </g>
+</svg>
