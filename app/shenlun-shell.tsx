@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { LearningTopNav } from './learning-nav';
 import { LearningPageEffects, PageGuide, type GuideItem } from './learning-page-effects';
+import { FrameworkHeroMenu } from './shenlun/framework/framework-hero-menu';
 
 type ShenlunTone = 'framework' | 'questions' | 'writing' | 'videos' | 'home';
 
@@ -72,9 +73,13 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
         <div className="exam-meta-strip" aria-label="申论训练信息"><span>科目 <b>申论</b></span><span>训练 <b>{toneToTraining[tone]}</b></span><span>复盘 <b>审题 · 要点 · 结构 · 表达</b></span></div>
         <div className="shenlun-hero-bottom">
           <p>{desc}</p>
-          <nav className="shenlun-route-strip" aria-label="申论学习路径">
-            {routes.map((item, index) => <a className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`} href={item.href} key={item.tone}><span>0{index + 1}</span><b>{item.label}</b></a>)}
-          </nav>
+          {tone === 'framework' ? (
+            <FrameworkHeroMenu />
+          ) : (
+            <nav className="shenlun-route-strip" aria-label="申论学习路径">
+              {routes.map((item, index) => <a className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`} href={item.href} key={item.tone}><span>0{index + 1}</span><b>{item.label}</b></a>)}
+            </nav>
+          )}
         </div>
         {guide.length > 0 && tone !== 'framework' && <PageGuide items={guide} embedded />}
       </header>
