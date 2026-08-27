@@ -38,7 +38,7 @@ function LearningRow({
           <a className={`repeat-learning-link ${item.tone}`} href={item.href} key={item.no}>
             <span>{item.no}</span>
             <b>{item.label}</b>
-            <i aria-hidden="true">↗</i>
+            <i aria-hidden="true">进入</i>
           </a>
         ))}
       </div>
