@@ -17,6 +17,8 @@ import './hero-review-orbit.css';
 import './home-about.css';
 import './mobile-refinement.css';
 import './home-learning-repeat.css';
+import './learning-page-upgrade.css';
+import './home-refresh.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
