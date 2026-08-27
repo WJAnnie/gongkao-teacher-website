@@ -1,0 +1,103 @@
+/* 向岸：桌面端作为 ABOUT 版面的一个音乐角，而不是左下悬浮工具 */
+.about-merged {
+  position: relative;
+  overflow: visible;
+}
+
+.about-merged .home-song-player {
+  position: absolute;
+  z-index: 14;
+  left: auto;
+  right: clamp(22px, 3.2vw, 58px);
+  top: clamp(190px, 14vw, 238px);
+  bottom: auto;
+  width: clamp(292px, 20vw, 348px);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(216,230,139,.18), transparent 35%),
+    linear-gradient(135deg, rgba(88,120,189,.05), transparent 40%),
+    rgba(247,243,234,.76);
+  box-shadow: 0 18px 52px rgba(41,40,33,.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.about-merged .home-song-player.lyrics-open {
+  width: clamp(330px, 24vw, 410px);
+}
+
+.about-merged .home-song-head {
+  grid-template-columns: 44px minmax(0,1fr) 28px;
+  padding: 13px 14px 9px;
+}
+.about-merged .home-song-orbit { width: 40px; height: 40px; }
+.about-merged .home-song-meta strong { font-size: 20px; }
+.about-merged .home-song-live {
+  min-height: 58px;
+  padding: 8px 14px 11px 70px;
+}
+.about-merged .home-song-live p { font-size: 14px; }
+.about-merged .home-song-live span { font-size: 10px; }
+.about-merged .home-song-controls {
+  grid-template-columns: 34px minmax(72px,1fr) auto auto;
+  gap: 8px;
+  padding: 9px 14px 12px;
+}
+.about-merged .home-song-lyrics-list {
+  max-height: 250px;
+  padding: 10px 14px 22px 70px;
+}
+
+.about-merged .home-song-reopen {
+  position: absolute;
+  z-index: 14;
+  left: auto;
+  right: clamp(24px, 4vw, 70px);
+  top: clamp(250px, 17vw, 300px);
+  bottom: auto;
+  box-shadow: 0 10px 32px rgba(41,40,33,.08);
+}
+
+/* 让右侧音乐角有一点与原有圆轨道呼应的空间层次 */
+.about-merged .home-song-player::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -48px;
+  top: -42px;
+  width: 150px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(88,120,189,.12);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+@media (max-width: 1180px) {
+  .about-merged .home-song-player {
+    right: 20px;
+    width: 300px;
+  }
+  .about-merged .home-song-player.lyrics-open { width: 340px; }
+}
+
+@media (max-width: 920px) {
+  /* 平板/手机恢复为容易操作的底部播放器 */
+  .about-merged .home-song-player {
+    position: fixed;
+    z-index: 86;
+    left: 12px;
+    right: 12px;
+    top: auto;
+    bottom: 12px;
+    width: auto;
+  }
+  .about-merged .home-song-player.lyrics-open { width: auto; }
+  .about-merged .home-song-player::after { display: none; }
+  .about-merged .home-song-reopen {
+    position: fixed;
+    z-index: 86;
+    left: 12px;
+    right: auto;
+    top: auto;
+    bottom: 12px;
+  }
+}
