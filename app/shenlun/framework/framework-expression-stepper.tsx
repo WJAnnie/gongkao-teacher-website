@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { FrameworkExpressionArticle } from './framework-expression-article';
+import { ExpressionDeep } from './framework-deep-enrichment';
 
 const chapters = [
   { id: 'expression-know', no: '01', label: '认识申论' },
@@ -56,6 +57,7 @@ export function FrameworkExpressionStepper({ onActiveChapterChange }: { onActive
   return (
     <div className="expression-stepper">
       <FrameworkExpressionArticle />
+      {chapterTargets.map((target, index) => target ? createPortal(<ExpressionDeep id={chapters[index].id} />, target) : null)}
       {chapterTargets.map((target, index) => {
         if (!target || index >= chapters.length - 1) return null;
         const next = chapters[index + 1];
