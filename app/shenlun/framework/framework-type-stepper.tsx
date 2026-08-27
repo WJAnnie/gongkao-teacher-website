@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FrameworkTypeArticleV3 } from './framework-type-article-v3';
+import { FrameworkTypeArticleV4 } from './framework-type-article-v4';
 
 export const typeChapters = [
   { id: 'type-summary', slug: 'summary', no: '01', label: '归纳概括' },
@@ -52,7 +52,7 @@ export function FrameworkTypeStepper({ onActiveTypeChange }: { onActiveTypeChang
 
   return (
     <div className="expression-stepper type-stepper">
-      <FrameworkTypeArticleV3 />
+      <FrameworkTypeArticleV4 />
       {chapterTargets.map((target, index) => {
         if (!target || index >= typeChapters.length - 1) return null;
         const next = typeChapters[index + 1];
