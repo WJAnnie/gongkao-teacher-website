@@ -15,7 +15,7 @@ export default function Home() {
           <a href="#study">学习入口</a>
           <a href="#about">关于我</a>
         </div>
-        <a className="nav-cta" href="#contact">资料与联系 <span>↗</span></a>
+        <a className="nav-cta" href="#contact">获取资料 <span>↗</span></a>
       </nav>
 
       <div className="hero-scroll">
@@ -60,23 +60,58 @@ export default function Home() {
         </div>
 
         <div className="about-copy">
-          <p className="section-index">02 — ABOUT / 关于我</p>
+          <p className="section-index">02 — ABOUT / 高老师与答卷之外</p>
           <div className="about-merged-grid">
-            <div className="about-profile">
-              <h2>把题目看明白，<br />把自己的答案<span>说清楚</span>。</h2>
-              <div className="about-columns">
-                <p>课堂里反复出现的问题、真题拆解、表达方法和日常观察，我会一点点整理到这里。</p>
-                <p>读题、找依据、搭结构、写下来、说出来。每一步都尽量讲得具体，也方便你回头复习。</p>
+            <div className="about-profile about-profile-expanded">
+              <div className="about-identity-line">
+                <span>GAO / 高老师</span>
+                <b>公考教师 · 申论 · 结构化面试</b>
               </div>
+
+              <h2>把题目看明白，<br />把自己的答案<span>说清楚</span>。</h2>
+
+              <div className="about-intro-lead">
+                <p>我是高老师，目前从事公考教学。课堂之外，我一直想有一个地方，把申论、结构化面试里真正需要反复练的东西整理下来。</p>
+                <p>所以有了「答卷之外」。这里会留下我的方法框架、真题拆解、写作积累、表达训练和课堂观察，也会记录一些在课上来不及展开、但值得反复琢磨的细节。</p>
+              </div>
+
+              <div className="about-detail-grid">
+                <article>
+                  <span>01 / 我在教什么</span>
+                  <h3>申论与结构化面试</h3>
+                  <p>从审题、找依据、搭结构，到写下来、说出来。重点放在具体的作答过程，以及做完以后怎么复盘。</p>
+                </article>
+                <article>
+                  <span>02 / 为什么做这个站</span>
+                  <h3>把课堂内容留下来</h3>
+                  <p>一节课结束以后，真正有价值的方法应该还能被重新找到、重新练习、重新验证。这个网站就是我的长期整理本。</p>
+                </article>
+                <article>
+                  <span>03 / 这里有什么</span>
+                  <h3>方法 · 真题 · 积累 · 课堂</h3>
+                  <p>申论五大题型、国考真题索引、写作素材、面试题型方法、表达训练，以及之后陆续整理的课程片段和学习工具。</p>
+                </article>
+                <article>
+                  <span>04 / 怎么使用</span>
+                  <h3>学方法，做题，再复盘</h3>
+                  <p>先理解方法框架，再用真题检验；做完回看审题、要点、结构和表达，把一次练习变成下一次能继续使用的经验。</p>
+                </article>
+              </div>
+
+              <div className="about-independence-note">
+                <span>PERSONAL SITE / 身份说明</span>
+                <p>我在阳光公考从事教学工作。「答卷之外」由我个人建立与维护，是高老师的个人内容网站。站内个人内容、资料及后续个人服务以个人名义发布，不代表阳光公考官方账号、官网或官方产品；机构相关信息请以其官方渠道为准。</p>
+              </div>
+
               <div className="about-tags">
-                <span>申论方法</span><span>结构化面试</span><span>真题训练</span><span>真实表达</span>
+                <span>申论方法</span><span>结构化面试</span><span>真题训练</span><span>写作积累</span><span>表达训练</span><span>课堂复盘</span>
               </div>
             </div>
 
             <aside className="about-contact-card" id="contact">
               <div className="about-contact-head">
-                <span>CONTACT / 联系</span>
-                <b>资料 · 课程 · 日常</b>
+                <span>PERSONAL / 个人入口</span>
+                <b>资料 · 内容 · 日常</b>
               </div>
               <div className="about-contact-body">
                 <div className="qr-placeholder" aria-label="二维码区域">
@@ -84,9 +119,9 @@ export default function Home() {
                   <span>QR</span>
                 </div>
                 <div className="contact-info">
-                  <span>答卷之外</span>
-                  <h3>资料与联系</h3>
-                  <p>申论方法 · 结构化面试 · 真题训练 · 课程现场</p>
+                  <span>答卷之外 · 高老师</span>
+                  <h3>获取资料</h3>
+                  <p>申论方法 · 结构化面试 · 真题训练 · 个人内容</p>
                 </div>
               </div>
             </aside>
@@ -95,7 +130,7 @@ export default function Home() {
       </section>
 
       <footer className="footer">
-        <span>答卷之外 · 申论 × 结构化面试</span>
+        <span>答卷之外 · 高老师 · 申论 × 结构化面试</span>
         <a href="#top">BACK TO TOP ↑</a>
       </footer>
     </main>
