@@ -1,155 +1,181 @@
-'use client';
+import type { ReactNode } from 'react';
 
-import { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { FrameworkTypeArticleV3 } from './framework-type-article-v3';
+function Prose({ children }: { children: ReactNode }) { return <div className="framework-voice-prose">{children}</div>; }
+function Topic({ label, title, desc }: { label: string; title: string; desc?: string }) { return <div className="framework-voice-topic"><span>{label}</span><h4>{title}</h4>{desc && <p>{desc}</p>}</div>; }
+function Note({ children }: { children: ReactNode }) { return <aside className="framework-voice-note"><span>阅 / 高老师提醒</span><p>{children}</p></aside>; }
+function Example({ label,title,children,note }:{label:string;title:string;children:ReactNode;note:ReactNode}){return <article className="framework-voice-example"><div><span className="framework-voice-example-label">{label}</span><h5>{title}</h5>{children}</div><aside><b>阅 / 为什么这样写</b>{note}</aside></article>}
 
-function AnalysisExamples() {
-  return (
-    <div className="type-v4-analysis-examples">
-      <div className="expression-v2-subtitle strong">
-        <span>例题拆解</span>
-        <h4>综合分析别只记结构，先看题目到底让你处理什么关系</h4>
-      </div>
-      <p className="type-v4-analysis-lead">下面几个例子不要求背答案。重点看同样叫“综合分析”，题目不同，答案的长相为什么也不同。</p>
+export function FrameworkTypeArticleV4(){
+  return <div className="framework-voice-course">
+    <section className="expression-chapter framework-voice-section" id="type-summary">
+      <header className="framework-voice-head"><span>01 / SUMMARY</span><h3>归纳概括先别急着“总结”，第一步是把题目问什么看准。</h3><p>这类题看起来最基础，真正做起来却最能暴露阅读问题。对象看偏、要素找错、层级太大或太小、同义内容不合并，都会直接影响答案。</p></header>
+      <Prose>
+        <p>我一般会先问同学一句：<strong>题目有没有明确告诉你要找什么？</strong>如果题目直接问“问题、原因、做法、成效、特点、变化”，要素已经很清楚，你要做的是围绕这个要素穷尽材料。这样的任务可以理解为明确要素。</p>
+        <p>另一类题没有把答案组成直接说出来，比如“谈谈你对这句话的理解”“谈谈你的看法”“写一份发言提纲”。这时你先要理解任务，再判断答案里到底要出现哪些内容。这类任务更考验对材料和题干的综合理解。</p>
+        <p>注意，<strong>“概括问题并提出建议”虽然问了两个东西，但两个要素都已经明确。</strong>它是两问，不等于“复合要素”。这个区别看似小，后面综合分析和公文写作都要用到。</p>
+      </Prose>
+      <Topic label="先有概括，再有归纳" title="概括解决“材料说了什么”，归纳解决“这些内容可以叫什么”" />
+      <Prose>
+        <p>很多同学刚学的时候会把两个动作混在一起。材料写得很长、很口语、很故事化，你先要把它压缩成能写进答案的内容，这一步叫概括；几个具体点之间如果存在共同做法、共同目的或者共同本质，再进一步给它们一个合适的上位表达，这一步才叫归纳。</p>
+        <p>比如材料写“设热线、放意见箱、开通网络留言”。概括以后可以写“通过多种方式收集群众意见”；如果题目问的是治理经验，还可以继续归纳为<strong>“畅通群众意见反馈渠道”</strong>。归纳词放在前面，后面的具体内容负责把这个词坐实。</p>
+      </Prose>
+      <Example label="概括 → 归纳" title="别只留下一个大词，也别把材料原句全搬过来" note={<p>答案真正有信息量的，往往是归纳词后面的具体概括。归纳词负责条理，概括内容负责采分。字数越紧，越要处理层级；但不能为了“高级”把具体信息全部吞掉。</p>}><p>材料：热线、意见箱、网络留言。</p><p>概括：通过热线、意见箱和网络平台收集意见。</p><p>归纳：<strong>畅通群众反馈渠道。</strong>通过热线、意见箱和网络平台收集意见。</p></Example>
 
-      <article className="type-v4-analysis-case">
-        <div className="case-copy">
-          <span>01 / 现象分析</span>
-          <h5>“电脑进入学生日常学习，你怎么看？”</h5>
-          <p><b>先判断：</b>题目问“怎么看”，没有直接指定找原因、问题还是对策。先回材料判断总体态度。</p>
-          <p><b>如果材料同时写到：</b>查资料方便、提高效率，也写到沉迷娱乐、依赖工具等问题，那么答案可以先作“有积极作用，但使用不当也会产生问题”的总体判断。</p>
-          <p><b>再组织：</b>积极作用 → 存在问题 → 材料若给出规范使用、加强引导等内容，再作为最后一层。</p>
-        </div>
-        <aside><b>阅 / 看什么</b><p>“辩证”来自材料本身存在两面，不是见到“怎么看”就机械写正反两面。</p></aside>
-      </article>
+      <Topic label="常见小分类" title="题目问法不同，你在材料里寻找的东西也不同" />
+      <Prose>
+        <p><strong>问题类</strong>找的是哪里不对、哪里不够。问题可能体现为制度不完善、设施不足、管理薄弱、观念落后，也可能体现在结果上。看到负面词不要立刻抄，先判断它是不是题干主体的问题。</p>
+        <p><strong>原因类</strong>找的是为什么会形成当前状态。材料未必出现“因为、由于”，有时只写资源不够、机制不顺、主体认识偏差，这些都需要你结合对象判断它是不是在解释原因。</p>
+        <p><strong>做法类</strong>看谁做了什么。动作、对象、方式最重要。多个动作可以进一步归到宣传、监督、管理、技术、人才、设施、制度、资金等做法类型。</p>
+        <p><strong>成效类</strong>要先问“谁受益、好在哪里”。对别人带来的积极变化通常比较容易判断；对主体自身的效果要谨慎，材料没有支撑就不要凭常识往上推。</p>
+        <p><strong>特点、变化、阶段类</strong>更强调比较和归纳。特点要找区别于一般情况的鲜明属性；变化要有前后对照；阶段则要先按时间或发展节点切分，再概括每一阶段的核心状态。</p>
+        <p><strong>经验、启示类</strong>题目往往问得更大。案例里的人名、地名、具体活动可以保留必要信息，但最终要能迁移到类似情境里，所以层级通常要比原材料高一些。</p>
+      </Prose>
+      <div className="framework-voice-list"><article><span>问题</span><b>哪里不对</b><p>找不足、矛盾、障碍、缺失和不良结果。</p></article><article><span>原因</span><b>为什么会这样</b><p>看主体、环境、机制、资源、观念等如何导致当前状态。</p></article><article><span>做法</span><b>做了什么</b><p>抓动作、对象和方式，再判断是否需要上提做法本质。</p></article><article><span>成效</span><b>好在哪里</b><p>锁定受益主体，写出材料明确体现的积极变化。</p></article><article><span>阶段</span><b>怎么变化</b><p>先分时期，再写每个时期最核心的状态和特点。</p></article></div>
 
-      <article className="type-v4-analysis-case">
-        <div className="case-copy">
-          <span>02 / 理解分析</span>
-          <h5>“撤销眼中的柜台”与“撤销心中的柜台”怎么理解？</h5>
-          <p><b>第一步先解释词：</b>“眼中的柜台”偏向看得见的服务形式、办理距离和流程障碍；“心中的柜台”偏向服务意识、部门壁垒和理念上的隔阂。</p>
-          <p><b>第二步回材料找表现：</b>前者可以对应窗口整合、线上办理、流程优化等外在变化；后者要看主动服务、协同意识、便民导向等内在变化。</p>
-          <p><b>第三步处理关系：</b>形式优化解决“办事难不难”，理念改变决定“服务好不好”。二者如果材料呈现递进关系，答案也要把这种递进写出来。</p>
-        </div>
-        <aside><b>阅 / 看什么</b><p>理解题先把抽象词翻译成人话，再去找材料如何证明它。直接抄材料，往往看不出你真正理解了什么。</p></aside>
-      </article>
+      <Topic label="层级与字数" title="题目问得越大，答案越不能一直停留在微小动作；题目问得越具体，也没必要硬抬层级" />
+      <Prose>
+        <p>“答案的度”是归纳概括里非常重要的判断。比如材料写“增设消防器材、抽水机，重新铺设排水管，改造通风口”。如果题目问某市场有哪些具体改造措施，细节可以多留；如果题目问农贸市场改造的经验，写成“完善消防、排水和通风等配套设施”更合适。</p>
+        <p>另外还要看字数。如果平均一个点只有不到一行，归纳词不能写得太长；如果材料层级很多、字数又紧，先保独立信息，再考虑能否合并。<strong>不必每个点都强行套一个漂亮归纳词。</strong></p>
+      </Prose>
+      <Note>归纳概括最后自检三件事：这个归纳词能不能直接回答题干？会不会大到把别的要点一起吞掉？能不能真正罩住后面的具体概括？</Note>
+    </section>
 
-      <article className="type-v4-analysis-case">
-        <div className="case-copy">
-          <span>03 / 原因分析</span>
-          <h5>“为什么一场行政执法争议会持续引发讨论？”</h5>
-          <p><b>题目已经明确问原因：</b>所以它虽然常放在综合分析中训练，要素本身并不模糊。</p>
-          <p><b>读材料时可以分别发现：</b>事实认定存在争议、相关部门回应不充分、处罚尺度引发质疑、不同主体对权利边界认识不一、问题处理不够及时等。</p>
-          <p><b>写答案时：</b>先按性质或主体合并同义内容，再用“认定依据、沟通回应、执法尺度、认知差异、处置效率”等中观表达统领细节。</p>
-        </div>
-        <aside><b>阅 / 看什么</b><p>原因题别只找“因为、由于”。真正的判断标准是：这句话能不能回答“为什么会发生、为什么会形成、为什么会引起争议”。</p></aside>
-      </article>
+    <section className="expression-chapter framework-voice-section" id="type-analysis">
+      <header className="framework-voice-head"><span>02 / ANALYSIS</span><h3>综合分析难在“关系”，不是难在背一个“是什么—为什么—怎么办”。</h3><p>题目看起来都叫分析，实际任务可能完全不同。你要先弄清楚它让你评价一个现象、解释一句话、分析原因，还是比较两个对象。</p></header>
+      <Prose>
+        <p>我更愿意把“分析”和“综合”拆开理解。分析，就是把一个整体拆开，判断每个部分分别在干什么；综合，是把已经拆开的信息重新归类、排序和组织，让答案形成新的整体。</p>
+        <p>所以综合分析题真正的底层动作还是前面讲过的那几步：先围绕题干主体划分材料，再逐句判断要素，最后决定这些要素应该怎么组合。题型名称可以帮你起步，但不能代替你理解材料。</p>
+      </Prose>
 
-      <article className="type-v4-analysis-case">
-        <div className="case-copy">
-          <span>04 / 对比分析</span>
-          <h5>比较两种“绣花功夫”，不能把 A 写一段、B 写一段就结束</h5>
-          <p><b>先找同一把尺子：</b>两者都在谈基层工作方式，可以从目的、具体做法、实际效果三个维度比较。</p>
-          <p><b>再逐项比较：</b>一种以解决细碎治理难题为目的，强调精细服务、信息协同；另一种偏向展示和应付，容易产生形式主义和资源浪费。</p>
-          <p><b>最后形成判断：</b>比较的意义不在于把两个案例重新介绍一次，而在于看清“同样的形式为什么会走向不同结果”。</p>
-        </div>
-        <aside><b>阅 / 看什么</b><p>对比分析最怕维度错位：A 写做法、B 写效果。只有同一维度对照，比较才真正成立。</p></aside>
-      </article>
-    </div>
-  );
-}
+      <Topic label="现象分析" title="先判断总体态度，再看材料到底提供了哪些利弊、问题、原因和改进方向" />
+      <Prose>
+        <p>“怎么看、如何评价、谈谈看法”这类题，通常先要有一个总体判断。材料明显肯定，就不要为了显得辩证硬凑反面；材料明显批评，也不能因为看到一点合理性就把态度写成五五开。</p>
+        <p>如果材料确实同时呈现正反两面，再写“有积极作用，但使用不当也会产生问题”就顺理成章。后面写哪些内容，要看材料有没有给。材料有问题，就写问题；有原因，就写原因；有规范使用或改进做法，再作为后续层次。</p>
+      </Prose>
+      <Example label="现象分析" title="“电脑进入学生日常学习，你怎么看？”" note={<p>辩证来自材料，而不是来自题型。材料如果同时写到查资料方便、提高效率，也写到沉迷娱乐和依赖工具，就可以先总体判断，再分两面展开。</p>}><p>一种自然的组织方式是：电脑对学习有帮助，但使用不当会带来负面影响；积极作用体现在提高效率、方便查阅资料；问题体现在沉迷娱乐、依赖工具；如果材料给出规范使用、教育引导，再写改进。</p></Example>
 
-function PotteryOutlineExample() {
-  return (
-    <div className="type-v4-outline-wrap">
-      <div className="expression-v2-subtitle strong">
-        <span>小陶题 · 提纲示例</span>
-        <h4>提纲的“简”，简在格式；材料的脉络和开头、主体、收束都要看得见</h4>
-      </div>
-      <article className="type-v4-outline-example">
-        <div className="outline-copy">
-          <span>OUTLINE / 提纲示意</span>
-          <h5>弘扬鹤溪缸窑　促进恢复发展</h5>
-          <p><b>开头：</b>鹤溪缸窑历史悠久，是传统民间手工艺和浙南陶瓷发展史的重要缩影，具有文化传承和史料研究价值。</p>
-          <p><b>一、历史起源与兴盛：</b>起源可追溯至商周时期，明万历年间逐渐兴盛。</p>
-          <p><b>二、生产方式演进：</b>经历私人办厂、合作生产等阶段；新中国成立后逐步组建生产合作组织、合作社并发展为国营工厂，生产走向机器化。</p>
-          <p><b>三、全盛与对外传播：</b>产品销售范围扩大，并承担相关生产任务；六七十年代向周边传授技艺、帮助建厂烧窑，八十年代达到繁荣阶段。</p>
-          <p><b>四、衰落与现实困境：</b>后期受设备简陋、技术落后等因素影响，逐步回到私人作坊方式并走向衰落。</p>
-          <p><b>结尾：</b>当地陶土资源和烧陶条件仍有基础，但传统技艺面临传承危机，应重视保护传承与恢复发展。</p>
-        </div>
-        <aside>
-          <b>阅 / 为什么这是提纲</b>
-          <p>它不是要求把每一段写成完整文章，而是先把“开头—发展历程—现实处境—收束”整理成可以直接拿去发言、汇报或继续扩写的内容骨架。</p>
-          <p>时间线是这道题最清楚的材料逻辑，所以主体按阶段推进，比把材料拆成若干互不相干的特点更自然。</p>
-          <p>开头依然存在，只是比正式文章更简洁；结尾也保留现实困境和发展方向，让整份提纲有始有终。</p>
-        </aside>
-      </article>
-    </div>
-  );
-}
+      <Topic label="理解分析" title="先把抽象词句翻译成人话，再用材料说明它体现在哪里、为什么成立" />
+      <Prose>
+        <p>理解题经常出现一句很形象、很抽象的话。你不能只把原句换几个同义词，也不能直接跳到对策。先把核心概念解释清楚，再看材料有哪些行为、做法、问题或意义在证明这个解释。</p>
+        <p>有些理解题内部本身有两个概念。这个时候要判断它们是并列、递进、对比还是包含关系。答案结构也可以随着关系变化，而不是永远先写一大段“是什么”，再统一写“为什么”。</p>
+      </Prose>
+      <Example label="理解分析" title="“撤销眼中的柜台”与“撤销心中的柜台”" note={<p>两个概念本身就是题目要理解的对象。可以分两大部分写：先解释“眼中的柜台”及其意义和适应问题，再解释“心中的柜台”及对应的理念、协同和服务变化。这样的结构比把所有意义混在一起更清楚。</p>}><p>“眼中的柜台”偏向前台设置、办理距离和服务形式；“心中的柜台”进一步指向服务理念、部门壁垒和便民意识。形式变化解决“办事难不难”，理念变化决定“服务好不好”。</p></Example>
 
-export function FrameworkTypeArticleV4() {
-  const [analysisAnchor, setAnalysisAnchor] = useState<HTMLElement | null>(null);
-  const [outlineAnchor, setOutlineAnchor] = useState<HTMLElement | null>(null);
+      <Topic label="原因分析" title="题干明确问“为什么”时，要素其实很清楚，难点在把零散原因读出来并合并" />
+      <Prose>
+        <p>原因题不要只在材料里找“因为、由于”。有时材料写的是认定争议、责任缺位、处罚尺度争议、所有权认识不同、处理不及时，这些内容没有一个共同的“原因句式”，却都在解释一件事为什么会引发争议。</p>
+        <p>做这类题，先把每一条原因找到，再考虑主体是否一致、做法性质是否相同、有没有同义内容。归纳时可以用“认定依据、责任履行、处罚尺度、权属认知、处置效率”等中观表达统领。</p>
+      </Prose>
+      <Example label="原因分析" title="为什么一项执法处罚会持续引发讨论？" note={<p>这个例子提醒你：原因是“能回答为什么”的信息，不等于材料里有明显因果词的信息。材料越复杂，越要靠主体意识和要素判断。</p>}><p>可以从事实认定、主管责任、处罚金额、所有权认知和问题处置等角度组织。先看每个争议点究竟在解释什么，再决定是否合并。</p></Example>
 
-  useEffect(() => {
-    const solution = document.getElementById('type-solution');
-    if (solution) {
-      const subtitles = Array.from(solution.querySelectorAll<HTMLElement>('.expression-v2-subtitle'));
-      const concrete = subtitles.find((item) => item.querySelector('h4')?.textContent?.includes('从“加强宣传”逐层走到'));
-      if (concrete) {
-        const heading = concrete.querySelector('h4');
-        if (heading) heading.textContent = '写具体，关键是补足题目需要的信息，不是把一句话机械扩成三层';
-        const caseBlock = concrete.nextElementSibling as HTMLElement | null;
-        if (caseBlock?.classList.contains('type-v2-case')) {
-          caseBlock.innerHTML = `
-            <span>判断顺序</span>
-            <p><b>先看材料给到哪：</b>材料已经给出动作、对象和方式，就先把这些有效信息整理清楚。</p>
-            <p><b>再看缺什么：</b>如果措施仍然只有一个方向词，再根据题目身份和材料补必要的主体、对象、方式、流程或保障；缺哪项补哪项。</p>
-            <p><b>最后检查能不能落地：</b>写具体的标准是能够解决当前问题、符合身份权限、信息有材料或合理依据。材料没有给出的部门、专家、平台、活动形式，不需要为了显得“可操作”硬编进去。</p>`;
-        }
-      }
-    }
+      <Topic label="对比分析" title="比较两个对象，最重要的是先找到同一把尺子" />
+      <Prose>
+        <p>很多同学做对比题，会把A完整写一段，再把B完整写一段。内容可能都对，但比较感很弱。真正的对比需要同一维度：目的对目的、做法对做法、效果对效果。</p>
+      </Prose>
+      <Example label="对比分析" title="两种“绣花功夫”为什么结果完全不同？" note={<p>先写共同本质“都是基层治理的工作方式”，再用目的、做法、效果三个维度比较。这样学生一眼能看到差异来自哪里。</p>}><p>一种是为了解决基层工作细、碎、难，强调创新和精细治理；另一种是为了应付检查、展示政绩，容易走向形式主义。前者提高效率、改善环境，后者浪费资源、增加基层负担。</p></Example>
+      <Note>“是什么—为什么—怎么办”可以帮助你检查答案有没有缺层，但它只是认识逻辑，不是每一道综合分析题都必须写满三个部分。</Note>
+    </section>
 
-    const analysis = document.getElementById('type-analysis');
-    let createdAnalysis: HTMLElement | null = null;
-    if (analysis && !analysis.querySelector('.type-v4-analysis-examples-anchor')) {
-      createdAnalysis = document.createElement('div');
-      createdAnalysis.className = 'type-v4-analysis-examples-anchor';
-      analysis.appendChild(createdAnalysis);
-      setAnalysisAnchor(createdAnalysis);
-    }
+    <section className="expression-chapter framework-voice-section" id="type-solution">
+      <header className="framework-voice-head"><span>03 / SOLUTION</span><h3>提出对策先解决一个问题：你写的措施，究竟是不是在回应材料里的问题。</h3><p>对策题最怕两种答案：一种只写“加强、完善、提高”，方向很多但落不到问题；另一种为了显得具体，凭空编出材料没有依据的部门、平台和活动。</p></header>
+      <Prose>
+        <p>我建议先把题目分清是一问还是两问。如果题目只问“提出建议”，问题可能需要你在材料里自己理解，但不一定单独写出来；如果题目明确要求“概括问题并提出建议”，两个任务都要完成，字数分配通常要把更多空间留给对策。</p>
+        <p>对策的来源也有顺序。<strong>材料直接给的做法优先；材料只有问题，可以反推；材料给了原因，也可以针对原因反推；确有必要时，再结合身份和现实补充常规措施。</strong>补充不是自由发挥，始终要受题目身份、材料情境和现实权限约束。</p>
+      </Prose>
+      <Topic label="对策从哪里来" title="先吃透材料，再决定需不需要自己补" />
+      <div className="framework-voice-list"><article><span>01</span><b>直接对策</b><p>材料已经出现“建立、开展、完善、设置、推进”等做法，整理清楚即可。</p></article><article><span>02</span><b>问题反推</b><p>反馈渠道不畅 → 畅通意见反馈渠道；设施不足 → 完善配套设施。</p></article><article><span>03</span><b>原因反推</b><p>培训不足导致操作不熟 → 加强培训、开展实操演练。</p></article><article><span>04</span><b>必要补充</b><p>材料方向明确但步骤略缺，可结合身份补必要流程和保障，不能凭空造信息。</p></article></div>
 
-    const implementation = document.getElementById('type-implementation');
-    let createdOutline: HTMLElement | null = null;
-    if (implementation) {
-      implementation.querySelectorAll<HTMLElement>('.type-v3-format-sheet, .type-v3-critique').forEach((item) => {
-        const text = item.textContent ?? '';
-        if (text.includes('文明实践品牌活动') || text.includes('小巷总理')) item.remove();
-      });
+      <Topic label="怎么写具体" title="具体不是越长越好，真正有用的是把动作、对象、方式和必要保障说清楚" />
+      <Prose>
+        <p>比如材料只写“群众不了解政策”。如果身份是基层工作人员，写“加强宣传”当然方向没错，但信息太少。你可以继续看材料有没有明确对象、渠道和重点内容：面向谁宣传、通过什么渠道、讲清哪些政策、是否设置咨询反馈。</p>
+        <p>反过来，如果材料只告诉你“群众不了解政策”，并没有给专家团队、短视频平台、微信公众号等信息，就不要为了显得“可操作”把这些全部编进去。<strong>具体到材料和身份能够支撑即可。</strong></p>
+      </Prose>
+      <Example label="对策表达" title="从口号变成能够回应问题的措施" note={<p>“加强宣传”本身很难区分不同题目。真正有区分度的是你写清楚宣传对象、内容和必要渠道，并且这些信息能在材料或合理身份中找到依据。</p>}><p>问题：群众不了解办理流程，反复跑窗口。</p><p>较弱：加强宣传。</p><p>更完整：<strong>强化办事指引。</strong>面向办事群众公开办理条件、材料清单和流程节点，及时更新常见问题说明，减少重复咨询和往返办理。</p></Example>
 
-      const subtitles = Array.from(implementation.querySelectorAll<HTMLElement>('.expression-v2-subtitle'));
-      const articleSubtitle = subtitles.find((item) => item.querySelector('h4')?.textContent?.includes('像一篇短文章'));
-      if (articleSubtitle && !implementation.querySelector('.type-v4-outline-anchor')) {
-        createdOutline = document.createElement('div');
-        createdOutline.className = 'type-v4-outline-anchor';
-        articleSubtitle.parentElement?.insertBefore(createdOutline, articleSubtitle);
-        setOutlineAnchor(createdOutline);
-      }
-    }
+      <Topic label="三个检查标准" title="针对性、可行性、可操作性，不是三个漂亮标签，而是三次自检" />
+      <Prose>
+        <p><strong>针对性</strong>看是否真正对应问题；<strong>可行性</strong>看身份有没有权限、现实条件能不能支持；<strong>可操作性</strong>看措施有没有必要的动作和方式。三个标准经常同时出现，但写答案时不用机械写成三个段落。</p>
+        <p>启示题和普通对策题还要注意层级。材料可能介绍一个地方非常特殊的活动名称，你要先理解活动背后的做法本质，再把特殊性转成可以迁移的普适经验。</p>
+      </Prose>
+      <Note>对策题的本质仍然离不开概括和归纳。你要先把问题看懂，再把措施写成能够直接解决这个问题的规范表达。</Note>
+    </section>
 
-    return () => {
-      createdAnalysis?.remove();
-      createdOutline?.remove();
-    };
-  }, []);
+    <section className="expression-chapter framework-voice-section" id="type-implementation">
+      <header className="framework-voice-head"><span>04 / IMPLEMENTATION</span><h3>公文写作先别背格式，先弄清楚“我是谁、写给谁、为什么写、要完成什么任务”。</h3><p>公文题表面上多了身份、对象和文种，底层仍然是材料处理。区别在于，你还要把内容放进一个符合任务场景的完整文本里。</p></header>
+      <Prose>
+        <p>我做公文题时会先把几个问题问清楚：我以什么身份写？写给谁？为什么写？希望对方知道什么、做什么？题目要求形成什么文种？这些问题一旦明确，开头、主体和结尾自然会有方向。</p>
+        <p><strong>公文必须有开头。</strong>开头可以很短，但不能因为字数紧就把任务背景、写作目的或必要引入全部删掉。不同类型开头写法会变，核心都是让读者知道“为什么现在要说这件事”。</p>
+      </Prose>
+      <Topic label="基本格式" title="标题、称谓、正文、落款、日期，要根据文种和题干要求判断" />
+      <Prose>
+        <p>标题一般居中；称谓是否需要，要看有没有明确的受文对象；正文通常包括开头、主体和结尾；落款和日期则要看文种习惯和题干要求。提纲类可以适当从简，但“从简”是格式简化，不是把开头和结构删掉。</p>
+      </Prose>
+      <div className="framework-voice-format"><h5>关于××工作的倡议书</h5><p>广大居民朋友：</p><p>开头：交代背景、现实问题和发出倡议的目的。</p><p>主体：围绕任务分点写清楚具体倡议内容，每一点说明要做什么、怎么做。</p><p>结尾：简短呼吁，形成行动指向。</p><p className="right">××单位</p><p className="right">×年×月×日</p></div>
 
-  return (
-    <>
-      <FrameworkTypeArticleV3 />
-      {analysisAnchor && createPortal(<AnalysisExamples />, analysisAnchor)}
-      {outlineAnchor && createPortal(<PotteryOutlineExample />, outlineAnchor)}
-    </>
-  );
+      <Topic label="常规类" title="讲话稿、倡议书、感谢信、通知等，先把对象和语气放对" />
+      <Prose>
+        <p>常规类公文的结构最完整。讲话稿开头一般要有称谓和必要寒暄，再交代背景或目的；主体根据任务写经验、问题、做法或要求；结尾可以感谢、呼吁或提出期待。倡议书、宣传材料更强调面向群众说清楚“为什么要做、希望大家怎么做”。感谢信则要把感谢对象、具体事迹和情感表达写明白。</p>
+      </Prose>
+      <Example label="讲话稿" title="介绍生猪养殖信息化管理经验" note={<p>开头先交代传统养殖遇到的污染、统计和管理难题，再自然引出“为什么要做信息化管理”。主体按系统建设、人员配置、污染治理、安全追溯等经验展开，结尾再回到交流目的。</p>}><p>各位养殖村管理人员：</p><p>大家好！我村生猪养殖长期存在污染处理、数据统计和日常管理等难题，因此尝试利用信息技术进行精细化管理。下面我从几个方面介绍具体做法……</p></Example>
+
+      <Topic label="提纲类" title="格式可以简，但开头、主体脉络和收束都要看得见" />
+      <Prose>
+        <p>提纲的核心是把材料整理成一个可以继续发言、汇报或扩写的内容骨架。它不要求每一段都写成完整文章，但仍然要有开头，主体要按照最清楚的材料逻辑展开，最后根据任务做必要收束。</p>
+      </Prose>
+      <Example label="小陶题 · 提纲示例" title="鹤溪缸窑材料，最自然的主体逻辑是发展历程" note={<p>材料本身以时间推进，提纲就顺着“起源—发展—繁荣—衰落—传承”组织。不要为了追求分类，把明显的时间线拆成互不相干的几个标签。</p>}><p><strong>开头：</strong>鹤溪缸窑历史悠久，是传统民间手工艺和地方陶瓷发展史的重要组成。</p><p><strong>主体：</strong>起源与兴盛 → 生产方式演进 → 全盛与传播 → 衰落与现实困境。</p><p><strong>结尾：</strong>当前仍有资源和技艺基础，应重视保护传承与恢复发展。</p></Example>
+
+      <Topic label="文章类" title="像一篇短文章：先立住主题和观点，再把材料组织成几个有逻辑的部分" />
+      <Prose>
+        <p>短评、宣传稿、材料性文章等常以文章形态出现。开头要明确主题或观点，主体可以按发展历程、利弊、做法、特点等组织，结尾回扣主题。它和大作文相比篇幅更短、任务更具体，但也不能只写成一串要点。</p>
+      </Prose>
+
+      <Topic label="方案类" title="开头交代背景和目的，主体把“谁来做、对谁做、怎么参与、怎么推进”写清楚" />
+      <Prose>
+        <p>方案类尤其强调执行逻辑。开头通常用2—3行交代背景、意义或活动目的；主体根据材料写对象、流程、参与方式、时间、职责、保障等；结尾可以写后续要求或简短期待。</p>
+        <p>方案题最容易出现的问题是只写几个宏观措施，看不出活动怎么发生。你要让阅卷人从答案里看到一个基本过程。</p>
+      </Prose>
+      <Note>公文格式始终服务任务。不要把格式背成一套永远不变的外壳；但“有开头、有主体、有必要收束”的完整表达不能随便省掉。</Note>
+    </section>
+
+    <section className="expression-chapter framework-voice-section" id="type-essay">
+      <header className="framework-voice-head"><span>05 / ESSAY</span><h3>文章写作先把观点想清楚，再谈语言好不好看。</h3><p>作文真正拉开差距的地方，是能不能从材料中找到一个站得住的主题、总论点和分论点，再用完整论证把它们撑起来。</p></header>
+      <Prose>
+        <p>我更习惯先用“龙头、猪肚、豹尾”理解一篇文章。龙头负责开篇和总论点，要有方向；猪肚是主体论证，要内容丰富、有条理、有逻辑；豹尾要短促有力，回扣主题，适度拔高。</p>
+        <p>真正开始写之前，先找三个层次：<strong>主题是什么、总论点是什么、分论点怎么展开。</strong>主题通常来自题干和整组材料；总论点是你对主题的核心判断；分论点则是支撑总论点的几个主要角度。</p>
+      </Prose>
+
+      <Topic label="常见文章思路" title="策论、政论、综合、思辨只是帮助你组织观点，不是四套固定模板" />
+      <Prose>
+        <p>策论文更强调“怎么办”，分论点常围绕几类主要做法展开；政论文更强调“为什么”，可以从价值、意义、作用等角度论证；综合文常把意义、问题和做法结合起来；思辨文则需要处理两个概念之间的关系。</p>
+        <p>如果题干明确出现两个并列概念，你要先判断它们究竟是相互促进、前提与结果、还是存在张力。关系想错，后面的分论点写得再漂亮也会偏。</p>
+      </Prose>
+      <div className="framework-voice-flow"><article><span>策论</span><b>重点写怎么做</b><p>做法要有层级和针对性，不能只列口号。</p></article><article><span>政论</span><b>重点写为什么</b><p>意义要具体到主体和现实作用。</p></article><article><span>综合</span><b>意义 + 问题 + 路径</b><p>根据材料决定比例，不追求形式对称。</p></article><article><span>思辨</span><b>先处理关系</b><p>分别讲价值，再讲为什么不能偏废、如何统一。</p></article></div>
+
+      <Topic label="开头怎么写" title="开头的任务是把主题和总论点立住，不是先炫一句名言" />
+      <Prose>
+        <p>一个好开头不一定华丽，但要让阅卷人很快知道你在写什么。你可以从现实问题切入，可以从材料关系切入，也可以直接提出判断。名言、案例、比喻都可以用，但它们要服务主题。</p>
+      </Prose>
+      <Example label="开头示例" title="基层治理：从现实问题进入" note={<p>先写现实治理面对的变化，再提出“精准回应、协同参与、技术赋能”的总体方向。开头没有急着堆案例，后面的三个分论点已经有了落点。</p>}><p>城市越向精细处发展，群众对公共服务的期待就越具体。基层治理面对的，已经不只是“有没有”，还有回应是否及时、协同是否顺畅、服务是否精准。把这些细小诉求接住，需要治理重心继续下沉，也需要制度、技术和群众参与形成合力。</p></Example>
+      <Example label="开头示例" title="传统文化：从关系进入" note={<p>先承认传统文化的历史价值，再把问题落到“如何进入当代生活”。这类开头适合后文展开传承、转化和创新传播。</p>}><p>传统文化的价值，从来不只停留在历史记忆中。真正有生命力的文化，既能守住自身根脉，也能回应今天的生活。面对新的传播方式和社会需求，传承与创新需要同时发力，让传统文化在创造性转化中继续生长。</p></Example>
+
+      <Topic label="分论点怎么找" title="分论点要共同支撑总论点，同时彼此有区分度" />
+      <Prose>
+        <p>找分论点时可以回到材料分部、小题提示、主题内部关系，也可以问自己：这个问题为什么重要？具体卡在哪里？解决它需要哪几个主要层面？分论点之间最好处在相近层级，不要一个写理念、一个写具体动作、一个突然写结果。</p>
+      </Prose>
+      <Example label="分论点示例" title="以基层治理为主题，可以这样形成三条相近层级的分论点" note={<p>三个分论点分别回答“从哪里出发、靠什么形成合力、用什么提高效率”，都服务于治理现代化，又有清晰区分。</p>}><p>一、以需求为起点，让治理精准回应群众急难愁盼。</p><p>二、以协同为支撑，让多元主体在共建共治中形成合力。</p><p>三、以技术为工具，让信息流转更顺畅、公共服务更高效。</p></Example>
+
+      <Topic label="论证段怎么写" title="观点说完以后，要解释、举证、分析，再回到分论点" />
+      <Prose>
+        <p>很多同学写作文最容易出现“观点一句，案例一大段，然后直接下一个分论点”。案例只是论据，不会自动完成论证。你还要解释这个案例为什么能证明观点，它改变了什么、解决了什么、说明了什么。</p>
+      </Prose>
+      <Example label="论证段示例" title="技术赋能基层治理" note={<p>观点先出现，案例只占中间一段，后面继续分析“技术改变的不是一个办理动作，而是信息流转和协同方式”，最后再回扣“工具必须服务治理目标”。</p>}><p><strong>以技术为工具，让治理信息更畅通、服务更高效。</strong>基层事务繁杂，信息分散在不同部门和不同渠道时，群众往往需要重复提交、反复咨询。通过整合事项平台、打通信息共享，可以减少重复环节，也让部门协同更及时。技术真正带来的变化，不只是办理速度加快，更是治理流程和协作方式的重塑。只有让技术服务于真实需求，数字化才能转化为治理效能。</p></Example>
+
+      <Topic label="结尾怎么收" title="结尾负责回扣和收束，不负责拯救前文" />
+      <Prose>
+        <p>结尾不用再开一个新论点。把总论点重新落稳，适度提升到更大的现实意义，再留一句有行动感或方向感的话就够。前文没有论证清楚，最后一句再响亮也补不回来。</p>
+      </Prose>
+      <Example label="结尾示例" title="青年成长：把“选择”重新落到长期行动" note={<p>结尾没有机械重复三个分论点，而是重新解释成长与选择的关系，并把落脚点放到长期积累。</p>}><p>成长从来不是一次选择就能完成。真正决定方向的，是在一次次判断中形成的价值尺度，是在一次次行动中积累的能力与担当。把眼前的路走稳，把应该做的事做好，时间终会把今天的坚持变成明天的底气。</p></Example>
+      <Note>作文的表达可以更有文采，但文采永远建立在观点、逻辑和内容之上。先保证立意准确、论点完整、字数达标，再追求语言、案例和思想深度。</Note>
+    </section>
+  </div>;
 }
