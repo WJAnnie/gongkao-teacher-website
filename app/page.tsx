@@ -2,12 +2,13 @@ import { MotionLayer } from './motion-layer';
 import { SubjectGateway } from './subject-gateway';
 import { HomeLearningRepeat } from './home-learning-repeat';
 import { HomeSongPlayer } from './home-song-player';
+import { HomeSongAutoplay } from './home-song-autoplay';
 
 export default function Home() {
   return (
     <main>
       <MotionLayer />
-      <HomeSongPlayer />
+      <HomeSongAutoplay />
 
       <nav className="nav-shell" aria-label="主导航">
         <a className="brand" href="#top" aria-label="答卷之外首页"><span className="brand-mark">答</span><span>答卷之外</span></a>
@@ -30,6 +31,7 @@ export default function Home() {
 
       <section className="about about-merged" id="about">
         <img className="about-visual-art" src="/about-study-art.svg" alt="" aria-hidden="true" />
+        <HomeSongPlayer />
         <div className="about-copy">
           <p className="section-index">02 — ABOUT / 高老师与答卷之外</p>
           <div className="about-merged-grid">
