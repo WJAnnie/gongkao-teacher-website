@@ -12,7 +12,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     steps:
       - name: Download exact audio
         run: |
@@ -21,19 +21,8 @@ jobs:
             'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3' \
             -o xiangan.mp3
           ls -lh xiangan.mp3
-          python - <<'PY'
-          import os
-          print('bytes=', os.path.getsize('xiangan.mp3'))
-          PY
-
-      - name: Install ffmpeg and inspect duration
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
-          ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 xiangan.mp3 | tee duration.txt
 
       - name: Try Suno public clip and native aligned lyrics
-        continue-on-error: true
         run: |
           set +e
           curl -L -sS -D clip-headers.txt \
@@ -42,12 +31,12 @@ jobs:
           curl -L -sS -D aligned-headers.txt \
             'https://studio-api.prod.suno.com/api/gen/9699b383-feba-4acb-80af-38c15fe7dfd8/aligned_lyrics/v2/' \
             -o aligned-lyrics.json
-          echo '--- clip status/body ---'
-          head -n 1 clip-headers.txt || true
+          echo '--- clip ---'
+          grep -E '^HTTP/' clip-headers.txt || true
           head -c 3000 clip.json || true
           echo
-          echo '--- aligned status/body ---'
-          head -n 1 aligned-headers.txt || true
+          echo '--- aligned ---'
+          grep -E '^HTTP/' aligned-headers.txt || true
           head -c 5000 aligned-lyrics.json || true
           echo
 
@@ -55,10 +44,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: xiangan-audit
-          if-no-files-found: error
+          if-no-files-found: warn
           path: |
             xiangan.mp3
-            duration.txt
             clip-headers.txt
             clip.json
             aligned-headers.txt
