@@ -21,6 +21,7 @@ import './learning-page-upgrade.css';
 import './home-refresh.css';
 import './learning-page-guide-polish.css';
 import './hero-content-index.css';
+import './learning-hero-standard.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
