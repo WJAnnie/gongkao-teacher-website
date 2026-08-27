@@ -77,6 +77,101 @@
   font-weight: 600;
 }
 
+/* 方法框架首屏：四个入口不再跳页，而是作为“进入左侧目录”的章节入口 */
+.framework-hero-entry-strip > button {
+  position: relative;
+  min-height: 52px !important;
+  height: 52px !important;
+  display: grid !important;
+  grid-template-columns: 34px 1fr auto !important;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  border: 0;
+  border-right: 1px solid rgba(37,37,31,.17);
+  border-bottom: 1px solid rgba(37,37,31,.17);
+  background: transparent;
+  color: rgba(37,37,31,.67);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.framework-hero-entry-strip > button > span {
+  color: var(--shenlun-accent);
+  font: italic 9px Georgia, serif;
+  opacity: .72;
+}
+
+.framework-hero-entry-strip > button > b {
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.framework-hero-entry-strip > button > i {
+  color: var(--shenlun-accent);
+  font-style: normal;
+  font-size: 12px;
+  opacity: .38;
+  transform: translate(-3px, -2px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.framework-hero-entry-strip > button:hover,
+.framework-hero-entry-strip > button:focus-visible {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--shenlun-accent) 7%, rgba(255,255,255,.24));
+}
+
+.framework-hero-entry-strip > button:hover > i,
+.framework-hero-entry-strip > button:focus-visible > i {
+  opacity: .9;
+  transform: translate(1px, 2px);
+}
+
+.framework-hero-entry-strip > button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--shenlun-accent) 48%, transparent);
+  outline-offset: -3px;
+}
+
+.framework-hero-entry-strip > button.launching {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--shenlun-accent) 14%, var(--paper));
+  box-shadow: inset 4px 0 0 var(--shenlun-accent);
+  animation: framework-entry-launch .82s cubic-bezier(.2,.78,.2,1) both;
+}
+
+.framework-hero-entry-strip > button.launching::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--shenlun-accent);
+  transform-origin: left;
+  animation: framework-entry-progress .72s cubic-bezier(.2,.78,.2,1) both;
+}
+
+.framework-hero-entry-strip > button.launching > i {
+  opacity: 1;
+  transform: translate(5px, 5px);
+}
+
+@keyframes framework-entry-launch {
+  0% { transform: translateY(0); }
+  35% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes framework-entry-progress {
+  from { transform: scaleX(0); opacity: .35; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
 /* 方法框架左栏：一级项与其子目录成为一个视觉组，单次只展开一个组 */
 .framework-layer-nav {
   display: grid;
@@ -205,6 +300,42 @@
   font: 500 12px/1.35 "Songti SC","SimSun",serif;
 }
 
+/* 首屏入口落到左栏时，让目的栏目给出清晰的“接住”反馈 */
+.framework-layer-group.hero-arrival {
+  animation: framework-sidebar-arrival .86s .2s cubic-bezier(.2,.78,.2,1) both;
+}
+
+.framework-layer-group.hero-arrival .framework-layer-trigger::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid color-mix(in srgb, var(--shenlun-accent) 58%, transparent);
+  border-radius: 7px;
+  pointer-events: none;
+  animation: framework-sidebar-ring .86s .2s ease-out both;
+}
+
+.framework-manual.hero-entry-arrival .framework-manual-reading {
+  animation: framework-reading-arrival 1s .15s ease-out both;
+}
+
+@keyframes framework-sidebar-arrival {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--shenlun-accent) 0%, transparent); }
+  45% { box-shadow: 0 12px 34px color-mix(in srgb, var(--shenlun-accent) 18%, transparent); }
+  100% { box-shadow: 0 8px 22px rgba(37,37,31,.035); }
+}
+
+@keyframes framework-sidebar-ring {
+  0% { opacity: 0; transform: scale(.94); }
+  42% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.02); }
+}
+
+@keyframes framework-reading-arrival {
+  from { opacity: .72; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* 展开阅读：无论滚动方向，展开正文都以固定视觉顶边开始 */
 .tips-article {
   scroll-margin-top: 92px;
@@ -234,6 +365,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .framework-hero-entry-strip > button.launching,
+  .framework-hero-entry-strip > button.launching::before,
+  .framework-layer-group.hero-arrival,
+  .framework-layer-group.hero-arrival .framework-layer-trigger::after,
+  .framework-manual.hero-entry-arrival .framework-manual-reading,
   .tips-article.open > .tips-article-body { animation: none; }
 }
 
