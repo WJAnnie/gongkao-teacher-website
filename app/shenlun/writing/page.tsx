@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ShenlunShell } from '../../shenlun-shell';
 import { WritingHotspotManual } from './writing-hotspot-manual';
+import { WritingHeroBridge } from './writing-hero-bridge';
 
 export const metadata: Metadata = {
   title: '写作积累｜申论学习｜答卷之外',
@@ -13,8 +14,9 @@ export default function ShenlunWritingPage() {
       tone="writing"
       eyebrow="WRITING LIBRARY / 写作积累"
       title="写作积累"
-      desc="先读懂一个主题，再学会它怎样立意、怎样展开、怎样表达。热点时评按八大知识领域整理，文章中的总论点、分论点和可积累表达会直接标出来。"
+      desc="先读懂一个主题，再学会它怎样立意、怎样展开、怎样表达。可直接从首屏八个二级目录进入对应积累板块。"
     >
+      <WritingHeroBridge />
       <section className="shenlun-content framework-content writing-content">
         <WritingHotspotManual />
       </section>

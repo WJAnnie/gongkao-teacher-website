@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { LearningTopNav } from './learning-nav';
 import { LearningPageEffects, PageGuide, type GuideItem } from './learning-page-effects';
 import { FrameworkHeroMenu } from './shenlun/framework/framework-hero-menu';
+import { WritingHeroMenu } from './shenlun/writing/writing-hero-menu';
 
 type ShenlunTone = 'framework' | 'questions' | 'writing' | 'videos' | 'home';
 
@@ -57,6 +58,8 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
           <p>{desc}</p>
           {tone === 'framework' ? (
             <FrameworkHeroMenu />
+          ) : tone === 'writing' ? (
+            <WritingHeroMenu />
           ) : (
             <nav className="shenlun-route-strip" aria-label="申论学习路径">
               {routes.map((item, index) => (
