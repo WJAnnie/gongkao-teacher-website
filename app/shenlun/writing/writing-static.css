@@ -93,6 +93,66 @@
 .writing-static-search input:focus { border-color: rgba(102,121,173,.58); box-shadow: 0 0 0 3px rgba(102,121,173,.08); }
 .writing-static-search span { font-size: 12px; color: rgba(37,37,31,.6); }
 
+.writing-metaphor-table {
+  border-top: 1px solid rgba(37,37,31,.18);
+  border-left: 1px solid rgba(37,37,31,.12);
+  border-right: 1px solid rgba(37,37,31,.12);
+  background: rgba(255,255,255,.13);
+}
+.writing-metaphor-table-head,
+.writing-metaphor-row {
+  display: grid;
+  grid-template-columns: 58px 150px minmax(0,1.15fr) minmax(0,.95fr);
+  gap: 0;
+  align-items: start;
+}
+.writing-metaphor-table-head {
+  min-height: 42px;
+  align-items: center;
+  border-bottom: 1px solid rgba(37,37,31,.18);
+  background: rgba(102,121,173,.055);
+  color: rgba(37,37,31,.58);
+  font-size: 11px;
+  letter-spacing: .06em;
+}
+.writing-metaphor-table-head > * { padding: 0 14px; }
+.writing-metaphor-row {
+  min-height: 82px;
+  border-bottom: 1px solid rgba(37,37,31,.12);
+  transition: background .18s ease;
+}
+.writing-metaphor-row:hover { background: rgba(214,223,160,.13); }
+.writing-metaphor-row[hidden] { display: none !important; }
+.writing-metaphor-no,
+.writing-metaphor-row h3,
+.writing-metaphor-row p {
+  margin: 0;
+  padding: 18px 14px;
+}
+.writing-metaphor-no {
+  font: italic 11px/1.5 Georgia,serif;
+  color: rgba(102,121,173,.72);
+}
+.writing-metaphor-row h3 {
+  font: 600 17px/1.55 "Songti SC","SimSun",serif;
+  letter-spacing: .04em;
+}
+.writing-metaphor-row p {
+  color: rgba(37,37,31,.72);
+  font-size: 13px;
+  line-height: 1.85;
+  border-left: 1px solid rgba(37,37,31,.08);
+}
+.writing-metaphor-row p small {
+  display: none;
+  margin-bottom: 4px;
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.writing-metaphor-use { color: rgba(37,37,31,.62) !important; }
+
 .writing-static-metaphor-body { display: grid; gap: 18px; }
 .writing-static-metaphor-body > div { display: grid; grid-template-columns: 80px 1fr; gap: 16px; }
 .writing-static-metaphor-body span { font-size: 12px; font-weight: 700; color: var(--blue); }
@@ -122,4 +182,19 @@
   .writing-static-coming p { grid-column: 2; }
   .writing-static-search { grid-template-columns: 1fr; }
   .writing-static-metaphor-body > div { grid-template-columns: 1fr; gap: 6px; }
+  .writing-metaphor-table-head { display: none; }
+  .writing-metaphor-row {
+    grid-template-columns: 42px 1fr;
+    grid-template-areas:
+      "no term"
+      ". meaning"
+      ". use";
+    padding: 15px 0;
+  }
+  .writing-metaphor-no { grid-area: no; padding: 4px 10px; }
+  .writing-metaphor-row h3 { grid-area: term; padding: 0 12px 8px; font-size: 17px; }
+  .writing-metaphor-meaning { grid-area: meaning; }
+  .writing-metaphor-use { grid-area: use; }
+  .writing-metaphor-row p { padding: 7px 12px; border-left: 0; font-size: 13px; }
+  .writing-metaphor-row p small { display: block; }
 }

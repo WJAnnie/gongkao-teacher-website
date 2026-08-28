@@ -15,7 +15,8 @@ export function WritingHeroMenu() {
   return (
     <nav className="shenlun-route-strip framework-hero-entry-strip writing-hero-entry-strip" aria-label="写作积累二级目录">
       {writingHeroEntries.map((item) => <a data-writing-hero={item.key} key={item.key} href={item.href}>
-        <span style={{ padding: 0, border: 0 }}>{item.no}</span><b>{item.label}</b><i aria-hidden="true">进入</i>
+        <span className="writing-hero-entry-no">{item.no}</span>
+        <span className="writing-hero-entry-main"><b>{item.label}</b><em>查看内容 →</em></span>
       </a>)}
     </nav>
   );
