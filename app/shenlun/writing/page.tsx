@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { ShenlunShell } from '../../shenlun-shell';
-import { WritingLibraryManual } from './writing-library-manual';
-import { WritingHeroBridge } from './writing-hero-bridge';
+import { WritingStaticLanding } from './writing-static-pages';
 
 export const metadata: Metadata = {
   title: '写作积累｜申论学习｜答卷之外',
@@ -14,11 +13,10 @@ export default function ShenlunWritingPage() {
       tone="writing"
       eyebrow="WRITING LIBRARY / 写作积累"
       title="写作积累"
-      desc="先读懂一个主题，再学会它怎样立意、怎样展开、怎样表达。当前内容库 v2026.08.28：热点时评 84 篇｜案例素材 120 个｜比喻用词 242 条。"
+      desc="先选你现在真正需要的积累内容，再进入对应静态页面。当前内容库：热点时评 84 篇｜案例素材 120 个｜比喻用词 242 条。"
     >
-      <WritingHeroBridge />
       <section className="shenlun-content framework-content writing-content">
-        <WritingLibraryManual />
+        <WritingStaticLanding />
       </section>
     </ShenlunShell>
   );
