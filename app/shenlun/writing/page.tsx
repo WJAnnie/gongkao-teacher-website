@@ -14,7 +14,7 @@ export default function ShenlunWritingPage() {
       tone="writing"
       eyebrow="WRITING LIBRARY / 写作积累"
       title="写作积累"
-      desc="先读懂一个主题，再学会它怎样立意、怎样展开、怎样表达。可直接从首屏八个二级目录进入对应积累板块。"
+      desc="先读懂一个主题，再学会它怎样立意、怎样展开、怎样表达。当前内容库 v2026.08.28：热点时评 84 篇｜案例素材 120 个。"
     >
       <WritingHeroBridge />
       <section className="shenlun-content framework-content writing-content">
