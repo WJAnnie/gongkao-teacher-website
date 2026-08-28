@@ -10,7 +10,7 @@ export type HotspotReference = {
 
 export type HotspotHighlight = {
   text: string;
-  label: '对仗' | '排比' | '高端句' | '名言';
+  label: '对仗' | '排比' | '高端句' | '名言' | '案例' | '比喻';
 };
 
 export type HotspotArticle = {
