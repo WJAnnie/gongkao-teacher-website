@@ -205,13 +205,15 @@ export function WritingHotspotManual() {
             </header>
 
             <div className="writing-paper-body">
-              <p>{annotate(article.intro, article.highlights)}</p>
-              <p className="writing-paper-thesis"><strong>{annotate(article.thesis, article.highlights)}</strong></p>
+              <p className="writing-paper-intro">
+                {annotate(article.intro, article.highlights)}
+                <strong className="writing-paper-inline-thesis">{annotate(article.thesis, article.highlights)}</strong>
+              </p>
               {article.sections.map((section) => (
-                <section className="writing-paper-section" key={section.title}>
-                  <p className="writing-paper-point"><strong>{annotate(section.title, article.highlights)}</strong></p>
-                  <p>{annotate(section.body, article.highlights)}</p>
-                </section>
+                <p className="writing-paper-section-paragraph" key={section.title}>
+                  <strong>{annotate(section.title, article.highlights)}</strong>
+                  {annotate(section.body, article.highlights)}
+                </p>
               ))}
               <p>{annotate(article.conclusion, article.highlights)}</p>
             </div>
