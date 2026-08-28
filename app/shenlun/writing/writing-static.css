@@ -1,0 +1,125 @@
+.writing-static-shell,
+.writing-static-collection,
+.writing-static-landing,
+.writing-static-metaphors {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.writing-static-landing,
+.writing-static-metaphors,
+.writing-static-collection {
+  padding: 52px 0 76px;
+}
+
+.writing-static-main-grid {
+  margin-top: 26px;
+}
+
+.writing-static-choice {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  grid-template-areas:
+    "no title meta"
+    ". desc desc";
+  gap: 8px 14px;
+  min-height: 150px;
+  padding: 22px 22px 20px;
+  border: 1px solid rgba(37,37,31,.18);
+  border-radius: 18px;
+  background: rgba(255,255,255,.24);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.writing-static-choice:hover {
+  transform: translateY(-3px);
+  border-color: rgba(102,121,173,.52);
+  background: rgba(255,255,255,.44);
+  box-shadow: 0 14px 34px rgba(37,37,31,.08);
+}
+
+.writing-static-choice > span { grid-area: no; font-family: Georgia, serif; font-size: 13px; color: var(--blue); }
+.writing-static-choice > b { grid-area: title; font-size: 18px; letter-spacing: .03em; }
+.writing-static-choice > p { grid-area: desc; margin: 0; color: rgba(37,37,31,.68); line-height: 1.8; font-size: 13px; }
+.writing-static-choice > em { grid-area: meta; align-self: start; font-style: normal; font-size: 12px; color: rgba(37,37,31,.55); }
+
+.writing-static-coming {
+  display: grid;
+  grid-template-columns: 48px 160px 1fr;
+  gap: 16px;
+  align-items: baseline;
+  padding: 24px 0;
+  border-top: 1px solid rgba(37,37,31,.12);
+}
+.writing-static-coming span { color: var(--blue); font-family: Georgia, serif; }
+.writing-static-coming b { font-size: 18px; }
+.writing-static-coming p { margin: 0; color: rgba(37,37,31,.62); }
+
+.writing-static-details {
+  scroll-margin-top: 92px;
+}
+.writing-static-details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.writing-static-details > summary::-webkit-details-marker { display: none; }
+.writing-static-details[open] > summary .tips-article-action i { transform: rotate(45deg); }
+.writing-static-details[open] > summary { background: rgba(255,255,255,.24); }
+.writing-static-details[hidden] { display: none !important; }
+
+.writing-static-search {
+  display: grid;
+  grid-template-columns: auto minmax(220px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  margin: 28px 0 20px;
+  padding: 16px 18px;
+  border: 1px solid rgba(37,37,31,.15);
+  border-radius: 16px;
+  background: rgba(255,255,255,.24);
+}
+.writing-static-search label { font-size: 13px; font-weight: 700; }
+.writing-static-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(37,37,31,.16);
+  border-radius: 10px;
+  background: rgba(244,240,231,.75);
+  color: var(--ink);
+  outline: none;
+}
+.writing-static-search input:focus { border-color: rgba(102,121,173,.58); box-shadow: 0 0 0 3px rgba(102,121,173,.08); }
+.writing-static-search span { font-size: 12px; color: rgba(37,37,31,.6); }
+
+.writing-static-metaphor-body { display: grid; gap: 18px; }
+.writing-static-metaphor-body > div { display: grid; grid-template-columns: 80px 1fr; gap: 16px; }
+.writing-static-metaphor-body span { font-size: 12px; font-weight: 700; color: var(--blue); }
+.writing-static-metaphor-body p { margin: 0; line-height: 1.9; }
+
+.writing-static-sources {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(37,37,31,.12);
+}
+.writing-static-sources h3 { margin: 0 0 10px; font-size: 16px; }
+.writing-static-sources p { max-width: 860px; line-height: 1.8; color: rgba(37,37,31,.65); }
+.writing-static-sources div { display: flex; flex-wrap: wrap; gap: 10px 14px; }
+.writing-static-sources a { font-size: 12px; border-bottom: 1px solid rgba(37,37,31,.24); }
+.writing-static-sources a i { margin-left: 4px; }
+
+@media (max-width: 820px) {
+  .writing-static-shell,
+  .writing-static-collection,
+  .writing-static-landing,
+  .writing-static-metaphors { width: min(100% - 24px, 1180px); }
+  .writing-static-landing,
+  .writing-static-metaphors,
+  .writing-static-collection { padding-top: 30px; }
+  .writing-static-choice { grid-template-columns: 34px 1fr; grid-template-areas: "no title" ". desc" ". meta"; min-height: 0; padding: 18px; }
+  .writing-static-coming { grid-template-columns: 38px 1fr; }
+  .writing-static-coming p { grid-column: 2; }
+  .writing-static-search { grid-template-columns: 1fr; }
+  .writing-static-metaphor-body > div { grid-template-columns: 1fr; gap: 6px; }
+}
