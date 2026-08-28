@@ -29,6 +29,7 @@ import './shenlun/framework/framework-expression-stepper.css';
 import './shenlun/framework/framework-manual.css';
 import './shenlun/writing/writing-hotspot.css';
 import './shenlun/writing/writing-hotspot-hierarchy.css';
+import './shenlun/writing/writing-case.css';
 import './shenlun/framework/framework-expression-article.css';
 import './shenlun/framework/framework-types-article.css';
 import './shenlun/framework/framework-types-depth.css';

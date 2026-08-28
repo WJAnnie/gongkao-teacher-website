@@ -3,6 +3,7 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { hotspotCategories } from './writing-hotspot-all';
 import type { HotspotHighlight } from './writing-hotspot-schema';
+import { writingCaseCategories, type CaseHighlight } from './writing-case-data';
 
 const writingLayers = [
   {
@@ -12,8 +13,8 @@ const writingLayers = [
   },
   {
     key: 'cases', no: '02', label: '案例素材', en: 'CASES',
-    desc: '案例不按人名堆积，而按主题、做法、成效和可论证观点整理，保证同一个案例尽量只承担一个主要知识点。',
-    items: ['基层治理案例', '乡村振兴案例', '科技创新案例', '公共服务案例', '文化传承案例'],
+    desc: '先用150—300字把案例讲清楚，再演示如何把短案例与道理、意义或做法启示组合进文章。',
+    items: [],
   },
   {
     key: 'terms', no: '03', label: '规范用词', en: 'TERMS',
@@ -49,13 +50,15 @@ const writingLayers = [
 
 type WritingLayerKey = (typeof writingLayers)[number]['key'];
 
+type LearningHighlight = HotspotHighlight | CaseHighlight;
+
 function scrollReadingTop() {
   window.setTimeout(() => {
     document.getElementById('writing-article-top')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 30);
 }
 
-function annotate(text: string, highlights: HotspotHighlight[]): ReactNode[] {
+function annotate(text: string, highlights: LearningHighlight[]): ReactNode[] {
   const matches = highlights
     .map((item) => ({ ...item, index: text.indexOf(item.text) }))
     .filter((item) => item.index >= 0)
@@ -83,6 +86,8 @@ export function WritingHotspotManual() {
   const [activeLayer, setActiveLayer] = useState<WritingLayerKey>('hotspots');
   const [activeCategory, setActiveCategory] = useState('development');
   const [activeArticle, setActiveArticle] = useState('high-quality-development');
+  const [activeCaseCategory, setActiveCaseCategory] = useState('people');
+  const [activeCase, setActiveCase] = useState('huang-wenxiu');
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const layer = writingLayers.find((item) => item.key === activeLayer) ?? writingLayers[0];
@@ -93,6 +98,14 @@ export function WritingHotspotManual() {
   const article = useMemo(
     () => category.articles.find((item) => item.slug === activeArticle) ?? category.articles[0],
     [activeArticle, category],
+  );
+  const caseCategory = useMemo(
+    () => writingCaseCategories.find((item) => item.key === activeCaseCategory) ?? writingCaseCategories[0],
+    [activeCaseCategory],
+  );
+  const caseItem = useMemo(
+    () => caseCategory.cases.find((item) => item.slug === activeCase) ?? caseCategory.cases[0],
+    [activeCase, caseCategory],
   );
 
   const chooseLayer = (key: WritingLayerKey) => {
@@ -118,9 +131,28 @@ export function WritingHotspotManual() {
     scrollReadingTop();
   };
 
+  const chooseCaseCategory = (key: string) => {
+    const next = writingCaseCategories.find((item) => item.key === key);
+    if (!next) return;
+    setActiveLayer('cases');
+    setActiveCaseCategory(key);
+    setActiveCase(next.cases[0]?.slug ?? '');
+    setDrawerOpen(false);
+    scrollReadingTop();
+  };
+
+  const chooseCase = (slug: string) => {
+    setActiveLayer('cases');
+    setActiveCase(slug);
+    setDrawerOpen(false);
+    scrollReadingTop();
+  };
+
   const mobileLabel = activeLayer === 'hotspots' && article
     ? `热点时评 · ${article.title}`
-    : layer.label;
+    : activeLayer === 'cases' && caseItem
+      ? `案例素材 · ${caseItem.title}`
+      : layer.label;
 
   return (
     <div className="framework-manual writing-hotspot-manual" id="writing-hotspot-manual">
@@ -181,7 +213,43 @@ export function WritingHotspotManual() {
                   </div>
                 )}
 
-                {open && item.key !== 'hotspots' && (
+                {open && item.key === 'cases' && (
+                  <div className="framework-layer-children writing-case-domains">
+                    <nav className="writing-domain-nav" aria-label="案例素材类型">
+                      {writingCaseCategories.map((domain) => {
+                        const domainOpen = domain.key === activeCaseCategory;
+                        return (
+                          <div className={`writing-domain-group${domainOpen ? ' open' : ''}`} key={domain.key}>
+                            <button
+                              type="button"
+                              className={`writing-domain-trigger${domainOpen ? ' active' : ''}`}
+                              aria-expanded={domainOpen}
+                              onClick={() => chooseCaseCategory(domain.key)}
+                            >
+                              <span>{domain.no}</span><b>{domain.label}</b><i aria-hidden="true">⌄</i>
+                            </button>
+                            {domainOpen && (
+                              <nav className="framework-sub-nav writing-article-nav writing-case-nav" aria-label={`${domain.label}案例目录`}>
+                                {domain.cases.map((entry) => (
+                                  <button
+                                    key={entry.slug}
+                                    type="button"
+                                    className={caseItem?.slug === entry.slug ? 'active' : ''}
+                                    onClick={() => chooseCase(entry.slug)}
+                                  >
+                                    <span>{entry.no}</span><b>{entry.title}</b>
+                                  </button>
+                                ))}
+                              </nav>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </nav>
+                  </div>
+                )}
+
+                {open && item.key !== 'hotspots' && item.key !== 'cases' && (
                   <div className="writing-topic-preview writing-layer-preview" aria-label={`${item.label}内容索引`}>
                     {item.items.map((topic) => <span key={topic}>{topic}</span>)}
                   </div>
@@ -226,6 +294,36 @@ export function WritingHotspotManual() {
                   <a href={ref.href} target="_blank" rel="noreferrer" key={ref.href}>{ref.label}<i>↗</i></a>
                 ))}
               </details>
+            </footer>
+          </article>
+        ) : activeLayer === 'cases' && caseItem ? (
+          <article className="writing-paper-article writing-case-article">
+            <header className="writing-paper-head writing-case-head">
+              <h2>{caseItem.title}</h2>
+              <div className="writing-paper-meta">
+                <span>{caseCategory.label}</span><span>{caseItem.type}</span>
+              </div>
+            </header>
+
+            <div className="writing-case-body">
+              <section className="writing-case-source">
+                <div className="writing-case-section-label"><span>01</span><b>案例</b><em>150—300字，把事情讲清楚</em></div>
+                <p>{caseItem.summary}</p>
+              </section>
+
+              <section className="writing-case-uses">
+                <div className="writing-case-section-label"><span>02</span><b>写进文章</b><em>案例简短，道理讲透</em></div>
+                {caseItem.usages.map((usage) => (
+                  <div className="writing-case-usage" key={usage.title}>
+                    <h3>{usage.title}</h3>
+                    <p>{annotate(usage.text, usage.highlights)}</p>
+                  </div>
+                ))}
+              </section>
+            </div>
+
+            <footer className="writing-paper-footer writing-case-footer">
+              <div className="writing-paper-tags">{caseItem.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             </footer>
           </article>
         ) : (
