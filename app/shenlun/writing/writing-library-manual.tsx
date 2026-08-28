@@ -1,9 +1,9 @@
 'use client';
 
-import { useMemo, useState, type ReactNode } from 'react';
-import { hotspotCategories } from './writing-hotspot-all';
-import type { HotspotHighlight } from './writing-hotspot-schema';
-import { writingCaseCategories, type CaseHighlight } from './writing-case-all';
+import { useMemo, useRef, useState, type ReactNode } from 'react';
+import type { HotspotCategory, HotspotHighlight } from './writing-hotspot-schema';
+import type { CaseHighlight, WritingCaseCategory } from './writing-case-data';
+import { hotspotIndex, caseIndex, type HotspotIndexItem, type CaseIndexItem } from './writing-library-index';
 import { WritingMetaphorLibrary } from './writing-metaphor-library';
 
 const writingLayers = [
@@ -19,6 +19,7 @@ const writingLayers = [
 
 type WritingLayerKey = (typeof writingLayers)[number]['key'];
 type LearningHighlight = HotspotHighlight | CaseHighlight;
+type LoadState = 'idle' | 'loading' | 'ready' | 'error';
 
 function scrollReadingTop() {
   window.setTimeout(() => document.getElementById('writing-article-top')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30);
@@ -31,7 +32,10 @@ function scrollItemTop(id: string) {
 }
 
 function annotate(text: string, highlights: LearningHighlight[]): ReactNode[] {
-  const matches = highlights.map((item) => ({ ...item, index: text.indexOf(item.text) })).filter((item) => item.index >= 0).sort((a, b) => a.index - b.index);
+  const matches = highlights
+    .map((item) => ({ ...item, index: text.indexOf(item.text) }))
+    .filter((item) => item.index >= 0)
+    .sort((a, b) => a.index - b.index);
   if (!matches.length) return [text];
   const nodes: ReactNode[] = [];
   let cursor = 0;
@@ -45,68 +49,158 @@ function annotate(text: string, highlights: LearningHighlight[]): ReactNode[] {
   return nodes;
 }
 
+function LoadingBlock({ label }: { label: string }) {
+  return <section className="writing-placeholder-article"><span>CONTENT ON DEMAND</span><h2>正在加载{label}</h2><p>这一部分正文按需加载，不会在进入写作积累首页时一次性下载全部内容。</p></section>;
+}
+
+function ErrorBlock({ label, retry }: { label: string; retry: () => void }) {
+  return <section className="writing-placeholder-article"><span>LOAD ERROR</span><h2>{label}没有加载成功</h2><p>其他写作积累内容仍可正常使用。可以直接重试当前分类，不需要刷新整个页面。</p><button className="writing-library-back" type="button" onClick={retry}>重新加载</button></section>;
+}
+
 export function WritingLibraryManual() {
   const [activeLayer, setActiveLayer] = useState<WritingLayerKey>('hotspots');
   const [openLayer, setOpenLayer] = useState<WritingLayerKey | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [activeHotspotKey, setActiveHotspotKey] = useState<HotspotIndexItem['key'] | null>(null);
+  const [openCategory, setOpenCategory] = useState<HotspotIndexItem['key'] | null>(null);
+  const [hotspotCategory, setHotspotCategory] = useState<HotspotCategory | null>(null);
+  const [hotspotLoadState, setHotspotLoadState] = useState<LoadState>('idle');
   const [activeArticle, setActiveArticle] = useState<string | null>(null);
-  const [activeCaseCategory, setActiveCaseCategory] = useState<string | null>(null);
-  const [openCaseCategory, setOpenCaseCategory] = useState<string | null>(null);
+  const [activeCaseKey, setActiveCaseKey] = useState<CaseIndexItem['key'] | null>(null);
+  const [openCaseCategory, setOpenCaseCategory] = useState<CaseIndexItem['key'] | null>(null);
+  const [caseCategory, setCaseCategory] = useState<WritingCaseCategory | null>(null);
+  const [caseLoadState, setCaseLoadState] = useState<LoadState>('idle');
   const [activeCase, setActiveCase] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const hotspotRequest = useRef(0);
+  const caseRequest = useRef(0);
 
   const layer = writingLayers.find((item) => item.key === activeLayer) ?? writingLayers[0];
-  const category = useMemo(() => activeCategory ? hotspotCategories.find((item) => item.key === activeCategory) ?? null : null, [activeCategory]);
-  const caseCategory = useMemo(() => activeCaseCategory ? writingCaseCategories.find((item) => item.key === activeCaseCategory) ?? null : null, [activeCaseCategory]);
-  const article = useMemo(() => activeArticle && category ? category.articles.find((item) => item.slug === activeArticle) ?? null : null, [activeArticle, category]);
+  const hotspotMeta = useMemo(() => activeHotspotKey ? hotspotIndex.find((item) => item.key === activeHotspotKey) ?? null : null, [activeHotspotKey]);
+  const caseMeta = useMemo(() => activeCaseKey ? caseIndex.find((item) => item.key === activeCaseKey) ?? null : null, [activeCaseKey]);
+  const article = useMemo(() => activeArticle && hotspotCategory ? hotspotCategory.articles.find((item) => item.slug === activeArticle) ?? null : null, [activeArticle, hotspotCategory]);
   const caseItem = useMemo(() => activeCase && caseCategory ? caseCategory.cases.find((item) => item.slug === activeCase) ?? null : null, [activeCase, caseCategory]);
+
+  const resetHotspots = () => {
+    hotspotRequest.current += 1;
+    setActiveHotspotKey(null);
+    setOpenCategory(null);
+    setHotspotCategory(null);
+    setHotspotLoadState('idle');
+    setActiveArticle(null);
+  };
+
+  const resetCases = () => {
+    caseRequest.current += 1;
+    setActiveCaseKey(null);
+    setOpenCaseCategory(null);
+    setCaseCategory(null);
+    setCaseLoadState('idle');
+    setActiveCase(null);
+  };
 
   const chooseLayer = (key: WritingLayerKey) => {
     const closing = openLayer === key;
     setActiveLayer(key);
     setOpenLayer(closing ? null : key);
-    if (!closing && key === 'hotspots') {
-      setActiveCategory(null); setOpenCategory(null); setActiveArticle(null);
-    }
-    if (!closing && key === 'cases') {
-      setActiveCaseCategory(null); setOpenCaseCategory(null); setActiveCase(null);
-    }
+    if (!closing && key === 'hotspots') resetHotspots();
+    if (!closing && key === 'cases') resetCases();
     setDrawerOpen(false);
     scrollReadingTop();
   };
 
-  const chooseCategory = (key: string) => {
-    if (!hotspotCategories.some((item) => item.key === key)) return;
-    if (openCategory === key && activeCategory === key) { setOpenCategory(null); return; }
-    setActiveLayer('hotspots'); setOpenLayer('hotspots'); setActiveCategory(key); setOpenCategory(key); setActiveArticle(null); setDrawerOpen(false); scrollReadingTop();
+  const loadHotspot = async (key: HotspotIndexItem['key']) => {
+    const request = ++hotspotRequest.current;
+    setHotspotCategory(null);
+    setHotspotLoadState('loading');
+    try {
+      const { loadHotspotCategory } = await import('./writing-hotspot-loader');
+      const loaded = await loadHotspotCategory(key);
+      if (request !== hotspotRequest.current) return;
+      setHotspotCategory(loaded);
+      setHotspotLoadState('ready');
+    } catch (error) {
+      console.error('Failed to load hotspot category', key, error);
+      if (request === hotspotRequest.current) setHotspotLoadState('error');
+    }
+  };
+
+  const chooseCategory = (key: HotspotIndexItem['key']) => {
+    if (!hotspotIndex.some((item) => item.key === key)) return;
+    if (openCategory === key && activeHotspotKey === key) {
+      hotspotRequest.current += 1;
+      setOpenCategory(null);
+      setActiveArticle(null);
+      return;
+    }
+    setActiveLayer('hotspots');
+    setOpenLayer('hotspots');
+    setActiveHotspotKey(key);
+    setOpenCategory(key);
+    setActiveArticle(null);
+    setDrawerOpen(false);
+    void loadHotspot(key);
+    scrollReadingTop();
   };
 
   const chooseArticle = (slug: string) => {
     const closing = activeArticle === slug;
-    setActiveLayer('hotspots'); setOpenLayer('hotspots'); setActiveArticle(closing ? null : slug); setDrawerOpen(false);
+    setActiveLayer('hotspots');
+    setOpenLayer('hotspots');
+    setActiveArticle(closing ? null : slug);
+    setDrawerOpen(false);
     if (!closing) scrollItemTop(`hotspot-${slug}`);
   };
 
-  const chooseCaseCategory = (key: string) => {
-    if (!writingCaseCategories.some((item) => item.key === key)) return;
-    if (openCaseCategory === key && activeCaseCategory === key) { setOpenCaseCategory(null); return; }
-    setActiveLayer('cases'); setOpenLayer('cases'); setActiveCaseCategory(key); setOpenCaseCategory(key); setActiveCase(null); setDrawerOpen(false); scrollReadingTop();
+  const loadCase = async (key: CaseIndexItem['key']) => {
+    const request = ++caseRequest.current;
+    setCaseCategory(null);
+    setCaseLoadState('loading');
+    try {
+      const { loadCaseCategory } = await import('./writing-case-loader');
+      const loaded = await loadCaseCategory(key);
+      if (request !== caseRequest.current) return;
+      setCaseCategory(loaded);
+      setCaseLoadState('ready');
+    } catch (error) {
+      console.error('Failed to load case category', key, error);
+      if (request === caseRequest.current) setCaseLoadState('error');
+    }
+  };
+
+  const chooseCaseCategory = (key: CaseIndexItem['key']) => {
+    if (!caseIndex.some((item) => item.key === key)) return;
+    if (openCaseCategory === key && activeCaseKey === key) {
+      caseRequest.current += 1;
+      setOpenCaseCategory(null);
+      setActiveCase(null);
+      return;
+    }
+    setActiveLayer('cases');
+    setOpenLayer('cases');
+    setActiveCaseKey(key);
+    setOpenCaseCategory(key);
+    setActiveCase(null);
+    setDrawerOpen(false);
+    void loadCase(key);
+    scrollReadingTop();
   };
 
   const chooseCase = (slug: string) => {
     const closing = activeCase === slug;
-    setActiveLayer('cases'); setOpenLayer('cases'); setActiveCase(closing ? null : slug); setDrawerOpen(false);
+    setActiveLayer('cases');
+    setOpenLayer('cases');
+    setActiveCase(closing ? null : slug);
+    setDrawerOpen(false);
     if (!closing) scrollItemTop(`case-${slug}`);
   };
 
-  const backToHotspotLanding = () => { setActiveCategory(null); setOpenCategory(null); setActiveArticle(null); scrollReadingTop(); };
-  const backToCaseLanding = () => { setActiveCaseCategory(null); setOpenCaseCategory(null); setActiveCase(null); scrollReadingTop(); };
+  const backToHotspotLanding = () => { resetHotspots(); scrollReadingTop(); };
+  const backToCaseLanding = () => { resetCases(); scrollReadingTop(); };
 
   const mobileLabel = activeLayer === 'hotspots'
-    ? article ? `热点时评 · ${article.title}` : category ? `热点时评 · ${category.label}` : '热点时评'
+    ? article ? `热点时评 · ${article.title}` : hotspotMeta ? `热点时评 · ${hotspotMeta.label}` : '热点时评'
     : activeLayer === 'cases'
-      ? caseItem ? `案例素材 · ${caseItem.title}` : caseCategory ? `案例素材 · ${caseCategory.label}` : '案例素材'
+      ? caseItem ? `案例素材 · ${caseItem.title}` : caseMeta ? `案例素材 · ${caseMeta.label}` : '案例素材'
       : layer.label;
 
   return (
@@ -124,27 +218,31 @@ export function WritingLibraryManual() {
               <button className={`framework-layer-trigger writing-category-trigger${current ? ' active' : ''}`} data-writing-layer={item.key} type="button" aria-expanded={expanded} onClick={() => chooseLayer(item.key)}><span>{item.no}</span><b>{item.label}</b><i aria-hidden="true">⌄</i></button>
 
               {expanded && item.key === 'hotspots' && <div className="framework-layer-children writing-hotspot-domains"><nav className="writing-domain-nav" aria-label="热点时评知识领域">
-                {hotspotCategories.map((domain) => {
+                {hotspotIndex.map((domain) => {
                   const domainOpen = domain.key === openCategory;
+                  const dataReady = domainOpen && hotspotLoadState === 'ready' && hotspotCategory?.key === domain.key;
                   return <div className={`writing-domain-group${domainOpen ? ' open' : ''}`} key={domain.key}>
-                    <button type="button" className={`writing-domain-trigger${domain.key === activeCategory ? ' active' : ''}`} aria-expanded={domainOpen} onClick={() => chooseCategory(domain.key)}><span>{domain.no}</span><b>{domain.label}</b><i aria-hidden="true">⌄</i></button>
-                    {domainOpen && <nav className="framework-sub-nav writing-article-nav" aria-label={`${domain.label}文章目录`}>{domain.articles.map((entry) => <button key={entry.slug} type="button" className={activeArticle === entry.slug ? 'active' : ''} onClick={() => chooseArticle(entry.slug)}><span>{entry.no}</span><b>{entry.title}</b></button>)}</nav>}
+                    <button type="button" className={`writing-domain-trigger${domain.key === activeHotspotKey ? ' active' : ''}`} aria-expanded={domainOpen} onClick={() => chooseCategory(domain.key)}><span>{domain.no}</span><b>{domain.label}</b><i aria-hidden="true">⌄</i></button>
+                    {domainOpen && hotspotLoadState === 'loading' && <div className="writing-topic-preview writing-layer-preview"><span>正在加载 {domain.count} 篇文章…</span></div>}
+                    {dataReady && <nav className="framework-sub-nav writing-article-nav" aria-label={`${domain.label}文章目录`}>{hotspotCategory.articles.map((entry) => <button key={entry.slug} type="button" className={activeArticle === entry.slug ? 'active' : ''} onClick={() => chooseArticle(entry.slug)}><span>{entry.no}</span><b>{entry.title}</b></button>)}</nav>}
                   </div>;
                 })}
               </nav></div>}
 
               {expanded && item.key === 'cases' && <div className="framework-layer-children writing-case-domains"><nav className="writing-domain-nav" aria-label="案例素材类型">
-                {writingCaseCategories.map((domain) => {
+                {caseIndex.map((domain) => {
                   const domainOpen = domain.key === openCaseCategory;
+                  const dataReady = domainOpen && caseLoadState === 'ready' && caseCategory?.key === domain.key;
                   return <div className={`writing-domain-group${domainOpen ? ' open' : ''}`} key={domain.key}>
-                    <button type="button" className={`writing-domain-trigger${domain.key === activeCaseCategory ? ' active' : ''}`} aria-expanded={domainOpen} onClick={() => chooseCaseCategory(domain.key)}><span>{domain.no}</span><b>{domain.label}</b><i aria-hidden="true">⌄</i></button>
-                    {domainOpen && <nav className="framework-sub-nav writing-article-nav writing-case-nav" aria-label={`${domain.label}案例目录`}>{domain.cases.map((entry) => <button key={entry.slug} type="button" className={activeCase === entry.slug ? 'active' : ''} onClick={() => chooseCase(entry.slug)}><span>{entry.no}</span><b>{entry.title}</b></button>)}</nav>}
+                    <button type="button" className={`writing-domain-trigger${domain.key === activeCaseKey ? ' active' : ''}`} aria-expanded={domainOpen} onClick={() => chooseCaseCategory(domain.key)}><span>{domain.no}</span><b>{domain.label}</b><i aria-hidden="true">⌄</i></button>
+                    {domainOpen && caseLoadState === 'loading' && <div className="writing-topic-preview writing-layer-preview"><span>正在加载 {domain.count} 个案例…</span></div>}
+                    {dataReady && <nav className="framework-sub-nav writing-article-nav writing-case-nav" aria-label={`${domain.label}案例目录`}>{caseCategory.cases.map((entry) => <button key={entry.slug} type="button" className={activeCase === entry.slug ? 'active' : ''} onClick={() => chooseCase(entry.slug)}><span>{entry.no}</span><b>{entry.title}</b></button>)}</nav>}
                   </div>;
                 })}
               </nav></div>}
 
               {expanded && item.key !== 'hotspots' && item.key !== 'cases' && item.key !== 'metaphors' && <div className="writing-topic-preview writing-layer-preview" aria-label={`${item.label}内容索引`}>{item.items.map((topic) => <span key={topic}>{topic}</span>)}</div>}
-              {expanded && item.key === 'metaphors' && <div className="writing-topic-preview writing-layer-preview"><span>242 条 · 可搜索</span></div>}
+              {expanded && item.key === 'metaphors' && <div className="writing-topic-preview writing-layer-preview"><span>242 条 · 点击后加载</span></div>}
             </div>;
           })}
         </nav>
@@ -152,26 +250,45 @@ export function WritingLibraryManual() {
       {drawerOpen && <button className="framework-drawer-backdrop" aria-label="关闭写作目录" type="button" onClick={() => setDrawerOpen(false)} />}
 
       <article className="framework-manual-reading writing-hotspot-reading" id="writing-article-top">
-        {activeLayer === 'hotspots' ? category ? <section className="writing-collection-view">
-          <button className="writing-library-back" type="button" onClick={backToHotspotLanding}>← 返回热点时评分类</button>
-          <header className="framework-article-intro writing-collection-intro"><span>{category.no} / {category.en}</span><h2>{category.label}</h2><p>{category.desc}</p></header>
-          <div className="tips-accordion writing-learning-accordion">
-            {category.articles.map((entry) => {
-              const open = activeArticle === entry.slug;
-              return <section className={`tips-article writing-learning-item${open ? ' open' : ''}`} id={`hotspot-${entry.slug}`} key={entry.slug}>
-                <button className="tips-article-trigger" type="button" aria-expanded={open} onClick={() => chooseArticle(entry.slug)}><span className="tips-article-no">{entry.no}</span><span className="tips-article-heading"><b>{entry.title}</b><em>{entry.tags.slice(0, 4).join(' · ')} · {entry.length}</em></span><span className="tips-article-action">{open ? '收起文章' : '展开文章'}<i aria-hidden="true">{open ? '−' : '+'}</i></span></button>
-                {open && <div className="tips-article-body writing-accordion-body"><div className="writing-paper-body"><p className="writing-paper-intro">{annotate(entry.intro, entry.highlights)}<strong className="writing-paper-inline-thesis">{annotate(entry.thesis, entry.highlights)}</strong></p>{entry.sections.map((section) => <p className="writing-paper-section-paragraph" key={section.title}><strong>{annotate(section.title, entry.highlights)}</strong>{annotate(section.body, entry.highlights)}</p>)}<p>{annotate(entry.conclusion, entry.highlights)}</p></div><footer className="writing-paper-footer"><div className="writing-paper-tags">{entry.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><details className="writing-paper-sources"><summary>参考阅读</summary>{entry.references.map((ref) => <a href={ref.href} target="_blank" rel="noreferrer" key={ref.href}>{ref.label}<i>↗</i></a>)}</details></footer></div>}
-              </section>;
-            })}
-          </div>
-        </section> : <section className="writing-library-landing"><span className="writing-library-kicker">01 / HOT TOPICS</span><h2>热点时评怎么积累</h2><p className="writing-library-teacher-note">热点时评不是从第一篇开始顺序背到最后一篇，也不是把整篇评论原样记下来。做题和写作文时，先判断题目落在哪个知识领域，再进入对应主题。阅读每篇文章时，重点看四样东西：文章如何切题、核心观点怎么立、案例怎样服务观点、哪些句子值得摘录。你可以优先学习自己薄弱或近期高频的板块，不必按照目录顺序推进。</p><div className="writing-library-choice-head"><span>三级分类</span><b>选择你想积累的知识领域</b><em>点击后进入对应板块</em></div><div className="writing-library-choice-grid" aria-label="热点时评三级分类">{hotspotCategories.map((domain) => <button type="button" key={domain.key} onClick={() => chooseCategory(domain.key)}><span>{domain.no}</span><b>{domain.label}</b><p>{domain.desc}</p><em>{domain.articles.length} 篇文章　→</em></button>)}</div></section>
-        : activeLayer === 'cases' ? caseCategory ? <section className="writing-collection-view">
-          <button className="writing-library-back" type="button" onClick={backToCaseLanding}>← 返回案例素材分类</button>
-          <header className="framework-article-intro writing-collection-intro"><span>{caseCategory.no} / CASE LIBRARY</span><h2>{caseCategory.label}</h2><p>{caseCategory.desc}</p></header>
-          <div className="tips-accordion writing-learning-accordion writing-case-accordion">{caseCategory.cases.map((entry) => { const open = activeCase === entry.slug; return <section className={`tips-article writing-learning-item${open ? ' open' : ''}`} id={`case-${entry.slug}`} key={entry.slug}><button className="tips-article-trigger" type="button" aria-expanded={open} onClick={() => chooseCase(entry.slug)}><span className="tips-article-no">{entry.no}</span><span className="tips-article-heading"><b>{entry.title}</b><em>{entry.tags.slice(0, 4).join(' · ')}</em></span><span className="tips-article-action">{open ? '收起案例' : '展开案例'}<i aria-hidden="true">{open ? '−' : '+'}</i></span></button>{open && <div className="tips-article-body writing-accordion-body writing-case-accordion-body"><section className="writing-case-source"><div className="writing-case-section-label"><span>01</span><b>案例</b><em>150—300字，把事情讲清楚</em></div><p>{entry.summary}</p></section><section className="writing-case-uses"><div className="writing-case-section-label"><span>02</span><b>写进文章</b><em>案例简短，道理讲透</em></div>{entry.usages.map((usage) => <div className="writing-case-usage" key={usage.title}><h3>{usage.title}</h3><p>{annotate(usage.text, usage.highlights)}</p></div>)}</section><footer className="writing-paper-footer"><div className="writing-paper-tags">{entry.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></footer></div>}</section>; })}</div>
-        </section> : <section className="writing-library-landing"><span className="writing-library-kicker">02 / CASE LIBRARY</span><h2>案例素材怎么积累</h2><p className="writing-library-teacher-note">案例积累不追求“知道得多”，而要追求“写得进去”。先用150—300字把一个案例真正看懂，再观察它进入作文以后如何被压缩成简短事实；真正值得背的，往往是案例后面引出的道理、意义和做法启示。找案例时也不必从人物案例开始顺序看，可以根据当前作文需要，直接选择城市、基层、科技、民生、执法等不同类型。</p><div className="writing-library-choice-head"><span>三级分类</span><b>选择你需要的案例类型</b><em>点击后进入对应案例库</em></div><div className="writing-library-choice-grid writing-case-choice-grid" aria-label="案例素材三级分类">{writingCaseCategories.map((domain) => <button type="button" key={domain.key} onClick={() => chooseCaseCategory(domain.key)}><span>{domain.no}</span><b>{domain.label}</b><p>{domain.desc}</p><em>{domain.cases.length} 个案例　→</em></button>)}</div></section>
-        : activeLayer === 'metaphors' ? <WritingMetaphorLibrary />
-        : <section className="writing-placeholder-article"><span>{layer.no} / {layer.en}</span><h2>{layer.label}</h2><p>{layer.desc}</p><div className="writing-topic-preview">{layer.items.map((topic) => <span key={topic}>{topic}</span>)}</div><p className="writing-build-note">这一栏目将在后续按同样的学习手册逻辑继续补充：先理解用途，再看示例，最后练习迁移，不做单纯堆词。</p></section>}
+        {activeLayer === 'hotspots'
+          ? activeHotspotKey
+            ? hotspotLoadState === 'loading'
+              ? <LoadingBlock label={hotspotMeta?.label ?? '热点文章'} />
+              : hotspotLoadState === 'error'
+                ? <ErrorBlock label={hotspotMeta?.label ?? '热点文章'} retry={() => activeHotspotKey && void loadHotspot(activeHotspotKey)} />
+                : hotspotCategory
+                  ? <section className="writing-collection-view">
+                      <button className="writing-library-back" type="button" onClick={backToHotspotLanding}>← 返回热点时评分类</button>
+                      <header className="framework-article-intro writing-collection-intro"><span>{hotspotCategory.no} / {hotspotCategory.en}</span><h2>{hotspotCategory.label}</h2><p>{hotspotCategory.desc}</p></header>
+                      <div className="tips-accordion writing-learning-accordion">
+                        {hotspotCategory.articles.map((entry) => {
+                          const open = activeArticle === entry.slug;
+                          return <section className={`tips-article writing-learning-item${open ? ' open' : ''}`} id={`hotspot-${entry.slug}`} key={entry.slug}>
+                            <button className="tips-article-trigger" type="button" aria-expanded={open} onClick={() => chooseArticle(entry.slug)}><span className="tips-article-no">{entry.no}</span><span className="tips-article-heading"><b>{entry.title}</b><em>{entry.tags.slice(0, 4).join(' · ')} · {entry.length}</em></span><span className="tips-article-action">{open ? '收起文章' : '展开文章'}<i aria-hidden="true">{open ? '−' : '+'}</i></span></button>
+                            {open && <div className="tips-article-body writing-accordion-body"><div className="writing-paper-body"><p className="writing-paper-intro">{annotate(entry.intro, entry.highlights)}<strong className="writing-paper-inline-thesis">{annotate(entry.thesis, entry.highlights)}</strong></p>{entry.sections.map((section) => <p className="writing-paper-section-paragraph" key={section.title}><strong>{annotate(section.title, entry.highlights)}</strong>{annotate(section.body, entry.highlights)}</p>)}<p>{annotate(entry.conclusion, entry.highlights)}</p></div><footer className="writing-paper-footer"><div className="writing-paper-tags">{entry.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><details className="writing-paper-sources"><summary>参考阅读</summary>{entry.references.map((ref) => <a href={ref.href} target="_blank" rel="noreferrer" key={ref.href}>{ref.label}<i>↗</i></a>)}</details></footer></div>}
+                          </section>;
+                        })}
+                      </div>
+                    </section>
+                  : <LoadingBlock label={hotspotMeta?.label ?? '热点文章'} />
+            : <section className="writing-library-landing"><span className="writing-library-kicker">01 / HOT TOPICS</span><h2>热点时评怎么积累</h2><p className="writing-library-teacher-note">热点时评不是从第一篇开始顺序背到最后一篇，也不是把整篇评论原样记下来。做题和写作文时，先判断题目落在哪个知识领域，再进入对应主题。阅读每篇文章时，重点看四样东西：文章如何切题、核心观点怎么立、案例怎样服务观点、哪些句子值得摘录。你可以优先学习自己薄弱或近期常见的领域，不需要从“发展与现代化”开始。</p><div className="writing-library-choice-head"><span>三级分类</span><b>选择你当前需要的知识领域</b><em>点击后才加载这一类文章</em></div><div className="writing-library-choice-grid" aria-label="热点时评三级分类">{hotspotIndex.map((domain) => <button type="button" key={domain.key} onClick={() => chooseCategory(domain.key)}><span>{domain.no}</span><b>{domain.label}</b><p>{domain.desc}</p><em>{domain.count} 篇文章　→</em></button>)}</div></section>
+          : activeLayer === 'cases'
+            ? activeCaseKey
+              ? caseLoadState === 'loading'
+                ? <LoadingBlock label={caseMeta?.label ?? '案例素材'} />
+                : caseLoadState === 'error'
+                  ? <ErrorBlock label={caseMeta?.label ?? '案例素材'} retry={() => activeCaseKey && void loadCase(activeCaseKey)} />
+                  : caseCategory
+                    ? <section className="writing-collection-view">
+                        <button className="writing-library-back" type="button" onClick={backToCaseLanding}>← 返回案例素材分类</button>
+                        <header className="framework-article-intro writing-collection-intro"><span>{caseCategory.no} / CASE LIBRARY</span><h2>{caseCategory.label}</h2><p>{caseCategory.desc}</p></header>
+                        <div className="tips-accordion writing-learning-accordion writing-case-accordion">{caseCategory.cases.map((entry) => { const open = activeCase === entry.slug; return <section className={`tips-article writing-learning-item${open ? ' open' : ''}`} id={`case-${entry.slug}`} key={entry.slug}><button className="tips-article-trigger" type="button" aria-expanded={open} onClick={() => chooseCase(entry.slug)}><span className="tips-article-no">{entry.no}</span><span className="tips-article-heading"><b>{entry.title}</b><em>{entry.tags.slice(0, 4).join(' · ')}</em></span><span className="tips-article-action">{open ? '收起案例' : '展开案例'}<i aria-hidden="true">{open ? '−' : '+'}</i></span></button>{open && <div className="tips-article-body writing-accordion-body writing-case-accordion-body"><section className="writing-case-source"><div className="writing-case-section-label"><span>01</span><b>案例</b><em>150—300字，把事情讲清楚</em></div><p>{entry.summary}</p></section><section className="writing-case-uses"><div className="writing-case-section-label"><span>02</span><b>写进文章</b><em>案例简短，道理讲透</em></div>{entry.usages.map((usage) => <div className="writing-case-usage" key={usage.title}><h3>{usage.title}</h3><p>{annotate(usage.text, usage.highlights)}</p></div>)}</section><footer className="writing-paper-footer"><div className="writing-paper-tags">{entry.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></footer></div>}</section>; })}</div>
+                      </section>
+                    : <LoadingBlock label={caseMeta?.label ?? '案例素材'} />
+              : <section className="writing-library-landing"><span className="writing-library-kicker">02 / CASE LIBRARY</span><h2>案例素材怎么积累</h2><p className="writing-library-teacher-note">案例积累不追求“知道得多”，而要追求“写得进去”。先用150—300字把一个案例真正看懂，再观察它进入作文以后如何被压缩成简短事实；真正值得背的，往往是案例后面引出的道理、意义和做法启示。找案例时也不必从人物案例开始顺序看，可以根据当前作文需要，直接选择城市、基层、科技、民生、执法等不同类型。</p><div className="writing-library-choice-head"><span>三级分类</span><b>选择你需要的案例类型</b><em>点击后才加载这一类案例</em></div><div className="writing-library-choice-grid writing-case-choice-grid" aria-label="案例素材三级分类">{caseIndex.map((domain) => <button type="button" key={domain.key} onClick={() => chooseCaseCategory(domain.key)}><span>{domain.no}</span><b>{domain.label}</b><p>{domain.desc}</p><em>{domain.count} 个案例　→</em></button>)}</div></section>
+            : activeLayer === 'metaphors'
+              ? <WritingMetaphorLibrary />
+              : <section className="writing-placeholder-article"><span>{layer.no} / {layer.en}</span><h2>{layer.label}</h2><p>{layer.desc}</p><div className="writing-topic-preview">{layer.items.map((topic) => <span key={topic}>{topic}</span>)}</div><p className="writing-build-note">这一栏目将在后续按同样的学习手册逻辑继续补充：先理解用途，再看示例，最后练习迁移，不做单纯堆词。</p></section>}
       </article>
     </div>
   );
