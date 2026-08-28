@@ -1,5 +1,6 @@
 import { writingCaseCategories as baseCaseCategories } from './writing-case-data';
 import { caseCategoryAdditions, extraCaseCategories } from './writing-case-expansion';
+import { caseLibraryTopups } from './writing-case-library-topups';
 import type { WritingCaseCategory } from './writing-case-data';
 
 function count(text: string) {
@@ -12,10 +13,27 @@ const mergedCaseCategories: WritingCaseCategory[] = [
     cases: [...category.cases, ...(caseCategoryAdditions[category.key] ?? [])],
   })),
   ...extraCaseCategories,
-];
+].map((category) => ({
+  ...category,
+  cases: [...category.cases, ...(caseLibraryTopups[category.key] ?? [])].map((item, index) => ({
+    ...item,
+    no: String(index + 1).padStart(2, '0'),
+  })),
+}));
+
+const seenSlugs = new Set<string>();
 
 mergedCaseCategories.forEach((category) => {
+  if (category.cases.length !== 10) {
+    throw new Error(`Writing case category must contain exactly 10 cases: ${category.key} = ${category.cases.length}`);
+  }
+
   category.cases.forEach((item) => {
+    if (seenSlugs.has(item.slug)) {
+      throw new Error(`Duplicate writing case slug: ${item.slug}`);
+    }
+    seenSlugs.add(item.slug);
+
     const summaryLength = count(item.summary);
     if (summaryLength < 150 || summaryLength > 300) {
       throw new Error(`Writing case summary length out of range: ${item.slug} = ${summaryLength}`);
