@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FrameworkAbilities as FrameworkAbilitiesBase, coreAbilityChapters } from './framework-abilities-voice';
-import { AbilityDeep } from './framework-deep-enrichment';
+import { coreAbilityChapters } from './framework-abilities-voice';
+import { AbilityDeepReviewed, FrameworkAbilitiesReviewed } from './framework-content-review';
 
 export { coreAbilityChapters };
 
@@ -16,8 +16,8 @@ export function FrameworkAbilities() {
 
   return (
     <>
-      <FrameworkAbilitiesBase />
-      {targets.map((target, index) => target ? createPortal(<AbilityDeep id={coreAbilityChapters[index].id} />, target) : null)}
+      <FrameworkAbilitiesReviewed />
+      {targets.map((target, index) => target ? createPortal(<AbilityDeepReviewed id={coreAbilityChapters[index].id} />, target) : null)}
     </>
   );
 }
