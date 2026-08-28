@@ -87,7 +87,7 @@ function rewriteHtml(html, pathPrefix) {
     .replaceAll('href="/questions/"', `href="${prefix}/questions/"`)
     .replaceAll('href="/materials/"', `href="${prefix}/materials/"`)
     .replaceAll('href="/tools/"', `href="${prefix}/tools/"`)
-    .replaceAll('href="/#about"', `href="${prefix}/#about`)
+    .replaceAll('href="/#about"', `href="${prefix}/#about"`)
     .replaceAll('href="/"', `href="${prefix}/"`);
 }
 
