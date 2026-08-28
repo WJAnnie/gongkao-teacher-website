@@ -3,7 +3,7 @@
   position: relative;
   min-width: 0;
   display: grid;
-  grid-template-columns: 28px minmax(0,1fr) auto;
+  grid-template-columns: 28px minmax(0,1fr);
   align-items: center;
   gap: 12px;
   padding: 0 16px;
@@ -23,9 +23,11 @@
 .writing-hero-entry-strip > :is(button,a).active{color:var(--ink);background:color-mix(in srgb,var(--shenlun-accent) 10%,var(--paper))}
 .writing-hero-entry-strip > :is(button,a).active::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--shenlun-accent)}
 .writing-hero-entry-strip > :is(button,a).launching{transform:translateY(-2px)}
-.writing-hero-entry-strip > :is(button,a) > span{color:var(--shenlun-accent);font:italic 10px/1 Georgia,serif;opacity:.74}
-.writing-hero-entry-strip > :is(button,a) > b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 16px/1.2 "Songti SC","SimSun",serif;letter-spacing:.01em}
-.writing-hero-entry-strip > :is(button,a).active > i{background:var(--shenlun-accent)!important;border-color:var(--shenlun-accent)!important;color:#fff!important}
+.writing-hero-entry-no{color:var(--shenlun-accent);font:italic 10px/1 Georgia,serif;opacity:.74}
+.writing-hero-entry-main{min-width:0;display:grid;align-content:center;gap:7px}
+.writing-hero-entry-main>b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 16px/1.15 "Songti SC","SimSun",serif;letter-spacing:.01em}
+.writing-hero-entry-main>em{justify-self:start;font-style:normal;font-size:10px;line-height:1;color:var(--shenlun-accent);padding-bottom:2px;border-bottom:1px solid color-mix(in srgb,var(--shenlun-accent) 45%,transparent);opacity:.82;transition:opacity .2s ease,transform .2s ease}
+.writing-hero-entry-strip>:is(button,a):hover .writing-hero-entry-main>em,.writing-hero-entry-strip>:is(button,a):focus-visible .writing-hero-entry-main>em{opacity:1;transform:translateX(2px)}
 
 @media(min-width:1041px){
   .shenlun-page.writing .learning-hero-standard .writing-hero-entry-strip{width:min(760px,50vw)!important;height:132px!important;min-height:132px!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-template-rows:repeat(2,66px)!important}
@@ -42,10 +44,11 @@
 }
 @media(max-width:760px){
   .writing-hero-entry-strip{width:100%;margin-top:26px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .writing-hero-entry-strip>:is(button,a){min-height:62px;padding:0 12px;grid-template-columns:24px minmax(0,1fr) auto}
+  .writing-hero-entry-strip>:is(button,a){min-height:66px;padding:0 12px;grid-template-columns:24px minmax(0,1fr)}
   .writing-hero-entry-strip>:is(button,a):nth-child(4n+1){border-left:0}.writing-hero-entry-strip>:is(button,a):nth-child(2n+1){border-left:1px solid rgba(37,37,31,.16)}
   .writing-hero-entry-strip>:is(button,a):nth-child(-n+4){border-top:0}.writing-hero-entry-strip>:is(button,a):nth-child(-n+2){border-top:1px solid rgba(37,37,31,.16)}
-  .writing-hero-entry-strip>:is(button,a)>b{font-size:15px}
+  .writing-hero-entry-main>b{font-size:15px}
+  .writing-hero-entry-main>em{font-size:9px}
 }
 
 html.writing-shared-transition-active{scroll-behavior:auto!important}
