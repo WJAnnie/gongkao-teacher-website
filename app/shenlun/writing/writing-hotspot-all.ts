@@ -8,8 +8,9 @@ import { lawCategory } from './writing-hotspot-law';
 import { valuesCategory } from './writing-hotspot-values';
 import { eraCategory } from './writing-hotspot-era';
 import { cultureExtraArticles, governmentExtraArticles } from './writing-hotspot-extras';
+import { refineCategory } from './writing-hotspot-refinement';
 
-export const hotspotCategories: HotspotCategory[] = [
+const rawCategories: HotspotCategory[] = [
   developmentCategory,
   { ...cultureCategory, articles: [...cultureCategory.articles, ...cultureExtraArticles] },
   peopleCategory,
@@ -19,3 +20,5 @@ export const hotspotCategories: HotspotCategory[] = [
   valuesCategory,
   eraCategory,
 ];
+
+export const hotspotCategories: HotspotCategory[] = rawCategories.map(refineCategory);
