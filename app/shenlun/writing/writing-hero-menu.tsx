@@ -22,14 +22,9 @@ export function WritingHeroMenu() {
   useEffect(() => {
     const syncFromSidebar = (event: MouseEvent) => {
       const trigger = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>('.writing-category-trigger');
-      if (!trigger) return;
-      const groups = Array.from(document.querySelectorAll<HTMLElement>('.writing-layer-group'));
-      const group = trigger.closest<HTMLElement>('.writing-layer-group');
-      const index = group ? groups.indexOf(group) : -1;
-      const entry = writingHeroEntries[index];
-      if (entry) setSelected(entry.key);
+      const key = trigger?.dataset.writingLayer as WritingHeroKey | undefined;
+      if (key && writingHeroEntries.some((entry) => entry.key === key)) setSelected(key);
     };
-
     document.addEventListener('click', syncFromSidebar);
     return () => document.removeEventListener('click', syncFromSidebar);
   }, []);
@@ -42,23 +37,13 @@ export function WritingHeroMenu() {
   };
 
   return (
-    <nav className="shenlun-route-strip writing-hero-entry-strip" aria-label="写作积累二级目录">
+    <nav className="shenlun-route-strip framework-hero-entry-strip writing-hero-entry-strip" aria-label="写作积累二级目录">
       {writingHeroEntries.map((item) => {
         const current = selected === item.key;
         const busy = launching === item.key;
-        return (
-          <button
-            className={`${current ? 'active' : ''}${busy ? ' launching' : ''}`}
-            data-writing-hero={item.key}
-            key={item.key}
-            type="button"
-            onClick={() => enter(item.key)}
-          >
-            <span>{item.no}</span>
-            <b>{item.label}</b>
-            <i aria-hidden="true">{busy ? '进入中' : current ? '当前' : '进入'}</i>
-          </button>
-        );
+        return <button className={`${current ? 'active' : ''}${busy ? ' launching' : ''}`} data-writing-hero={item.key} key={item.key} type="button" onClick={() => enter(item.key)}>
+          <span style={{ padding: 0, border: 0 }}>{item.no}</span><b>{item.label}</b><i aria-hidden="true">{busy ? '进入中' : current ? '当前' : '进入'}</i>
+        </button>;
       })}
     </nav>
   );
