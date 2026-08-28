@@ -1,5 +1,5 @@
 /* 写作积累首屏：沿用“方法框架”同一套入口视觉，只改变8项内容所需的网格数量。 */
-.writing-hero-entry-strip > button {
+.writing-hero-entry-strip > :is(button,a) {
   position: relative;
   min-width: 0;
   display: grid;
@@ -17,19 +17,19 @@
   cursor: pointer;
   transition: background .2s ease,color .2s ease,transform .2s ease;
 }
-.writing-hero-entry-strip > button:nth-child(4n+1){border-left:1px solid rgba(37,37,31,.16)}
-.writing-hero-entry-strip > button:nth-child(-n+4){border-top:1px solid rgba(37,37,31,.16)}
-.writing-hero-entry-strip > button:hover,.writing-hero-entry-strip > button:focus-visible{color:var(--ink);background:color-mix(in srgb,var(--shenlun-accent) 6%,transparent);outline:none}
-.writing-hero-entry-strip > button.active{color:var(--ink);background:color-mix(in srgb,var(--shenlun-accent) 10%,var(--paper))}
-.writing-hero-entry-strip > button.active::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--shenlun-accent)}
-.writing-hero-entry-strip > button.launching{transform:translateY(-2px)}
-.writing-hero-entry-strip > button > span{color:var(--shenlun-accent);font:italic 10px/1 Georgia,serif;opacity:.74}
-.writing-hero-entry-strip > button > b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 16px/1.2 "Songti SC","SimSun",serif;letter-spacing:.01em}
-.writing-hero-entry-strip > button.active > i{background:var(--shenlun-accent)!important;border-color:var(--shenlun-accent)!important;color:#fff!important}
+.writing-hero-entry-strip > :is(button,a):nth-child(4n+1){border-left:1px solid rgba(37,37,31,.16)}
+.writing-hero-entry-strip > :is(button,a):nth-child(-n+4){border-top:1px solid rgba(37,37,31,.16)}
+.writing-hero-entry-strip > :is(button,a):hover,.writing-hero-entry-strip > :is(button,a):focus-visible{color:var(--ink);background:color-mix(in srgb,var(--shenlun-accent) 6%,transparent);outline:none}
+.writing-hero-entry-strip > :is(button,a).active{color:var(--ink);background:color-mix(in srgb,var(--shenlun-accent) 10%,var(--paper))}
+.writing-hero-entry-strip > :is(button,a).active::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--shenlun-accent)}
+.writing-hero-entry-strip > :is(button,a).launching{transform:translateY(-2px)}
+.writing-hero-entry-strip > :is(button,a) > span{color:var(--shenlun-accent);font:italic 10px/1 Georgia,serif;opacity:.74}
+.writing-hero-entry-strip > :is(button,a) > b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 16px/1.2 "Songti SC","SimSun",serif;letter-spacing:.01em}
+.writing-hero-entry-strip > :is(button,a).active > i{background:var(--shenlun-accent)!important;border-color:var(--shenlun-accent)!important;color:#fff!important}
 
 @media(min-width:1041px){
   .shenlun-page.writing .learning-hero-standard .writing-hero-entry-strip{width:min(760px,50vw)!important;height:132px!important;min-height:132px!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-template-rows:repeat(2,66px)!important}
-  .shenlun-page.writing .learning-hero-standard .writing-hero-entry-strip>button{height:66px!important;min-height:66px!important}
+  .shenlun-page.writing .learning-hero-standard .writing-hero-entry-strip>:is(button,a){height:66px!important;min-height:66px!important}
   .shenlun-page.writing .learning-hero-standard>.shenlun-hero-bottom>p{width:min(610px,39vw)!important;max-width:min(610px,39vw)!important}
 }
 @media(min-width:761px) and (max-width:1040px){
@@ -37,15 +37,15 @@
   .shenlun-page.writing .learning-hero-standard>.shenlun-hero-bottom{top:352px!important;height:270px!important}
   .shenlun-page.writing .learning-hero-standard>.shenlun-hero-bottom>p{width:42%!important;max-width:42%!important}
   .shenlun-page.writing .learning-hero-standard .writing-hero-entry-strip{width:52%!important;height:256px!important;min-height:256px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:repeat(4,64px)!important}
-  .writing-hero-entry-strip>button:nth-child(4n+1){border-left:0}.writing-hero-entry-strip>button:nth-child(2n+1){border-left:1px solid rgba(37,37,31,.16)}
-  .writing-hero-entry-strip>button:nth-child(-n+4){border-top:0}.writing-hero-entry-strip>button:nth-child(-n+2){border-top:1px solid rgba(37,37,31,.16)}
+  .writing-hero-entry-strip>:is(button,a):nth-child(4n+1){border-left:0}.writing-hero-entry-strip>:is(button,a):nth-child(2n+1){border-left:1px solid rgba(37,37,31,.16)}
+  .writing-hero-entry-strip>:is(button,a):nth-child(-n+4){border-top:0}.writing-hero-entry-strip>:is(button,a):nth-child(-n+2){border-top:1px solid rgba(37,37,31,.16)}
 }
 @media(max-width:760px){
   .writing-hero-entry-strip{width:100%;margin-top:26px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .writing-hero-entry-strip>button{min-height:62px;padding:0 12px;grid-template-columns:24px minmax(0,1fr) auto}
-  .writing-hero-entry-strip>button:nth-child(4n+1){border-left:0}.writing-hero-entry-strip>button:nth-child(2n+1){border-left:1px solid rgba(37,37,31,.16)}
-  .writing-hero-entry-strip>button:nth-child(-n+4){border-top:0}.writing-hero-entry-strip>button:nth-child(-n+2){border-top:1px solid rgba(37,37,31,.16)}
-  .writing-hero-entry-strip>button>b{font-size:15px}
+  .writing-hero-entry-strip>:is(button,a){min-height:62px;padding:0 12px;grid-template-columns:24px minmax(0,1fr) auto}
+  .writing-hero-entry-strip>:is(button,a):nth-child(4n+1){border-left:0}.writing-hero-entry-strip>:is(button,a):nth-child(2n+1){border-left:1px solid rgba(37,37,31,.16)}
+  .writing-hero-entry-strip>:is(button,a):nth-child(-n+4){border-top:0}.writing-hero-entry-strip>:is(button,a):nth-child(-n+2){border-top:1px solid rgba(37,37,31,.16)}
+  .writing-hero-entry-strip>:is(button,a)>b{font-size:15px}
 }
 
 html.writing-shared-transition-active{scroll-behavior:auto!important}
