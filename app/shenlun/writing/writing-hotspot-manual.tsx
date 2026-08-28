@@ -65,8 +65,14 @@ export function WritingHotspotManual() {
     const closing = openLayer === key;
     setActiveLayer(key);
     setOpenLayer(closing ? null : key);
-    if (!closing && key === 'hotspots') setActiveArticle(null);
-    if (!closing && key === 'cases') setActiveCase(null);
+    if (!closing && key === 'hotspots') {
+      setOpenCategory(null);
+      setActiveArticle(null);
+    }
+    if (!closing && key === 'cases') {
+      setOpenCaseCategory(null);
+      setActiveCase(null);
+    }
     setDrawerOpen(false);
     scrollReadingTop();
   };
