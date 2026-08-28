@@ -52,6 +52,12 @@ export function WritingHeroBridge() {
         source.style.setProperty('view-transition-name', 'writing-chapter-shared');
         root.classList.add('writing-shared-transition-active');
 
+        const cleanupTransition = () => {
+          source.style.removeProperty('view-transition-name');
+          sharedTarget?.style.removeProperty('view-transition-name');
+          root.classList.remove('writing-shared-transition-active');
+        };
+
         try {
           const transition = transitionDocument.startViewTransition(() => {
             source.style.removeProperty('view-transition-name');
@@ -60,14 +66,11 @@ export function WritingHeroBridge() {
             sharedTarget.style.setProperty('view-transition-name', 'writing-chapter-shared');
           });
 
-          transition.finished.finally(() => {
-            source.style.removeProperty('view-transition-name');
-            sharedTarget?.style.removeProperty('view-transition-name');
-            root.classList.remove('writing-shared-transition-active');
-          });
+          // 某些浏览器会在页面变化较大、动画被打断或切换标签页时拒绝 finished Promise。
+          // 这里同时处理成功与失败，避免未处理的 Promise rejection 被全局错误边界接管。
+          void transition.finished.then(cleanupTransition, cleanupTransition);
         } catch {
-          source.style.removeProperty('view-transition-name');
-          root.classList.remove('writing-shared-transition-active');
+          cleanupTransition();
           applyDestination();
         }
       } else {
