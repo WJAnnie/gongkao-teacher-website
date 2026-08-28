@@ -1,7 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { hotspotCategories } from './writing-hotspot-data';
+import { useMemo, useState, type ReactNode } from 'react';
+import { hotspotCategories } from './writing-hotspot-all';
+import type { HotspotHighlight } from './writing-hotspot-schema';
 
 const writingLayers = [
   {
@@ -54,6 +55,30 @@ function scrollReadingTop() {
   }, 30);
 }
 
+function annotate(text: string, highlights: HotspotHighlight[]): ReactNode[] {
+  const matches = highlights
+    .map((item) => ({ ...item, index: text.indexOf(item.text) }))
+    .filter((item) => item.index >= 0)
+    .sort((a, b) => a.index - b.index);
+
+  if (!matches.length) return [text];
+
+  const nodes: ReactNode[] = [];
+  let cursor = 0;
+  matches.forEach((item, index) => {
+    if (item.index < cursor) return;
+    if (item.index > cursor) nodes.push(text.slice(cursor, item.index));
+    nodes.push(
+      <span className={`writing-learning-mark mark-${item.label}`} key={`${item.text}-${index}`}>
+        {item.text}<small>{item.label}</small>
+      </span>,
+    );
+    cursor = item.index + item.text.length;
+  });
+  if (cursor < text.length) nodes.push(text.slice(cursor));
+  return nodes;
+}
+
 export function WritingHotspotManual() {
   const [activeLayer, setActiveLayer] = useState<WritingLayerKey>('hotspots');
   const [activeCategory, setActiveCategory] = useState('development');
@@ -66,7 +91,7 @@ export function WritingHotspotManual() {
     [activeCategory],
   );
   const article = useMemo(
-    () => category.articles?.find((item) => item.slug === activeArticle) ?? category.articles?.[0] ?? null,
+    () => category.articles.find((item) => item.slug === activeArticle) ?? category.articles[0],
     [activeArticle, category],
   );
 
@@ -81,7 +106,7 @@ export function WritingHotspotManual() {
     if (!next) return;
     setActiveLayer('hotspots');
     setActiveCategory(key);
-    setActiveArticle(next.articles?.[0]?.slug ?? '');
+    setActiveArticle(next.articles[0]?.slug ?? '');
     setDrawerOpen(false);
     scrollReadingTop();
   };
@@ -93,8 +118,8 @@ export function WritingHotspotManual() {
     scrollReadingTop();
   };
 
-  const mobileLabel = activeLayer === 'hotspots'
-    ? article ? `热点时评 · ${article.title}` : `热点时评 · ${category.label}`
+  const mobileLabel = activeLayer === 'hotspots' && article
+    ? `热点时评 · ${article.title}`
     : layer.label;
 
   return (
@@ -136,24 +161,18 @@ export function WritingHotspotManual() {
                               <span>{domain.no}</span><b>{domain.label}</b><i aria-hidden="true">⌄</i>
                             </button>
                             {domainOpen && (
-                              domain.articles ? (
-                                <nav className="framework-sub-nav writing-article-nav" aria-label={`${domain.label}文章目录`}>
-                                  {domain.articles.map((entry) => (
-                                    <button
-                                      key={entry.slug}
-                                      type="button"
-                                      className={article?.slug === entry.slug ? 'active' : ''}
-                                      onClick={() => chooseArticle(entry.slug)}
-                                    >
-                                      <span>{entry.no}</span><b>{entry.title}</b>
-                                    </button>
-                                  ))}
-                                </nav>
-                              ) : (
-                                <div className="writing-topic-preview" aria-label={`${domain.label}主题索引`}>
-                                  {domain.topics.map((topic) => <span key={topic}>{topic}</span>)}
-                                </div>
-                              )
+                              <nav className="framework-sub-nav writing-article-nav" aria-label={`${domain.label}文章目录`}>
+                                {domain.articles.map((entry) => (
+                                  <button
+                                    key={entry.slug}
+                                    type="button"
+                                    className={article?.slug === entry.slug ? 'active' : ''}
+                                    onClick={() => chooseArticle(entry.slug)}
+                                  >
+                                    <span>{entry.no}</span><b>{entry.title}</b>
+                                  </button>
+                                ))}
+                              </nav>
                             )}
                           </div>
                         );
@@ -171,71 +190,42 @@ export function WritingHotspotManual() {
             );
           })}
         </nav>
-
-        <div className="writing-sidebar-note">
-          <span>分类原则</span>
-          <p>一级按积累方式；热点时评内部再按知识领域；考试类型只做适用标签，避免同一内容重复建设。</p>
-        </div>
       </aside>
 
       {drawerOpen && <button className="framework-drawer-backdrop" aria-label="关闭写作目录" type="button" onClick={() => setDrawerOpen(false)} />}
 
       <article className="framework-manual-reading writing-hotspot-reading" id="writing-article-top">
         {activeLayer === 'hotspots' && article ? (
-          <div className="writing-commentary-article">
-            <header className="writing-commentary-head">
-              <div className="writing-commentary-kicker"><span>01 / HOT TOPICS · {category.no} {category.en}</span><em>{article.exam}</em></div>
+          <article className="writing-paper-article">
+            <header className="writing-paper-head">
               <h2>{article.title}</h2>
-              <p className="writing-commentary-deck">{article.deck}</p>
-              <div className="writing-commentary-meta">
-                <span>{article.length}</span>
-                {article.tags.map((tag) => <i key={tag}>{tag}</i>)}
+              <div className="writing-paper-meta">
+                <span>{category.label}</span><span>{article.exam}</span><span>{article.length}</span>
               </div>
             </header>
 
-            <section className="writing-commentary-lead" aria-label="文章开头">
-              <span>OPENING / 开头</span>
-              <p>{article.intro}</p>
-            </section>
-
-            <div className="writing-commentary-body">
-              {article.sections.map((section, index) => (
-                <section className="writing-commentary-section" key={section.title}>
-                  <div className="writing-commentary-section-no">0{index + 1}</div>
-                  <h3>{section.title}</h3>
-                  <p>{section.body}</p>
+            <div className="writing-paper-body">
+              <p>{annotate(article.intro, article.highlights)}</p>
+              <p className="writing-paper-thesis"><strong>{annotate(article.thesis, article.highlights)}</strong></p>
+              {article.sections.map((section) => (
+                <section className="writing-paper-section" key={section.title}>
+                  <p className="writing-paper-point"><strong>{annotate(section.title, article.highlights)}</strong></p>
+                  <p>{annotate(section.body, article.highlights)}</p>
                 </section>
               ))}
+              <p>{annotate(article.conclusion, article.highlights)}</p>
             </div>
 
-            <section className="writing-commentary-conclusion" aria-label="文章结尾">
-              <span>ENDING / 结尾</span>
-              <p>{article.conclusion}</p>
-            </section>
-
-            <aside className="writing-commentary-review">
-              <span>写作复盘</span>
-              <p>这篇文章采用“约200字开头 + 三个并列分论点 + 100字以上收束”的结构。积累时重点记观点关系和分论点逻辑，不要整篇背诵。</p>
-            </aside>
-
-            <footer className="writing-commentary-sources">
-              <span>延伸阅读 / 只作学习参考</span>
-              {article.references.map((ref) => (
-                <a href={ref.href} target="_blank" rel="noreferrer" key={ref.href}>{ref.label}<i>↗</i></a>
-              ))}
+            <footer className="writing-paper-footer">
+              <div className="writing-paper-tags">{article.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+              <details className="writing-paper-sources">
+                <summary>参考阅读</summary>
+                {article.references.map((ref) => (
+                  <a href={ref.href} target="_blank" rel="noreferrer" key={ref.href}>{ref.label}<i>↗</i></a>
+                ))}
+              </details>
             </footer>
-          </div>
-        ) : activeLayer === 'hotspots' ? (
-          <div className="writing-topic-overview">
-            <span>01 / HOT TOPICS · {category.no} {category.en}</span>
-            <h2>{category.label}</h2>
-            <p>{category.desc}</p>
-            <div className="writing-topic-overview-grid">
-              {category.topics.map((topic, index) => (
-                <article key={topic}><span>{String(index + 1).padStart(2, '0')}</span><b>{topic}</b><p>作为本类母题继续展开观点、案例与时评文章。</p></article>
-              ))}
-            </div>
-          </div>
+          </article>
         ) : (
           <div className="writing-topic-overview writing-layer-overview">
             <span>{layer.no} / {layer.en}</span>
