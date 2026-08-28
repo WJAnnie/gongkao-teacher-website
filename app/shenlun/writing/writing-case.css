@@ -1,0 +1,86 @@
+.writing-case-article { padding-top: clamp(48px,5vw,76px); }
+.writing-case-head { margin-bottom: clamp(34px,4vw,48px); }
+.writing-case-head h2 { font-size: clamp(32px,4vw,50px); }
+
+.writing-case-body {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.writing-case-section-label {
+  display: grid;
+  grid-template-columns: 34px auto 1fr;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(37,37,31,.12);
+}
+.writing-case-section-label span {
+  color: var(--shenlun-accent);
+  font: italic 10px Georgia,serif;
+}
+.writing-case-section-label b {
+  color: var(--ink);
+  font: 600 18px/1.4 "Songti SC","SimSun",serif;
+}
+.writing-case-section-label em {
+  justify-self: end;
+  color: rgba(37,37,31,.42);
+  font: normal 10px/1.5 system-ui,sans-serif;
+}
+
+.writing-case-source > p,
+.writing-case-usage > p {
+  margin: 0;
+  color: rgba(37,37,31,.82);
+  font: 400 18px/2.08 "Songti SC","SimSun",serif;
+  text-align: justify;
+  text-justify: inter-ideograph;
+  text-indent: 2em;
+}
+
+.writing-case-uses { margin-top: clamp(42px,5vw,62px); }
+.writing-case-usage {
+  padding: 0 0 28px;
+  margin: 0 0 30px;
+  border-bottom: 1px solid rgba(37,37,31,.08);
+}
+.writing-case-usage:last-child { margin-bottom: 0; border-bottom: 0; }
+.writing-case-usage h3 {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font: 600 16px/1.6 "Songti SC","SimSun",serif;
+}
+.writing-case-usage p { line-height: 2.05; }
+
+.writing-case-footer { margin-top: clamp(34px,4vw,48px); }
+
+.mark-案例 {
+  background: linear-gradient(180deg, transparent 58%, color-mix(in srgb, var(--shenlun-accent) 15%, transparent) 58%);
+}
+.mark-道理,
+.mark-启示,
+.mark-意义 {
+  background: linear-gradient(180deg, transparent 58%, color-mix(in srgb, var(--shenlun-soft) 86%, transparent) 58%);
+}
+.mark-比喻 {
+  background: linear-gradient(180deg, transparent 58%, rgba(102,121,173,.13) 58%);
+}
+
+@media (max-width: 820px) {
+  .writing-case-section-label {
+    grid-template-columns: 28px 1fr;
+  }
+  .writing-case-section-label em {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: -4px;
+  }
+  .writing-case-source > p,
+  .writing-case-usage > p {
+    font-size: 17px;
+    line-height: 2.02;
+  }
+  .writing-case-usage h3 { font-size: 15px; }
+}
