@@ -46,7 +46,10 @@ try {
 
   for (const route of routes) {
     const response = await fetch(`http://127.0.0.1:${port}${route}`);
-    if (!response.ok) throw new Error(`Production page ${route} returned HTTP ${response.status}.`);
+    if (!response.ok) {
+      const body = await response.text();
+      throw new Error(`Production page ${route} returned HTTP ${response.status}.\n${body.slice(0, 4000)}\n\nServer logs:\n${logs}`);
+    }
     let html = await response.text();
     html = rewriteHtml(html, basePath);
     if (route === '/') {
