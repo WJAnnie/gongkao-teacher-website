@@ -32,16 +32,7 @@ const guides: Record<Exclude<ShenlunTone, 'home'>, GuideItem[]> = {
     { no: '03', label: '按主题复盘', selector: '.shenlun-map-card:nth-child(3)' },
     { no: '04', label: '真题索引', selector: '.shenlun-question-list' },
   ],
-  writing: [
-    { no: '01', label: '热点时评', selector: '.writing-category:nth-child(1)' },
-    { no: '02', label: '案例素材', selector: '.writing-category:nth-child(2)' },
-    { no: '03', label: '规范用词', selector: '.writing-category:nth-child(3)' },
-    { no: '04', label: '比喻词库', selector: '.writing-category:nth-child(4)' },
-    { no: '05', label: '对仗句库', selector: '.writing-category:nth-child(5)' },
-    { no: '06', label: '主题佳句', selector: '.writing-category:nth-child(6)' },
-    { no: '07', label: '名人箴言', selector: '.writing-category:nth-child(7)' },
-    { no: '08', label: '作文框架', selector: '.writing-category:nth-child(8)' },
-  ],
+  writing: [],
   videos: [
     { no: '01', label: '课程精讲', selector: '.video-card:nth-child(1)' },
     { no: '02', label: '课堂实录', selector: '.video-card:nth-child(2)' },
