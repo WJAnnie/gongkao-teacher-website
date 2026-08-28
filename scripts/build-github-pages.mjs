@@ -9,6 +9,10 @@ const repository = process.env.GITHUB_REPOSITORY ?? '';
 const repositoryName = repository.split('/')[1] || '';
 const basePath = process.env.SITE_BASE_PATH ?? (repositoryName ? `/${repositoryName}` : '');
 const port = await findFreePort();
+
+const writingHotspotKeys = ['development', 'culture', 'people', 'government', 'grassroots', 'law', 'values', 'era'];
+const writingCaseKeys = ['people', 'practice', 'city', 'reform', 'technology', 'livelihood', 'law', 'negative', 'culture', 'rural', 'ecology', 'enterprise'];
+
 const routes = [
   '/',
   '/questions/',
@@ -18,6 +22,11 @@ const routes = [
   '/shenlun/framework/',
   '/shenlun/questions/',
   '/shenlun/writing/',
+  '/shenlun/writing/hotspots/',
+  ...writingHotspotKeys.map((key) => `/shenlun/writing/hotspots/${key}/`),
+  '/shenlun/writing/cases/',
+  ...writingCaseKeys.map((key) => `/shenlun/writing/cases/${key}/`),
+  '/shenlun/writing/metaphors/',
   '/shenlun/videos/',
   '/interview/methods/',
   '/interview/questions/',
@@ -75,9 +84,9 @@ function rewriteHtml(html, pathPrefix) {
     .replaceAll('src="/about-study-art.svg"', `src="${prefix}/about-study-art.svg"`)
     .replaceAll('href="/og.png"', `href="${prefix}/og.png"`)
     .replaceAll('content="http://localhost:3000/og.png"', `content="${prefix}/og.png"`)
+    .replaceAll('href="/shenlun/writing/', `href="${prefix}/shenlun/writing/`)
     .replaceAll('href="/shenlun/framework/"', `href="${prefix}/shenlun/framework/"`)
     .replaceAll('href="/shenlun/questions/"', `href="${prefix}/shenlun/questions/"`)
-    .replaceAll('href="/shenlun/writing/"', `href="${prefix}/shenlun/writing/"`)
     .replaceAll('href="/shenlun/videos/"', `href="${prefix}/shenlun/videos/"`)
     .replaceAll('href="/shenlun/"', `href="${prefix}/shenlun/"`)
     .replaceAll('href="/interview/methods/"', `href="${prefix}/interview/methods/"`)
