@@ -78,7 +78,7 @@ function auditArticle(source: HotspotArticle, categoryKey: string): HotspotArtic
     })),
     conclusion: ensureEnd(source.conclusion),
     tags: [...source.tags],
-    highlights: [...source.highlights],
+    highlights: source.highlights.map((item) => ({ ...item, text: tidyText(item.text) })),
     references: [...source.references],
   };
 
