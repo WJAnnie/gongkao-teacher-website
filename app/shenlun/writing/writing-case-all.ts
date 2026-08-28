@@ -1,10 +1,20 @@
-import { writingCaseCategories as rawCaseCategories } from './writing-case-data';
+import { writingCaseCategories as baseCaseCategories } from './writing-case-data';
+import { caseCategoryAdditions, extraCaseCategories } from './writing-case-expansion';
+import type { WritingCaseCategory } from './writing-case-data';
 
 function count(text: string) {
   return text.replace(/\s/g, '').length;
 }
 
-rawCaseCategories.forEach((category) => {
+const mergedCaseCategories: WritingCaseCategory[] = [
+  ...baseCaseCategories.map((category) => ({
+    ...category,
+    cases: [...category.cases, ...(caseCategoryAdditions[category.key] ?? [])],
+  })),
+  ...extraCaseCategories,
+];
+
+mergedCaseCategories.forEach((category) => {
   category.cases.forEach((item) => {
     const summaryLength = count(item.summary);
     if (summaryLength < 150 || summaryLength > 300) {
@@ -26,5 +36,5 @@ rawCaseCategories.forEach((category) => {
   });
 });
 
-export const writingCaseCategories = rawCaseCategories;
+export const writingCaseCategories = mergedCaseCategories;
 export type { CaseHighlight, CaseUsage, WritingCase, WritingCaseCategory } from './writing-case-data';
