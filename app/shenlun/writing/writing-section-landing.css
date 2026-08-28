@@ -49,7 +49,7 @@
 }
 
 .writing-library-choice-head em {
-  color: rgba(37,37,31,.38);
+  color: rgba(37,37,31,.42);
   font: normal 10px/1.4 system-ui, sans-serif;
   letter-spacing: .04em;
 }
@@ -58,12 +58,15 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border-left: 1px solid rgba(37,37,31,.12);
+  perspective: 900px;
 }
 
 .writing-library-choice-grid button {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: 176px;
-  padding: 24px 26px 22px;
+  padding: 24px 76px 22px 26px;
   border: 0;
   border-right: 1px solid rgba(37,37,31,.12);
   border-bottom: 1px solid rgba(37,37,31,.12);
@@ -71,13 +74,65 @@
   background: transparent;
   text-align: left;
   cursor: pointer;
-  transition: background .2s ease, transform .2s ease;
+  transform: translateY(0);
+  transition: background .22s ease, transform .22s cubic-bezier(.2,.7,.2,1), box-shadow .22s ease;
+}
+
+.writing-library-choice-grid button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--shenlun-accent) 12%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--shenlun-soft) 46%, transparent), transparent 78%);
+  transition: opacity .22s ease;
+}
+
+.writing-library-choice-grid button::after {
+  content: "↗";
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border: 1px solid color-mix(in srgb, var(--shenlun-accent) 48%, rgba(37,37,31,.13));
+  border-radius: 50%;
+  color: color-mix(in srgb, var(--shenlun-accent) 78%, var(--ink));
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  font: 500 13px/1 system-ui, sans-serif;
+  opacity: .72;
+  transition: transform .22s ease, background .22s ease, color .22s ease, opacity .22s ease;
 }
 
 .writing-library-choice-grid button:hover,
 .writing-library-choice-grid button:focus-visible {
+  z-index: 1;
   outline: none;
-  background: color-mix(in srgb, var(--shenlun-soft) 48%, transparent);
+  background: color-mix(in srgb, var(--shenlun-soft) 34%, transparent);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(37,37,31,.09);
+}
+
+.writing-library-choice-grid button:hover::before,
+.writing-library-choice-grid button:focus-visible::before {
+  opacity: 1;
+}
+
+.writing-library-choice-grid button:hover::after,
+.writing-library-choice-grid button:focus-visible::after {
+  opacity: 1;
+  transform: translate(3px, -3px);
+  color: var(--paper);
+  background: color-mix(in srgb, var(--shenlun-accent) 86%, var(--ink));
+}
+
+.writing-library-choice-grid button:active {
+  transform: translateY(-1px) scale(.995);
+  box-shadow: 0 8px 18px rgba(37,37,31,.07);
 }
 
 .writing-library-choice-grid button > span {
@@ -88,16 +143,24 @@
 
 .writing-library-choice-grid button > b {
   display: block;
+  width: fit-content;
   margin-top: 13px;
   color: var(--ink);
   font: 500 23px/1.35 "Songti SC", "SimSun", serif;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.writing-library-choice-grid button:hover > b,
+.writing-library-choice-grid button:focus-visible > b {
+  color: color-mix(in srgb, var(--shenlun-accent) 72%, var(--ink));
+  transform: translateX(3px);
 }
 
 .writing-library-choice-grid button > p {
   display: -webkit-box;
   overflow: hidden;
   max-width: 420px;
-  margin: 10px 0 26px;
+  margin: 10px 0 30px;
   color: rgba(37,37,31,.5);
   font-size: 11px;
   line-height: 1.75;
@@ -108,9 +171,21 @@
 .writing-library-choice-grid button > em {
   position: absolute;
   left: 26px;
-  bottom: 20px;
-  color: color-mix(in srgb, var(--shenlun-accent) 78%, var(--ink));
-  font: normal 10px/1.4 system-ui, sans-serif;
+  bottom: 18px;
+  padding: 5px 9px;
+  border: 1px solid color-mix(in srgb, var(--shenlun-accent) 30%, rgba(37,37,31,.08));
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--shenlun-accent) 82%, var(--ink));
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  font: normal 10px/1.25 system-ui, sans-serif;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.writing-library-choice-grid button:hover > em,
+.writing-library-choice-grid button:focus-visible > em {
+  transform: translateX(3px);
+  border-color: color-mix(in srgb, var(--shenlun-accent) 55%, rgba(37,37,31,.12));
+  background: color-mix(in srgb, var(--shenlun-soft) 65%, var(--paper));
 }
 
 .writing-library-back {
@@ -154,7 +229,15 @@
 
   .writing-library-choice-grid button {
     min-height: 156px;
-    padding: 22px 20px 20px;
+    padding: 22px 66px 20px 20px;
+  }
+
+  .writing-library-choice-grid button::after {
+    top: 18px;
+    right: 18px;
+    width: 32px;
+    height: 32px;
+    opacity: .88;
   }
 
   .writing-library-choice-grid button > b {
@@ -163,6 +246,16 @@
 
   .writing-library-choice-grid button > em {
     left: 20px;
-    bottom: 18px;
+    bottom: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .writing-library-choice-grid button,
+  .writing-library-choice-grid button::before,
+  .writing-library-choice-grid button::after,
+  .writing-library-choice-grid button > b,
+  .writing-library-choice-grid button > em {
+    transition: none !important;
   }
 }
