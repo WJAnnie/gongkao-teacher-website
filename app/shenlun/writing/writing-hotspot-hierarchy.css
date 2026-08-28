@@ -1,0 +1,106 @@
+.writing-layer-group.open > .writing-category-trigger i {
+  transform: rotate(180deg);
+}
+
+.writing-hotspot-domains {
+  margin: 10px 0 4px 20px;
+  padding: 12px 0 8px 14px;
+  border-top: 1px solid rgba(37,37,31,.1);
+  border-left: 1px solid color-mix(in srgb, var(--shenlun-accent) 34%, rgba(37,37,31,.1));
+}
+
+.writing-domain-nav {
+  display: grid;
+  gap: 2px;
+}
+
+.writing-domain-group {
+  min-width: 0;
+}
+
+.writing-domain-trigger {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25px minmax(0,1fr) 16px;
+  gap: 6px;
+  align-items: center;
+  min-height: 38px;
+  padding: 7px 7px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease;
+}
+
+.writing-domain-trigger:hover,
+.writing-domain-trigger:focus-visible {
+  background: color-mix(in srgb, var(--shenlun-accent) 7%, transparent);
+}
+
+.writing-domain-trigger:hover {
+  transform: translateX(2px);
+}
+
+.writing-domain-trigger.active {
+  background: color-mix(in srgb, var(--shenlun-accent) 10%, transparent);
+}
+
+.writing-domain-trigger > span {
+  color: var(--shenlun-accent);
+  font: italic 8px Georgia,serif;
+}
+
+.writing-domain-trigger > b {
+  color: rgba(37,37,31,.68);
+  font: 500 12.5px/1.35 "Songti SC","SimSun",serif;
+}
+
+.writing-domain-trigger.active > b {
+  color: var(--ink);
+}
+
+.writing-domain-trigger > i {
+  color: color-mix(in srgb, var(--shenlun-accent) 58%, rgba(37,37,31,.25));
+  font-style: normal;
+  text-align: center;
+  transition: transform .18s ease;
+}
+
+.writing-domain-group.open > .writing-domain-trigger > i {
+  transform: rotate(180deg);
+}
+
+.writing-domain-group .writing-article-nav {
+  margin: 8px 0 10px 13px;
+  padding: 8px 0 8px 13px;
+  border-top: 0;
+}
+
+.writing-domain-group .writing-article-nav::before {
+  top: 8px;
+  bottom: 8px;
+}
+
+.writing-domain-group .writing-topic-preview {
+  margin: 8px 0 10px 13px;
+  padding: 7px 5px 7px 13px;
+  border-top: 0;
+}
+
+.writing-layer-preview {
+  margin-top: 8px;
+}
+
+@media (max-width: 820px) {
+  .writing-hotspot-domains {
+    margin-left: 14px;
+    padding-left: 12px;
+  }
+
+  .writing-domain-trigger {
+    min-height: 42px;
+  }
+}
