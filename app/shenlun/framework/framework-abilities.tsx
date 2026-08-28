@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { coreAbilityChapters } from './framework-abilities-voice';
-import { AbilityDeepReviewed, FrameworkAbilitiesReviewed } from './framework-content-review';
+import { AbilityDeepReviewedV2, FrameworkAbilitiesReviewedV2 } from './framework-content-review-v2';
 
 export { coreAbilityChapters };
 
@@ -16,8 +16,8 @@ export function FrameworkAbilities() {
 
   return (
     <>
-      <FrameworkAbilitiesReviewed />
-      {targets.map((target, index) => target ? createPortal(<AbilityDeepReviewed id={coreAbilityChapters[index].id} />, target) : null)}
+      <FrameworkAbilitiesReviewedV2 />
+      {targets.map((target, index) => target ? createPortal(<AbilityDeepReviewedV2 id={coreAbilityChapters[index].id} />, target) : null)}
     </>
   );
 }
