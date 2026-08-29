@@ -1,7 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { materialCategories, materialNotes } from './material-library-data';
+import { contentCatalog } from './data/content-catalog';
+import { materialCategories } from './material-library-data';
+
+const materialNotes = contentCatalog.listMaterials();
 
 export function MaterialReader() {
   const [category, setCategory] = useState('全部');

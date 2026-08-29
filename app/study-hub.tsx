@@ -1,20 +1,12 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { questions, type Question, type Subject } from './question-bank-data';
+import { contentCatalog } from './data/content-catalog';
+import { createPracticeRecordStore, type PracticeRecord } from './data/practice-record-store';
+import { type Question, type Subject } from './question-bank-data';
 import { SubjectGateway } from './subject-gateway';
 
 type StudyTab = '题库' | '资料' | '工具';
-
-type PracticeRecord = {
-  id: number;
-  date: string;
-  subject: Subject;
-  title: string;
-  seconds: number;
-  words: number;
-  rating: string;
-};
 
 const materials = [
   {
@@ -75,6 +67,8 @@ const selfChecks = [
   '结尾给出了闭环，而不是突然停止',
 ];
 
+const questionCatalog = contentCatalog.listQuestions();
+
 function formatTime(total: number) {
   const mins = Math.floor(total / 60).toString().padStart(2, '0');
   const secs = (total % 60).toString().padStart(2, '0');
@@ -94,15 +88,24 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
   const [checked, setChecked] = useState<boolean[]>(selfChecks.map(() => false));
   const [records, setRecords] = useState<PracticeRecord[]>([]);
   const [rating, setRating] = useState('基本完成');
+  const recordStore = useMemo(
+    () =>
+      createPracticeRecordStore({
+        getItem: (key) => window.localStorage.getItem(key),
+        setItem: (key, value) => window.localStorage.setItem(key, value),
+        removeItem: (key) => window.localStorage.removeItem(key),
+      }),
+    [],
+  );
 
   const typeOptions = useMemo(() => {
-    const scoped = subject === '全部' ? questions : questions.filter((item) => item.subject === subject);
+    const scoped = subject === '全部' ? questionCatalog : questionCatalog.filter((item) => item.subject === subject);
     return ['全部题型', ...Array.from(new Set(scoped.map((item) => item.type)))];
   }, [subject]);
 
   const filteredQuestions = useMemo(() => {
     const lower = keyword.trim().toLowerCase();
-    return questions.filter((item) => {
+    return questionCatalog.filter((item) => {
       const subjectMatched = subject === '全部' || item.subject === subject;
       const typeMatched = type === '全部题型' || item.type === type;
       const keywordMatched = !lower || `${item.year}${item.exam}${item.type}${item.topic}${item.summary}${item.focus}`.toLowerCase().includes(lower);
@@ -127,18 +130,15 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
   useEffect(() => {
     let active = true;
     try {
-      const saved = window.localStorage.getItem('gongkao-practice-records');
-      if (saved) {
-        const parsed = JSON.parse(saved) as PracticeRecord[];
-        queueMicrotask(() => {
-          if (active) setRecords(parsed);
-        });
-      }
+      const saved = recordStore.load();
+      queueMicrotask(() => {
+        if (active) setRecords(saved);
+      });
     } catch {
       // Local storage is optional. The tool still works without persistence.
     }
     return () => { active = false; };
-  }, []);
+  }, [recordStore]);
 
   const setPreset = (seconds: number) => {
     setTimerRunning(false);
@@ -147,7 +147,7 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
   };
 
   const pickRandom = () => {
-    const pool = filteredQuestions.length ? filteredQuestions : questions;
+    const pool = filteredQuestions.length ? filteredQuestions : questionCatalog;
     const picked = pool[Math.floor(Math.random() * pool.length)];
     setRandomQuestion(picked);
     setPreset(picked.subject === '面试' ? 180 : picked.type === '文章写作' ? 3600 : 1200);
@@ -168,7 +168,7 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
     const updated = [next, ...records].slice(0, 8);
     setRecords(updated);
     try {
-      window.localStorage.setItem('gongkao-practice-records', JSON.stringify(updated));
+      recordStore.save(updated);
     } catch {
       // Keep the in-memory record if storage is unavailable.
     }
