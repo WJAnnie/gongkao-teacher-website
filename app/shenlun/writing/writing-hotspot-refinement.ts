@@ -1,6 +1,5 @@
 import type { HotspotArticle, HotspotCategory, HotspotHighlight } from './writing-hotspot-schema';
 
-type CategoryKey = HotspotCategory['key'];
 type Mark = HotspotHighlight['label'];
 type Slot = 'intro' | 'conclusion' | 0 | 1 | 2;
 

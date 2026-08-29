@@ -31,12 +31,18 @@ function ChapterMark({ number }: { number: number }) {
 }
 
 export function FrameworkExpressionStepper({ onActiveChapterChange }: { onActiveChapterChange?: (index: number) => void }) {
-  const [chapterTargets, setChapterTargets] = useState<(HTMLElement | null)[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    queueMicrotask(() => {
+      if (active) setMounted(true);
+    });
+    return () => { active = false; };
+  }, []);
 
   useEffect(() => {
     const targets = chapters.map((chapter) => document.getElementById(chapter.id));
-    setChapterTargets(targets);
-
     const visibleTargets = targets.filter(Boolean) as HTMLElement[];
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -53,6 +59,10 @@ export function FrameworkExpressionStepper({ onActiveChapterChange }: { onActive
     const safeIndex = Math.max(0, Math.min(index, chapters.length - 1));
     document.getElementById(chapters[safeIndex].id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
+  const chapterTargets = mounted && typeof document !== 'undefined'
+    ? chapters.map((chapter) => document.getElementById(chapter.id))
+    : [];
 
   return (
     <div className="expression-stepper">

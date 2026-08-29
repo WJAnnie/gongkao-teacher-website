@@ -125,12 +125,19 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
   }, [timerRunning]);
 
   useEffect(() => {
+    let active = true;
     try {
       const saved = window.localStorage.getItem('gongkao-practice-records');
-      if (saved) setRecords(JSON.parse(saved));
+      if (saved) {
+        const parsed = JSON.parse(saved) as PracticeRecord[];
+        queueMicrotask(() => {
+          if (active) setRecords(parsed);
+        });
+      }
     } catch {
       // Local storage is optional. The tool still works without persistence.
     }
+    return () => { active = false; };
   }, []);
 
   const setPreset = (seconds: number) => {

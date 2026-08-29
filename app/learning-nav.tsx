@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 type LearningNavKey =
@@ -41,10 +42,10 @@ export function LearningTopNav({ active }: { active?: LearningNavKey }) {
 
   return (
     <header className="learning-topnav">
-      <a className="learning-topnav-brand" href="/">
+      <Link className="learning-topnav-brand" href="/">
         <span>答</span>
         <b>答卷之外</b>
-      </a>
+      </Link>
 
       <nav className="learning-topnav-desktop" aria-label="学习页面导航">
         {groups.map((group) => (
@@ -52,7 +53,7 @@ export function LearningTopNav({ active }: { active?: LearningNavKey }) {
             <span className="learning-nav-group-label">{group.label}</span>
             <div className="learning-nav-items">
               {group.items.map(([label, href, key]) => (
-                <a className={active === key ? 'active' : ''} href={href} key={key} aria-current={active === key ? 'page' : undefined}>{label}</a>
+                <Link className={active === key ? 'active' : ''} href={href} key={key} aria-current={active === key ? 'page' : undefined}>{label}</Link>
               ))}
             </div>
           </div>
@@ -75,7 +76,7 @@ export function LearningTopNav({ active }: { active?: LearningNavKey }) {
               {open && (
                 <div className="learning-mobile-group-items">
                   {group.items.map(([label, href, key]) => (
-                    <a className={active === key ? 'active' : ''} href={href} key={key} aria-current={active === key ? 'page' : undefined}>{label}</a>
+                    <Link className={active === key ? 'active' : ''} href={href} key={key} aria-current={active === key ? 'page' : undefined}>{label}</Link>
                   ))}
                 </div>
               )}
@@ -84,7 +85,7 @@ export function LearningTopNav({ active }: { active?: LearningNavKey }) {
         })}
       </div>
 
-      <a className="learning-topnav-home" href="/" aria-label="返回答卷之外首页">⌂</a>
+      <Link className="learning-topnav-home" href="/" aria-label="返回答卷之外首页">⌂</Link>
     </header>
   );
 }

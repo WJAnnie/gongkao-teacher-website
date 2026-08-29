@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { MotionLayer } from './motion-layer';
 import { SubjectGateway } from './subject-gateway';
 import { HomeLearningRepeat } from './home-learning-repeat';
@@ -33,7 +34,7 @@ export default function Home() {
       </div>
 
       <section className="about about-merged" id="about">
-        <img className="about-visual-art" src="/about-study-art.svg" alt="" aria-hidden="true" />
+        <Image className="about-visual-art" src="/about-study-art.svg" alt="" aria-hidden="true" width={900} height={1100} />
         <HomeSongPlayer />
         <div className="about-copy">
           <p className="section-index">02 — ABOUT / 高老师与答卷之外</p>

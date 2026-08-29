@@ -8,11 +8,19 @@ import { AbilityDeepReviewedV2, FrameworkAbilitiesReviewedV2 } from './framework
 export { coreAbilityChapters };
 
 export function FrameworkAbilities() {
-  const [targets, setTargets] = useState<(HTMLElement | null)[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setTargets(coreAbilityChapters.map((item) => document.getElementById(item.id)));
+    let active = true;
+    queueMicrotask(() => {
+      if (active) setMounted(true);
+    });
+    return () => { active = false; };
   }, []);
+
+  const targets = mounted && typeof document !== 'undefined'
+    ? coreAbilityChapters.map((item) => document.getElementById(item.id))
+    : [];
 
   return (
     <>

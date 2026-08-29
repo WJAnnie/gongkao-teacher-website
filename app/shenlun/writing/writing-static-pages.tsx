@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { hotspotCategories } from './writing-hotspot-all';
 import type { HotspotHighlight } from './writing-hotspot-schema';
@@ -38,7 +39,7 @@ function annotate(text: string, highlights: LearningHighlight[]): ReactNode[] {
 }
 
 function ChoiceCard({ no, label, desc, href, meta }: { no: string; label: string; desc: string; href: string; meta: string }) {
-  return <a className="writing-static-choice" href={href}><span>{no}</span><b>{label}</b><p>{desc}</p><em>{meta}　→</em></a>;
+  return <Link className="writing-static-choice" href={href}><span>{no}</span><b>{label}</b><p>{desc}</p><em>{meta}　→</em></Link>;
 }
 
 export function WritingStaticLanding() {
@@ -61,7 +62,7 @@ export function WritingStaticLanding() {
 
 export function HotspotStaticIndex() {
   return <section className="writing-library-landing writing-static-landing">
-    <a className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</a>
+    <Link className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</Link>
     <span className="writing-library-kicker">01 / HOT TOPICS</span>
     <h2>热点时评怎么积累</h2>
     <p className="writing-library-teacher-note">先判断题目落在哪个知识领域，再进入对应分类。每个分类是一张独立静态页面，只装这一类10—13篇文章，不会把84篇正文一次性加载进浏览器。</p>
@@ -73,10 +74,10 @@ export function HotspotStaticIndex() {
 
 export function HotspotStaticCategory({ categoryKey }: { categoryKey: string }) {
   const category = hotspotCategories.find((item) => item.key === categoryKey);
-  if (!category) return <section className="writing-placeholder-article"><h2>没有找到这个热点分类</h2><a className="writing-library-back" href="/shenlun/writing/hotspots/">返回热点时评分类</a></section>;
+  if (!category) return <section className="writing-placeholder-article"><h2>没有找到这个热点分类</h2><Link className="writing-library-back" href="/shenlun/writing/hotspots/">返回热点时评分类</Link></section>;
   return <section className="writing-collection-view writing-static-collection">
     <WritingStaticEnhancer />
-    <a className="writing-library-back" href="/shenlun/writing/hotspots/">← 返回热点时评分类</a>
+    <Link className="writing-library-back" href="/shenlun/writing/hotspots/">← 返回热点时评分类</Link>
     <header className="framework-article-intro writing-collection-intro"><span>{category.no} / {category.en}</span><h2>{category.label}</h2><p>{category.desc}</p></header>
     <div className="tips-accordion writing-learning-accordion">
       {category.articles.map((entry) => <details className="tips-article writing-learning-item writing-static-details" id={`hotspot-${entry.slug}`} data-writing-autoscroll key={entry.slug}>
@@ -89,7 +90,7 @@ export function HotspotStaticCategory({ categoryKey }: { categoryKey: string }) 
 
 export function CaseStaticIndex() {
   return <section className="writing-library-landing writing-static-landing">
-    <a className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</a>
+    <Link className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</Link>
     <span className="writing-library-kicker">02 / CASE LIBRARY</span>
     <h2>案例素材怎么积累</h2>
     <p className="writing-library-teacher-note">先用150—300字把案例看懂，再学习如何把事实压短，把道理、意义和做法启示写出来。每种案例类型独立成页，一次只加载10个案例。</p>
@@ -101,10 +102,10 @@ export function CaseStaticIndex() {
 
 export function CaseStaticCategory({ categoryKey }: { categoryKey: string }) {
   const category = writingCaseCategories.find((item) => item.key === categoryKey);
-  if (!category) return <section className="writing-placeholder-article"><h2>没有找到这个案例分类</h2><a className="writing-library-back" href="/shenlun/writing/cases/">返回案例素材分类</a></section>;
+  if (!category) return <section className="writing-placeholder-article"><h2>没有找到这个案例分类</h2><Link className="writing-library-back" href="/shenlun/writing/cases/">返回案例素材分类</Link></section>;
   return <section className="writing-collection-view writing-static-collection">
     <WritingStaticEnhancer />
-    <a className="writing-library-back" href="/shenlun/writing/cases/">← 返回案例素材分类</a>
+    <Link className="writing-library-back" href="/shenlun/writing/cases/">← 返回案例素材分类</Link>
     <header className="framework-article-intro writing-collection-intro"><span>{category.no} / CASE LIBRARY</span><h2>{category.label}</h2><p>{category.desc}</p></header>
     <div className="tips-accordion writing-learning-accordion writing-case-accordion">
       {category.cases.map((entry) => <details className="tips-article writing-learning-item writing-static-details" id={`case-${entry.slug}`} data-writing-autoscroll key={entry.slug}>
@@ -118,7 +119,7 @@ export function CaseStaticCategory({ categoryKey }: { categoryKey: string }) {
 export function MetaphorStaticPage() {
   return <section className="writing-library-landing writing-static-metaphors">
     <WritingStaticEnhancer />
-    <a className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</a>
+    <Link className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</Link>
     <span className="writing-library-kicker">04 / METAPHOR LIBRARY</span>
     <h2>比喻用词怎么积累</h2>
     <p className="writing-library-teacher-note">这一部分不按主题硬分类。先理解比喻背后的逻辑关系，再记常见搭配；一段用准一个，通常比连续堆三四个更有力量。</p>

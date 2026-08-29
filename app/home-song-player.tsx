@@ -94,19 +94,25 @@ export function HomeSongPlayer() {
 
   // 只由这个播放器负责自动播放。若浏览器拦截，等待首次用户交互后补播。
   useEffect(() => {
+    let active = true;
     let wasDismissed = false;
     try {
       wasDismissed = window.sessionStorage.getItem('xiang-an-dismissed') === '1';
-      setDismissed(wasDismissed);
+      queueMicrotask(() => {
+        if (active) setDismissed(wasDismissed);
+      });
     } catch {
-      setDismissed(false);
+      queueMicrotask(() => {
+        if (active) setDismissed(false);
+      });
     }
 
-    if (wasDismissed) return;
+    if (wasDismissed) return () => { active = false; };
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio) return () => { active = false; };
 
     void audio.play().then(() => {
+      if (!active) return;
       setStarted(true);
       setPlaying(true);
       setAudioError(false);
@@ -114,6 +120,8 @@ export function HomeSongPlayer() {
     }).catch(() => {
       // 浏览器可能阻止未经过用户手势的有声自动播放。
     });
+
+    return () => { active = false; };
   }, []);
 
   // 首屏保持干净：ABOUT 进入阅读位置后显示播放器；滚回首屏再次隐藏。
