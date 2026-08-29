@@ -1,3 +1,6 @@
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+
 export const MINIMUM_NODE = Object.freeze({ major: 22, minor: 13, patch: 0 });
 
 export function parseNodeVersion(value) {
@@ -11,4 +14,8 @@ export function assertSupportedNode(value = process.version) {
   const score = ({ major, minor, patch }) => major * 1_000_000 + minor * 1_000 + patch;
   if (score(current) < score(MINIMUM_NODE)) throw new Error(`需要 Node.js 22.13.0 或更高版本，当前为 ${value}。请先升级 Node.js。`);
   return current;
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  assertSupportedNode();
 }
