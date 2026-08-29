@@ -1,6 +1,6 @@
 export type CaseHighlight = {
   text: string;
-  label: '案例' | '道理' | '意义' | '启示' | '高端句' | '对仗' | '比喻';
+  label: '案例' | '道理' | '意义' | '启示' | '高端句' | '对仗' | '排比' | '比喻';
 };
 
 export type CaseUsage = {

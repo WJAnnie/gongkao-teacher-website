@@ -15,6 +15,7 @@ const layers = [
 ] as const;
 
 type LayerKey = (typeof layers)[number]['key'];
+type CoreAbilityId = (typeof coreAbilityChapters)[number]['id'];
 
 type ViewTransitionHandle = {
   finished: Promise<void>;
@@ -50,7 +51,7 @@ export function FrameworkManual() {
   const [activeLayer, setActiveLayer] = useState<LayerKey>('expression');
   const [activeExpression, setActiveExpression] = useState(0);
   const [activeType, setActiveType] = useState('summary');
-  const [activeAbility, setActiveAbility] = useState(coreAbilityChapters[0]?.id ?? '');
+  const [activeAbility, setActiveAbility] = useState<CoreAbilityId>(coreAbilityChapters[0].id);
   const [activeTip, setActiveTip] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [heroArrival, setHeroArrival] = useState<LayerKey | null>(null);
@@ -163,7 +164,7 @@ export function FrameworkManual() {
     if (chapter) goTo(chapter.id);
   };
 
-  const chooseAbility = (id: string) => {
+  const chooseAbility = (id: CoreAbilityId) => {
     if (activeLayer !== 'abilities') setActiveLayer('abilities');
     setActiveAbility(id);
     setDrawerOpen(false);
