@@ -21,13 +21,15 @@ if (!(await isDirectory(join(outputDir, '_next')))) {
   errors.push(`缺少目录：${join(outputDir, '_next')}`);
 }
 
-for (const file of await collectHtmlFiles(outputDir)) {
-  const html = await readFile(file, 'utf8');
-  if (/http:\/\/localhost(?::\d+)?\//.test(html)) {
-    errors.push(`包含构建服务器地址：${file}`);
-  }
-  for (const reference of findUnprefixedReferences(html, basePath)) {
-    errors.push(`未添加站点前缀：${file} -> ${reference}`);
+if (await isDirectory(outputDir)) {
+  for (const file of await collectHtmlFiles(outputDir)) {
+    const html = await readFile(file, 'utf8');
+    if (/http:\/\/localhost(?::\d+)?\//.test(html)) {
+      errors.push(`包含构建服务器地址：${file}`);
+    }
+    for (const reference of findUnprefixedReferences(html, basePath)) {
+      errors.push(`无效站点引用：${file} -> ${reference}`);
+    }
   }
 }
 

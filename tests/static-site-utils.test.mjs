@@ -6,6 +6,9 @@ test('normalizes paths and rejects URLs', () => {
   assert.equal(normalizeBasePath(''), '');
   assert.equal(normalizeBasePath('/gongkao-teacher-website/'), '/gongkao-teacher-website');
   assert.throws(() => normalizeBasePath('https://example.com/x'), /必须是路径/);
+  for (const invalid of ['/repo/../escape', '/repo//nested', '/repo?x=1', '/repo#frag', '/repo\\nested']) {
+    assert.throws(() => normalizeBasePath(invalid), /必须是规范路径/);
+  }
 });
 
 test('prefixes root-relative links for Pages only', () => {
@@ -32,4 +35,9 @@ test('replaces build-server metadata URLs for both profiles', () => {
 test('finds unprefixed literal, responsive, and serialized references', () => {
   const html = '<a href="/raw/"></a><img srcSet="/repo/a.png 1x, /raw.png 2x"><script>{\\"src\\":\\"/raw.svg\\"}</script>';
   assert.deepEqual(findUnprefixedReferences(html, '/repo'), ['/raw/', '/raw.png', '/raw.svg']);
+});
+
+test('finds duplicate prefixes and traversal inside generated references', () => {
+  const html = '<a href="/repo/repo/x"></a><img src="/repo/../escape.png">';
+  assert.deepEqual(findUnprefixedReferences(html, '/repo'), ['/repo/repo/x', '/repo/../escape.png']);
 });

@@ -4,7 +4,23 @@ export function normalizeBasePath(value) {
   if (!trimmed.startsWith('/') || trimmed.includes('://')) {
     throw new Error(`站点前缀必须是路径：${value}`);
   }
-  return trimmed.replace(/\/+$/, '');
+  if (/[\\?#]/.test(trimmed) || trimmed.includes('//')) {
+    throw new Error(`站点前缀必须是规范路径：${value}`);
+  }
+
+  const normalized = trimmed.endsWith('/') ? trimmed.slice(0, -1) : trimmed;
+  for (const segment of normalized.slice(1).split('/')) {
+    let decoded;
+    try {
+      decoded = decodeURIComponent(segment);
+    } catch {
+      throw new Error(`站点前缀必须是规范路径：${value}`);
+    }
+    if (!decoded || decoded === '.' || decoded === '..' || /[\\/?#]/.test(decoded)) {
+      throw new Error(`站点前缀必须是规范路径：${value}`);
+    }
+  }
+  return normalized;
 }
 
 export function rewriteHtml(html, basePathValue) {
@@ -74,9 +90,30 @@ function findUnprefixedSrcSetPaths(value, basePath) {
 }
 
 function isUnprefixed(path, basePath) {
-  return isRootRelative(path) && path !== basePath && !path.startsWith(`${basePath}/`);
+  if (!isRootRelative(path)) return false;
+  return (
+    hasUnsafePathSegments(path) ||
+    path.startsWith(`${basePath}${basePath}/`) ||
+    (path !== basePath && !path.startsWith(`${basePath}/`))
+  );
 }
 
 function isRootRelative(path) {
   return path.startsWith('/') && !path.startsWith('//');
+}
+
+function hasUnsafePathSegments(path) {
+  const pathname = path.split(/[?#]/, 1)[0];
+  if (pathname.includes('\\') || pathname.slice(1).includes('//')) return true;
+  return pathname
+    .split('/')
+    .slice(1)
+    .some((segment) => {
+      try {
+        const decoded = decodeURIComponent(segment);
+        return decoded === '.' || decoded === '..' || /[\\/]/.test(decoded);
+      } catch {
+        return true;
+      }
+    });
 }

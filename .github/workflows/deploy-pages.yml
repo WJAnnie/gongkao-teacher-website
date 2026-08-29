@@ -44,12 +44,12 @@ jobs:
       - name: Rewrite Xiangan audio to same-origin asset
         run: |
           python - <<'PY'
-          import os
           from pathlib import Path
 
           old = b'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3'
-          repo = os.environ['GITHUB_REPOSITORY'].split('/', 1)[1]
-          new = f'/{repo}/audio/xiang-an.mp3'.encode()
+          import os
+          base_path = os.environ['SITE_BASE_PATH'].rstrip('/')
+          new = f'{base_path}/audio/xiang-an.mp3'.encode()
           changed = 0
           for path in Path('site').rglob('*'):
               if not path.is_file() or path.suffix not in {'.html', '.js', '.json', '.css'}:
@@ -64,6 +64,7 @@ jobs:
               raise SystemExit('Suno audio URL was not found in the generated site')
           PY
           test -s site/audio/xiang-an.mp3
+          node scripts/validate-static-artifact.mjs --base-path "$SITE_BASE_PATH"
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
