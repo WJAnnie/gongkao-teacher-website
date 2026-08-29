@@ -7,10 +7,14 @@
   },
   "scripts": {
     "dev": "vinext dev",
+    "dev:lan": "vinext dev --hostname 0.0.0.0 --port 3000",
     "build": "vinext build",
     "build:static": "npm run build && node scripts/build-github-pages.mjs",
     "start": "vinext start",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern site"
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern site",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test",
+    "verify": "npm run lint && npm run typecheck && npm test"
   },
   "dependencies": {
     "next": "16.2.6",
