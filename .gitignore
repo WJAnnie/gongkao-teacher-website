@@ -41,6 +41,7 @@ next-env.d.ts
 /.browser-harness-tmp/
 /.playwright-cli/
 /.superpowers/
+/.worktrees/
 /site/
 
 # Tencent Cloud EdgeOne local credentials and build output
