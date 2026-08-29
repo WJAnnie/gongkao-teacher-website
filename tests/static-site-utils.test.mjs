@@ -1,0 +1,35 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { findUnprefixedReferences, normalizeBasePath, rewriteHtml } from '../scripts/static-site-utils.mjs';
+
+test('normalizes paths and rejects URLs', () => {
+  assert.equal(normalizeBasePath(''), '');
+  assert.equal(normalizeBasePath('/gongkao-teacher-website/'), '/gongkao-teacher-website');
+  assert.throws(() => normalizeBasePath('https://example.com/x'), /必须是路径/);
+});
+
+test('prefixes root-relative links for Pages only', () => {
+  const html = '<a href="/shenlun/"><img src="/og.jpg"></a>';
+  assert.equal(rewriteHtml(html, ''), html);
+  assert.equal(rewriteHtml(html, '/repo'), '<a href="/repo/shenlun/"><img src="/repo/og.jpg"></a>');
+});
+
+test('prefixes responsive images and serialized link props', () => {
+  const html = '<img srcSet="/a.png 1x, /b.png 2x"><script>{\\"href\\":\\"/shenlun/\\"}</script>';
+  assert.equal(
+    rewriteHtml(html, '/repo'),
+    '<img srcSet="/repo/a.png 1x, /repo/b.png 2x"><script>{\\"href\\":\\"/repo/shenlun/\\"}</script>',
+  );
+  assert.deepEqual(findUnprefixedReferences(rewriteHtml(html, '/repo'), '/repo'), []);
+});
+
+test('replaces build-server metadata URLs for both profiles', () => {
+  const html = '<meta property="og:image" content="http://localhost:3000/og.png">';
+  assert.equal(rewriteHtml(html, ''), '<meta property="og:image" content="/og.png">');
+  assert.equal(rewriteHtml(html, '/repo'), '<meta property="og:image" content="/repo/og.png">');
+});
+
+test('finds unprefixed literal, responsive, and serialized references', () => {
+  const html = '<a href="/raw/"></a><img srcSet="/repo/a.png 1x, /raw.png 2x"><script>{\\"src\\":\\"/raw.svg\\"}</script>';
+  assert.deepEqual(findUnprefixedReferences(html, '/repo'), ['/raw/', '/raw.png', '/raw.svg']);
+});

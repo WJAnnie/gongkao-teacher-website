@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.13.0
           cache: npm
 
       - name: Install dependencies
@@ -38,6 +38,9 @@ jobs:
             'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3' \
             -o public/audio/xiang-an.mp3
           test -s public/audio/xiang-an.mp3
+
+      - name: Verify source
+        run: npm run verify
 
       - name: Build static site
         run: npm run build:static

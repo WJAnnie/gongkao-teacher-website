@@ -19,13 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_REPOSITORY: ${{ github.repository }}
+      SITE_BASE_PATH: /${{ github.event.repository.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.13.0
           cache: npm
       - name: Install dependencies
         run: npm ci
@@ -36,10 +37,10 @@ jobs:
             'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3' \
             -o public/audio/xiang-an.mp3
           test -s public/audio/xiang-an.mp3
-      - name: Build application
-        run: npm run build
-      - name: Generate static Pages artifact
-        run: node scripts/build-github-pages.mjs
+      - name: Verify source
+        run: npm run verify
+      - name: Build static Pages artifact
+        run: npm run build:static:pages
       - name: Rewrite Xiangan audio to same-origin asset
         run: |
           python - <<'PY'
