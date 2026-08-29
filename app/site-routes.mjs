@@ -1,0 +1,46 @@
+export const hotspotCategoryKeys = Object.freeze([
+  'development',
+  'culture',
+  'people',
+  'government',
+  'grassroots',
+  'law',
+  'values',
+  'era',
+]);
+
+export const caseCategoryKeys = Object.freeze([
+  'people',
+  'practice',
+  'city',
+  'reform',
+  'technology',
+  'livelihood',
+  'law',
+  'negative',
+  'culture',
+  'rural',
+  'ecology',
+  'enterprise',
+]);
+
+export const staticRoutes = Object.freeze([
+  '/',
+  '/questions/',
+  '/materials/',
+  '/tools/',
+  '/shenlun/',
+  '/shenlun/framework/',
+  '/shenlun/questions/',
+  '/shenlun/writing/',
+  '/shenlun/writing/hotspots/',
+  ...hotspotCategoryKeys.map((key) => `/shenlun/writing/hotspots/${key}/`),
+  '/shenlun/writing/cases/',
+  ...caseCategoryKeys.map((key) => `/shenlun/writing/cases/${key}/`),
+  '/shenlun/writing/metaphors/',
+  '/shenlun/videos/',
+  '/interview/methods/',
+  '/interview/questions/',
+  '/interview/expression/',
+  '/interview/videos/',
+]);

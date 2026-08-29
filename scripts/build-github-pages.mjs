@@ -2,6 +2,7 @@ import { spawn } from 'node:child_process';
 import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:net';
 import { join, resolve } from 'node:path';
+import { staticRoutes } from '../app/site-routes.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const outputDir = join(root, 'site');
@@ -9,30 +10,6 @@ const repository = process.env.GITHUB_REPOSITORY ?? '';
 const repositoryName = repository.split('/')[1] || '';
 const basePath = process.env.SITE_BASE_PATH ?? (repositoryName ? `/${repositoryName}` : '');
 const port = await findFreePort();
-
-const writingHotspotKeys = ['development', 'culture', 'people', 'government', 'grassroots', 'law', 'values', 'era'];
-const writingCaseKeys = ['people', 'practice', 'city', 'reform', 'technology', 'livelihood', 'law', 'negative', 'culture', 'rural', 'ecology', 'enterprise'];
-
-const routes = [
-  '/',
-  '/questions/',
-  '/materials/',
-  '/tools/',
-  '/shenlun/',
-  '/shenlun/framework/',
-  '/shenlun/questions/',
-  '/shenlun/writing/',
-  '/shenlun/writing/hotspots/',
-  ...writingHotspotKeys.map((key) => `/shenlun/writing/hotspots/${key}/`),
-  '/shenlun/writing/cases/',
-  ...writingCaseKeys.map((key) => `/shenlun/writing/cases/${key}/`),
-  '/shenlun/writing/metaphors/',
-  '/shenlun/videos/',
-  '/interview/methods/',
-  '/interview/questions/',
-  '/interview/expression/',
-  '/interview/videos/',
-];
 
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });
@@ -53,7 +30,7 @@ try {
   await cp(join(root, 'dist', 'client', '_next'), join(outputDir, '_next'), { recursive: true });
   await cp(join(root, 'public'), outputDir, { recursive: true, force: true });
 
-  for (const route of routes) {
+  for (const route of staticRoutes) {
     const response = await fetch(`http://127.0.0.1:${port}${route}`);
     if (!response.ok) {
       const body = await response.text();
@@ -70,7 +47,7 @@ try {
       await writeFile(join(routeDir, 'index.html'), html, 'utf8');
     }
   }
-  console.log(`Static site artifact generated in ${outputDir} (${routes.length} routes)`);
+  console.log(`Static site artifact generated in ${outputDir} (${staticRoutes.length} routes)`);
 } finally {
   server.kill();
   if (logs.includes('Error')) process.stderr.write(logs);
