@@ -40,9 +40,13 @@ export function rewriteHtml(html, basePathValue) {
     /(\\"(?:href|src)\\":\\")(\/[^\\"]*)/g,
     (_match, prefix, path) => `${prefix}${prefixRootPath(path, basePath)}`,
   );
-  return rewritten.replace(
+  rewritten = rewritten.replace(
     /(\\"srcSet\\":\\")([^\\"]*)/g,
     (_match, prefix, value) => `${prefix}${prefixSrcSet(value, basePath)}`,
+  );
+  return rewritten.replace(
+    /(?<![A-Za-z0-9._~-])(\/_next\/[^"'\\\s<)\],]+)/g,
+    (_match, path) => `${basePath}${path}`,
   );
 }
 
@@ -63,7 +67,10 @@ export function findUnprefixedReferences(html, basePathValue) {
   for (const match of html.matchAll(/\\"srcSet\\":\\"([^\\"]*)/g)) {
     references.push(...findUnprefixedSrcSetPaths(match[1], basePath));
   }
-  return references;
+  for (const match of html.matchAll(/(?<![A-Za-z0-9._~-])(\/_next\/[^"'\\\s<)\],]+)/g)) {
+    if (isUnprefixed(match[1], basePath)) references.push(match[1]);
+  }
+  return [...new Set(references)];
 }
 
 function prefixRootPath(path, basePath) {

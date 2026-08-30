@@ -10,6 +10,9 @@ const outputDir = join(root, 'site');
 const repository = process.env.GITHUB_REPOSITORY ?? '';
 const repositoryName = repository.split('/')[1] || '';
 const basePath = normalizeBasePath(process.env.SITE_BASE_PATH ?? (repositoryName ? `/${repositoryName}` : ''));
+const clientAssets = basePath
+  ? join(root, 'dist', 'client', basePath.slice(1), '_next')
+  : join(root, 'dist', 'client', '_next');
 const port = await findFreePort();
 
 await rm(outputDir, { recursive: true, force: true });
@@ -27,12 +30,12 @@ server.stdout.on('data', (chunk) => { logs += chunk.toString(); });
 server.stderr.on('data', (chunk) => { logs += chunk.toString(); });
 
 try {
-  await waitForHttp(`http://127.0.0.1:${port}/`, 30000);
-  await cp(join(root, 'dist', 'client', '_next'), join(outputDir, '_next'), { recursive: true });
+  await waitForHttp(`http://127.0.0.1:${port}${basePath}/`, 30000);
+  await cp(clientAssets, join(outputDir, '_next'), { recursive: true });
   await cp(join(root, 'public'), outputDir, { recursive: true, force: true });
 
   for (const route of staticRoutes) {
-    const response = await fetch(`http://127.0.0.1:${port}${route}`);
+    const response = await fetch(`http://127.0.0.1:${port}${basePath}${route}`);
     if (!response.ok) {
       const body = await response.text();
       throw new Error(`Production page ${route} returned HTTP ${response.status}.\n${body.slice(0, 4000)}\n\nServer logs:\n${logs}`);

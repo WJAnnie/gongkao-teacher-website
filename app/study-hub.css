@@ -131,7 +131,7 @@
 .tool-title h3 { margin: 0; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(27px, 3vw, 42px); font-weight: 500; }
 .timer-display { margin: 58px 0 38px; font: italic clamp(72px, 10vw, 138px)/.9 Georgia, serif; letter-spacing: -.06em; }
 .timer-presets, .timer-actions, .record-rating { display: flex; gap: 8px; flex-wrap: wrap; }
-.timer-presets button, .timer-actions button, .record-rating button { padding: 9px 12px; }
+.timer-presets button, .timer-actions button, .record-rating button { min-height: 40px; padding: 9px 12px; }
 .timer-actions { margin-top: 12px; }
 .timer-actions button:first-child { min-width: 110px; background: var(--blue); color: white; border-color: var(--blue); }
 .writing-tool textarea { width: 100%; min-height: 238px; margin-top: 26px; resize: vertical; border: 0; border-bottom: 1px solid rgba(37,37,31,.4); outline: none; background: transparent; color: inherit; font: inherit; font-size: 14px; line-height: 1.9; }

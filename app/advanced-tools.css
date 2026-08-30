@@ -58,7 +58,7 @@
   font-size: 11px;
   cursor: pointer;
 }
-.mock-switch button { padding: 9px 13px; border-radius: 100px; }
+.mock-switch button { min-height: 40px; padding: 9px 13px; border-radius: 100px; }
 .mock-switch button.active { background: var(--ink); color: var(--paper); }
 .build-mock { width: 100%; margin-top: 12px; padding: 14px; background: var(--orange); color: #fff9ef; border-color: var(--orange); }
 .mock-list { margin-top: 22px; display: grid; gap: 0; }

@@ -16,6 +16,7 @@ type NavigatorWithSaveData = Navigator & {
 
 export function HomeSongPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const sourceLinkRef = useRef<HTMLAnchorElement>(null);
   const lyricsPanelRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -32,6 +33,14 @@ export function HomeSongPlayer() {
     if (!audio) return;
     setCurrentTime(Number.isFinite(audio.currentTime) ? audio.currentTime : 0);
     if (Number.isFinite(audio.duration) && audio.duration > 0) setDuration(audio.duration);
+  };
+
+  const ensureAudioSource = (audio: HTMLAudioElement) => {
+    if (audio.getAttribute('src')) return;
+    const source = sourceLinkRef.current?.href;
+    if (!source) throw new Error('Home audio source is unavailable.');
+    audio.src = source;
+    audio.load();
   };
 
   // 保守地从 metadata 开始；客户端确认未开启 Save-Data 后才允许预载完整音频。
@@ -116,6 +125,7 @@ export function HomeSongPlayer() {
     if (!audio) return;
     if (audio.paused) {
       try {
+        ensureAudioSource(audio);
         await audio.play();
         setStarted(true);
         setPlaying(true);
@@ -152,15 +162,27 @@ export function HomeSongPlayer() {
     syncFromAudio();
   };
 
+  const reloadAudio = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    setAudioError(false);
+    try {
+      ensureAudioSource(audio);
+      audio.load();
+    } catch {
+      setAudioError(true);
+    }
+  };
+
   const currentLyric = activeIndex >= 0 ? HOME_SONG.lyrics[activeIndex].text : '♪ 前奏 · 向岸';
   const nextLyric = activeIndex + 1 < HOME_SONG.lyrics.length ? HOME_SONG.lyrics[activeIndex + 1].text : '';
   const safeDuration = duration || HOME_SONG.fallbackDuration;
 
   return (
     <>
+      <a ref={sourceLinkRef} href={HOME_SONG.src} hidden aria-hidden="true" tabIndex={-1}>向岸音频</a>
       <audio
         ref={audioRef}
-        src={HOME_SONG.src}
         preload={getAudioPreload(saveData)}
         onLoadedMetadata={(event) => {
           const audio = event.currentTarget;
@@ -212,7 +234,7 @@ export function HomeSongPlayer() {
             {audioError ? (
               <div className="home-song-error" role="status">
                 <span>音频暂时无法加载。</span>
-                <button type="button" onClick={() => { setAudioError(false); audioRef.current?.load(); }}>重新加载</button>
+                <button type="button" onClick={reloadAudio}>重新加载</button>
               </div>
             ) : (
               <>

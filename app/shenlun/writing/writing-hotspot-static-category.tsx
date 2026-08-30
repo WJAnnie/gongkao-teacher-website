@@ -1,4 +1,5 @@
-import Link from 'next/link';
+/* eslint-disable @next/next/no-html-link-for-pages -- Static export rewrites these anchors for the Pages base path; Vinext Link prefetch fails without an RSC server. */
+
 import { hotspotIndex } from './writing-library-index';
 import { loadHotspotCategory } from './writing-hotspot-loader';
 import { annotateWritingHighlight } from './writing-static-highlight';
@@ -6,12 +7,12 @@ import { WritingStaticEnhancer } from './writing-static-enhancer';
 
 export async function HotspotStaticCategory({ categoryKey }: { categoryKey: string }) {
   const item = hotspotIndex.find((entry) => entry.key === categoryKey);
-  if (!item) return <section className="writing-placeholder-article"><h2>没有找到这个热点分类</h2><Link className="writing-library-back" href="/shenlun/writing/hotspots/">返回热点时评分类</Link></section>;
+  if (!item) return <section className="writing-placeholder-article"><h2>没有找到这个热点分类</h2><a className="writing-library-back" href="/shenlun/writing/hotspots/">返回热点时评分类</a></section>;
 
   const category = await loadHotspotCategory(item.key);
   return <section className="writing-collection-view writing-static-collection">
     <WritingStaticEnhancer />
-    <Link className="writing-library-back" href="/shenlun/writing/hotspots/">← 返回热点时评分类</Link>
+    <a className="writing-library-back" href="/shenlun/writing/hotspots/">← 返回热点时评分类</a>
     <header className="framework-article-intro writing-collection-intro"><span>{category.no} / {category.en}</span><h2>{category.label}</h2><p>{category.desc}</p></header>
     <div className="tips-accordion writing-learning-accordion">
       {category.articles.map((entry) => <details className="tips-article writing-learning-item writing-static-details" id={`hotspot-${entry.slug}`} data-writing-autoscroll key={entry.slug}>

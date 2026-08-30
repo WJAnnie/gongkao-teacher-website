@@ -8,7 +8,7 @@ function Case({ label, title, children, note }: { label: string; title: string; 
   return <article className="framework-deep-case"><div className="framework-deep-case-copy"><span>{label}</span><h5>{title}</h5>{children}</div><aside><b>阅 / 这道题看什么</b>{note}</aside></article>;
 }
 function Compare({ rows }: { rows: Array<[string, string, string]> }) {
-  return <table className="framework-deep-table"><tbody>{rows.map(([a,b,c]) => <tr key={a}><th>{a}</th><td>{b}</td><td>{c}</td></tr>)}</tbody></table>;
+  return <table className="framework-deep-table"><tbody>{rows.map(([a,b,c]) => <tr key={`${a}-${b}`}><th>{a}</th><td>{b}</td><td>{c}</td></tr>)}</tbody></table>;
 }
 
 export function ExpressionDeep({ id }: { id: string }) {

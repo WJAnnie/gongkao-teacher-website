@@ -198,7 +198,7 @@
   }
   .learning-topnav-brand { grid-area: brand; }
   .learning-topnav-home { grid-area: home; justify-self: end; }
-  .learning-topnav-brand > span { width: 30px; height: 30px; }
+  .learning-topnav-brand > span { width: 40px; height: 40px; }
   .learning-topnav-brand b { display: inline; font-size: 10px; }
   .learning-topnav-desktop { display: none; }
 

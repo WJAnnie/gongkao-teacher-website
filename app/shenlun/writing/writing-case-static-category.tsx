@@ -1,4 +1,5 @@
-import Link from 'next/link';
+/* eslint-disable @next/next/no-html-link-for-pages -- Static export rewrites these anchors for the Pages base path; Vinext Link prefetch fails without an RSC server. */
+
 import { caseIndex } from './writing-library-index';
 import { loadCaseCategory } from './writing-case-loader';
 import { annotateWritingHighlight } from './writing-static-highlight';
@@ -6,12 +7,12 @@ import { WritingStaticEnhancer } from './writing-static-enhancer';
 
 export async function CaseStaticCategory({ categoryKey }: { categoryKey: string }) {
   const item = caseIndex.find((entry) => entry.key === categoryKey);
-  if (!item) return <section className="writing-placeholder-article"><h2>没有找到这个案例分类</h2><Link className="writing-library-back" href="/shenlun/writing/cases/">返回案例素材分类</Link></section>;
+  if (!item) return <section className="writing-placeholder-article"><h2>没有找到这个案例分类</h2><a className="writing-library-back" href="/shenlun/writing/cases/">返回案例素材分类</a></section>;
 
   const category = await loadCaseCategory(item.key);
   return <section className="writing-collection-view writing-static-collection">
     <WritingStaticEnhancer />
-    <Link className="writing-library-back" href="/shenlun/writing/cases/">← 返回案例素材分类</Link>
+    <a className="writing-library-back" href="/shenlun/writing/cases/">← 返回案例素材分类</a>
     <header className="framework-article-intro writing-collection-intro"><span>{category.no} / CASE LIBRARY</span><h2>{category.label}</h2><p>{category.desc}</p></header>
     <div className="tips-accordion writing-learning-accordion writing-case-accordion">
       {category.cases.map((entry) => <details className="tips-article writing-learning-item writing-static-details" id={`case-${entry.slug}`} data-writing-autoscroll key={entry.slug}>

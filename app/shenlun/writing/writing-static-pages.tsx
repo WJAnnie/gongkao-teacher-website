@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { hotspotIndex, caseIndex } from './writing-library-index';
 
 const librarySections = [
@@ -13,7 +12,7 @@ const librarySections = [
 ] as const;
 
 function ChoiceCard({ no, label, desc, href, meta }: { no: string; label: string; desc: string; href: string; meta: string }) {
-  return <Link className="writing-static-choice" href={href}><span>{no}</span><b>{label}</b><p>{desc}</p><em>{meta}　→</em></Link>;
+  return <a className="writing-static-choice" href={href}><span>{no}</span><b>{label}</b><p>{desc}</p><em>{meta}　→</em></a>;
 }
 
 export function WritingStaticLanding() {
@@ -36,7 +35,7 @@ export function WritingStaticLanding() {
 
 export function HotspotStaticIndex() {
   return <section className="writing-library-landing writing-static-landing">
-    <Link className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</Link>
+    <a className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</a>
     <span className="writing-library-kicker">01 / HOT TOPICS</span>
     <h2>热点时评怎么积累</h2>
     <p className="writing-library-teacher-note">先判断题目落在哪个知识领域，再进入对应分类。每个分类是一张独立静态页面，只装这一类10—13篇文章，不会把84篇正文一次性加载进浏览器。</p>
@@ -48,7 +47,7 @@ export function HotspotStaticIndex() {
 
 export function CaseStaticIndex() {
   return <section className="writing-library-landing writing-static-landing">
-    <Link className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</Link>
+    <a className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</a>
     <span className="writing-library-kicker">02 / CASE LIBRARY</span>
     <h2>案例素材怎么积累</h2>
     <p className="writing-library-teacher-note">先用150—300字把案例看懂，再学习如何把事实压短，把道理、意义和做法启示写出来。每种案例类型独立成页，一次只加载10个案例。</p>

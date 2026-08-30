@@ -26,6 +26,14 @@ test('prefixes responsive images and serialized link props', () => {
   assert.deepEqual(findUnprefixedReferences(rewriteHtml(html, '/repo'), '/repo'), []);
 });
 
+test('prefixes and validates Vinext framework assets inside RSC payloads', () => {
+  const html = String.raw`<link data-rsc-css-href="/_next/static/css/app.css"><script>push(":HL[\"/_next/static/css/app.css\",\"style\"]")</script>`;
+  const expected = String.raw`<link data-rsc-css-href="/repo/_next/static/css/app.css"><script>push(":HL[\"/repo/_next/static/css/app.css\",\"style\"]")</script>`;
+  assert.equal(rewriteHtml(html, '/repo'), expected);
+  assert.deepEqual(findUnprefixedReferences(html, '/repo'), ['/_next/static/css/app.css']);
+  assert.deepEqual(findUnprefixedReferences(expected, '/repo'), []);
+});
+
 test('replaces build-server metadata URLs for both profiles', () => {
   const html = '<meta property="og:image" content="http://localhost:3000/og.png">';
   assert.equal(rewriteHtml(html, ''), '<meta property="og:image" content="/og.png">');

@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
   title: '答卷之外｜申论与面试学习站',
   description: '专注申论与结构化面试：历年真题索引、专项练习、学习资料、素材积累、答题计时与复盘工具。',
+  icons: { icon: '/favicon.svg' },
   openGraph: {
     title: '答卷之外｜申论与面试学习站',
     description: '把公考题做懂，把话说清。这里有申论与面试真题、方法资料、素材积累和训练工具。',

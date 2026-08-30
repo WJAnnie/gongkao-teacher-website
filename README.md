@@ -31,26 +31,57 @@
 
 四个入口使用不同主题色：蓝 / 橙 / 酸绿 / 紫灰，并在独立页面延续相同视觉记忆。
 
-## 独立页面
+## 36 个静态路由
 
 ```text
+通用（4）
 /                                      首页
-/questions/                             通用真题题库
-/materials/                             通用学习资料
-/tools/                                 通用训练工具
-/shenlun/                               申论学习地图
-/shenlun/framework/                     方法框架
-/shenlun/framework/summary/             归纳概括
-/shenlun/framework/analysis/            综合分析
-/shenlun/framework/solution/            提出对策
-/shenlun/framework/implementation/      贯彻执行
-/shenlun/framework/essay/               文章写作
-/shenlun/questions/                     真题精练
-/shenlun/writing/                       写作积累
-/shenlun/videos/                        课程现场
+/questions/                            通用真题题库
+/materials/                            通用学习资料
+/tools/                                通用训练工具
+
+申论主干（8）
+/shenlun/                              申论学习地图
+/shenlun/framework/                    方法框架
+/shenlun/questions/                    真题精练
+/shenlun/writing/                      写作积累
+/shenlun/writing/hotspots/             热点时评目录
+/shenlun/writing/cases/                案例素材目录
+/shenlun/writing/metaphors/            比喻词库
+/shenlun/videos/                       课程现场
+
+热点分类（8）
+/shenlun/writing/hotspots/development/ 发展与现代化
+/shenlun/writing/hotspots/culture/     文化
+/shenlun/writing/hotspots/people/      人民
+/shenlun/writing/hotspots/government/  政府治理
+/shenlun/writing/hotspots/grassroots/  基层治理
+/shenlun/writing/hotspots/law/         法治
+/shenlun/writing/hotspots/values/      价值观
+/shenlun/writing/hotspots/era/         时代主题
+
+案例分类（12）
+/shenlun/writing/cases/people/         人物案例
+/shenlun/writing/cases/practice/       实践案例
+/shenlun/writing/cases/city/           城市治理
+/shenlun/writing/cases/reform/         改革创新
+/shenlun/writing/cases/technology/     科技创新
+/shenlun/writing/cases/livelihood/     民生保障
+/shenlun/writing/cases/law/            法治建设
+/shenlun/writing/cases/negative/       反面案例
+/shenlun/writing/cases/culture/        文化传承
+/shenlun/writing/cases/rural/          乡村振兴
+/shenlun/writing/cases/ecology/        生态文明
+/shenlun/writing/cases/enterprise/     企业发展
+
+面试（4）
+/interview/methods/                    题型方法
+/interview/questions/                  真题实战
+/interview/expression/                 表达训练
+/interview/videos/                     课程现场
 ```
 
-静态构建脚本会同时导出以上 14 个路由，可用于 GitHub Pages / EdgeOne Pages。
+静态路由清单的唯一数据源是 `app/site-routes.mjs`。两种静态构建都会导出并校验上述 36 个路由。
 
 ## 方法框架
 
@@ -133,22 +164,48 @@
 
 ## 本地开发
 
-建议 Node.js 22 或更高版本。
+需要 Node.js 22.13 或更高版本。Windows 下推荐直接双击根目录的 `start-local.cmd`，或在终端执行：
 
-```bash
+```powershell
+.\start-local.cmd
+```
+
+启动器会校验 Node.js，在需要时执行 `npm ci`，准备本地音频，自动选择从 3000 开始的可用端口，并同时打印电脑和同一局域网手机的访问地址。脚本**不会修改 Windows 防火墙**。
+
+手动开发流程：
+
+```powershell
 git clone https://github.com/WJAnnie/gongkao-teacher-website.git
 cd gongkao-teacher-website
-npm install
-npm run dev
+npm.cmd ci
+npm.cmd run dev
 ```
 
-静态构建：
+提交前自动门禁：
 
-```bash
-npm run build:static
+```powershell
+npm.cmd run verify
 ```
 
-静态产物生成到 `site/`。
+`verify` 会依次运行 ESLint、TypeScript 类型检查和 Node 测试。
+
+### 两种静态构建配置
+
+```powershell
+# 根路径版：用于本地静态服务或 EdgeOne
+npm.cmd run build:static
+
+# GitHub Pages 版：默认使用 /gongkao-teacher-website/ 前缀
+npm.cmd run build:static:pages
+```
+
+两个命令都会重建 `site/`，校验 36 个路由、基础路径和静态资产，并生成 `site/size-report.json`。GitHub Pages 的仓库名可由 `GITHUB_REPOSITORY`推导，也可用 `SITE_BASE_PATH` 显式覆盖。
+
+### 内容与本地数据
+
+- 本阶段的练习记录保存在当前浏览器 `localStorage` 中，不会自动上传或跨设备同步。
+- `app/data/content-catalog.ts` 和 `app/data/practice-record-store.ts` 是未来接入数据库、管理后台或同步层的明确边界；现阶段不引入后端依赖。
+- `public/audio/xiang-an.mp3` 是由 `node scripts/vendor-home-audio.mjs` 下载和验证的生成资产，已被 Git 忽略，不应提交占位或伪造的 MP3。`start-local.cmd` 和部署工作流会在启动/构建前准备它；上游音频 CDN 不可用时应明确报错。
 
 ## 内容继续扩展
 

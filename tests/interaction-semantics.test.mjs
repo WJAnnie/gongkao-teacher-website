@@ -7,7 +7,10 @@ const study = await readFile(new URL('../app/study-hub.css', import.meta.url), '
 const layout = await readFile(new URL('../app/layout.tsx', import.meta.url), 'utf8');
 const mobile = await readFile(new URL('../app/mobile-refinement.css', import.meta.url), 'utf8');
 const studyHub = await readFile(new URL('../app/study-hub.tsx', import.meta.url), 'utf8');
+const advancedToolsCss = await readFile(new URL('../app/advanced-tools.css', import.meta.url), 'utf8');
 const learningNav = await readFile(new URL('../app/learning-nav.tsx', import.meta.url), 'utf8');
+const learningNavCss = await readFile(new URL('../app/learning-nav.css', import.meta.url), 'utf8');
+const frameworkManualCss = await readFile(new URL('../app/shenlun/framework/framework-manual.css', import.meta.url), 'utf8');
 const subjectGateway = await readFile(new URL('../app/subject-gateway.tsx', import.meta.url), 'utf8');
 
 test('real links own rail, arrow, focus, and active states', () => {
@@ -33,4 +36,13 @@ test('semantic classes are attached only to their matching controls and content'
 test('mobile overrides no longer target the retired details navigation', () => {
   assert.doesNotMatch(mobile, /\.learning-topnav-mobile\s+(?:details|summary)/);
   assert.doesNotMatch(mobile, /\.learning-topnav-mobile\s+details[^\{]*\{/);
+});
+
+test('matrix-observed touch controls keep a 40px minimum target', () => {
+  assert.match(learningNavCss, /\.learning-topnav-brand > span \{ width: 40px; height: 40px; \}/);
+  assert.match(learningNavCss, /\.learning-topnav-home \{ width: 40px; height: 40px; \}/);
+  assert.match(mobile, /\.learning-topnav-brand > span \{ width: 40px; height: 40px; \}/);
+  assert.match(study, /\.timer-presets button, \.timer-actions button, \.record-rating button \{[^}]*min-height: 40px;/s);
+  assert.match(advancedToolsCss, /\.mock-switch button \{[^}]*min-height: 40px;/s);
+  assert.match(frameworkManualCss, /\.framework-drawer-close \{[^}]*width: 40px;[^}]*height: 40px;/s);
 });

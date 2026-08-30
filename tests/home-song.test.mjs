@@ -29,10 +29,13 @@ test('lyric index derives from audio time', () => {
   assert.equal(getLyricIndex(HOME_SONG.lyrics[1].at), 1);
 });
 
-test('player uses the same-origin song with conservative save-data preload', () => {
+test('player resolves the same-origin song without requesting it before user intent', () => {
   assert.match(player, /import \{ HOME_SONG, getAudioPreload, getLyricIndex \}/);
   assert.match(player, /navigator[^\n]+connection\?\.saveData/);
-  assert.match(player, /src=\{HOME_SONG\.src\}/);
+  assert.match(player, /ref=\{sourceLinkRef\}/);
+  assert.match(player, /href=\{HOME_SONG\.src\}/);
+  assert.match(player, /audio\.src = source/);
+  assert.doesNotMatch(player, /<audio[\s\S]{0,160}src=\{HOME_SONG\.src\}/);
   assert.match(player, /preload=\{getAudioPreload\(saveData\)\}/);
   assert.doesNotMatch(player, /https:\/\/cdn1\.suno\.ai/);
 });
@@ -43,7 +46,9 @@ test('only the visible play control may start playback and failures can retry', 
   assert.doesNotMatch(player, /addEventListener\(['"](?:pointerdown|keydown)['"]/);
   assert.match(player, /if \(audioRef\.current\?\.error\) setAudioError\(true\)/);
   assert.match(player, /className="home-song-error" role="status"/);
-  assert.match(player, /setAudioError\(false\);\s*audioRef\.current\?\.load\(\)/);
+  assert.match(player, /const reloadAudio = \(\) =>/);
+  assert.match(player, /ensureAudioSource\(audio\);\s*audio\.load\(\)/);
+  assert.match(player, /onClick=\{reloadAudio\}/);
 });
 
 test('vendor script validates and atomically installs a real audio asset', () => {

@@ -32,6 +32,7 @@ const hotspotCategoryPage = await read('../app/shenlun/writing/hotspots/[categor
 const caseCategoryPage = await read('../app/shenlun/writing/cases/[category]/page.tsx');
 const hotspotCategoryView = await read('../app/shenlun/writing/writing-hotspot-static-category.tsx');
 const caseCategoryView = await read('../app/shenlun/writing/writing-case-static-category.tsx');
+const frameworkDeepEnrichment = await read('../app/shenlun/framework/framework-deep-enrichment.tsx');
 
 test('root layout excludes every specialist-only stylesheet', () => {
   assert.doesNotMatch(rootLayout, /shenlun\/framework\/framework-/);
@@ -104,4 +105,15 @@ test('dynamic category routes load only their selected corpus boundary', () => {
   assert.doesNotMatch(hotspotCategoryView, /writing-hotspot-all/);
   assert.match(caseCategoryView, /loadCaseCategory/);
   assert.doesNotMatch(caseCategoryView, /writing-case-all/);
+});
+
+test('static writing navigation avoids Vinext RSC prefetch links', () => {
+  for (const source of [writingStaticPages, hotspotCategoryView, caseCategoryView]) {
+    assert.doesNotMatch(source, /from 'next\/link'/);
+  }
+});
+
+test('framework table rows use content-derived unique keys', () => {
+  assert.match(frameworkDeepEnrichment, /key=\{`\$\{a\}-\$\{b\}`\}/);
+  assert.doesNotMatch(frameworkDeepEnrichment, /<tr key=\{a\}>/);
 });

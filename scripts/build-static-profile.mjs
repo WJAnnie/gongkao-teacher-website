@@ -18,7 +18,7 @@ const npmCommand =
     ? [process.env.ComSpec ?? 'cmd.exe', ['/d', '/s', '/c', 'npm.cmd']]
     : ['npm', []];
 const commands = [
-  [npmCommand[0], [...npmCommand[1], 'run', 'build'], {}],
+  [npmCommand[0], [...npmCommand[1], 'run', 'build'], { SITE_BASE_PATH: basePath }],
   [process.execPath, ['scripts/build-github-pages.mjs'], { SITE_BASE_PATH: basePath }],
   [process.execPath, ['scripts/validate-static-artifact.mjs', '--base-path', basePath], {}],
   [process.execPath, ['scripts/report-static-size.mjs'], {}],

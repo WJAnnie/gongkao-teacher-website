@@ -178,6 +178,8 @@ main.interview-site > header.learning-topnav {
 
 @media (max-width: 1040px) {
   .learning-topnav { grid-template-columns: auto 1fr auto; }
+  .learning-topnav-brand > span { width: 40px; height: 40px; }
+  .learning-topnav-home { width: 40px; height: 40px; }
   .learning-topnav-desktop { display: none; }
   .learning-topnav-mobile {
     display: flex;
@@ -260,8 +262,8 @@ main.interview-site > header.learning-topnav {
     padding-inline: 12px;
   }
   .learning-topnav-brand b { display: none; }
-  .learning-topnav-brand > span { width: 30px; height: 30px; }
+  .learning-topnav-brand > span { width: 40px; height: 40px; }
   .learning-topnav-mobile { justify-content: start; gap: 6px; }
   .learning-mobile-group-trigger { padding-inline: 9px; }
-  .learning-topnav-home { width: 30px; height: 30px; }
+  .learning-topnav-home { width: 40px; height: 40px; }
 }
