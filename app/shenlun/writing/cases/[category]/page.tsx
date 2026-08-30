@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ShenlunShell } from '../../../../shenlun-shell';
-import { CaseStaticCategory } from '../../writing-static-pages';
+import { CaseStaticCategory } from '../../writing-case-static-category';
 import { caseIndex } from '../../writing-library-index';
 
 export function generateStaticParams() {

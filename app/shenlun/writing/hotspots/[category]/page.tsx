@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ShenlunShell } from '../../../../shenlun-shell';
-import { HotspotStaticCategory } from '../../writing-static-pages';
+import { HotspotStaticCategory } from '../../writing-hotspot-static-category';
 import { hotspotIndex } from '../../writing-library-index';
 
 export function generateStaticParams() {

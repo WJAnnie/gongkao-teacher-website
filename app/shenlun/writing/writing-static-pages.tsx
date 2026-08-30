@@ -1,11 +1,5 @@
 import Link from 'next/link';
-import type { ReactNode } from 'react';
-import { hotspotCategories } from './writing-hotspot-all';
-import type { HotspotHighlight } from './writing-hotspot-schema';
-import { writingCaseCategories, type CaseHighlight } from './writing-case-all';
 import { hotspotIndex, caseIndex } from './writing-library-index';
-import { metaphorEntries, metaphorSourceLinks } from './writing-metaphor-data';
-import { WritingStaticEnhancer } from './writing-static-enhancer';
 
 const librarySections = [
   { no: '01', label: '热点时评', en: 'HOT TOPICS', href: '/shenlun/writing/hotspots/', desc: '按知识领域进入，不从第一篇顺序刷。重点积累观点、结构、案例和表达。' },
@@ -17,26 +11,6 @@ const librarySections = [
   { no: '07', label: '名人箴言', en: 'QUOTES', href: '/shenlun/writing/#quotes', desc: '记录出处、含义和适用边界，避免万能引用。' },
   { no: '08', label: '作文框架', en: 'ESSAY', href: '/shenlun/writing/#essay', desc: '把观点、论据和表达真正组织成完整文章。' },
 ] as const;
-
-type LearningHighlight = HotspotHighlight | CaseHighlight;
-
-function annotate(text: string, highlights: LearningHighlight[]): ReactNode[] {
-  const matches = highlights
-    .map((item) => ({ ...item, index: text.indexOf(item.text) }))
-    .filter((item) => item.index >= 0)
-    .sort((a, b) => a.index - b.index);
-  if (!matches.length) return [text];
-  const nodes: ReactNode[] = [];
-  let cursor = 0;
-  matches.forEach((item, index) => {
-    if (item.index < cursor) return;
-    if (item.index > cursor) nodes.push(text.slice(cursor, item.index));
-    nodes.push(<span className={`writing-learning-mark mark-${item.label}`} key={`${item.text}-${index}`}>{item.text}<small>{item.label}</small></span>);
-    cursor = item.index + item.text.length;
-  });
-  if (cursor < text.length) nodes.push(text.slice(cursor));
-  return nodes;
-}
 
 function ChoiceCard({ no, label, desc, href, meta }: { no: string; label: string; desc: string; href: string; meta: string }) {
   return <Link className="writing-static-choice" href={href}><span>{no}</span><b>{label}</b><p>{desc}</p><em>{meta}　→</em></Link>;
@@ -72,22 +46,6 @@ export function HotspotStaticIndex() {
   </section>;
 }
 
-export function HotspotStaticCategory({ categoryKey }: { categoryKey: string }) {
-  const category = hotspotCategories.find((item) => item.key === categoryKey);
-  if (!category) return <section className="writing-placeholder-article"><h2>没有找到这个热点分类</h2><Link className="writing-library-back" href="/shenlun/writing/hotspots/">返回热点时评分类</Link></section>;
-  return <section className="writing-collection-view writing-static-collection">
-    <WritingStaticEnhancer />
-    <Link className="writing-library-back" href="/shenlun/writing/hotspots/">← 返回热点时评分类</Link>
-    <header className="framework-article-intro writing-collection-intro"><span>{category.no} / {category.en}</span><h2>{category.label}</h2><p>{category.desc}</p></header>
-    <div className="tips-accordion writing-learning-accordion">
-      {category.articles.map((entry) => <details className="tips-article writing-learning-item writing-static-details" id={`hotspot-${entry.slug}`} data-writing-autoscroll key={entry.slug}>
-        <summary className="tips-article-trigger"><span className="tips-article-no">{entry.no}</span><span className="tips-article-heading"><b>{entry.title}</b><em>{entry.tags.slice(0, 4).join(' · ')} · {entry.length}</em></span><span className="tips-article-action">展开文章<i aria-hidden="true">＋</i></span></summary>
-        <div className="tips-article-body writing-accordion-body"><div className="writing-paper-body"><p className="writing-paper-intro">{annotate(entry.intro, entry.highlights)}<strong className="writing-paper-inline-thesis">{annotate(entry.thesis, entry.highlights)}</strong></p>{entry.sections.map((section) => <p className="writing-paper-section-paragraph" key={section.title}><strong>{annotate(section.title, entry.highlights)}</strong>{annotate(section.body, entry.highlights)}</p>)}<p>{annotate(entry.conclusion, entry.highlights)}</p></div><footer className="writing-paper-footer"><div className="writing-paper-tags">{entry.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><details className="writing-paper-sources"><summary>参考阅读</summary>{entry.references.map((ref) => <a href={ref.href} target="_blank" rel="noreferrer" key={ref.href}>{ref.label}<i>↗</i></a>)}</details></footer></div>
-      </details>)}
-    </div>
-  </section>;
-}
-
 export function CaseStaticIndex() {
   return <section className="writing-library-landing writing-static-landing">
     <Link className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</Link>
@@ -97,39 +55,5 @@ export function CaseStaticIndex() {
     <div className="writing-library-choice-grid writing-case-choice-grid">
       {caseIndex.map((item) => <ChoiceCard key={item.key} no={item.no} label={item.label} desc={item.desc} href={`/shenlun/writing/cases/${item.key}/`} meta={`${item.count} 个案例`} />)}
     </div>
-  </section>;
-}
-
-export function CaseStaticCategory({ categoryKey }: { categoryKey: string }) {
-  const category = writingCaseCategories.find((item) => item.key === categoryKey);
-  if (!category) return <section className="writing-placeholder-article"><h2>没有找到这个案例分类</h2><Link className="writing-library-back" href="/shenlun/writing/cases/">返回案例素材分类</Link></section>;
-  return <section className="writing-collection-view writing-static-collection">
-    <WritingStaticEnhancer />
-    <Link className="writing-library-back" href="/shenlun/writing/cases/">← 返回案例素材分类</Link>
-    <header className="framework-article-intro writing-collection-intro"><span>{category.no} / CASE LIBRARY</span><h2>{category.label}</h2><p>{category.desc}</p></header>
-    <div className="tips-accordion writing-learning-accordion writing-case-accordion">
-      {category.cases.map((entry) => <details className="tips-article writing-learning-item writing-static-details" id={`case-${entry.slug}`} data-writing-autoscroll key={entry.slug}>
-        <summary className="tips-article-trigger"><span className="tips-article-no">{entry.no}</span><span className="tips-article-heading"><b>{entry.title}</b><em>{entry.tags.slice(0, 4).join(' · ')}</em></span><span className="tips-article-action">展开案例<i aria-hidden="true">＋</i></span></summary>
-        <div className="tips-article-body writing-accordion-body writing-case-accordion-body"><section className="writing-case-source"><div className="writing-case-section-label"><span>01</span><b>案例</b><em>150—300字，把事情讲清楚</em></div><p>{entry.summary}</p></section><section className="writing-case-uses"><div className="writing-case-section-label"><span>02</span><b>写进文章</b><em>案例简短，道理讲透</em></div>{entry.usages.map((usage) => <div className="writing-case-usage" key={usage.title}><h3>{usage.title}</h3><p>{annotate(usage.text, usage.highlights)}</p></div>)}</section><footer className="writing-paper-footer"><div className="writing-paper-tags">{entry.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></footer></div>
-      </details>)}
-    </div>
-  </section>;
-}
-
-export function MetaphorStaticPage() {
-  return <section className="writing-library-landing writing-static-metaphors">
-    <WritingStaticEnhancer />
-    <Link className="writing-library-back" href="/shenlun/writing/">← 返回写作积累</Link>
-    <span className="writing-library-kicker">04 / METAPHOR LIBRARY</span>
-    <h2>比喻用词怎么积累</h2>
-    <p className="writing-library-teacher-note">这一部分不按主题硬分类。先理解比喻背后的逻辑关系，再记常见搭配；一段用准一个，通常比连续堆三四个更有力量。</p>
-    <div className="writing-static-search"><label htmlFor="writing-static-metaphor-search">搜索比喻词</label><input id="writing-static-metaphor-search" data-writing-metaphor-search placeholder="可搜：改革、治理、人才、风险、稳定……" /><span data-writing-metaphor-count>找到 {metaphorEntries.length} 条</span></div>
-    <div className="tips-accordion writing-learning-accordion writing-static-metaphor-list">
-      {metaphorEntries.map((entry, index) => <details className="tips-article writing-learning-item writing-static-details" data-writing-autoscroll data-writing-metaphor-item data-search={`${entry.term}${entry.meaning}${entry.use}`} key={`${entry.term}-${index}`}>
-        <summary className="tips-article-trigger"><span className="tips-article-no">{String(index + 1).padStart(3, '0')}</span><span className="tips-article-heading"><b>{entry.term}</b><em>{entry.meaning}</em></span><span className="tips-article-action">查看<i aria-hidden="true">＋</i></span></summary>
-        <div className="tips-article-body writing-accordion-body"><div className="writing-static-metaphor-body"><div><span>含义</span><p>{entry.meaning}</p></div><div><span>常见写法</span><p>{entry.use}</p></div><p>使用提醒：先看上下文关系是否匹配，再决定是否使用。比喻的作用是把逻辑说清楚，不是为了把文章写得“花”。</p></div></div>
-      </details>)}
-    </div>
-    <footer className="writing-static-sources"><h3>语料说明</h3><p>本词库优先参考总书记重要讲话、中央与政府文件、新华社、人民日报等权威语料中的代表性表达。页面中的“含义”和“常见写法”为申论教学整理。</p><div>{metaphorSourceLinks.map((source) => <a href={source.href} target="_blank" rel="noreferrer" key={source.href}>{source.label}<i>↗</i></a>)}</div></footer>
   </section>;
 }

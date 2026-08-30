@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 import { LearningTopNav } from '../learning-nav';
 import { LearningPageEffects, PageGuide, type GuideItem } from '../learning-page-effects';
 import { interviewRoutes, shenlunRoutes } from '../learning-routes';
+import './interview-learning.css';
+import '../menu-hierarchy-refinement.css';
 
 type InterviewTone = 'methods' | 'questions' | 'expression' | 'videos';
 
