@@ -59,13 +59,13 @@ export const metadata: Metadata = {
     description: '把公考题做懂，把话说清。这里有申论与面试真题、方法资料、素材积累和训练工具。',
     type: 'website',
     locale: 'zh_CN',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: '答卷之外：申论与面试学习站' }],
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: '答卷之外：申论与面试学习站' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: '答卷之外｜申论与面试学习站',
     description: '把公考题做懂，把话说清。申论与面试真题、方法资料、素材积累和训练工具。',
-    images: ['/og.png'],
+    images: ['/og.jpg'],
   },
 };
 

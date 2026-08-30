@@ -21,6 +21,7 @@ const commands = [
   [npmCommand[0], [...npmCommand[1], 'run', 'build'], {}],
   [process.execPath, ['scripts/build-github-pages.mjs'], { SITE_BASE_PATH: basePath }],
   [process.execPath, ['scripts/validate-static-artifact.mjs', '--base-path', basePath], {}],
+  [process.execPath, ['scripts/report-static-size.mjs'], {}],
 ];
 
 for (const [command, commandArgs, extraEnvironment] of commands) {
