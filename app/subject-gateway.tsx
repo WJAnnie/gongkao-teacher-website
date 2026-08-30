@@ -52,7 +52,7 @@ export function SubjectGateway() {
               onMouseEnter={() => setActive(track.key)}
             >
               <button
-                className="subject-track-button"
+                className="subject-track-button learning-disclosure-trigger"
                 type="button"
                 onFocus={() => setActive(track.key)}
                 onClick={() => setActive(isActive ? null : track.key)}

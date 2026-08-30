@@ -49,7 +49,7 @@ export function LearningTopNav({ active }: { active?: LearningRouteKey }) {
             <div className={`learning-mobile-group${open ? ' open' : ''}`} key={group.key}>
               <button
                 type="button"
-                className="learning-mobile-group-trigger"
+                className="learning-mobile-group-trigger learning-disclosure-trigger"
                 aria-expanded={open}
                 onClick={() => setMobileOpen(open ? null : group.key)}
               >

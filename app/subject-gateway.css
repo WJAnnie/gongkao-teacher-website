@@ -308,22 +308,6 @@
   line-height: 1.4;
 }
 
-.subject-module-card > b {
-  position: absolute;
-  right: 8px;
-  bottom: 7px;
-  color: var(--module-accent);
-  font-size: 10px;
-  font-weight: 400;
-  opacity: .62;
-  transition: transform .18s ease, opacity .18s ease;
-}
-
-.subject-module-card:hover > b {
-  transform: translate(2px,-2px);
-  opacity: 1;
-}
-
 @media (max-width: 1080px) {
   .hero-directory-slot {
     width: min(430px, 39vw);

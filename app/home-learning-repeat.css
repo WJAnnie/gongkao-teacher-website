@@ -191,22 +191,23 @@
   transition: opacity .2s ease;
 }
 
-.repeat-learning-link > span {
+.repeat-learning-link .learning-entry-link__content {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.repeat-learning-link .learning-entry-link__content > span {
   color: var(--repeat-accent);
   font: italic 9px Georgia, serif;
 }
 
-.repeat-learning-link > b {
+.repeat-learning-link .learning-entry-link__content > b {
   font-family: "Songti SC", "SimSun", Georgia, serif;
   font-size: clamp(15px,1.35vw,20px);
   font-weight: 500;
-}
-
-.repeat-learning-link > i {
-  color: var(--repeat-accent);
-  font: normal 13px Georgia, serif;
-  opacity: .5;
-  transition: transform .2s ease, opacity .2s ease;
 }
 
 .repeat-learning-link:hover {
@@ -220,7 +221,6 @@
 }
 
 .repeat-learning-link:hover::after { opacity: 1; }
-.repeat-learning-link:hover > i { opacity: 1; transform: translate(2px,-2px); }
 
 @media (max-width: 980px) {
   .repeat-learning-row { grid-template-columns: 1fr; }
@@ -292,7 +292,8 @@
 
   .repeat-learning-link:nth-child(2n) { border-right: 0; }
   .repeat-learning-link:nth-last-child(-n+2) { border-bottom: 0; }
-  .repeat-learning-link > b { font-size: 15px; }
+  .repeat-learning-link .learning-entry-link__content { gap: 7px; }
+  .repeat-learning-link .learning-entry-link__content > b { font-size: 15px; }
   .repeat-learning-link:hover { padding-left: 10px; }
 }
 

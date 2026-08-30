@@ -46,11 +46,9 @@ import './shenlun/framework/framework-voice-reading.css';
 import './shenlun/framework/framework-deep-enrichment.css';
 import './shenlun/framework/framework-tips-articles.css';
 import './menu-hierarchy-refinement.css';
-import './interaction-semantics.css';
-import './clickable-menu-affordance.css';
 import './framework-scene-transition.css';
-import './entry-badge-unification.css';
 import './mobile-home-learning-nav.css';
+import './interaction-semantics.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),

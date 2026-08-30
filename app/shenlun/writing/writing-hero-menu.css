@@ -3,7 +3,7 @@
   position: relative;
   min-width: 0;
   display: grid;
-  grid-template-columns: 28px minmax(0,1fr);
+  grid-template-columns: minmax(0,1fr) auto !important;
   align-items: center;
   gap: 12px;
   padding: 0 16px;
@@ -23,6 +23,7 @@
 .writing-hero-entry-strip > :is(button,a).active{color:var(--ink);background:color-mix(in srgb,var(--shenlun-accent) 10%,var(--paper))}
 .writing-hero-entry-strip > :is(button,a).active::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--shenlun-accent)}
 .writing-hero-entry-strip > :is(button,a).launching{transform:translateY(-2px)}
+.writing-hero-entry-strip .learning-entry-link__content{min-width:0;display:grid;grid-template-columns:28px minmax(0,1fr);align-items:center;gap:12px}
 .writing-hero-entry-no{color:var(--shenlun-accent);font:italic 10px/1 Georgia,serif;opacity:.74}
 .writing-hero-entry-main{min-width:0;display:grid;align-content:center;gap:7px}
 .writing-hero-entry-main>b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 16px/1.15 "Songti SC","SimSun",serif;letter-spacing:.01em}
@@ -44,7 +45,8 @@
 }
 @media(max-width:760px){
   .writing-hero-entry-strip{width:100%;margin-top:26px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .writing-hero-entry-strip>:is(button,a){min-height:66px;padding:0 12px;grid-template-columns:24px minmax(0,1fr)}
+  .writing-hero-entry-strip>:is(button,a){min-height:66px;padding:0 12px;grid-template-columns:minmax(0,1fr) auto !important}
+  .writing-hero-entry-strip .learning-entry-link__content{grid-template-columns:24px minmax(0,1fr)}
   .writing-hero-entry-strip>:is(button,a):nth-child(4n+1){border-left:0}.writing-hero-entry-strip>:is(button,a):nth-child(2n+1){border-left:1px solid rgba(37,37,31,.16)}
   .writing-hero-entry-strip>:is(button,a):nth-child(-n+4){border-top:0}.writing-hero-entry-strip>:is(button,a):nth-child(-n+2){border-top:1px solid rgba(37,37,31,.16)}
   .writing-hero-entry-main>b{font-size:15px}

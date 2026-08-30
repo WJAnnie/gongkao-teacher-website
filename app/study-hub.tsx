@@ -196,7 +196,14 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
 
       <div className="study-tabs" role="tablist" aria-label="学习中心栏目">
         {(['题库', '资料', '工具'] as const).map((tab) => (
-          <button key={tab} className={activeTab === tab ? 'active' : ''} onClick={() => setActiveTab(tab)} type="button">
+          <button
+            key={tab}
+            className={`filter-control${activeTab === tab ? ' active is-selected' : ''}`}
+            onClick={() => setActiveTab(tab)}
+            role="tab"
+            aria-selected={activeTab === tab}
+            type="button"
+          >
             {tab === '题库' ? '真题 / 专项题库' : tab === '资料' ? '学习资料库' : '训练工具箱'}
           </button>
         ))}
@@ -207,7 +214,13 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
           <div className="question-toolbar">
             <div className="toolbar-group">
               {(['全部', '申论', '面试'] as const).map((item) => (
-                <button key={item} type="button" className={subject === item ? 'active' : ''} onClick={() => { setSubject(item); setType('全部题型'); }}>
+                <button
+                  key={item}
+                  type="button"
+                  className={`filter-control${subject === item ? ' active is-selected' : ''}`}
+                  aria-pressed={subject === item}
+                  onClick={() => { setSubject(item); setType('全部题型'); }}
+                >
                   {item}
                 </button>
               ))}
@@ -220,7 +233,7 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
           </div>
 
           {randomQuestion && (
-            <article className="random-question" data-reveal>
+            <article className="random-question">
               <span>RANDOM / 今日抽题</span>
               <strong>{randomQuestion.subject} · {randomQuestion.type} · {randomQuestion.topic}</strong>
               <h3>{randomQuestion.summary}</h3>
@@ -232,7 +245,7 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
           <div className="question-count">当前 {filteredQuestions.length} 题 · 真题仅展示题意摘要，完整材料建议使用合法来源自行整理</div>
           <div className="question-list">
             {filteredQuestions.map((item) => (
-              <article className="question-item" key={item.id} data-reveal>
+              <article className="question-item content-card" key={item.id}>
                 <div className="question-meta">
                   <span>{item.subject}</span><span>{item.year}</span><span>{item.exam}</span>
                 </div>
@@ -256,7 +269,7 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
           </div>
           <div className="material-grid">
             {materials.map((item, index) => (
-              <article className="material-card" key={item.key} data-reveal>
+              <article className="material-card content-card" key={item.key}>
                 <span>0{index + 1}</span>
                 <p>{item.key}</p>
                 <h3>{item.title}</h3>

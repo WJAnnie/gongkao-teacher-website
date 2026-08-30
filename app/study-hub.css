@@ -101,7 +101,6 @@
   border-bottom: 1px solid rgba(37,37,31,.2);
   transition: transform .2s ease, background .2s ease;
 }
-.question-item:hover { transform: translateX(7px); background: rgba(255,255,255,.16); }
 .question-meta { display: flex; align-content: flex-start; gap: 6px; flex-wrap: wrap; }
 .question-meta span { padding: 6px 9px; border: 1px solid rgba(37,37,31,.3); border-radius: 100px; font-size: 9px; }
 .question-main p { margin: 0 0 8px; color: var(--blue); font-size: 10px; letter-spacing: .1em; }
@@ -114,7 +113,6 @@
 .material-intro p { max-width: 700px; margin: 0; color: rgba(37,37,31,.6); line-height: 1.9; }
 .material-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(37,37,31,.28); border-left: 1px solid rgba(37,37,31,.28); }
 .material-card { min-height: 390px; padding: 26px; border-right: 1px solid rgba(37,37,31,.28); border-bottom: 1px solid rgba(37,37,31,.28); display: flex; flex-direction: column; transition: background .2s ease, transform .2s ease; }
-.material-card:hover { background: var(--acid); transform: translateY(-4px); }
 .material-card > span { font: italic 14px Georgia, serif; color: var(--orange); }
 .material-card > p { margin: 35px 0 8px; font-size: 10px; letter-spacing: .12em; color: var(--blue); }
 .material-card h3 { margin: 0 0 14px; font-family: "Songti SC", "SimSun", Georgia, serif; font-size: clamp(25px, 2.5vw, 36px); line-height: 1.2; font-weight: 600; }
