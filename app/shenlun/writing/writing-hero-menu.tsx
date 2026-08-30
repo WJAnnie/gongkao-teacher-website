@@ -1,3 +1,5 @@
+import { LearningEntryLink } from '../../learning-entry-link';
+
 export const writingHeroEntries = [
   { key: 'hotspots', no: '01', label: '热点时评', href: '/shenlun/writing/hotspots/' },
   { key: 'cases', no: '02', label: '案例素材', href: '/shenlun/writing/cases/' },
@@ -14,10 +16,17 @@ export type WritingHeroKey = (typeof writingHeroEntries)[number]['key'];
 export function WritingHeroMenu() {
   return (
     <nav className="shenlun-route-strip framework-hero-entry-strip writing-hero-entry-strip" aria-label="写作积累二级目录">
-      {writingHeroEntries.map((item) => <a data-writing-hero={item.key} key={item.key} href={item.href}>
-        <span className="writing-hero-entry-no">{item.no}</span>
-        <span className="writing-hero-entry-main"><b>{item.label}</b><em>查看内容 →</em></span>
-      </a>)}
+      {writingHeroEntries.map((item) => (
+        <LearningEntryLink
+          dataAttributes={{ 'data-writing-hero': item.key }}
+          href={item.href}
+          key={item.key}
+          tone="acid"
+        >
+          <span className="writing-hero-entry-no">{item.no}</span>
+          <span className="writing-hero-entry-main"><b>{item.label}</b></span>
+        </LearningEntryLink>
+      ))}
     </nav>
   );
 }

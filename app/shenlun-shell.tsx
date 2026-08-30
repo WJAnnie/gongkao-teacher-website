@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { LearningTopNav } from './learning-nav';
 import { LearningPageEffects, PageGuide, type GuideItem } from './learning-page-effects';
+import { interviewRoutes, shenlunRoutes } from './learning-routes';
 import { FrameworkHeroMenu } from './shenlun/framework/framework-hero-menu';
 import { WritingHeroMenu } from './shenlun/writing/writing-hero-menu';
 
@@ -12,13 +13,6 @@ const toneToActive = {
   writing: 'shenlun-writing',
   videos: 'shenlun-videos',
 } as const;
-
-const routes = [
-  { tone: 'framework', label: '方法框架', href: '/shenlun/framework/' },
-  { tone: 'questions', label: '真题精练', href: '/shenlun/questions/' },
-  { tone: 'writing', label: '写作积累', href: '/shenlun/writing/' },
-  { tone: 'videos', label: '课程现场', href: '/shenlun/videos/' },
-] as const;
 
 const guides: Record<Exclude<ShenlunTone, 'home'>, GuideItem[]> = {
   framework: [
@@ -62,12 +56,12 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
             <WritingHeroMenu />
           ) : (
             <nav className="shenlun-route-strip" aria-label="申论学习路径">
-              {routes.map((item, index) => (
+              {shenlunRoutes.map((item, index) => (
                 <a
-                  className={`route-${item.tone}${tone === item.tone ? ' active' : ''}`}
+                  className={`route-${item.key.replace('shenlun-', '')}${active === item.key ? ' active' : ''}`}
                   href={item.href}
-                  key={item.tone}
-                  aria-current={tone === item.tone ? 'page' : undefined}
+                  key={item.key}
+                  aria-current={active === item.key ? 'page' : undefined}
                 >
                   <span>0{index + 1}</span><b>{item.label}</b>
                 </a>
@@ -80,8 +74,8 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
       <div className="shenlun-color-line" aria-hidden="true" />
       {children}
       <footer className="shenlun-footer">
-        <div><span>申论学习</span><a href="/shenlun/framework/">方法框架</a><a href="/shenlun/questions/">真题精练</a><a href="/shenlun/writing/">写作积累</a><a href="/shenlun/videos/">课程现场</a></div>
-        <div><span>面试学习</span><a href="/interview/methods/">题型方法</a><a href="/interview/questions/">真题实战</a><a href="/interview/expression/">表达训练</a><a href="/interview/videos/">课程现场</a></div>
+        <div><span>申论学习</span>{shenlunRoutes.map((item) => <a href={item.href} key={item.key}>{item.label}</a>)}</div>
+        <div><span>面试学习</span>{interviewRoutes.map((item) => <a href={item.href} key={item.key}>{item.label}</a>)}</div>
         <p>答卷之外 · 申论 × 结构化面试</p>
       </footer>
     </main>

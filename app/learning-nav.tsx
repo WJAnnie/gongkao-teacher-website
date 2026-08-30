@@ -1,59 +1,41 @@
 'use client';
 
-import Link from 'next/link';
-import { useState } from 'react';
+/* eslint-disable @next/next/no-html-link-for-pages -- Vinext's Next Link shim emits RSC prefetch errors in static production builds. */
 
-type LearningNavKey =
-  | 'shenlun-framework'
-  | 'shenlun-questions'
-  | 'shenlun-writing'
-  | 'shenlun-videos'
-  | 'interview-methods'
-  | 'interview-questions'
-  | 'interview-expression'
-  | 'interview-videos';
+import { useState } from 'react';
+import { interviewRoutes, shenlunRoutes, type LearningRouteKey } from './learning-routes';
 
 const groups = [
   {
     key: 'shenlun',
     label: '申论',
-    items: [
-      ['方法框架', '/shenlun/framework/', 'shenlun-framework'],
-      ['真题精练', '/shenlun/questions/', 'shenlun-questions'],
-      ['写作积累', '/shenlun/writing/', 'shenlun-writing'],
-      ['课程现场', '/shenlun/videos/', 'shenlun-videos'],
-    ],
+    items: shenlunRoutes,
   },
   {
     key: 'interview',
     label: '面试',
-    items: [
-      ['题型方法', '/interview/methods/', 'interview-methods'],
-      ['真题实战', '/interview/questions/', 'interview-questions'],
-      ['表达训练', '/interview/expression/', 'interview-expression'],
-      ['课程现场', '/interview/videos/', 'interview-videos'],
-    ],
+    items: interviewRoutes,
   },
 ] as const;
 
-export function LearningTopNav({ active }: { active?: LearningNavKey }) {
+export function LearningTopNav({ active }: { active?: LearningRouteKey }) {
   const activeGroup = active?.startsWith('interview-') ? 'interview' : active?.startsWith('shenlun-') ? 'shenlun' : null;
   const [mobileOpen, setMobileOpen] = useState<string | null>(activeGroup);
 
   return (
     <header className="learning-topnav">
-      <Link className="learning-topnav-brand" href="/">
+      <a className="learning-topnav-brand" href="/">
         <span>答</span>
         <b>答卷之外</b>
-      </Link>
+      </a>
 
       <nav className="learning-topnav-desktop" aria-label="学习页面导航">
         {groups.map((group) => (
           <div className={`learning-nav-cluster learning-nav-${group.key}${activeGroup === group.key ? ' current-group' : ''}`} key={group.key}>
             <span className="learning-nav-group-label">{group.label}</span>
             <div className="learning-nav-items">
-              {group.items.map(([label, href, key]) => (
-                <Link className={active === key ? 'active' : ''} href={href} key={key} aria-current={active === key ? 'page' : undefined}>{label}</Link>
+              {group.items.map((item) => (
+                <a className={active === item.key ? 'active' : ''} href={item.href} key={item.key} aria-current={active === item.key ? 'page' : undefined}>{item.label}</a>
               ))}
             </div>
           </div>
@@ -75,8 +57,8 @@ export function LearningTopNav({ active }: { active?: LearningNavKey }) {
               </button>
               {open && (
                 <div className="learning-mobile-group-items">
-                  {group.items.map(([label, href, key]) => (
-                    <Link className={active === key ? 'active' : ''} href={href} key={key} aria-current={active === key ? 'page' : undefined}>{label}</Link>
+                  {group.items.map((item) => (
+                    <a className={active === item.key ? 'active' : ''} href={item.href} key={item.key} aria-current={active === item.key ? 'page' : undefined}>{item.label}</a>
                   ))}
                 </div>
               )}
@@ -85,7 +67,7 @@ export function LearningTopNav({ active }: { active?: LearningNavKey }) {
         })}
       </div>
 
-      <Link className="learning-topnav-home" href="/" aria-label="返回答卷之外首页">⌂</Link>
+      <a className="learning-topnav-home" href="/" aria-label="返回答卷之外首页">⌂</a>
     </header>
   );
 }
