@@ -31,38 +31,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Vendor Xiangan audio
-        run: |
-          mkdir -p public/audio
-          curl -L --fail --retry 3 -A 'Mozilla/5.0' -H 'Referer: https://suno.com/' \
-            'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3' \
-            -o public/audio/xiang-an.mp3
-          test -s public/audio/xiang-an.mp3
+        run: node scripts/vendor-home-audio.mjs
       - name: Verify source
         run: npm run verify
       - name: Build static Pages artifact
         run: npm run build:static:pages
-      - name: Rewrite Xiangan audio to same-origin asset
+      - name: Verify same-origin audio asset
         run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          old = b'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3'
-          import os
-          base_path = os.environ['SITE_BASE_PATH'].rstrip('/')
-          new = f'{base_path}/audio/xiang-an.mp3'.encode()
-          changed = 0
-          for path in Path('site').rglob('*'):
-              if not path.is_file() or path.suffix not in {'.html', '.js', '.json', '.css'}:
-                  continue
-              data = path.read_bytes()
-              if old not in data:
-                  continue
-              path.write_bytes(data.replace(old, new))
-              changed += 1
-          print(f'rewritten files: {changed}; audio URL: {new.decode()}')
-          if changed == 0:
-              raise SystemExit('Suno audio URL was not found in the generated site')
-          PY
           test -s site/audio/xiang-an.mp3
           node scripts/validate-static-artifact.mjs --base-path "$SITE_BASE_PATH"
       - name: Upload Pages artifact

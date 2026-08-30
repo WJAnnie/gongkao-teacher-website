@@ -32,11 +32,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Vendor Xiangan audio
+        run: node scripts/vendor-home-audio.mjs
+
       - name: Verify source
         run: npm run verify
 
       - name: Build static site
         run: npm run build:static
+
+      - name: Verify same-origin audio asset
+        run: test -s site/audio/xiang-an.mp3
 
       - name: Deploy preview to EdgeOne
         run: npx --yes edgeone@1.6.28 makers deploy site --name gongkao-teacher-website-preview --env production --area global --token "$EDGEONE_PAGES_API_TOKEN" --json

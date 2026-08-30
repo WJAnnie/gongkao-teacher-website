@@ -61,6 +61,9 @@ if (-not (Test-Path 'node_modules\vinext\dist\cli.js')) {
   if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 
+& node scripts/vendor-home-audio.mjs
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
 $port = 3000
 while (-not (Test-TcpPortAvailable -Port $port)) {
   $port += 1

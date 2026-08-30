@@ -131,6 +131,26 @@
   font: 400 11px/1.5 "Songti SC","SimSun",serif;
 }
 
+.home-song-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.home-song-error button {
+  min-height: 32px;
+  padding: 0 11px;
+  border: 1px solid rgba(88,120,189,.28);
+  border-radius: 999px;
+  background: rgba(255,255,255,.42);
+  color: var(--song-blue);
+  font: inherit;
+  cursor: pointer;
+}
+
+.home-song-error button:hover { border-color: rgba(88,120,189,.5); }
+
 .home-song-controls {
   display: grid;
   grid-template-columns: 36px minmax(90px,1fr) auto auto;
