@@ -34,7 +34,7 @@
 
   .learning-topnav-mobile .learning-mobile-group-trigger {
     width: 100%;
-    min-height: 40px;
+    min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -61,7 +61,10 @@
   .learning-topnav-mobile .learning-mobile-group-items {
     top: calc(100% + 1px);
     left: 0;
-    width: min(220px, calc(100vw - 28px));
+    width: 220px;
+    max-width: calc(100vw - 24px);
+    max-height: min(70vh, 420px);
+    overflow-y: auto;
     transform: none;
     padding: 6px 9px;
     z-index: 120;
@@ -73,7 +76,7 @@
   }
 
   .learning-topnav-mobile .learning-mobile-group-items a {
-    min-height: 42px;
+    min-height: 44px;
     display: flex;
     align-items: center;
     padding: 0 9px;

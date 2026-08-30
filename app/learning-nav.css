@@ -14,6 +14,13 @@
   box-shadow: 0 8px 24px rgba(37,37,31,.04);
 }
 
+main.shenlun-page > header.learning-topnav,
+main.interview-site > header.learning-topnav {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+}
+
 .learning-topnav-brand {
   display: inline-flex;
   align-items: center;
@@ -181,7 +188,7 @@
   .learning-mobile-group { position: relative; }
 
   .learning-mobile-group-trigger {
-    min-height: 36px;
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
     gap: 7px;
@@ -209,9 +216,13 @@
 
   .learning-mobile-group-items {
     position: absolute;
+    z-index: 120;
     top: calc(100% + 8px);
     left: 50%;
-    width: 184px;
+    width: 220px;
+    max-width: calc(100vw - 24px);
+    max-height: min(70vh, 420px);
+    overflow-y: auto;
     transform: translateX(-50%);
     padding: 7px;
     border: 1px solid rgba(37,37,31,.17);
@@ -221,8 +232,10 @@
   }
 
   .learning-mobile-group-items a {
-    display: block;
-    padding: 11px 12px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
     border-radius: 7px;
     color: rgba(37,37,31,.64);
     text-decoration: none;

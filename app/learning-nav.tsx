@@ -42,7 +42,16 @@ export function LearningTopNav({ active }: { active?: LearningRouteKey }) {
         ))}
       </nav>
 
-      <div className="learning-topnav-mobile">
+      <div
+        className="learning-topnav-mobile"
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') {
+            const trigger = event.currentTarget.querySelector<HTMLButtonElement>('[aria-expanded="true"]');
+            setMobileOpen(null);
+            trigger?.focus();
+          }
+        }}
+      >
         {groups.map((group) => {
           const open = mobileOpen === group.key;
           return (
@@ -50,15 +59,24 @@ export function LearningTopNav({ active }: { active?: LearningRouteKey }) {
               <button
                 type="button"
                 className="learning-mobile-group-trigger learning-disclosure-trigger"
+                aria-controls={`learning-menu-${group.key}`}
                 aria-expanded={open}
                 onClick={() => setMobileOpen(open ? null : group.key)}
               >
                 <span>{group.label}</span><i aria-hidden="true">⌄</i>
               </button>
               {open && (
-                <div className="learning-mobile-group-items">
+                <div className="learning-mobile-group-items" id={`learning-menu-${group.key}`}>
                   {group.items.map((item) => (
-                    <a className={active === item.key ? 'active' : ''} href={item.href} key={item.key} aria-current={active === item.key ? 'page' : undefined}>{item.label}</a>
+                    <a
+                      className={active === item.key ? 'active' : ''}
+                      href={item.href}
+                      key={item.key}
+                      aria-current={active === item.key ? 'page' : undefined}
+                      onClick={() => setMobileOpen(null)}
+                    >
+                      {item.label}
+                    </a>
                   ))}
                 </div>
               )}
