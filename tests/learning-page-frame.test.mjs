@@ -58,3 +58,27 @@ test('root imports only generic learning frame and transition styles', () => {
     assert.doesNotMatch(source, /\.framework-|\.writing-|\.interview-card|\.shenlun-question/);
   }
 });
+
+function selectorsFrom(css) {
+  return [...css.matchAll(/([^{}@][^{}]*)\{/g)]
+    .flatMap((match) => match[1].split(','))
+    .map((selector) => selector.trim())
+    .filter(Boolean);
+}
+
+test('root-imported frame css cannot target legacy LearningShell classes', () => {
+  const collidingSelector = /\.(?:learning-page-hero|learning-content-frame|learning-directory-[\w-]+|learning-page-footer|learning-chapter-strip)(?:\b|[.#:[ >])/;
+  const allowedFrameRoots = new Set([
+    '.learning-page-frame',
+    '.learning-page-frame[data-learning-subject="interview"]',
+  ]);
+
+  for (const selector of selectorsFrom(frameCss)) {
+    if (!collidingSelector.test(selector) || allowedFrameRoots.has(selector)) continue;
+    assert.match(
+      selector,
+      /^\.learning-page-frame(?:\s|>|\[)/,
+      `unscoped selector can affect legacy LearningShell: ${selector}`,
+    );
+  }
+});
