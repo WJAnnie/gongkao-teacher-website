@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - '.github/workflows/audit-xiangan-lyrics.yml'
+      - 'public/audio/xiang-an.mp3'
+      - 'scripts/vendor-home-audio.mjs'
+      - 'app/home-song-data.ts'
   workflow_dispatch:
 
 permissions:
@@ -14,12 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - name: Download exact audio
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify exact audio
         run: |
           set -euxo pipefail
-          curl -L --fail --retry 3 -A 'Mozilla/5.0' -H 'Referer: https://suno.com/' \
-            'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3' \
-            -o xiangan.mp3
+          node scripts/vendor-home-audio.mjs
+          cp public/audio/xiang-an.mp3 xiangan.mp3
 
       - name: Prepare character-spaced lyric transcript
         run: |

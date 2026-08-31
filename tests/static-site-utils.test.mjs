@@ -1,6 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findUnprefixedReferences, normalizeBasePath, rewriteHtml } from '../scripts/static-site-utils.mjs';
+import {
+  findUnprefixedClientAssetReferences,
+  findUnprefixedReferences,
+  normalizeBasePath,
+  rewriteHtml,
+} from '../scripts/static-site-utils.mjs';
 
 test('normalizes paths and rejects URLs', () => {
   assert.equal(normalizeBasePath(''), '');
@@ -48,4 +53,19 @@ test('finds unprefixed literal, responsive, and serialized references', () => {
 test('finds duplicate prefixes and traversal inside generated references', () => {
   const html = '<a href="/repo/repo/x"></a><img src="/repo/../escape.png">';
   assert.deepEqual(findUnprefixedReferences(html, '/repo'), ['/repo/repo/x', '/repo/../escape.png']);
+});
+
+test('finds an unprefixed client asset literal without rejecting a prefixed one', () => {
+  const asset = '/audio/xiang-an.mp3';
+  assert.deepEqual(findUnprefixedClientAssetReferences('const song={src:`/audio/xiang-an.mp3`}', asset, '/repo'), [asset]);
+  assert.deepEqual(
+    findUnprefixedClientAssetReferences('const song={src:`/repo/audio/xiang-an.mp3`}', asset, '/repo'),
+    [],
+  );
+  assert.deepEqual(findUnprefixedClientAssetReferences("const file='audio/xiang-an.mp3';src=make('')", asset, '/repo'), [asset]);
+  assert.deepEqual(
+    findUnprefixedClientAssetReferences("const file='audio/xiang-an.mp3';src=make('/repo')", asset, '/repo'),
+    [],
+  );
+  assert.deepEqual(findUnprefixedClientAssetReferences('const song={src:`/audio/xiang-an.mp3`}', asset, ''), []);
 });

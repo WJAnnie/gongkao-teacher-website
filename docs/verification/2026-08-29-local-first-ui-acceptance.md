@@ -9,9 +9,27 @@
 - 音乐播放器的用户触发、播放、暂停、拖动、歌词同步、后台时间推进、结束、失败和重试状态机均通过浏览器验收。
 - 写作积累的入口、分类返回、代表内容数量和比喻检索均通过。
 - Pages 前缀下的四个代表路由、CSS、JavaScript、favicon、OG 图片和站内导航均通过。
-- **唯一外部阻塞是 `public/audio/xiang-an.mp3` 尚未取得。** 最新真实下载返回 HTTP 403；更早的重试还出现过 `ECONNRESET` 和 curl TLS 握手失败。没有创建伪 MP3，也没有把浏览器测试用的合成 WAV 写入项目。
+- 2026-08-29 验收时，**唯一外部阻塞是 `public/audio/xiang-an.mp3` 尚未取得。** 当时真实下载返回 HTTP 403；更早的重试还出现过 `ECONNRESET` 和 curl TLS 握手失败。没有创建伪 MP3，也没有把浏览器测试用的合成 WAV 写入项目。
 
-因此，代码和本地静态发布路径已经达到可提交状态；真实 Pages 音频 200 与生产部署仍未完成。
+因此，2026-08-29 的代码和本地静态发布路径已经达到可提交状态；当时真实 Pages 音频 200 与生产部署仍未完成。该音频阻塞已在 2026-08-31 的风险修复中关闭，见下节。
+
+### 2026-08-31 风险修复更新
+
+- 从本项目已公开的 GitHub Pages 产物恢复真实《向岸》录音，并将 `public/audio/xiang-an.mp3` 纳入版本控制；文件为 5,018,262 bytes，ID3 MP3，SHA-256 为 `2e1a4f4935214bbcd9ec5a945131be20784ad4f5b8d3752b46b75d7a7cf753f2`。
+- `scripts/vendor-home-audio.mjs` 改为纯离线完整性校验，不再请求 Suno 或任何在线镜像。启动器、部署工作流和歌词对齐工作流均使用同一仓库资产。
+- Next.js、React、Vinext、Vite、Cloudflare Vite 插件与 Wrangler 等安全敏感依赖升级到兼容的修复版本，并由 `tests/dependency-security.test.mjs` 锁定基线。
+- Pages 构建会把 `SITE_BASE_PATH` 注入客户端音频地址，静态产物校验器同时拒绝缺少仓库前缀的客户端音频引用，避免客户端重新挂载后回退到站点根路径。
+- 本次仍只做本地提交与构建验证，不推送、不部署；生产域名验收仍属于部署后的独立步骤。
+
+| 2026-08-31 验证项目 | 结果 |
+| --- | --- |
+| `npm.cmd audit --json` | 全量依赖 0 漏洞 |
+| `npm.cmd audit --json --omit=dev` | 生产依赖 0 漏洞 |
+| `npm.cmd run verify` | ESLint、TypeScript 与 51 个 Node 测试通过 |
+| `npm.cmd run build:static` | 36 路由；10.04 MB raw；6.21 MB gzip-estimated；音频已包含 |
+| `npm.cmd run build:static:pages` | 36 路由；10.11 MB raw；6.22 MB gzip-estimated；音频已包含 |
+
+升级 Vite 后暴露的 JSON 模块导入警告也已用标准 import attributes 消除，并由 `tests/static-build-profile.test.mjs` 防回归。
 
 ## 自动化门禁与静态产物
 
@@ -81,9 +99,9 @@
 }
 ```
 
-`app/home-song-player.tsx` 只在明确播放意图后设置音频 `src`，因此首页初始渲染和失败场景都不会提前请求 CDN。单元回归位于 `tests/home-song.test.mjs`，浏览器输出位于 `output/playwright/task12-audio-acceptance-output.txt`。
+`app/home-song-player.tsx` 只在明确播放意图后设置同源音频 `src`，因此首页初始渲染和失败场景都不会提前请求音频资源。单元回归位于 `tests/home-song.test.mjs`，浏览器输出位于 `output/playwright/task12-audio-acceptance-output.txt`。
 
-真实音频仍由 `scripts/vendor-home-audio.mjs` 下载并校验后原子安装；`public/audio/xiang-an.mp3` 保持忽略。当前 CDN 403 是外部阻塞，不用占位文件掩盖。
+真实音频现已作为 `public/audio/xiang-an.mp3` 跟踪；`scripts/vendor-home-audio.mjs` 仅离线校验精确大小、ID3 签名和 SHA-256。构建不再依赖已返回 403 的外部 CDN，也没有使用占位或伪造音频。
 
 ## 写作积累验收
 
@@ -116,7 +134,7 @@
 - `favicon.svg` 为 200，`og.jpg` 为 200，OG URL 带正确前缀。
 - 从首页点击“方法框架”后仍停留在 Pages 前缀内。
 - 0 资源失败，0 控制台错误。
-- `audio/xiang-an.mp3` 为 404；`passExceptAudio: true`，`audioBlocked: true`。
+- 2026-08-29 的浏览器证据中，`audio/xiang-an.mp3` 为 404；`passExceptAudio: true`，`audioBlocked: true`。该历史结果促成了 2026-08-31 的仓库内音频修复。
 
 证据：`output/playwright/task12-pages-acceptance-output.txt`。
 
@@ -124,5 +142,5 @@
 
 - 本次只提交代码、测试和文档；不推送、不部署。
 - 没有生产凭据验收，也没有在真实 GitHub Pages/EdgeOne 域名上做端到端检查。
-- 在真实音频下载恢复并重新运行 Pages 验收前，不应宣称托管音频发布完成。
+- 仓库内音频及两种静态产物的完整性由自动测试和离线构建验证；真实 GitHub Pages/EdgeOne 的托管结果仍需在未来部署后单独验收。
 - 练习记录继续保存在浏览器本地；`app/data/*` 是未来数据库、后台和同步层的接入边界。

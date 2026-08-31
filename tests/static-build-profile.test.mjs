@@ -2,6 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
+test('Vite config uses import attributes for its JSON module', async () => {
+  const source = await readFile(new URL('../vite.config.ts', import.meta.url), 'utf8');
+  assert.match(source, /from '\.\/\.openai\/hosting\.json' with \{ type: 'json' \}/);
+  assert.match(source, /'process\.env\.SITE_BASE_PATH': JSON\.stringify\(process\.env\.SITE_BASE_PATH \?\? ''\)/);
+});
+
 test('launches only npm command scripts through the Windows command interpreter', async () => {
   const source = await readFile(new URL('../scripts/build-static-profile.mjs', import.meta.url), 'utf8');
   assert.match(source, /process\.env\.ComSpec/);

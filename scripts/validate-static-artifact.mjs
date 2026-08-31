@@ -1,13 +1,18 @@
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { staticRoutes } from '../app/site-routes.mjs';
-import { findUnprefixedReferences, normalizeBasePath } from './static-site-utils.mjs';
+import {
+  findUnprefixedClientAssetReferences,
+  findUnprefixedReferences,
+  normalizeBasePath,
+} from './static-site-utils.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const outputDir = join(root, 'site');
 const args = process.argv.slice(2);
 const basePathIndex = args.indexOf('--base-path');
 const basePath = normalizeBasePath(basePathIndex >= 0 ? args[basePathIndex + 1] ?? '' : '');
+const homeAudioPath = '/audio/xiang-an.mp3';
 const requiredFiles = staticRoutes.map((route) =>
   route === '/' ? join(outputDir, 'index.html') : join(outputDir, route.slice(1), 'index.html'),
 );
@@ -29,6 +34,12 @@ if (await isDirectory(outputDir)) {
     }
     for (const reference of findUnprefixedReferences(html, basePath)) {
       errors.push(`无效站点引用：${file} -> ${reference}`);
+    }
+  }
+  for (const file of await collectFilesByExtension(outputDir, '.js')) {
+    const source = await readFile(file, 'utf8');
+    for (const reference of findUnprefixedClientAssetReferences(source, homeAudioPath, basePath)) {
+      errors.push(`客户端资源缺少站点前缀：${file} -> ${reference}`);
     }
   }
 }
@@ -57,11 +68,15 @@ async function isDirectory(path) {
 }
 
 async function collectHtmlFiles(directory) {
+  return collectFilesByExtension(directory, '.html');
+}
+
+async function collectFilesByExtension(directory, extension) {
   const files = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const path = join(directory, entry.name);
-    if (entry.isDirectory()) files.push(...(await collectHtmlFiles(path)));
-    else if (entry.isFile() && entry.name.endsWith('.html')) files.push(path);
+    if (entry.isDirectory()) files.push(...(await collectFilesByExtension(path, extension)));
+    else if (entry.isFile() && entry.name.endsWith(extension)) files.push(path);
   }
   return files;
 }

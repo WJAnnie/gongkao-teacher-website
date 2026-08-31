@@ -1,27 +1,32 @@
-import { mkdir, rename, stat, unlink, writeFile } from 'node:fs/promises';
-import { dirname, resolve } from 'node:path';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 
-const source = 'https://cdn1.suno.ai/9699b383-feba-4acb-80af-38c15fe7dfd8.mp3';
 const target = resolve('public/audio/xiang-an.mp3');
-const temporary = `${target}.download`;
-let currentSize = 0;
-try { currentSize = (await stat(target)).size; } catch {}
-if (currentSize < 1_000_000) {
-  const response = await fetch(source, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0',
-      Referer: 'https://suno.com/',
-    },
-  });
-  if (!response.ok) throw new Error(`音频下载失败：HTTP ${response.status}`);
-  const contentType = response.headers.get('content-type') ?? '';
-  if (!contentType.startsWith('audio/')) throw new Error(`音频类型无效：${contentType}`);
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  if (bytes.byteLength < 1_000_000) throw new Error(`音频文件异常：${bytes.byteLength} bytes`);
-  await mkdir(dirname(target), { recursive: true });
-  await writeFile(temporary, bytes);
-  try { await unlink(target); } catch {}
-  await rename(temporary, target);
-  currentSize = bytes.byteLength;
+const expectedSize = 5_018_262;
+const expectedHash = '2e1a4f4935214bbcd9ec5a945131be20784ad4f5b8d3752b46b75d7a7cf753f2';
+
+let bytes;
+try {
+  bytes = await readFile(target);
+} catch (error) {
+  if (error?.code === 'ENOENT') {
+    throw new Error('缺少已纳入版本控制的音频：public/audio/xiang-an.mp3');
+  }
+  throw error;
 }
-console.log(`Audio ready: public/audio/xiang-an.mp3 (${currentSize} bytes)`);
+
+if (bytes.byteLength !== expectedSize) {
+  throw new Error(`音频文件大小无效：${bytes.byteLength} bytes，预期 ${expectedSize} bytes`);
+}
+
+if (bytes.subarray(0, 3).toString('ascii') !== 'ID3') {
+  throw new Error('音频文件签名无效：预期 ID3 MP3');
+}
+
+const actualHash = createHash('sha256').update(bytes).digest('hex');
+if (actualHash !== expectedHash) {
+  throw new Error(`音频文件 SHA-256 无效：${actualHash}`);
+}
+
+console.log(`Audio verified: public/audio/xiang-an.mp3 (${expectedSize} bytes, SHA-256 ${expectedHash})`);

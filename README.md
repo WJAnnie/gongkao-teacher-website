@@ -170,7 +170,7 @@
 .\start-local.cmd
 ```
 
-启动器会校验 Node.js，在需要时执行 `npm ci`，准备本地音频，自动选择从 3000 开始的可用端口，并同时打印电脑和同一局域网手机的访问地址。脚本**不会修改 Windows 防火墙**。
+启动器会校验 Node.js，在需要时执行 `npm ci`，校验仓库内的本地音频，自动选择从 3000 开始的可用端口，并同时打印电脑和同一局域网手机的访问地址。脚本**不会修改 Windows 防火墙**。
 
 手动开发流程：
 
@@ -178,6 +178,7 @@
 git clone https://github.com/WJAnnie/gongkao-teacher-website.git
 cd gongkao-teacher-website
 npm.cmd ci
+node scripts/vendor-home-audio.mjs
 npm.cmd run dev
 ```
 
@@ -205,7 +206,7 @@ npm.cmd run build:static:pages
 
 - 本阶段的练习记录保存在当前浏览器 `localStorage` 中，不会自动上传或跨设备同步。
 - `app/data/content-catalog.ts` 和 `app/data/practice-record-store.ts` 是未来接入数据库、管理后台或同步层的明确边界；现阶段不引入后端依赖。
-- `public/audio/xiang-an.mp3` 是由 `node scripts/vendor-home-audio.mjs` 下载和验证的生成资产，已被 Git 忽略，不应提交占位或伪造的 MP3。`start-local.cmd` 和部署工作流会在启动/构建前准备它；上游音频 CDN 不可用时应明确报错。
+- `public/audio/xiang-an.mp3` 是纳入版本控制的真实《向岸》录音（5,018,262 bytes，SHA-256 `2e1a4f4935214bbcd9ec5a945131be20784ad4f5b8d3752b46b75d7a7cf753f2`），不依赖外部 CDN。`node scripts/vendor-home-audio.mjs` 只离线校验文件大小、ID3 签名和哈希；`start-local.cmd` 与部署工作流会在启动/构建前执行该校验。
 
 ## 内容继续扩展
 

@@ -1,5 +1,12 @@
+const HOME_AUDIO_FILE = 'audio/xiang-an.mp3';
+
+export function getHomeSongSource(basePath = ''): string {
+  const normalizedBasePath = basePath === '/' ? '' : basePath.replace(/\/$/, '');
+  return `${normalizedBasePath}/${HOME_AUDIO_FILE}`;
+}
+
 export const HOME_SONG = {
-  src: '/audio/xiang-an.mp3',
+  src: getHomeSongSource(process.env.SITE_BASE_PATH ?? ''),
   fallbackDuration: 234.072,
   lyrics: [
     { at: 11.88, text: '清晨的灯还亮在窗' },

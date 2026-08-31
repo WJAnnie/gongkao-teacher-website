@@ -47,6 +47,5 @@ next-env.d.ts
 # Tencent Cloud EdgeOne local credentials and build output
 /.edgeone/
 /.tef_dist/
-/public/audio/xiang-an.mp3
 /output/playwright/
 /tsconfig.tsbuildinfo

@@ -32,7 +32,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Vendor Xiangan audio
+      - name: Audit dependencies
+        run: npm audit --audit-level=low
+
+      - name: Verify Xiangan audio
         run: node scripts/vendor-home-audio.mjs
 
       - name: Verify source

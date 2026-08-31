@@ -73,6 +73,16 @@ export function findUnprefixedReferences(html, basePathValue) {
   return [...new Set(references)];
 }
 
+export function findUnprefixedClientAssetReferences(source, assetPath, basePathValue) {
+  const basePath = normalizeBasePath(basePathValue);
+  if (!basePath || !isRootRelative(assetPath)) return [];
+  const escapedAssetPath = assetPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const hasBareRootLiteral = new RegExp(`[\"'\`]${escapedAssetPath}`).test(source);
+  const hasAsset = source.includes(assetPath.slice(1));
+  const hasBuildBasePath = source.includes(basePath);
+  return hasBareRootLiteral || (hasAsset && !hasBuildBasePath) ? [assetPath] : [];
+}
+
 function prefixRootPath(path, basePath) {
   if (!isRootRelative(path) || path === basePath || path.startsWith(`${basePath}/`)) return path;
   return `${basePath}${path}`;

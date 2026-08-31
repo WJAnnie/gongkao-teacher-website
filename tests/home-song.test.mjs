@@ -1,15 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
-import { HOME_SONG, getAudioPreload, getLyricIndex } from '../app/home-song-data.ts';
+import { HOME_SONG, getAudioPreload, getHomeSongSource, getLyricIndex } from '../app/home-song-data.ts';
 
-const [player, vendorScript, localLauncher, pagesWorkflow, edgeWorkflow, previewWorkflow] = await Promise.all([
+const [player, vendorScript, audioAsset, localLauncher, pagesWorkflow, edgeWorkflow, previewWorkflow, lyricsWorkflow] = await Promise.all([
   readFile(new URL('../app/home-song-player.tsx', import.meta.url), 'utf8'),
   readFile(new URL('../scripts/vendor-home-audio.mjs', import.meta.url), 'utf8').catch(() => ''),
+  readFile(new URL('../public/audio/xiang-an.mp3', import.meta.url)).catch(() => null),
   readFile(new URL('../scripts/start-local.ps1', import.meta.url), 'utf8'),
   readFile(new URL('../.github/workflows/deploy-pages.yml', import.meta.url), 'utf8'),
   readFile(new URL('../.github/workflows/deploy-edgeone.yml', import.meta.url), 'utf8'),
   readFile(new URL('../.github/workflows/deploy-preview-edgeone.yml', import.meta.url), 'utf8'),
+  readFile(new URL('../.github/workflows/audit-xiangan-lyrics.yml', import.meta.url), 'utf8'),
 ]);
 
 test('lyrics are strictly ordered inside duration', () => {
@@ -22,6 +25,11 @@ test('lyrics are strictly ordered inside duration', () => {
 test('preload respects save-data', () => {
   assert.equal(getAudioPreload(false), 'auto');
   assert.equal(getAudioPreload(true), 'metadata');
+});
+
+test('audio source includes the explicit build base path', () => {
+  assert.equal(getHomeSongSource(''), '/audio/xiang-an.mp3');
+  assert.equal(getHomeSongSource('/gongkao-teacher-website'), '/gongkao-teacher-website/audio/xiang-an.mp3');
 });
 
 test('lyric index derives from audio time', () => {
@@ -51,21 +59,47 @@ test('only the visible play control may start playback and failures can retry', 
   assert.match(player, /onClick=\{reloadAudio\}/);
 });
 
-test('vendor script validates and atomically installs a real audio asset', () => {
-  assert.match(vendorScript, /public\/audio\/xiang-an\.mp3/);
-  assert.match(vendorScript, /'User-Agent':\s*'Mozilla\/5\.0'/);
-  assert.match(vendorScript, /Referer:\s*'https:\/\/suno\.com\/'/);
-  assert.match(vendorScript, /contentType\.startsWith\('audio\/'\)/);
-  assert.match(vendorScript, /bytes\.byteLength < 1_000_000/);
-  assert.match(vendorScript, /await rename\(temporary, target\)/);
+test('checked-in audio is the exact recovered Xiangan recording', () => {
+  assert.ok(audioAsset, 'public/audio/xiang-an.mp3 must be checked in');
+  assert.equal(audioAsset.byteLength, 5_018_262);
+  assert.equal(audioAsset.subarray(0, 3).toString('ascii'), 'ID3');
+  assert.equal(
+    createHash('sha256').update(audioAsset).digest('hex'),
+    '2e1a4f4935214bbcd9ec5a945131be20784ad4f5b8d3752b46b75d7a7cf753f2',
+  );
 });
 
-test('local and hosted builds vendor audio before starting or building', () => {
+test('vendor script only verifies the immutable local audio asset', () => {
+  assert.match(vendorScript, /public\/audio\/xiang-an\.mp3/);
+  assert.match(vendorScript, /createHash\('sha256'\)/);
+  assert.match(vendorScript, /5_018_262/);
+  assert.match(vendorScript, /2e1a4f4935214bbcd9ec5a945131be20784ad4f5b8d3752b46b75d7a7cf753f2/i);
+  assert.match(vendorScript, /ID3/);
+  assert.doesNotMatch(vendorScript, /\bfetch\s*\(/);
+  assert.doesNotMatch(vendorScript, /https?:\/\/|suno\.ai/i);
+  assert.doesNotMatch(vendorScript, /\.download|writeFile|rename/);
+});
+
+test('local and hosted builds verify audio before starting or building', () => {
   const vendorCommand = 'node scripts/vendor-home-audio.mjs';
   assert.ok(localLauncher.indexOf(vendorCommand) < localLauncher.indexOf('$npmCommand run dev'));
   for (const workflow of [pagesWorkflow, edgeWorkflow, previewWorkflow]) {
     const vendorIndex = workflow.indexOf(vendorCommand);
     const buildIndex = workflow.indexOf('npm run build:static');
+    const auditIndex = workflow.indexOf('npm audit --audit-level=low');
     assert.ok(vendorIndex >= 0 && vendorIndex < buildIndex);
+    assert.ok(auditIndex >= 0 && auditIndex < buildIndex);
+    assert.match(workflow, /name: Verify Xiangan audio/);
+    assert.doesNotMatch(workflow, /name: Vendor Xiangan audio/);
+  }
+  assert.match(lyricsWorkflow, /uses: actions\/checkout@v4/);
+  assert.match(lyricsWorkflow, /public\/audio\/xiang-an\.mp3/);
+  assert.doesNotMatch(lyricsWorkflow, /curl|cdn1\.suno\.ai|Download exact audio/);
+  for (const path of [
+    'public/audio/xiang-an.mp3',
+    'scripts/vendor-home-audio.mjs',
+    'app/home-song-data.ts',
+  ]) {
+    assert.match(lyricsWorkflow, new RegExp(`- '${path.replaceAll('.', '\\.').replaceAll('/', '\\/')}'`));
   }
 });
