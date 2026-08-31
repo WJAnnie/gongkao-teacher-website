@@ -30,3 +30,11 @@ test('mobile directory and passive observation share the same active id', () => 
   assert.match(source, /programmaticUntilRef/);
   assert.doesNotMatch(source, /CustomEvent/);
 });
+
+test('passive observer rebinds when active body targets change', () => {
+  assert.match(source, /observer\.disconnect\(\);\n  }, \[activeId, chapters\]\);/);
+});
+
+test('shared transition destination style is only applied after a committed target', () => {
+  assert.match(source, /if \(!commitDestination\(\)\) return;\n        sharedDestination = directoryTarget\(id\);/);
+});

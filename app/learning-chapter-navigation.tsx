@@ -106,7 +106,7 @@ export function LearningChapterProvider({
 
     targets.forEach((entry) => observer.observe(entry.node));
     return () => observer.disconnect();
-  }, [chapters]);
+  }, [activeId, chapters]);
 
   const activateChapter = useCallback((id: string, source: HTMLElement | null, origin: ActivationOrigin) => {
     const chapter = chapters.find((item) => item.id === id);
@@ -177,7 +177,7 @@ export function LearningChapterProvider({
     try {
       const transition = transitionDocument.startViewTransition?.(() => {
         source.style.removeProperty('view-transition-name');
-        commitDestination();
+        if (!commitDestination()) return;
         sharedDestination = directoryTarget(id);
         sharedDestination?.style.setProperty('view-transition-name', 'learning-chapter-shared');
       });
