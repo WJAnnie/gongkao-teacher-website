@@ -25,6 +25,8 @@ import './home-song-player.css';
 import './home-song-placement.css';
 import './mobile-home-learning-nav.css';
 import './interaction-semantics.css';
+import './learning-page-frame.css';
+import './learning-scene-transition.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),

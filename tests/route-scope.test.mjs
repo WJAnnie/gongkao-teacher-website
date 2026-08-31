@@ -45,6 +45,8 @@ test('root layout excludes every specialist-only stylesheet', () => {
 test('root layout keeps shared contracts', () => {
   assert.match(rootLayout, /interaction-semantics\.css/);
   assert.match(rootLayout, /learning-nav\.css/);
+  assert.match(rootLayout, /learning-page-frame\.css/);
+  assert.match(rootLayout, /learning-scene-transition\.css/);
 });
 
 test('framework route owns its styles in their original order', () => {

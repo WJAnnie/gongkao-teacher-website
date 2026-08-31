@@ -1,0 +1,23 @@
+html.learning-shared-transition-active { scroll-behavior: auto !important; }
+html.learning-shared-transition-active::view-transition-old(root) { animation: learning-canvas-out .52s cubic-bezier(.2,.72,.2,1) both; }
+html.learning-shared-transition-active::view-transition-new(root) { animation: learning-canvas-in .52s cubic-bezier(.2,.72,.2,1) both; }
+html.learning-shared-transition-active::view-transition-group(learning-chapter-shared) { z-index: 180; animation-duration: .72s; animation-timing-function: cubic-bezier(.18,.8,.18,1); }
+html.learning-shared-transition-active::view-transition-old(learning-chapter-shared),
+html.learning-shared-transition-active::view-transition-new(learning-chapter-shared) { width: 100%; height: 100%; overflow: clip; mix-blend-mode: normal; animation: none; }
+.learning-chapter-strip > button.launching::before { content: ""; position: absolute; inset: auto 0 0; height: 3px; transform-origin: left; background: var(--learning-accent); animation: learning-entry-progress .72s cubic-bezier(.2,.78,.2,1) both; }
+.learning-shared-transition-active .learning-directory-group.arriving > button { animation: learning-directory-arrival .56s cubic-bezier(.2,.72,.2,1) both; }
+.learning-shared-transition-active .learning-reading-surface { animation: learning-reading-settle .56s cubic-bezier(.2,.72,.2,1) both; }
+@keyframes learning-canvas-out { 0%,34% { opacity: 1; filter: blur(0); } 100% { opacity: .18; filter: blur(1px); } }
+@keyframes learning-canvas-in { from { opacity: .22; filter: blur(1px); } to { opacity: 1; filter: blur(0); } }
+@keyframes learning-entry-progress { from { transform: scaleX(0); opacity: .35; } to { transform: scaleX(1); opacity: 1; } }
+@keyframes learning-directory-arrival { from { box-shadow: inset 0 0 var(--learning-accent); } to { box-shadow: inset 4px 0 var(--learning-accent); } }
+@keyframes learning-reading-settle { from { opacity: .48; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  html.learning-shared-transition-active::view-transition-old(root),
+  html.learning-shared-transition-active::view-transition-new(root),
+  html.learning-shared-transition-active::view-transition-group(learning-chapter-shared),
+  .learning-chapter-strip > button.launching::before,
+  .learning-shared-transition-active .learning-directory-group.arriving > button,
+  .learning-shared-transition-active .learning-reading-surface { animation-duration: .01ms !important; animation-delay: 0s !important; }
+  .learning-directory-column { transition-duration: .01ms !important; }
+}

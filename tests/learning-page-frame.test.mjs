@@ -46,3 +46,15 @@ test('one client chapter source owns Hero and directory state', () => {
   assert.match(navigationSource, /LearningMacroDirectory/);
   assert.match(navigationSource, /IntersectionObserver/);
 });
+
+const rootLayoutSource = await readFile(new URL('../app/layout.tsx', import.meta.url), 'utf8');
+const frameCss = await readFile(new URL('../app/learning-page-frame.css', import.meta.url), 'utf8').catch(() => '');
+const transitionCss = await readFile(new URL('../app/learning-scene-transition.css', import.meta.url), 'utf8').catch(() => '');
+
+test('root imports only generic learning frame and transition styles', () => {
+  assert.match(rootLayoutSource, /learning-page-frame\.css/);
+  assert.match(rootLayoutSource, /learning-scene-transition\.css/);
+  for (const source of [frameCss, transitionCss]) {
+    assert.doesNotMatch(source, /\.framework-|\.writing-|\.interview-card|\.shenlun-question/);
+  }
+});
