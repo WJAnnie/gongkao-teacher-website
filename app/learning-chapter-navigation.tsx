@@ -43,6 +43,10 @@ function directoryTarget(id: string) {
     .find((node) => node.dataset.learningDirectoryId === id) ?? null;
 }
 
+function directoryInitialFocus() {
+  return document.querySelector<HTMLElement>('[data-learning-directory-initial-focus]');
+}
+
 export function LearningChapterProvider({
   chapters,
   children,
@@ -50,7 +54,7 @@ export function LearningChapterProvider({
   chapters: readonly LearningMacroChapter[];
   children: ReactNode;
 }) {
-  const [activeId, setActiveId] = useState(chapters[0]?.id ?? '');
+  const [storedActiveId, setActiveId] = useState(chapters[0]?.id ?? '');
   const [arrivingId, setArrivingId] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [launchingId, setLaunchingId] = useState<string | null>(null);
@@ -58,6 +62,9 @@ export function LearningChapterProvider({
   const cleanupRef = useRef<() => void>(() => undefined);
   const activationTokenRef = useRef(0);
   const drawerTriggerRef = useRef<HTMLElement | null>(null);
+  const activeId = chapters.some((chapter) => chapter.id === storedActiveId)
+    ? storedActiveId
+    : chapters[0]?.id ?? '';
 
   const restoreDrawerFocus = useCallback(() => {
     const trigger = drawerTriggerRef.current;
@@ -73,6 +80,7 @@ export function LearningChapterProvider({
   const openDrawer = useCallback((trigger: HTMLElement | null) => {
     drawerTriggerRef.current = trigger;
     setDrawerOpen(true);
+    window.setTimeout(() => directoryInitialFocus()?.focus(), 0);
   }, []);
 
   useEffect(() => {
@@ -83,11 +91,6 @@ export function LearningChapterProvider({
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [closeDrawer, drawerOpen]);
-
-  useEffect(() => {
-    if (chapters.some((chapter) => chapter.id === activeId)) return;
-    setActiveId(chapters[0]?.id ?? '');
-  }, [activeId, chapters]);
 
   useEffect(() => {
     const targets = chapters
@@ -134,6 +137,10 @@ export function LearningChapterProvider({
     };
     cleanupRef.current = cleanupTransition;
 
+    const scheduleTransitionCleanup = () => {
+      window.setTimeout(cleanupTransition, reducedMotion ? 0 : 420);
+    };
+
     const previousId = activeId;
     const previousDrawerOpen = drawerOpen;
     const commitDestination = () => {
@@ -162,13 +169,18 @@ export function LearningChapterProvider({
       return true;
     };
 
+    const fallbackToCommittedDestination = () => {
+      root.classList.remove('learning-shared-transition-active');
+      source?.style.removeProperty('view-transition-name');
+      if (commitDestination()) scheduleTransitionCleanup();
+    };
+
     const transitionDocument = document as ViewTransitionDocument;
     const animated = Boolean(origin === 'hero' && !mobile && !reducedMotion && source && transitionDocument.startViewTransition);
     setLaunchingId(id);
 
     if (!animated || !source) {
-      commitDestination();
-      window.setTimeout(cleanupTransition, reducedMotion ? 0 : 420);
+      fallbackToCommittedDestination();
       return;
     }
 
@@ -182,14 +194,12 @@ export function LearningChapterProvider({
         sharedDestination?.style.setProperty('view-transition-name', 'learning-chapter-shared');
       });
       if (!transition) {
-        cleanupTransition();
-        commitDestination();
+        fallbackToCommittedDestination();
         return;
       }
       void transition.finished.catch(() => undefined).finally(cleanupTransition);
     } catch {
-      cleanupTransition();
-      commitDestination();
+      fallbackToCommittedDestination();
     }
   }, [activeId, chapters, drawerOpen, restoreDrawerFocus]);
 
@@ -262,7 +272,7 @@ export function LearningContentFrame({
       type="button"
     ><span>本页目录</span><b>{activeLabel}</b><em aria-hidden="true">☰</em></button>
     <aside className={`learning-directory-column${drawerOpen ? ' open' : ''}`} id="learning-page-directory" aria-label={label}>
-      <button className="learning-directory-close" onClick={closeDrawer} type="button">关闭目录</button>
+      <button className="learning-directory-close" data-learning-directory-initial-focus onClick={closeDrawer} type="button">关闭目录</button>
       <LearningMacroDirectory details={details} />
     </aside>
     <article className="learning-reading-surface">{children}</article>
