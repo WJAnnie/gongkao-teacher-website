@@ -29,3 +29,20 @@ test('chapter configuration remains metadata-only', async () => {
   const source = await readFile(new URL('../app/learning-routes.ts', import.meta.url), 'utf8');
   assert.doesNotMatch(source, /framework-manual|writing-static-pages|question-bank-data|interview-card/);
 });
+
+const frameSource = await readFile(new URL('../app/learning-page-frame.tsx', import.meta.url), 'utf8').catch(() => '');
+const navigationSource = await readFile(new URL('../app/learning-chapter-navigation.tsx', import.meta.url), 'utf8').catch(() => '');
+
+test('shared frame composes slots without importing specialist content', () => {
+  assert.match(frameSource, /LearningChapterProvider/);
+  assert.match(frameSource, /LearningHeroChapterStrip/);
+  assert.match(frameSource, /LearningTopNav/);
+  assert.doesNotMatch(frameSource, /framework-manual|writing-static-pages|question-bank-data|interview\/methods/);
+});
+
+test('one client chapter source owns Hero and directory state', () => {
+  assert.match(navigationSource, /createContext/);
+  assert.match(navigationSource, /LearningHeroChapterStrip/);
+  assert.match(navigationSource, /LearningMacroDirectory/);
+  assert.match(navigationSource, /IntersectionObserver/);
+});
