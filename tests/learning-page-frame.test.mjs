@@ -115,6 +115,18 @@ test('Shenlun chapter metadata has a body target on every core route', () => {
 });
 
 test('Shenlun videos keeps four archive cards and its learning flow in the shared frame', () => {
+  const videoSectionBlock = videosPageSource.match(/const videoSections = \[(.*?)\] as const;/s)?.[1] ?? '';
+  const flowBlock = videosPageSource.match(/const flow = \[(.*?)\] as const;/s)?.[1] ?? '';
+  assert.equal((videoSectionBlock.match(/^\s+\[/gm) ?? []).length, 4);
+  assert.equal((flowBlock.match(/^\s+\[/gm) ?? []).length, 4);
+  for (const [block, titles] of [[videoSectionBlock, ['课程精讲', '课堂实录', '工作日常', '碎片分享']], [flowBlock, ['先自己做', '记一个点', '关掉重做', '放回真题']]]) {
+    let offset = -1;
+    for (const title of titles) {
+      const next = block.indexOf(`'${title}'`, offset + 1);
+      assert.ok(next > offset, title);
+      offset = next;
+    }
+  }
   for (const id of ['shenlun-video-course', 'shenlun-video-classroom', 'shenlun-video-worklog', 'shenlun-video-notes']) {
     assert.match(videosPageSource, new RegExp(id));
   }
