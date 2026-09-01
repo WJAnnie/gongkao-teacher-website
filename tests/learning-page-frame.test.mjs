@@ -113,3 +113,13 @@ test('Shenlun chapter metadata has a body target on every core route', () => {
     assert.match(writingStaticPagesSource, new RegExp(targetId), targetId);
   }
 });
+
+test('Shenlun videos keeps four archive cards and its learning flow in the shared frame', () => {
+  for (const id of ['shenlun-video-course', 'shenlun-video-classroom', 'shenlun-video-worklog', 'shenlun-video-notes']) {
+    assert.match(videosPageSource, new RegExp(id));
+  }
+  assert.match(videosPageSource, /<LearningContentFrame/);
+  assert.match(videosPageSource, /videoSections\.map/);
+  assert.match(videosPageSource, /interview-learning-flow/);
+  assert.match(videosPageSource, /interview-flow-step/);
+});
