@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { LearningContentFrame } from '../../learning-chapter-navigation';
 import { questions } from '../../question-bank-data';
 import { ShenlunShell } from '../../shenlun-shell';
 
@@ -32,7 +33,7 @@ export default function ShenlunQuestionsPage() {
   const shenlunQuestions = questions.filter((item) => item.subject === '申论');
   return (
     <ShenlunShell tone="questions" eyebrow="PAST PAPERS / 真题精练" title="真题精练" desc="先从 2020—2025 国考地市级开始。按年份做整卷，按题型做专项，再用复盘把方法留下来。">
-      <section className="shenlun-content">
+      <LearningContentFrame label="真题精练学习目录">
         <div className="shenlun-section-head">
           <span>EXAM ARCHIVE / 真题档案</span>
           <h2>六年国考，<br />三种练法。</h2>
@@ -50,34 +51,36 @@ export default function ShenlunQuestionsPage() {
           ))}
         </div>
 
-        <div className="shenlun-section-head" style={{ marginTop: '90px' }}>
-          <span>NATIONAL EXAM / 国考申论</span>
-          <h2>2020—2025<br />真题索引</h2>
-          <p>每道题先看任务和训练重点，再进入作答。做完以后把自己的答案和参考方向放在一起对照。</p>
-        </div>
+        <section id="questions-index">
+          <div className="shenlun-section-head" style={{ marginTop: '90px' }}>
+            <span>NATIONAL EXAM / 国考申论</span>
+            <h2>2020—2025<br />真题索引</h2>
+            <p>每道题先看任务和训练重点，再进入作答。做完以后把自己的答案和参考方向放在一起对照。</p>
+          </div>
 
-        <div className="shenlun-question-toolbar">
-          <span>归纳概括</span><span>综合分析</span><span>提出对策</span><span>贯彻执行</span><span>文章写作</span>
-        </div>
+          <div className="shenlun-question-toolbar">
+            <span>归纳概括</span><span>综合分析</span><span>提出对策</span><span>贯彻执行</span><span>文章写作</span>
+          </div>
 
-        <div className="shenlun-question-list" id="questions-index">
-          {shenlunQuestions.map((item, index) => (
-            <article className="shenlun-question-row" key={item.id}>
-              <div className="meta">
-                <span className="question-paper-index">Q{String(index + 1).padStart(2, '0')}</span>
-                {item.year}<br />{item.exam}<br />{item.type} · {item.topic}
-                <span className="question-paper-time">训练建议 {suggestedTime(item.type)}</span>
-              </div>
-              <div>
-                <h3>{item.summary}</h3>
-                <p>训练重点：{item.focus}<br />来源性质：{item.source}</p>
-              </div>
-              <div className="answer"><strong>参考作答方向</strong><br />{item.focus}</div>
-              <span className="teacher-margin-note" aria-hidden="true">{reviewNote(item.type)}</span>
-            </article>
-          ))}
-        </div>
-      </section>
+          <div className="shenlun-question-list">
+            {shenlunQuestions.map((item, index) => (
+              <article className="shenlun-question-row" key={item.id}>
+                <div className="meta">
+                  <span className="question-paper-index">Q{String(index + 1).padStart(2, '0')}</span>
+                  {item.year}<br />{item.exam}<br />{item.type} · {item.topic}
+                  <span className="question-paper-time">训练建议 {suggestedTime(item.type)}</span>
+                </div>
+                <div>
+                  <h3>{item.summary}</h3>
+                  <p>训练重点：{item.focus}<br />来源性质：{item.source}</p>
+                </div>
+                <div className="answer"><strong>参考作答方向</strong><br />{item.focus}</div>
+                <span className="teacher-margin-note" aria-hidden="true">{reviewNote(item.type)}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+      </LearningContentFrame>
     </ShenlunShell>
   );
 }

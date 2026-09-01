@@ -88,6 +88,7 @@ const frameworkManualSource = await readFile(new URL('../app/shenlun/framework/f
 const questionsPageSource = await readFile(new URL('../app/shenlun/questions/page.tsx', import.meta.url), 'utf8');
 const videosPageSource = await readFile(new URL('../app/shenlun/videos/page.tsx', import.meta.url), 'utf8');
 const writingStaticPagesSource = await readFile(new URL('../app/shenlun/writing/writing-static-pages.tsx', import.meta.url), 'utf8');
+const shenlunQuestionsSource = await readFile(new URL('../app/shenlun/questions/page.tsx', import.meta.url), 'utf8');
 
 test('core Shenlun pages use the shared frame while the Shenlun landing keeps its legacy branch', () => {
   assert.match(shenlunShellSource, /tone === 'home'/);
@@ -134,4 +135,13 @@ test('Shenlun videos keeps four archive cards and its learning flow in the share
   assert.match(videosPageSource, /videoSections\.map/);
   assert.match(videosPageSource, /interview-learning-flow/);
   assert.match(videosPageSource, /interview-flow-step/);
+});
+
+test('Shenlun questions keeps archive, toolbar, and question rows inside four targets', () => {
+  for (const id of ['questions-years', 'questions-types', 'questions-themes', 'questions-index']) {
+    assert.match(shenlunQuestionsSource, new RegExp(id));
+  }
+  assert.match(shenlunQuestionsSource, /shenlun-question-toolbar/);
+  assert.match(shenlunQuestionsSource, /shenlun-question-list/);
+  assert.match(shenlunQuestionsSource, /<LearningContentFrame/);
 });
