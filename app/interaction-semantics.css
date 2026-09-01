@@ -14,10 +14,6 @@
   .subject-module-card,
   .repeat-learning-link,
   .shenlun-route-strip > a,
-  .interview-route-strip > a,
-  .framework-hero-entry-strip > button,
-  .page-guide-items button,
-  .page-guide-float button,
   .framework-layer-trigger,
   .framework-sub-nav button,
   .framework-mobile-index,
@@ -39,10 +35,6 @@
   .subject-module-card,
   .repeat-learning-link,
   .shenlun-route-strip > a,
-  .interview-route-strip > a,
-  .framework-hero-entry-strip > button,
-  .page-guide-items button,
-  .page-guide-float button,
   .framework-layer-trigger,
   .framework-sub-nav button,
   .framework-mobile-index,
@@ -62,8 +54,6 @@
 
 /* 鼠标环境下，只有真实可点击项获得“靠近 + 高亮”的反馈。 */
 @media (hover: hover) and (pointer: fine) {
-  .page-guide-items button:hover,
-  .page-guide-float button:hover,
   .framework-sub-nav button:hover,
   .question-type-switcher-tabs button:hover,
   .tips-article-trigger:hover {
@@ -78,10 +68,6 @@
   .subject-module-card,
   .repeat-learning-link,
   .shenlun-route-strip > a,
-  .interview-route-strip > a,
-  .framework-hero-entry-strip > button,
-  .page-guide-items button,
-  .page-guide-float button,
   .framework-layer-trigger,
   .framework-sub-nav button,
   .question-type-switcher-tabs button,
@@ -95,9 +81,6 @@
   .learning-nav-items a.active,
   .learning-mobile-group-items a.active,
   .shenlun-route-strip > a.active,
-  .interview-route-strip > a.active,
-  .page-guide-items button.active,
-  .page-guide-float button.active,
   .framework-layer-trigger.active,
   .framework-sub-nav button.active,
   .question-type-switcher-tabs button.active
@@ -367,10 +350,6 @@
     .subject-module-card,
     .repeat-learning-link,
     .shenlun-route-strip > a,
-    .interview-route-strip > a,
-    .framework-hero-entry-strip > button,
-    .page-guide-items button,
-    .page-guide-float button,
     .framework-layer-trigger,
     .framework-sub-nav button,
     .question-type-switcher-tabs button,
@@ -464,16 +443,13 @@
 
 /* 仍在使用的按钮状态从已删除的末端覆盖文件迁入此处。 */
 .shenlun-route-strip,
-.interview-route-strip,
-.framework-hero-entry-strip,
-.page-guide-inline {
+.interview-route-strip {
   position: relative;
   overflow: visible;
 }
 
 .shenlun-route-strip::before,
-.interview-route-strip::before,
-.framework-hero-entry-strip::before {
+.interview-route-strip::before {
   position: absolute;
   left: 0;
   top: -23px;
@@ -485,35 +461,6 @@
 
 .shenlun-route-strip::before,
 .interview-route-strip::before { content: "LEARNING PATH / 点击切换栏目"; }
-.framework-hero-entry-strip::before { content: "CHAPTER INDEX / 点击进入章节"; }
-
-.framework-hero-entry-strip > button > i {
-  width: auto !important;
-  min-width: 38px;
-  height: 24px !important;
-  padding: 0 7px;
-  display: grid;
-  place-items: center;
-  border: 1px solid color-mix(in srgb, var(--shenlun-accent) 46%, rgba(37,37,31,.14));
-  border-radius: 999px !important;
-  background: color-mix(in srgb, var(--shenlun-accent) 9%, var(--paper));
-  color: color-mix(in srgb, var(--shenlun-accent) 76%, var(--ink));
-  font: 600 8px/1 system-ui, sans-serif !important;
-  letter-spacing: .06em;
-  white-space: nowrap;
-  opacity: .94 !important;
-  transform: none !important;
-}
-
-.framework-hero-entry-strip > button:hover > i,
-.framework-hero-entry-strip > button:focus-visible > i,
-.framework-hero-entry-strip > button.launching > i {
-  background: var(--shenlun-accent);
-  border-color: var(--shenlun-accent);
-  color: #fff;
-  opacity: 1 !important;
-  transform: translateX(2px) !important;
-}
 
 .subject-track-button {
   grid-template-columns: 28px minmax(145px,1fr) auto auto !important;
@@ -542,50 +489,6 @@
   border-color: var(--track-accent);
   color: #fff;
   transform: none !important;
-}
-
-.page-guide-items { position: relative; }
-
-.page-guide-items::before {
-  content: "PAGE INDEX / 点击定位本页内容";
-  position: absolute;
-  left: 0;
-  top: -18px;
-  color: rgba(37,37,31,.45);
-  font: italic 7px/1 Georgia, serif;
-  letter-spacing: .11em;
-  pointer-events: none;
-}
-
-.page-guide-items button {
-  background: color-mix(in srgb, var(--interaction-accent, var(--blue)) 4%, rgba(255,255,255,.18));
-}
-
-.page-guide-items button > i {
-  width: 25px;
-  height: 25px;
-  display: grid;
-  place-items: center;
-  justify-self: end;
-  border: 1px solid color-mix(in srgb, var(--interaction-accent, var(--blue)) 42%, rgba(37,37,31,.12));
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--interaction-accent, var(--blue)) 8%, var(--paper));
-  color: color-mix(in srgb, var(--interaction-accent, var(--blue)) 78%, var(--ink));
-  opacity: .92;
-  font-style: normal;
-}
-
-.page-guide-items button:hover,
-.page-guide-items button:focus-visible {
-  background: color-mix(in srgb, var(--interaction-accent, var(--blue)) 11%, var(--paper));
-  box-shadow: inset 3px 0 0 var(--interaction-accent, var(--blue));
-}
-
-.page-guide-items button:hover > i,
-.page-guide-items button:focus-visible > i,
-.page-guide-items button.active > i {
-  background: var(--interaction-accent, var(--blue));
-  color: #fff;
 }
 
 .framework-layer-nav .framework-layer-trigger > i {
@@ -650,15 +553,11 @@
 
 @media (max-width: 760px) {
   .shenlun-route-strip::before,
-  .interview-route-strip::before,
-  .framework-hero-entry-strip::before {
+  .interview-route-strip::before {
     top: -20px;
     font-size: 7px;
   }
 
-  .page-guide-items::before { top: -16px; }
-
-  .framework-hero-entry-strip > button > i,
   .subject-track-arrow {
     min-width: 36px;
     height: 23px !important;
@@ -670,10 +569,7 @@
 @media (prefers-reduced-motion: reduce) {
   .learning-entry-link,
   .learning-entry-link__arrow,
-  .framework-hero-entry-strip > button > i,
   .subject-track-arrow,
-  .page-guide-items button,
-  .page-guide-items button > i,
   .framework-layer-group .framework-sub-nav button::after {
     transition: none !important;
   }

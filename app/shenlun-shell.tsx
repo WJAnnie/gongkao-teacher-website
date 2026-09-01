@@ -35,7 +35,7 @@ function ShenlunHomeShell({ eyebrow, title, desc, children }: { eyebrow: string;
     <main className={`shenlun-page ${tone} shenlun-tone-${tone}`}>
       <LearningPageEffects />
       <LearningTopNav active={active} />
-      <header className={`shenlun-hero${tone === 'home' ? '' : ' learning-hero-standard'}`}>
+      <header className="shenlun-hero">
         <div className="shenlun-hero-topline"><span>申 / SHENLUN</span><span>答卷之外 · 申论学习</span></div>
         <span className="exam-review-stamp" aria-hidden="true">阅</span>
         <p className="shenlun-hero-eyebrow">{eyebrow}</p>

@@ -2,7 +2,6 @@ import '../framework/framework-manual.css';
 import './writing-hotspot.css';
 import './writing-hotspot-hierarchy.css';
 import './writing-case.css';
-import './writing-hero-menu.css';
 import './writing-tips-style.css';
 import './writing-section-landing.css';
 import './writing-static.css';

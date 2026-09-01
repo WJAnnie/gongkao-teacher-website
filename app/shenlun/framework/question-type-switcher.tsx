@@ -1,20 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { QuestionTypeKnowledge } from './question-type-knowledge';
 
 export function QuestionTypeSwitcher({ items }: { items: QuestionTypeKnowledge[] }) {
   const [activeSlug, setActiveSlug] = useState(items[0]?.slug ?? 'summary');
   const active = items.find((item) => item.slug === activeSlug) ?? items[0];
-
-  useEffect(() => {
-    const onGuide = (event: Event) => {
-      const key = (event as CustomEvent<string>).detail;
-      if (items.some((item) => item.slug === key)) setActiveSlug(key);
-    };
-    window.addEventListener('page-guide-select', onGuide as EventListener);
-    return () => window.removeEventListener('page-guide-select', onGuide as EventListener);
-  }, [items]);
 
   if (!active) return null;
 

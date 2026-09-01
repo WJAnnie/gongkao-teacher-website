@@ -75,7 +75,6 @@ test('writing subtree owns shared writing styles for every static category route
     './writing-hotspot.css',
     './writing-hotspot-hierarchy.css',
     './writing-case.css',
-    './writing-hero-menu.css',
     './writing-tips-style.css',
     './writing-section-landing.css',
     './writing-static.css',
@@ -91,6 +90,12 @@ test('interview shell owns interview-only styles', () => {
     './interview-learning.css',
   ]);
   assert.doesNotMatch(interviewShell, /menu-hierarchy-refinement\.css/);
+});
+
+test('retired framework scene and Hero standard styles are not imported', () => {
+  assert.doesNotMatch(rootLayout, /framework-scene-transition\.css/);
+  assert.doesNotMatch(rootLayout, /learning-hero-standard\.css/);
+  assert.doesNotMatch(frameworkPage, /framework-scene-transition\.css/);
 });
 
 test('writing landing and indexes do not import article, case, or metaphor corpora', () => {
