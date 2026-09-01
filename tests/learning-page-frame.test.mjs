@@ -6,6 +6,7 @@ import {
   learningPageChapters,
   shenlunRoutes,
 } from '../app/learning-routes.ts';
+import { questions } from '../app/question-bank-data.ts';
 
 const coreRoutes = [...shenlunRoutes, ...interviewRoutes];
 
@@ -144,4 +145,9 @@ test('Shenlun questions keeps archive, toolbar, and question rows inside four ta
   assert.match(shenlunQuestionsSource, /shenlun-question-toolbar/);
   assert.match(shenlunQuestionsSource, /shenlun-question-list/);
   assert.match(shenlunQuestionsSource, /<LearningContentFrame/);
+  assert.match(shenlunQuestionsSource, /item\.year !== '专项'/);
+  assert.equal(questions.filter((item) => item.subject === '申论' && item.year !== '专项').length, 30);
+  for (const label of ['归纳概括', '综合分析', '提出对策', '贯彻执行', '文章写作']) {
+    assert.match(shenlunQuestionsSource, new RegExp(label));
+  }
 });
