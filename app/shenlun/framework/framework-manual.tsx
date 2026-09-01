@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { flushSync } from 'react-dom';
+import { useState } from 'react';
+import { useLearningChapterNavigation } from '../../learning-chapter-navigation';
 import { FrameworkExpressionStepper } from './framework-expression-stepper';
 import { FrameworkTypeStepper, typeChapters } from './framework-type-stepper';
 import { FrameworkAbilities, coreAbilityChapters } from './framework-abilities';
@@ -16,14 +16,6 @@ const layers = [
 
 type LayerKey = (typeof layers)[number]['key'];
 type CoreAbilityId = (typeof coreAbilityChapters)[number]['id'];
-
-type ViewTransitionHandle = {
-  finished: Promise<void>;
-};
-
-type ViewTransitionDocument = Document & {
-  startViewTransition?: (update: () => void) => ViewTransitionHandle;
-};
 
 const expressionChapters = [
   { id: 'expression-know', no: '01', label: '认识申论' },
@@ -48,126 +40,45 @@ function focusExpandedTip(id: string) {
 }
 
 export function FrameworkManual() {
-  const [activeLayer, setActiveLayer] = useState<LayerKey>('expression');
+  const {
+    activeId,
+    activateChapter,
+    arrivingId,
+    closeDrawer,
+    drawerOpen,
+    openDrawer,
+  } = useLearningChapterNavigation();
   const [activeExpression, setActiveExpression] = useState(0);
   const [activeType, setActiveType] = useState('summary');
   const [activeAbility, setActiveAbility] = useState<CoreAbilityId>(coreAbilityChapters[0].id);
   const [activeTip, setActiveTip] = useState<string | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [heroArrival, setHeroArrival] = useState<LayerKey | null>(null);
+  const activeLayer = layers.some((item) => item.key === activeId.replace('framework-', ''))
+    ? activeId.replace('framework-', '') as LayerKey
+    : 'expression';
 
-  useEffect(() => {
-    let arrivalTimer: number | null = null;
-    let drawerTimer: number | null = null;
-
-    // 清理上一版“折叠 Hero”留下的状态；首屏始终保留在正常文档流中。
-    const page = document.querySelector<HTMLElement>('.shenlun-page.framework');
-    page?.classList.remove('framework-reading-mode', 'framework-scene-entering');
-
-    const onHeroSelect = (event: Event) => {
-      const key = (event as CustomEvent<{ key?: string }>).detail?.key;
-      if (!key || !layers.some((item) => item.key === key)) return;
-
-      const nextLayer = key as LayerKey;
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const mobile = window.innerWidth <= 820;
-      const manual = document.getElementById('framework-manual-top');
-      if (!manual) return;
-
-      const source = document.querySelector<HTMLElement>(`[data-framework-hero="${nextLayer}"]`);
-      const targetTop = manual.getBoundingClientRect().top + window.scrollY - (mobile ? 64 : 78);
-
-      const applyDestination = () => {
-        flushSync(() => {
-          setActiveLayer(nextLayer);
-          setDrawerOpen(false);
-          setHeroArrival(nextLayer);
-        });
-
-        // 真实页面位置瞬时切换，不播放滚动动画；视觉变化交给共享元素过渡。
-        window.scrollTo({ top: targetTop, behavior: 'auto' });
-
-        const sidebar = document.querySelector<HTMLElement>('.framework-manual-sidebar');
-        const target = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
-        if (sidebar && target) {
-          const sidebarRect = sidebar.getBoundingClientRect();
-          const targetRect = target.getBoundingClientRect();
-          const desired = Math.max(0, sidebar.scrollTop + targetRect.top - sidebarRect.top - 18);
-          sidebar.scrollTo({ top: desired, behavior: 'auto' });
-        }
-      };
-
-      const transitionDocument = document as ViewTransitionDocument;
-      if (!reducedMotion && !mobile && source && transitionDocument.startViewTransition) {
-        let sharedTarget: HTMLElement | null = null;
-        const root = document.documentElement;
-
-        source.style.setProperty('view-transition-name', 'framework-chapter-shared');
-        root.classList.add('framework-shared-transition-active');
-
-        try {
-          const transition = transitionDocument.startViewTransition(() => {
-            source.style.removeProperty('view-transition-name');
-            applyDestination();
-            sharedTarget = document.querySelector<HTMLElement>(`[data-framework-layer="${nextLayer}"]`);
-            sharedTarget?.style.setProperty('view-transition-name', 'framework-chapter-shared');
-          });
-
-          transition.finished.finally(() => {
-            source.style.removeProperty('view-transition-name');
-            sharedTarget?.style.removeProperty('view-transition-name');
-            root.classList.remove('framework-shared-transition-active');
-            setHeroArrival(null);
-          });
-        } catch {
-          source.style.removeProperty('view-transition-name');
-          root.classList.remove('framework-shared-transition-active');
-          applyDestination();
-          arrivalTimer = window.setTimeout(() => setHeroArrival(null), 900);
-        }
-      } else {
-        applyDestination();
-        arrivalTimer = window.setTimeout(() => setHeroArrival(null), reducedMotion ? 0 : 900);
-      }
-
-      if (mobile) {
-        drawerTimer = window.setTimeout(() => setDrawerOpen(true), reducedMotion ? 0 : 180);
-      }
-    };
-
-    window.addEventListener('framework-hero-select', onHeroSelect);
-    return () => {
-      window.removeEventListener('framework-hero-select', onHeroSelect);
-      if (arrivalTimer) window.clearTimeout(arrivalTimer);
-      if (drawerTimer) window.clearTimeout(drawerTimer);
-      document.documentElement.classList.remove('framework-shared-transition-active');
-    };
-  }, []);
-
-  const chooseLayer = (key: LayerKey) => {
-    setActiveLayer(key);
-    window.setTimeout(() => document.getElementById('framework-manual-top')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30);
+  const chooseLayer = (key: LayerKey, source: HTMLElement | null = null) => {
+    activateChapter(`framework-${key}`, source, 'directory');
   };
 
   const chooseExpression = (index: number) => {
-    if (activeLayer !== 'expression') setActiveLayer('expression');
+    if (activeLayer !== 'expression') activateChapter('framework-expression', null, 'directory');
     setActiveExpression(index);
-    setDrawerOpen(false);
+    closeDrawer();
     goTo(expressionChapters[index].id);
   };
 
   const chooseType = (slug: string) => {
-    if (activeLayer !== 'types') setActiveLayer('types');
+    if (activeLayer !== 'types') activateChapter('framework-types', null, 'directory');
     setActiveType(slug);
-    setDrawerOpen(false);
+    closeDrawer();
     const chapter = typeChapters.find((item) => item.slug === slug);
     if (chapter) goTo(chapter.id);
   };
 
   const chooseAbility = (id: CoreAbilityId) => {
-    if (activeLayer !== 'abilities') setActiveLayer('abilities');
+    if (activeLayer !== 'abilities') activateChapter('framework-abilities', null, 'directory');
     setActiveAbility(id);
-    setDrawerOpen(false);
+    closeDrawer();
     goTo(id);
   };
 
@@ -177,8 +88,8 @@ export function FrameworkManual() {
   };
 
   const chooseTip = (id: string) => {
-    if (activeLayer !== 'tips') setActiveLayer('tips');
-    setDrawerOpen(false);
+    if (activeLayer !== 'tips') activateChapter('framework-tips', null, 'directory');
+    closeDrawer();
     changeTip(id);
   };
 
@@ -250,28 +161,29 @@ export function FrameworkManual() {
   };
 
   return (
-    <div className={`framework-manual${heroArrival ? ' hero-entry-arrival' : ''}`} id="framework-manual-top">
-      <button className="framework-mobile-index" type="button" onClick={() => setDrawerOpen(true)}>
+    <div className="framework-manual learning-content-frame" id="framework-manual-top" data-learning-content-frame>
+      <button className="framework-mobile-index" type="button" onClick={(event) => openDrawer(event.currentTarget)}>
         <span>本页目录</span>
         <b>{mobileLabel}</b>
         <em>☰</em>
       </button>
 
-      <aside className={`framework-manual-sidebar${drawerOpen ? ' open' : ''}`} aria-label="方法框架学习目录">
-        <button className="framework-drawer-close" type="button" onClick={() => setDrawerOpen(false)}>×</button>
+      <aside className={`framework-manual-sidebar learning-directory-column${drawerOpen ? ' open' : ''}`} aria-label="方法框架学习目录">
+        <button className="framework-drawer-close" data-learning-directory-initial-focus type="button" onClick={closeDrawer}>×</button>
         <div className="framework-sidebar-kicker">申论方法 / METHOD</div>
         <nav className="framework-layer-nav" aria-label="方法框架章节">
           {layers.map((item) => {
             const open = activeLayer === item.key;
-            const arriving = heroArrival === item.key;
+            const arriving = arrivingId === `framework-${item.key}`;
             return (
-              <div className={`framework-layer-group${open ? ' open' : ''}${arriving ? ' hero-arrival' : ''}`} key={item.key}>
+              <div className={`framework-layer-group learning-directory-group${open ? ' open active' : ''}${arriving ? ' arriving' : ''}`} key={item.key}>
                 <button
                   className={`framework-layer-trigger${open ? ' active' : ''}`}
                   data-framework-layer={item.key}
+                  data-learning-directory-id={`framework-${item.key}`}
                   type="button"
                   aria-expanded={open}
-                  onClick={() => chooseLayer(item.key)}
+                  onClick={(event) => chooseLayer(item.key, event.currentTarget)}
                 >
                   <span>{item.no}</span><b>{item.label}</b><i aria-hidden="true">⌄</i>
                 </button>
@@ -283,9 +195,9 @@ export function FrameworkManual() {
 
         <div className="framework-sidebar-progress" aria-hidden="true"><i style={{ height: progressHeight }} /></div>
       </aside>
-      {drawerOpen && <button className="framework-drawer-backdrop" aria-label="关闭目录" type="button" onClick={() => setDrawerOpen(false)} />}
+      {drawerOpen && <button className="framework-drawer-backdrop" aria-label="关闭目录" type="button" onClick={closeDrawer} />}
 
-      <article className="framework-manual-reading">
+      <main className="framework-manual-reading learning-reading-surface">
         {activeLayer === 'expression' && (
           <section className="framework-manual-article framework-expression-layer" id="framework-expression">
             <header className="framework-article-intro">
@@ -329,7 +241,7 @@ export function FrameworkManual() {
             <FrameworkTipsArticles activeId={activeTip} onChange={changeTip} />
           </section>
         )}
-      </article>
+      </main>
     </div>
   );
 }

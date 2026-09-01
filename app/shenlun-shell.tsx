@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react';
+import { LearningPageFrame } from './learning-page-frame';
 import { LearningTopNav } from './learning-nav';
-import { LearningPageEffects, PageGuide, type GuideItem } from './learning-page-effects';
-import { interviewRoutes, shenlunRoutes } from './learning-routes';
-import { FrameworkHeroMenu } from './shenlun/framework/framework-hero-menu';
-import { WritingHeroMenu } from './shenlun/writing/writing-hero-menu';
+import { LearningPageEffects } from './learning-page-effects';
+import { interviewRoutes, learningPageChapters, shenlunRoutes } from './learning-routes';
 
 type ShenlunTone = 'framework' | 'questions' | 'writing' | 'videos' | 'home';
 
@@ -14,31 +13,24 @@ const toneToActive = {
   videos: 'shenlun-videos',
 } as const;
 
-const guides: Record<Exclude<ShenlunTone, 'home'>, GuideItem[]> = {
-  framework: [
-    { no: '01', label: '表达规则', selector: '#framework-expression' },
-    { no: '02', label: '题型框架', selector: '#framework-types' },
-    { no: '03', label: '核心能力', selector: '#framework-abilities' },
-    { no: '04', label: '实用技巧', selector: '#framework-tips' },
-  ],
-  questions: [
-    { no: '01', label: '按年份看', selector: '.shenlun-map-card:nth-child(1)' },
-    { no: '02', label: '按题型练', selector: '.shenlun-map-card:nth-child(2)' },
-    { no: '03', label: '按主题复盘', selector: '.shenlun-map-card:nth-child(3)' },
-    { no: '04', label: '真题索引', selector: '.shenlun-question-list' },
-  ],
-  writing: [],
-  videos: [
-    { no: '01', label: '课程精讲', selector: '.video-card:nth-child(1)' },
-    { no: '02', label: '课堂实录', selector: '.video-card:nth-child(2)' },
-    { no: '03', label: '工作日常', selector: '.video-card:nth-child(3)' },
-    { no: '04', label: '碎片分享', selector: '.video-card:nth-child(4)' },
-  ],
-};
-
 export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: ShenlunTone; eyebrow: string; title: string; desc: string; children: ReactNode }) {
-  const active = tone === 'home' ? undefined : toneToActive[tone];
-  const guide = tone === 'home' ? [] : guides[tone];
+  if (tone === 'home') return <ShenlunHomeShell desc={desc} eyebrow={eyebrow} title={title}>{children}</ShenlunHomeShell>;
+
+  const active = toneToActive[tone];
+  return <LearningPageFrame
+    active={active}
+    chapters={learningPageChapters[active]}
+    desc={desc}
+    eyebrow={eyebrow}
+    legacyClassName={`shenlun-page ${tone} shenlun-tone-${tone}`}
+    subject="shenlun"
+    title={title}
+  >{children}</LearningPageFrame>;
+}
+
+function ShenlunHomeShell({ eyebrow, title, desc, children }: { eyebrow: string; title: string; desc: string; children: ReactNode }) {
+  const tone = 'home';
+  const active: string | undefined = undefined;
   return (
     <main className={`shenlun-page ${tone} shenlun-tone-${tone}`}>
       <LearningPageEffects />
@@ -50,26 +42,19 @@ export function ShenlunShell({ tone, eyebrow, title, desc, children }: { tone: S
         <h1>{title}</h1>
         <div className="shenlun-hero-bottom">
           <p>{desc}</p>
-          {tone === 'framework' ? (
-            <FrameworkHeroMenu />
-          ) : tone === 'writing' ? (
-            <WritingHeroMenu />
-          ) : (
-            <nav className="shenlun-route-strip" aria-label="申论学习路径">
-              {shenlunRoutes.map((item, index) => (
-                <a
-                  className={`route-${item.key.replace('shenlun-', '')}${active === item.key ? ' active' : ''}`}
-                  href={item.href}
-                  key={item.key}
-                  aria-current={active === item.key ? 'page' : undefined}
-                >
-                  <span>0{index + 1}</span><b>{item.label}</b>
-                </a>
-              ))}
-            </nav>
-          )}
+          <nav className="shenlun-route-strip" aria-label="申论学习路径">
+            {shenlunRoutes.map((item, index) => (
+              <a
+                className={`route-${item.key.replace('shenlun-', '')}${active === item.key ? ' active' : ''}`}
+                href={item.href}
+                key={item.key}
+                aria-current={active === item.key ? 'page' : undefined}
+              >
+                <span>0{index + 1}</span><b>{item.label}</b>
+              </a>
+            ))}
+          </nav>
         </div>
-        {guide.length > 0 && tone !== 'framework' && <PageGuide items={guide} embedded />}
       </header>
       <div className="shenlun-color-line" aria-hidden="true" />
       {children}

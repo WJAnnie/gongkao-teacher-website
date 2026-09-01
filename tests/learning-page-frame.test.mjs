@@ -82,3 +82,18 @@ test('root-imported frame css cannot target legacy LearningShell classes', () =>
     );
   }
 });
+
+const shenlunShellSource = await readFile(new URL('../app/shenlun-shell.tsx', import.meta.url), 'utf8');
+const frameworkManualSource = await readFile(new URL('../app/shenlun/framework/framework-manual.tsx', import.meta.url), 'utf8');
+
+test('core Shenlun pages use the shared frame while the Shenlun landing keeps its legacy branch', () => {
+  assert.match(shenlunShellSource, /tone === 'home'/);
+  assert.match(shenlunShellSource, /<LearningPageFrame/);
+  assert.doesNotMatch(shenlunShellSource, /FrameworkHeroMenu|WritingHeroMenu|PageGuide/);
+});
+
+test('framework manual consumes the shared chapter context without custom events', () => {
+  assert.match(frameworkManualSource, /useLearningChapterNavigation/);
+  assert.match(frameworkManualSource, /data-learning-directory-id/);
+  assert.doesNotMatch(frameworkManualSource, /framework-hero-select|startViewTransition/);
+});

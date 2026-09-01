@@ -52,8 +52,16 @@ test('defensive transition fallbacks commit once and still schedule cleanup', ()
   assert.match(source, /\} catch \{\n      fallbackToCommittedDestination\(\);\n    \}/);
 });
 
+test('animated transitions also schedule cleanup independent of browser completion timing', () => {
+  assert.match(source, /void transition\.finished\.catch\(\(\) => undefined\)\.finally\(cleanupTransition\);\n      scheduleTransitionCleanup\(\);/);
+});
+
 test('drawer open moves focus to a generic initial-focus target', () => {
   assert.match(source, /directoryInitialFocus/);
   assert.match(source, /querySelector<HTMLElement>\('\[data-learning-directory-initial-focus\]'\)/);
   assert.match(source, /data-learning-directory-initial-focus/);
+});
+
+test('mobile hero activation moves focus into the opened drawer', () => {
+  assert.match(source, /if \(mobile && origin === 'hero'\) window\.setTimeout\(\(\) => directoryInitialFocus\(\)\?\.focus\(\), 0\);/);
 });

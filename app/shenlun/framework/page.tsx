@@ -16,7 +16,6 @@ import './framework-voice-reading.css';
 import './framework-deep-enrichment.css';
 import './framework-tips-articles.css';
 import '../../menu-hierarchy-refinement.css';
-import '../../framework-scene-transition.css';
 
 export const metadata: Metadata = {
   title: '方法框架｜申论学习｜答卷之外',

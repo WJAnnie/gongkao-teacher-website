@@ -165,6 +165,7 @@ export function LearningChapterProvider({
         behavior: reducedMotion || origin === 'hero' ? 'auto' : 'smooth',
         block: 'start',
       });
+      if (mobile && origin === 'hero') window.setTimeout(() => directoryInitialFocus()?.focus(), 0);
       if (mobile && origin === 'directory') restoreDrawerFocus();
       return true;
     };
@@ -198,6 +199,7 @@ export function LearningChapterProvider({
         return;
       }
       void transition.finished.catch(() => undefined).finally(cleanupTransition);
+      scheduleTransitionCleanup();
     } catch {
       fallbackToCommittedDestination();
     }

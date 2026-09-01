@@ -66,7 +66,6 @@ test('framework route owns its styles in their original order', () => {
     './framework-deep-enrichment.css',
     './framework-tips-articles.css',
     '../../menu-hierarchy-refinement.css',
-    '../../framework-scene-transition.css',
   ]);
 });
 
