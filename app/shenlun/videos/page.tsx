@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 };
 
 const videoSections = [
-  ['01 / COURSE', '课程精讲', '题型方法、材料阅读、规范表达和文章写作，按知识点整理成可以反复回看的课程片段。', '题型方法 · 材料阅读 · 文章写作'],
-  ['02 / CLASSROOM', '课堂实录', '讲题、追问、学员卡点和现场修改都保留下来，方便看到思路是怎么一步步调整的。', '讲题 · 修改 · 重做 · 复盘'],
-  ['03 / WORKLOG', '工作日常', '备课、批改、选题、整理资料、复盘课堂，这些工作细节也会放进课程档案里。', '备课 · 批改 · 选题 · 复盘'],
-  ['04 / NOTES', '碎片分享', '一个表达、一条热点、一处常见误区，适合短时间看完，也方便以后回查。', '表达 · 热点 · 误区 · 随手记'],
+  ['01 / COURSE', '课程精讲', '题型方法、材料阅读、规范表达和文章写作，按知识点整理成可以反复回看的课程片段。', '题型方法 · 材料阅读 · 文章写作', 'shenlun-video-course'],
+  ['02 / CLASSROOM', '课堂实录', '讲题、追问、学员卡点和现场修改都保留下来，方便看到思路是怎么一步步调整的。', '讲题 · 修改 · 重做 · 复盘', 'shenlun-video-classroom'],
+  ['03 / WORKLOG', '工作日常', '备课、批改、选题、整理资料、复盘课堂，这些工作细节也会放进课程档案里。', '备课 · 批改 · 选题 · 复盘', 'shenlun-video-worklog'],
+  ['04 / NOTES', '碎片分享', '一个表达、一条热点、一处常见误区，适合短时间看完，也方便以后回查。', '表达 · 热点 · 误区 · 随手记', 'shenlun-video-notes'],
 ] as const;
 
 const flow = [
@@ -33,8 +33,8 @@ export default function ShenlunVideosPage() {
           <p>四类内容按场景归档，找课程、找讲题、找课堂片段都会更快。</p>
         </div>
         <div className="video-grid">
-          {videoSections.map(([no, title, desc, note]) => (
-            <article className="video-card" key={title}>
+          {videoSections.map(([no, title, desc, note, chapterId]) => (
+            <article className="video-card" id={chapterId} key={title}>
               <span>{no}</span><h3>{title}</h3><p>{desc}</p><small>{note}</small>
             </article>
           ))}

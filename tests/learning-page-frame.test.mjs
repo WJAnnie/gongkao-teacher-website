@@ -85,6 +85,9 @@ test('root-imported frame css cannot target legacy LearningShell classes', () =>
 
 const shenlunShellSource = await readFile(new URL('../app/shenlun-shell.tsx', import.meta.url), 'utf8');
 const frameworkManualSource = await readFile(new URL('../app/shenlun/framework/framework-manual.tsx', import.meta.url), 'utf8');
+const questionsPageSource = await readFile(new URL('../app/shenlun/questions/page.tsx', import.meta.url), 'utf8');
+const videosPageSource = await readFile(new URL('../app/shenlun/videos/page.tsx', import.meta.url), 'utf8');
+const writingStaticPagesSource = await readFile(new URL('../app/shenlun/writing/writing-static-pages.tsx', import.meta.url), 'utf8');
 
 test('core Shenlun pages use the shared frame while the Shenlun landing keeps its legacy branch', () => {
   assert.match(shenlunShellSource, /tone === 'home'/);
@@ -96,4 +99,16 @@ test('framework manual consumes the shared chapter context without custom events
   assert.match(frameworkManualSource, /useLearningChapterNavigation/);
   assert.match(frameworkManualSource, /data-learning-directory-id/);
   assert.doesNotMatch(frameworkManualSource, /framework-hero-select|startViewTransition/);
+});
+
+test('Shenlun chapter metadata has a body target on every core route', () => {
+  for (const targetId of ['questions-years', 'questions-types', 'questions-themes', 'questions-index']) {
+    assert.match(questionsPageSource, new RegExp(targetId), targetId);
+  }
+  for (const targetId of ['shenlun-video-course', 'shenlun-video-classroom', 'shenlun-video-worklog', 'shenlun-video-notes']) {
+    assert.match(videosPageSource, new RegExp(targetId), targetId);
+  }
+  for (const targetId of ['writing-viewpoints', 'writing-evidence', 'writing-language', 'writing-essay']) {
+    assert.match(writingStaticPagesSource, new RegExp(targetId), targetId);
+  }
 });

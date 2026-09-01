@@ -40,7 +40,8 @@ export function useLearningChapterNavigation() {
 
 function directoryTarget(id: string) {
   return Array.from(document.querySelectorAll<HTMLElement>('[data-learning-directory-id]'))
-    .find((node) => node.dataset.learningDirectoryId === id) ?? null;
+    .find((node) => node.dataset.learningDirectoryId === id)
+    ?? document.getElementById(id);
 }
 
 function directoryInitialFocus() {
@@ -138,7 +139,7 @@ export function LearningChapterProvider({
     cleanupRef.current = cleanupTransition;
 
     const scheduleTransitionCleanup = () => {
-      window.setTimeout(cleanupTransition, reducedMotion ? 0 : 420);
+      window.setTimeout(cleanupTransition, reducedMotion ? 0 : 1000);
     };
 
     const previousId = activeId;

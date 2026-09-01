@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 };
 
 const archiveCards = [
-  ['01', '按年份看', '2020—2025', '连续看同一套试卷，更容易体会材料主题、题型组合和整卷节奏。'],
-  ['02', '按题型练', '五大题型', '归纳概括、综合分析、提出对策、贯彻执行、文章写作可以交叉训练。'],
-  ['03', '按主题复盘', '治理 · 民生 · 发展', '把不同年份里相近的主题放在一起，看材料表达和命题角度怎么变化。'],
+  ['01', '按年份看', '2020—2025', '连续看同一套试卷，更容易体会材料主题、题型组合和整卷节奏。', 'questions-years'],
+  ['02', '按题型练', '五大题型', '归纳概括、综合分析、提出对策、贯彻执行、文章写作可以交叉训练。', 'questions-types'],
+  ['03', '按主题复盘', '治理 · 民生 · 发展', '把不同年份里相近的主题放在一起，看材料表达和命题角度怎么变化。', 'questions-themes'],
 ] as const;
 
 function suggestedTime(type: string) {
@@ -40,8 +40,8 @@ export default function ShenlunQuestionsPage() {
         </div>
 
         <div className="shenlun-map-grid">
-          {archiveCards.map(([no, title, meta, desc]) => (
-            <article className="shenlun-map-card" key={no}>
+          {archiveCards.map(([no, title, meta, desc, chapterId]) => (
+            <article className="shenlun-map-card" id={chapterId} key={no}>
               <span>{no}</span>
               <h3>{title}</h3>
               <p>{desc}</p>
@@ -60,7 +60,7 @@ export default function ShenlunQuestionsPage() {
           <span>归纳概括</span><span>综合分析</span><span>提出对策</span><span>贯彻执行</span><span>文章写作</span>
         </div>
 
-        <div className="shenlun-question-list">
+        <div className="shenlun-question-list" id="questions-index">
           {shenlunQuestions.map((item, index) => (
             <article className="shenlun-question-row" key={item.id}>
               <div className="meta">

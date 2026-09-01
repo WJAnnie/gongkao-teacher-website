@@ -47,7 +47,7 @@ test('active id is derived from stored state without effect normalization', () =
 
 test('defensive transition fallbacks commit once and still schedule cleanup', () => {
   assert.match(source, /const fallbackToCommittedDestination = \(\) => \{\n      root\.classList\.remove\('learning-shared-transition-active'\);\n      source\?\.style\.removeProperty\('view-transition-name'\);\n      if \(commitDestination\(\)\) scheduleTransitionCleanup\(\);\n    \};/);
-  assert.match(source, /window\.setTimeout\(cleanupTransition, reducedMotion \? 0 : 420\)/);
+  assert.match(source, /window\.setTimeout\(cleanupTransition, reducedMotion \? 0 : 1000\)/);
   assert.match(source, /fallbackToCommittedDestination\(\);\n        return;/);
   assert.match(source, /\} catch \{\n      fallbackToCommittedDestination\(\);\n    \}/);
 });
@@ -64,4 +64,12 @@ test('drawer open moves focus to a generic initial-focus target', () => {
 
 test('mobile hero activation moves focus into the opened drawer', () => {
   assert.match(source, /if \(mobile && origin === 'hero'\) window\.setTimeout\(\(\) => directoryInitialFocus\(\)\?\.focus\(\), 0\);/);
+});
+
+test('chapter activation can use a body target before a directory is mounted', () => {
+  assert.match(source, /data-learning-directory-id.*document\.getElementById|document\.getElementById\(id\)/s);
+});
+
+test('transition watchdog outlasts the shared-element animation', () => {
+  assert.match(source, /setTimeout\(cleanupTransition, reducedMotion \? 0 : 1000\)/);
 });

@@ -197,7 +197,7 @@ export function FrameworkManual() {
       </aside>
       {drawerOpen && <button className="framework-drawer-backdrop" aria-label="关闭目录" type="button" onClick={closeDrawer} />}
 
-      <main className="framework-manual-reading learning-reading-surface">
+      <article className="framework-manual-reading learning-reading-surface">
         {activeLayer === 'expression' && (
           <section className="framework-manual-article framework-expression-layer" id="framework-expression">
             <header className="framework-article-intro">
@@ -241,7 +241,7 @@ export function FrameworkManual() {
             <FrameworkTipsArticles activeId={activeTip} onChange={changeTip} />
           </section>
         )}
-      </main>
+      </article>
     </div>
   );
 }
