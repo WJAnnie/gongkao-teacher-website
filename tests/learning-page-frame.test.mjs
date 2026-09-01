@@ -90,6 +90,8 @@ const questionsPageSource = await readFile(new URL('../app/shenlun/questions/pag
 const videosPageSource = await readFile(new URL('../app/shenlun/videos/page.tsx', import.meta.url), 'utf8');
 const writingStaticPagesSource = await readFile(new URL('../app/shenlun/writing/writing-static-pages.tsx', import.meta.url), 'utf8');
 const shenlunQuestionsSource = await readFile(new URL('../app/shenlun/questions/page.tsx', import.meta.url), 'utf8');
+const writingPageSource = await readFile(new URL('../app/shenlun/writing/page.tsx', import.meta.url), 'utf8');
+const writingStaticSource = await readFile(new URL('../app/shenlun/writing/writing-static-pages.tsx', import.meta.url), 'utf8');
 
 test('core Shenlun pages use the shared frame while the Shenlun landing keeps its legacy branch', () => {
   assert.match(shenlunShellSource, /tone === 'home'/);
@@ -150,4 +152,16 @@ test('Shenlun questions keeps archive, toolbar, and question rows inside four ta
   for (const label of ['归纳概括', '综合分析', '提出对策', '贯彻执行', '文章写作']) {
     assert.match(shenlunQuestionsSource, new RegExp(label));
   }
+});
+
+test('writing keeps eight static entries under four macro groups', () => {
+  assert.match(writingPageSource, /<LearningContentFrame/);
+  for (const id of ['writing-viewpoints', 'writing-evidence', 'writing-language', 'writing-essay']) {
+    assert.match(writingStaticSource, new RegExp(id));
+  }
+  assert.equal((writingStaticSource.match(/href: '/g) ?? []).length, 8);
+  for (const href of ['/shenlun/writing/hotspots/', '/shenlun/writing/cases/', '/shenlun/writing/metaphors/']) {
+    assert.match(writingStaticSource, new RegExp(href.replaceAll('/', '\\/')));
+  }
+  assert.doesNotMatch(writingStaticSource, /writing-hotspot-all|writing-case-all|writing-metaphor-data/);
 });

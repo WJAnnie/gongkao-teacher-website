@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { LearningContentFrame } from '../../learning-chapter-navigation';
 import { ShenlunShell } from '../../shenlun-shell';
 import { WritingStaticLanding } from './writing-static-pages';
 
@@ -16,7 +17,9 @@ export default function ShenlunWritingPage() {
       desc="先选你现在真正需要的积累内容，再进入对应静态页面。当前内容库：热点时评 84 篇｜案例素材 120 个｜比喻用词 242 条。"
     >
       <section className="shenlun-content framework-content writing-content">
-        <WritingStaticLanding />
+        <LearningContentFrame label="写作积累学习目录">
+          <WritingStaticLanding />
+        </LearningContentFrame>
       </section>
     </ShenlunShell>
   );

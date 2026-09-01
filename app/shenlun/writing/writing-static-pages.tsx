@@ -11,6 +11,13 @@ const librarySections = [
   { no: '08', label: '作文框架', en: 'ESSAY', href: '/shenlun/writing/#essay', desc: '把观点、论据和表达真正组织成完整文章。', chapterId: 'writing-essay' },
 ] as const;
 
+const writingMacroGroups = [
+  { id: 'writing-viewpoints', title: '观点与热点', entries: ['01', '06', '07'] },
+  { id: 'writing-evidence', title: '案例与论据', entries: ['02'] },
+  { id: 'writing-language', title: '词语与修辞', entries: ['03', '04', '05'] },
+  { id: 'writing-essay', title: '作文与结构', entries: ['08'] },
+] as const;
+
 function ChoiceCard({ no, label, desc, href, meta, id }: { no: string; label: string; desc: string; href: string; meta: string; id?: string }) {
   return <a className="writing-static-choice" href={href} id={id}><span>{no}</span><b>{label}</b><p>{desc}</p><em>{meta}　→</em></a>;
 }
@@ -21,9 +28,19 @@ export function WritingStaticLanding() {
       <span className="writing-library-kicker">WRITING LIBRARY</span>
       <h2>选择你现在要积累的内容</h2>
       <p className="writing-library-teacher-note">写作积累不需要按照固定顺序学习。你正在写什么、缺什么，就进入对应模块。热点时评和案例素材已经改成独立静态页面；即使浏览器脚本异常，也不会影响页面进入和正文阅读。</p>
-      <div className="writing-library-choice-grid writing-static-main-grid">
-        {librarySections.map((item) => <ChoiceCard key={item.no} id={item.chapterId} no={item.no} label={item.label} desc={item.desc} href={item.href} meta={item.no === '01' ? '84 篇文章' : item.no === '02' ? '120 个案例' : item.no === '04' ? '242 条' : '继续建设'} />)}
-      </div>
+      {writingMacroGroups.map((group, index) => <section className="writing-macro-group" id={group.id} key={group.id}>
+        <div className="writing-macro-head"><span>0{index + 1}</span><h3>{group.title}</h3></div>
+        <div className="writing-library-choice-grid writing-static-main-grid">
+          {librarySections.filter((item) => group.entries.some((no) => no === item.no)).map((item) => <ChoiceCard
+            key={item.no}
+            no={item.no}
+            label={item.label}
+            desc={item.desc}
+            href={item.href}
+            meta={item.no === '01' ? '84 篇文章' : item.no === '02' ? '120 个案例' : item.no === '04' ? '242 条' : '继续建设'}
+          />)}
+        </div>
+      </section>)}
     </section>
     <section className="writing-static-coming" id="terms"><span>03</span><b>规范用词</b><p>将在下一轮按同样的静态优先方式补充。</p></section>
     <section className="writing-static-coming" id="parallel"><span>05</span><b>对仗句库</b><p>将在下一轮按同样的静态优先方式补充。</p></section>
