@@ -105,6 +105,7 @@ test('Shenlun chapter metadata has a body target on every core route', () => {
   for (const targetId of ['questions-years', 'questions-types', 'questions-themes', 'questions-index']) {
     assert.match(questionsPageSource, new RegExp(targetId), targetId);
   }
+  assert.match(questionsPageSource, /<section className="shenlun-map-card" id=\{chapterId\}/);
   for (const targetId of ['shenlun-video-course', 'shenlun-video-classroom', 'shenlun-video-worklog', 'shenlun-video-notes']) {
     assert.match(videosPageSource, new RegExp(targetId), targetId);
   }

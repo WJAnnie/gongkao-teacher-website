@@ -41,12 +41,12 @@ export default function ShenlunQuestionsPage() {
 
         <div className="shenlun-map-grid">
           {archiveCards.map(([no, title, meta, desc, chapterId]) => (
-            <article className="shenlun-map-card" id={chapterId} key={no}>
+            <section className="shenlun-map-card" id={chapterId} key={no}>
               <span>{no}</span>
               <h3>{title}</h3>
               <p>{desc}</p>
               <ul><li>{meta}</li><li>题意摘要 + 训练重点 + 作答方向</li></ul>
-            </article>
+            </section>
           ))}
         </div>
 
