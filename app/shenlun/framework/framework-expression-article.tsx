@@ -9,7 +9,7 @@ function Topic({ label, title, desc }: { label: string; title: string; desc?: st
 }
 
 function Note({ children }: { children: ReactNode }) {
-  return <aside className="framework-voice-note"><span>阅 / 高老师提醒</span><p>{children}</p></aside>;
+  return <aside className="framework-voice-note"><span>阅 / 云帆老师提醒</span><p>{children}</p></aside>;
 }
 
 function Example({ label, title, children, note }: { label: string; title: string; children: ReactNode; note: ReactNode }) {

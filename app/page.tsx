@@ -37,13 +37,13 @@ export default function Home() {
         <Image className="about-visual-art" src="/about-study-art.svg" alt="" aria-hidden="true" width={900} height={1100} />
         <HomeSongPlayer />
         <div className="about-copy">
-          <p className="section-index">02 — ABOUT / 高老师与答卷之外</p>
+          <p className="section-index">02 — ABOUT / 云帆老师与答卷之外</p>
           <div className="about-merged-grid">
             <div className="about-profile about-profile-expanded">
-              <div className="about-identity-line"><span>GAO / 高老师</span><b>公考教师 · 申论 · 结构化面试</b></div>
+              <div className="about-identity-line"><span>YUNFAN / 云帆老师</span><b>公考教师 · 申论 · 结构化面试</b></div>
               <h2>把题目看明白，<br />把自己的答案<span>说清楚</span>。</h2>
               <div className="about-intro-lead">
-                <p>我是高老师，目前从事公考教学。课堂之外，我一直想有一个地方，把申论、结构化面试里真正需要反复练的东西整理下来。</p>
+                <p>我是云帆老师，目前从事公考教学。课堂之外，我一直想有一个地方，把申论、结构化面试里真正需要反复练的东西整理下来。</p>
                 <p>所以有了「答卷之外」。这里会留下我的方法框架、真题拆解、写作积累、表达训练和课堂观察，也会记录一些在课上来不及展开、但值得反复琢磨的细节。</p>
               </div>
               <div className="about-detail-grid">
@@ -65,12 +65,12 @@ export default function Home() {
           <div className="about-contact-head"><span>MATERIALS / 资料入口</span><b>资料 · 内容 · 日常</b></div>
           <div className="about-contact-body">
             <div className="qr-placeholder" aria-label="二维码区域"><div className="qr-pattern" aria-hidden="true" /><span>QR</span></div>
-            <div className="contact-info"><span>答卷之外 · 高老师</span><h3>获取资料</h3><p>申论方法 · 结构化面试 · 真题训练 · 课堂内容</p></div>
+            <div className="contact-info"><span>答卷之外 · 云帆老师</span><h3>获取资料</h3><p>申论方法 · 结构化面试 · 真题训练 · 课堂内容</p></div>
           </div>
         </aside>
       </section>
 
-      <footer className="footer"><span>答卷之外 · 高老师 · 申论 × 结构化面试</span><a href="#top">BACK TO TOP ↑</a></footer>
+      <footer className="footer"><span>答卷之外 · 云帆老师 · 申论 × 结构化面试</span><a href="#top">BACK TO TOP ↑</a></footer>
     </main>
   );
 }

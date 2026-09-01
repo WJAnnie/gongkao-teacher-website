@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 
 async function read(relativePath) {
   try {
@@ -23,6 +23,18 @@ function assertImportsInOrder(source, imports) {
   assert.deepEqual(positions, [...positions].sort((a, b) => a - b), 'stylesheet order changed');
 }
 
+async function readSourceTree(relativeDirectory) {
+  const directoryUrl = new URL(relativeDirectory, import.meta.url);
+  const entries = await readdir(directoryUrl, { withFileTypes: true });
+  const sources = await Promise.all(entries.map(async (entry) => {
+    const child = new URL(`${entry.name}${entry.isDirectory() ? '/' : ''}`, directoryUrl);
+    if (entry.isDirectory()) return readSourceTree(child);
+    if (!/\.(?:ts|tsx|js|jsx|md|json|css)$/.test(entry.name)) return '';
+    return readFile(child, 'utf8');
+  }));
+  return sources.flat(Infinity).join('\n');
+}
+
 const rootLayout = await read('../app/layout.tsx');
 const frameworkPage = await read('../app/shenlun/framework/page.tsx');
 const writingLayout = await read('../app/shenlun/writing/layout.tsx');
@@ -33,6 +45,7 @@ const caseCategoryPage = await read('../app/shenlun/writing/cases/[category]/pag
 const hotspotCategoryView = await read('../app/shenlun/writing/writing-hotspot-static-category.tsx');
 const caseCategoryView = await read('../app/shenlun/writing/writing-case-static-category.tsx');
 const frameworkDeepEnrichment = await read('../app/shenlun/framework/framework-deep-enrichment.tsx');
+const appSource = await readSourceTree('../app/');
 
 test('root layout excludes every specialist-only stylesheet', () => {
   assert.doesNotMatch(rootLayout, /shenlun\/framework\/framework-/);
@@ -122,4 +135,9 @@ test('static writing navigation avoids Vinext RSC prefetch links', () => {
 test('framework table rows use content-derived unique keys', () => {
   assert.match(frameworkDeepEnrichment, /key=\{`\$\{a\}-\$\{b\}`\}/);
   assert.doesNotMatch(frameworkDeepEnrichment, /<tr key=\{a\}>/);
+});
+
+test('student-facing copy uses the current teacher name', () => {
+  assert.doesNotMatch(appSource, /高老师|GAO\s*\//);
+  assert.match(appSource, /云帆老师/);
 });

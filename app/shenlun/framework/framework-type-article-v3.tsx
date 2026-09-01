@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 function TeacherNote({ children }: { children: ReactNode }) {
-  return <aside className="expression-v2-note type-v2-note"><span>阅 / 高老师批注</span><p>{children}</p></aside>;
+  return <aside className="expression-v2-note type-v2-note"><span>阅 / 云帆老师批注</span><p>{children}</p></aside>;
 }
 function Prose({ children }: { children: ReactNode }) { return <div className="expression-v2-prose">{children}</div>; }
 function NumberStep({ n }: { n: number }) { return <span className="expression-number-step" aria-hidden="true">{String(n).padStart(2, '0')}</span>; }

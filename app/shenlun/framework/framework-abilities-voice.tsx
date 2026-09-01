@@ -10,7 +10,7 @@ export const coreAbilityChapters = [
 
 function Prose({ children }: { children: ReactNode }) { return <div className="framework-voice-prose">{children}</div>; }
 function Topic({ label,title,desc }:{label:string;title:string;desc?:string}){return <div className="framework-voice-topic"><span>{label}</span><h4>{title}</h4>{desc&&<p>{desc}</p>}</div>}
-function Note({children}:{children:ReactNode}){return <aside className="framework-voice-note"><span>阅 / 高老师提醒</span><p>{children}</p></aside>}
+function Note({children}:{children:ReactNode}){return <aside className="framework-voice-note"><span>阅 / 云帆老师提醒</span><p>{children}</p></aside>}
 function Example({label,title,children,note}:{label:string;title:string;children:ReactNode;note:ReactNode}){return <article className="framework-voice-example"><div><span className="framework-voice-example-label">{label}</span><h5>{title}</h5>{children}</div><aside><b>阅 / 看这里</b>{note}</aside></article>}
 
 export function FrameworkAbilities(){return <div className="framework-voice-course">

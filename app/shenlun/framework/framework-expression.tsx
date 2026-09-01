@@ -68,7 +68,7 @@ function ExamGrid({ rows = 4 }: { rows?: number }) {
 }
 
 function TeacherNote({ children }: { children: React.ReactNode }) {
-  return <aside className="expression-teacher-note"><span>高老师批注</span><p>{children}</p></aside>;
+  return <aside className="expression-teacher-note"><span>云帆老师批注</span><p>{children}</p></aside>;
 }
 
 export function FrameworkExpression() {
@@ -326,7 +326,7 @@ export function FrameworkExpression() {
         </div>
 
         <div className="expression-ending-quote">
-          <span>高老师 / 申论第一课</span>
+          <span>云帆老师 / 申论第一课</span>
           <p>理论的掌握能够提高学习的下限，理解能力的掌握决定申论的上限。</p>
           <b>先把材料看明白，再考虑怎么把答案写漂亮。</b>
         </div>
@@ -334,7 +334,7 @@ export function FrameworkExpression() {
 
       <div className="expression-references">
         <span>资料说明</span>
-        <p>课程框架主要依据高老师授课体系与课堂笔记整理；考试时间、试卷组成、分类及作答规则参考2026年度国家公务员局、江苏省公务员局公开考试大纲。页面中的短材料均为教学示例，用于解释方法，不对应具体真题。</p>
+        <p>课程框架主要依据云帆老师授课体系与课堂笔记整理；考试时间、试卷组成、分类及作答规则参考2026年度国家公务员局、江苏省公务员局公开考试大纲。页面中的短材料均为教学示例，用于解释方法，不对应具体真题。</p>
         <div><a href="https://www.forestry.gov.cn/c/www/gsgg/645383.jhtml" target="_blank" rel="noreferrer">2026国考公共科目笔试考试大纲 ↗</a><a href="https://www.jszzb.gov.cn/tzgg/art/2025/art_4b4f6c1ef283b21741ec26bc3c0ecc30.html" target="_blank" rel="noreferrer">2026江苏省考公共科目笔试考试大纲 ↗</a></div>
       </div>
     </div>
