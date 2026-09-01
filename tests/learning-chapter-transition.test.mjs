@@ -18,8 +18,8 @@ test('temporary transition state has a single cleanup path', () => {
   assert.match(source, /cleanupTransition/);
   assert.match(source, /\.finally\(cleanupTransition\)/);
   assert.match(source, /setArrivingId\(null\)/);
-  assert.match(source, /source\.style\.removeProperty\('view-transition-name'\)/);
-  assert.match(source, /sharedDestination\?\.style\.removeProperty\('view-transition-name'\)/);
+  assert.match(source, /releaseTransitionName\(source\)/);
+  assert.match(source, /releaseTransitionName\(sharedDestination\)/);
 });
 
 test('mobile directory and passive observation share the same active id', () => {
@@ -36,7 +36,7 @@ test('passive observer rebinds when active body targets change', () => {
 });
 
 test('shared transition destination style is only applied after a committed target', () => {
-  assert.match(source, /if \(!commitDestination\(\)\) return;\n        sharedDestination = directoryTarget\(id\);/);
+  assert.match(source, /if \(!commitDestination\(\)\) return;\n        if \(activationTokenRef\.current !== token\) return;\n        sharedDestination = directoryTarget\(id\);/);
 });
 
 test('active id is derived from stored state without effect normalization', () => {
@@ -46,7 +46,7 @@ test('active id is derived from stored state without effect normalization', () =
 });
 
 test('defensive transition fallbacks commit once and still schedule cleanup', () => {
-  assert.match(source, /const fallbackToCommittedDestination = \(\) => \{\n      root\.classList\.remove\('learning-shared-transition-active'\);\n      source\?\.style\.removeProperty\('view-transition-name'\);\n      if \(commitDestination\(\)\) scheduleTransitionCleanup\(\);\n    \};/);
+  assert.match(source, /const fallbackToCommittedDestination = \(\) => \{\n      root\.classList\.remove\('learning-shared-transition-active'\);\n      releaseTransitionName\(source\);\n      if \(commitDestination\(\)\) scheduleTransitionCleanup\(\);\n    \};/);
   assert.match(source, /window\.setTimeout\(cleanupTransition, reducedMotion \? 0 : 1000\)/);
   assert.match(source, /fallbackToCommittedDestination\(\);\n        return;/);
   assert.match(source, /\} catch \{\n      fallbackToCommittedDestination\(\);\n    \}/);
@@ -72,4 +72,10 @@ test('chapter activation can use a body target before a directory is mounted', (
 
 test('transition watchdog outlasts the shared-element animation', () => {
   assert.match(source, /setTimeout\(cleanupTransition, reducedMotion \? 0 : 1000\)/);
+});
+
+test('transition cleanup cannot remove a newer activation name', () => {
+  assert.match(source, /transitionOwnersRef/);
+  assert.match(source, /transitionOwnersRef\.current\.get\(node\) !== token/);
+  assert.match(source, /transitionOwnersRef\.current\.delete\(node\)/);
 });

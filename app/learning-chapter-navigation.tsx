@@ -62,6 +62,7 @@ export function LearningChapterProvider({
   const programmaticUntilRef = useRef(0);
   const cleanupRef = useRef<() => void>(() => undefined);
   const activationTokenRef = useRef(0);
+  const transitionOwnersRef = useRef(new WeakMap<HTMLElement, number>());
   const drawerTriggerRef = useRef<HTMLElement | null>(null);
   const activeId = chapters.some((chapter) => chapter.id === storedActiveId)
     ? storedActiveId
@@ -125,11 +126,22 @@ export function LearningChapterProvider({
     let sharedDestination: HTMLElement | null = null;
     let cleaned = false;
 
+    const claimTransitionName = (node: HTMLElement | null) => {
+      if (!node) return;
+      transitionOwnersRef.current.set(node, token);
+      node.style.setProperty('view-transition-name', 'learning-chapter-shared');
+    };
+    const releaseTransitionName = (node: HTMLElement | null) => {
+      if (!node || transitionOwnersRef.current.get(node) !== token) return;
+      transitionOwnersRef.current.delete(node);
+      node.style.removeProperty('view-transition-name');
+    };
+
     const cleanupTransition = () => {
       if (cleaned) return;
       cleaned = true;
-      source?.style.removeProperty('view-transition-name');
-      sharedDestination?.style.removeProperty('view-transition-name');
+      releaseTransitionName(source);
+      releaseTransitionName(sharedDestination);
       if (activationTokenRef.current === token) {
         root.classList.remove('learning-shared-transition-active');
         setArrivingId(null);
@@ -173,7 +185,7 @@ export function LearningChapterProvider({
 
     const fallbackToCommittedDestination = () => {
       root.classList.remove('learning-shared-transition-active');
-      source?.style.removeProperty('view-transition-name');
+      releaseTransitionName(source);
       if (commitDestination()) scheduleTransitionCleanup();
     };
 
@@ -186,14 +198,15 @@ export function LearningChapterProvider({
       return;
     }
 
-    source.style.setProperty('view-transition-name', 'learning-chapter-shared');
+    claimTransitionName(source);
     root.classList.add('learning-shared-transition-active');
     try {
       const transition = transitionDocument.startViewTransition?.(() => {
-        source.style.removeProperty('view-transition-name');
+        releaseTransitionName(source);
         if (!commitDestination()) return;
+        if (activationTokenRef.current !== token) return;
         sharedDestination = directoryTarget(id);
-        sharedDestination?.style.setProperty('view-transition-name', 'learning-chapter-shared');
+        claimTransitionName(sharedDestination);
       });
       if (!transition) {
         fallbackToCommittedDestination();
