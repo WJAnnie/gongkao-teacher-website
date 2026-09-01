@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { InterviewLearningContent, type InterviewBoard } from '../interview-learning-content';
 import { InterviewShell } from '../interview-shell';
 
 export const metadata: Metadata = {
@@ -22,37 +23,15 @@ const flow = [
   ['04', '留一条笔记', '记录今天最想带走的一个提醒。'],
 ] as const;
 
+const boards = [
+  { id: 'interview-videos-class', eyebrow: 'CLASS / 看课堂', title: '重点看修改过程。', desc: '一遍作答很难说明问题。课堂里真正有用的部分，往往是追问之后怎么调整观点和表达。', items: ['原回答卡在哪里', '老师追问了什么', '第二遍改了哪一句'] },
+  { id: 'interview-videos-notes', eyebrow: 'NOTE / 课后笔记', title: '每段视频留一条。', desc: '笔记不用长，能在下一道题里用出来就够了。', items: ['一个审题提醒', '一个结构动作', '一句更自然的表达', '一道想重答的题'] },
+] as const satisfies readonly [InterviewBoard, InterviewBoard];
+
 export default function InterviewVideosPage() {
   return (
     <InterviewShell tone="videos" eyebrow="CLASSROOM / 课程现场" title="课程现场" desc="课程、课堂、真题讲评和教学日常都放在这里。看完一段，最好自己再开口答一次。">
-      <section className="interview-content">
-        <div className="interview-content-head">
-          <span>VIDEO ARCHIVE / 影像档案</span>
-          <h2>课程、课堂，<br />还有日常。</h2>
-        </div>
-        <div className="interview-card-grid">
-          {cards.map(([no, title, desc]) => <article className="interview-card" key={title}><span>{no}</span><h3>{title}</h3><p>{desc}</p></article>)}
-        </div>
-
-        <div className="interview-learning-flow">
-          {flow.map(([no, title, desc]) => <article className="interview-flow-step" key={no}><span>{no}</span><h3>{title}</h3><p>{desc}</p></article>)}
-        </div>
-
-        <div className="interview-practice-board">
-          <article>
-            <span>CLASS / 看课堂</span>
-            <h3>重点看修改过程。</h3>
-            <p>一遍作答很难说明问题。课堂里真正有用的部分，往往是追问之后怎么调整观点和表达。</p>
-            <ul><li>原回答卡在哪里</li><li>老师追问了什么</li><li>第二遍改了哪一句</li></ul>
-          </article>
-          <article>
-            <span>NOTE / 课后笔记</span>
-            <h3>每段视频留一条。</h3>
-            <p>笔记不用长，能在下一道题里用出来就够了。</p>
-            <ul><li>一个审题提醒</li><li>一个结构动作</li><li>一句更自然的表达</li><li>一道想重答的题</li></ul>
-          </article>
-        </div>
-      </section>
+      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-videos-flow" heading={<>课程、课堂，<br />还有日常。</>} kicker="VIDEO ARCHIVE / 影像档案" label="面试课程现场目录" mapId="interview-videos-map" /></section>
     </InterviewShell>
   );
 }

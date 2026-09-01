@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { InterviewLearningContent, type InterviewBoard } from '../interview-learning-content';
 import { InterviewShell } from '../interview-shell';
 
 export const metadata: Metadata = {
@@ -22,37 +23,15 @@ const flow = [
   ['04', '复盘', '记录一处内容问题、一处表达问题，再重答一次。'],
 ] as const;
 
+const boards = [
+  { id: 'interview-questions-index', eyebrow: 'ARCHIVE / 当前索引', title: '先从国考税务练起。', desc: '站内已有 2024—2026 税务系统公开考生回忆题，可用来练综合分析、组织协调、应急和情景模拟。', items: ['同一天题目连做，感受整套节奏', '同一题型跨年份做，观察命题变化', '保留第一次提纲，方便对比'] },
+  { id: 'interview-questions-review', eyebrow: 'REVIEW / 复盘清单', title: '每次只记五项。', desc: '记录越简单，越容易坚持。', items: ['题目任务有没有答全', '最有效的一个观点是什么', '最空的一段在哪里', '有没有明显卡顿或重复', '下一次只改哪一件事'] },
+] as const satisfies readonly [InterviewBoard, InterviewBoard];
+
 export default function InterviewQuestionsPage() {
   return (
     <InterviewShell tone="questions" eyebrow="PRACTICE / 真题实战" title="真题实战" desc="真题按系统、地区、年份和题型整理。做题时把提纲、作答、修改放在同一条记录里，更容易看见自己的变化。">
-      <section className="interview-content">
-        <div className="interview-content-head">
-          <span>REAL QUESTIONS / 真题训练</span>
-          <h2>按系统整理，<br />按题型练透。</h2>
-        </div>
-        <div className="interview-card-grid">
-          {cards.map(([no, title, desc]) => <article className="interview-card" key={title}><span>{no}</span><h3>{title}</h3><p>{desc}</p></article>)}
-        </div>
-
-        <div className="interview-learning-flow">
-          {flow.map(([no, title, desc]) => <article className="interview-flow-step" key={no}><span>{no}</span><h3>{title}</h3><p>{desc}</p></article>)}
-        </div>
-
-        <div className="interview-practice-board">
-          <article>
-            <span>ARCHIVE / 当前索引</span>
-            <h3>先从国考税务练起。</h3>
-            <p>站内已有 2024—2026 税务系统公开考生回忆题，可用来练综合分析、组织协调、应急和情景模拟。</p>
-            <ul><li>同一天题目连做，感受整套节奏</li><li>同一题型跨年份做，观察命题变化</li><li>保留第一次提纲，方便对比</li></ul>
-          </article>
-          <article>
-            <span>REVIEW / 复盘清单</span>
-            <h3>每次只记五项。</h3>
-            <p>记录越简单，越容易坚持。</p>
-            <ul><li>题目任务有没有答全</li><li>最有效的一个观点是什么</li><li>最空的一段在哪里</li><li>有没有明显卡顿或重复</li><li>下一次只改哪一件事</li></ul>
-          </article>
-        </div>
-      </section>
+      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-questions-flow" heading={<>按系统整理，<br />按题型练透。</>} kicker="REAL QUESTIONS / 真题训练" label="真题实战学习目录" mapId="interview-questions-map" /></section>
     </InterviewShell>
   );
 }

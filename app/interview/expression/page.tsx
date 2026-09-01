@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { InterviewLearningContent, type InterviewBoard } from '../interview-learning-content';
 import { InterviewShell } from '../interview-shell';
 
 export const metadata: Metadata = {
@@ -22,37 +23,15 @@ const flow = [
   ['04', '再来一次', '删掉重复句，把最弱的一段重说。'],
 ] as const;
 
+const boards = [
+  { id: 'interview-expression-daily', eyebrow: 'DAILY / 每日小练', title: '十分钟就能做完。', desc: '找一道题，只练开头、结构和一个例子。短练习更适合每天保持口感。', items: ['30 秒说观点', '1 分钟说结构', '补一个具体例子', '回听一次'] },
+  { id: 'interview-expression-review', eyebrow: 'VOICE / 回听重点', title: '听自己，比看稿有用。', desc: '录音里最容易听出重复、句子太长和观点不清。', items: ['第一句话有没有观点', '一句话是不是太长', '有没有连续重复同一个词', '结尾有没有突然收住'] },
+] as const satisfies readonly [InterviewBoard, InterviewBoard];
+
 export default function InterviewExpressionPage() {
   return (
     <InterviewShell tone="expression" eyebrow="SPEAK / 表达训练" title="表达训练" desc="面试表达靠长期练习。观点、结构、例子和语气分开练，最后再合到一遍完整作答里。">
-      <section className="interview-content">
-        <div className="interview-content-head">
-          <span>EXPRESSION / 表达训练</span>
-          <h2>想明白，<br />再说顺。</h2>
-        </div>
-        <div className="interview-card-grid">
-          {cards.map(([no, title, desc]) => <article className="interview-card" key={title}><span>{no}</span><h3>{title}</h3><p>{desc}</p></article>)}
-        </div>
-
-        <div className="interview-learning-flow">
-          {flow.map(([no, title, desc]) => <article className="interview-flow-step" key={no}><span>{no}</span><h3>{title}</h3><p>{desc}</p></article>)}
-        </div>
-
-        <div className="interview-practice-board">
-          <article>
-            <span>DAILY / 每日小练</span>
-            <h3>十分钟就能做完。</h3>
-            <p>找一道题，只练开头、结构和一个例子。短练习更适合每天保持口感。</p>
-            <ul><li>30 秒说观点</li><li>1 分钟说结构</li><li>补一个具体例子</li><li>回听一次</li></ul>
-          </article>
-          <article>
-            <span>VOICE / 回听重点</span>
-            <h3>听自己，比看稿有用。</h3>
-            <p>录音里最容易听出重复、句子太长和观点不清。</p>
-            <ul><li>第一句话有没有观点</li><li>一句话是不是太长</li><li>有没有连续重复同一个词</li><li>结尾有没有突然收住</li></ul>
-          </article>
-        </div>
-      </section>
+      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-expression-flow" heading={<>想明白，<br />再说顺。</>} kicker="EXPRESSION / 表达训练" label="表达训练学习目录" mapId="interview-expression-map" /></section>
     </InterviewShell>
   );
 }

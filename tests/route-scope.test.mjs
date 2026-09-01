@@ -89,8 +89,8 @@ test('writing subtree owns shared writing styles for every static category route
 test('interview shell owns interview-only styles', () => {
   assertImportsInOrder(interviewShell, [
     './interview-learning.css',
-    '../menu-hierarchy-refinement.css',
   ]);
+  assert.doesNotMatch(interviewShell, /menu-hierarchy-refinement\.css/);
 });
 
 test('writing landing and indexes do not import article, case, or metaphor corpora', () => {

@@ -92,6 +92,9 @@ const writingStaticPagesSource = await readFile(new URL('../app/shenlun/writing/
 const shenlunQuestionsSource = await readFile(new URL('../app/shenlun/questions/page.tsx', import.meta.url), 'utf8');
 const writingPageSource = await readFile(new URL('../app/shenlun/writing/page.tsx', import.meta.url), 'utf8');
 const writingStaticSource = await readFile(new URL('../app/shenlun/writing/writing-static-pages.tsx', import.meta.url), 'utf8');
+const interviewShellSource = await readFile(new URL('../app/interview/interview-shell.tsx', import.meta.url), 'utf8');
+const interviewContentSource = await readFile(new URL('../app/interview/interview-learning-content.tsx', import.meta.url), 'utf8').catch(() => '');
+const interviewPagePaths = ['methods', 'questions', 'expression', 'videos'];
 
 test('core Shenlun pages use the shared frame while the Shenlun landing keeps its legacy branch', () => {
   assert.match(shenlunShellSource, /tone === 'home'/);
@@ -164,4 +167,26 @@ test('writing keeps eight static entries under four macro groups', () => {
     assert.match(writingStaticSource, new RegExp(href.replaceAll('/', '\\/')));
   }
   assert.doesNotMatch(writingStaticSource, /writing-hotspot-all|writing-case-all|writing-metaphor-data/);
+});
+
+test('interview shell is a thin shared-frame adapter', () => {
+  assert.match(interviewShellSource, /<LearningPageFrame/);
+  assert.doesNotMatch(interviewShellSource, /PageGuide|exam-meta-strip|interview-route-strip/);
+});
+
+for (const route of interviewPagePaths) {
+  test(`interview ${route} preserves six cards, four steps, and two boards`, async () => {
+    const source = await readFile(new URL(`../app/interview/${route}/page.tsx`, import.meta.url), 'utf8');
+    assert.match(source, /<InterviewLearningContent/);
+    assert.match(source, /cards=\{cards\}/);
+    assert.match(source, /flow=\{flow\}/);
+    assert.match(source, /boards=\{boards\}/);
+  });
+}
+
+test('interview content adapter renders every route-owned item', () => {
+  assert.match(interviewContentSource, /cards\.map/);
+  assert.match(interviewContentSource, /flow\.map/);
+  assert.match(interviewContentSource, /boards\.map/);
+  assert.match(interviewContentSource, /<LearningContentFrame/);
 });
