@@ -203,8 +203,8 @@ export function LearningChapterProvider({
     try {
       const transition = transitionDocument.startViewTransition?.(() => {
         releaseTransitionName(source);
-        if (!commitDestination()) return;
         if (activationTokenRef.current !== token) return;
+        if (!commitDestination()) return;
         sharedDestination = directoryTarget(id);
         claimTransitionName(sharedDestination);
       });

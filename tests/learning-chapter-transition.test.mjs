@@ -36,7 +36,7 @@ test('passive observer rebinds when active body targets change', () => {
 });
 
 test('shared transition destination style is only applied after a committed target', () => {
-  assert.match(source, /if \(!commitDestination\(\)\) return;\n        if \(activationTokenRef\.current !== token\) return;\n        sharedDestination = directoryTarget\(id\);/);
+  assert.match(source, /if \(activationTokenRef\.current !== token\) return;\n        if \(!commitDestination\(\)\) return;\n        sharedDestination = directoryTarget\(id\);/);
 });
 
 test('active id is derived from stored state without effect normalization', () => {
@@ -78,4 +78,8 @@ test('transition cleanup cannot remove a newer activation name', () => {
   assert.match(source, /transitionOwnersRef/);
   assert.match(source, /transitionOwnersRef\.current\.get\(node\) !== token/);
   assert.match(source, /transitionOwnersRef\.current\.delete\(node\)/);
+});
+
+test('stale view transitions cannot commit an older chapter', () => {
+  assert.match(source, /releaseTransitionName\(source\);\n        if \(activationTokenRef\.current !== token\) return;\n        if \(!commitDestination\(\)\) return;/);
 });
