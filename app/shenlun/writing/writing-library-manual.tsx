@@ -196,25 +196,31 @@ export function WritingLibraryManual() {
     if (activeLayer !== 'hotspots') return;
     if (!activeArticle) return;
     const request = ++hotspotRequest.current;
-    setHotspotState('loading');
-    void loadHotspotCached(hotspotKey).then((category) => {
+    void Promise.resolve().then(() => {
       if (request !== hotspotRequest.current) return;
-      setHotspotCategory(category);
-      setHotspotState('ready');
-    }).catch(() => { if (request === hotspotRequest.current) setHotspotState('error'); });
-  }, [activeLayer, hotspotKey, hotspotReload]);
+      setHotspotState('loading');
+      loadHotspotCached(hotspotKey).then((category) => {
+        if (request !== hotspotRequest.current) return;
+        setHotspotCategory(category);
+        setHotspotState('ready');
+      }).catch(() => { if (request === hotspotRequest.current) setHotspotState('error'); });
+    });
+  }, [activeLayer, activeArticle, hotspotKey, hotspotReload]);
 
   useEffect(() => {
     if (activeLayer !== 'cases') return;
     if (!activeCase) return;
     const request = ++caseRequest.current;
-    setCaseState('loading');
-    void loadCaseCached(caseKey).then((category) => {
+    void Promise.resolve().then(() => {
       if (request !== caseRequest.current) return;
-      setCaseCategory(category);
-      setCaseState('ready');
-    }).catch(() => { if (request === caseRequest.current) setCaseState('error'); });
-  }, [activeLayer, caseKey, caseReload]);
+      setCaseState('loading');
+      loadCaseCached(caseKey).then((category) => {
+        if (request !== caseRequest.current) return;
+        setCaseCategory(category);
+        setCaseState('ready');
+      }).catch(() => { if (request === caseRequest.current) setCaseState('error'); });
+    });
+  }, [activeLayer, activeCase, caseKey, caseReload]);
 
   useEffect(() => {
     if (!['terms', 'parallel', 'sentences', 'quotes', 'essay'].includes(activeLayer) || foundation) return;
