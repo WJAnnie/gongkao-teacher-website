@@ -55,6 +55,21 @@ test('compact top navigation starts closed so it cannot cover page content', () 
   assert.doesNotMatch(topNavigationSource, /useState<string \| null>\(activeGroup\)/);
 });
 
+test('shared content frame supports a left-to-right directory and one whole-directory collapse', () => {
+  assert.match(navigationSource, /learning-directory-primary/);
+  assert.match(navigationSource, /learning-directory-secondary/);
+  assert.match(navigationSource, /directoryCollapsed/);
+  assert.match(navigationSource, /收起目录/);
+  assert.match(navigationSource, /展开目录/);
+  assert.doesNotMatch(navigationSource, /collapseSecondary|secondaryCollapsed/);
+});
+
+test('shared reading geometry is left aligned and lets the reading column grow', () => {
+  assert.match(frameCss, /justify-content:\s*start/);
+  assert.match(frameCss, /learning-content-frame\.directory-collapsed/);
+  assert.match(frameCss, /learning-directory-cascade/);
+});
+
 const rootLayoutSource = await readFile(new URL('../app/layout.tsx', import.meta.url), 'utf8');
 const frameCss = await readFile(new URL('../app/learning-page-frame.css', import.meta.url), 'utf8').catch(() => '');
 const transitionCss = await readFile(new URL('../app/learning-scene-transition.css', import.meta.url), 'utf8').catch(() => '');
@@ -188,6 +203,32 @@ test('writing is one eight-module manual with real hierarchy and state restorati
   assert.match(writingManualSource, /writing-breadcrumb/);
   assert.doesNotMatch(writingManualSource, /下一轮|继续建设|静态页面|一次性下载|脚本异常/);
   assert.doesNotMatch(writingManualSource, /writing-hotspot-all|writing-case-all/);
+});
+
+const writingDisclosureSource = await readFile(
+  new URL('../app/shenlun/writing/writing-inline-disclosure.tsx', import.meta.url),
+  'utf8',
+).catch(() => '');
+
+test('writing keeps third-level choices in the reading surface', () => {
+  assert.match(writingManualSource, /WritingInlineDisclosure/);
+  assert.match(writingDisclosureSource, /aria-expanded/);
+  assert.match(writingDisclosureSource, /writing-inline-disclosure-body/);
+  assert.doesNotMatch(writingManualSource, /TreeLeaves|writing-tree-leaves/);
+  assert.doesNotMatch(writingManualSource, /details\[chapter\.id\]/);
+});
+
+test('metaphor and parallel libraries remain two-level modules', () => {
+  assert.match(writingManualSource, /activeLayer === 'metaphors'/);
+  assert.match(writingManualSource, /activeLayer === 'parallel'/);
+  assert.doesNotMatch(writingManualSource, /WritingInlineDisclosure[^;]+metaphors/s);
+  assert.doesNotMatch(writingManualSource, /WritingInlineDisclosure[^;]+parallel/s);
+});
+
+test('hotspots and cases use the restrained article surface', () => {
+  assert.match(writingManualSource, /writing-editorial-paper/);
+  assert.match(writingManualSource, /writing-case-article/);
+  assert.doesNotMatch(writingManualSource, /writing-dossier-facts|writing-dossier-uses/);
 });
 
 test('writing foundation modules meet the minimum useful first-edition volume', async () => {
