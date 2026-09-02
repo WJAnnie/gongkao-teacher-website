@@ -253,18 +253,25 @@ export function LearningHeroChapterStrip() {
 
 export function LearningMacroDirectory({ details = {} }: { details?: Readonly<Record<string, ReactNode>> }) {
   const { activeId, activateChapter, arrivingId, chapters } = useLearningChapterNavigation();
-  return <nav className="learning-macro-directory" aria-label="本页目录">
-    <span className="learning-directory-kicker">本页目录</span>
-    {chapters.map((chapter) => <div className={`learning-directory-group${activeId === chapter.id ? ' active' : ''}${arrivingId === chapter.id ? ' arriving' : ''}`} key={chapter.id}>
-      <button
-        aria-current={activeId === chapter.id ? 'location' : undefined}
-        data-learning-directory-id={chapter.id}
-        onClick={(event) => activateChapter(chapter.id, event.currentTarget, 'directory')}
-        type="button"
-      ><span>{chapter.no}</span><b>{chapter.label}</b><i aria-hidden="true">↘</i></button>
-      {activeId === chapter.id ? details[chapter.id] : null}
-    </div>)}
-  </nav>;
+  const activeDetails = details[activeId];
+
+  return <div className={`learning-directory-cascade${activeDetails ? ' has-secondary' : ''}`}>
+    <nav className="learning-directory-primary learning-macro-directory" aria-label="一级目录">
+      <span className="learning-directory-kicker">一级目录</span>
+      {chapters.map((chapter) => <div className={`learning-directory-group${activeId === chapter.id ? ' active' : ''}${arrivingId === chapter.id ? ' arriving' : ''}`} key={chapter.id}>
+        <button
+          aria-current={activeId === chapter.id ? 'location' : undefined}
+          data-learning-directory-id={chapter.id}
+          onClick={(event) => activateChapter(chapter.id, event.currentTarget, 'directory')}
+          type="button"
+        ><span>{chapter.no}</span><b>{chapter.label}</b><i aria-hidden="true">→</i></button>
+      </div>)}
+    </nav>
+    {activeDetails ? <nav className="learning-directory-secondary" aria-label="二级目录">
+      <span className="learning-directory-kicker">二级目录</span>
+      {activeDetails}
+    </nav> : null}
+  </div>;
 }
 
 export function LearningContentFrame({
@@ -279,9 +286,11 @@ export function LearningContentFrame({
   label: string;
 }) {
   const { activeId, chapters, closeDrawer, drawerOpen, openDrawer } = useLearningChapterNavigation();
+  const [directoryCollapsed, setDirectoryCollapsed] = useState(false);
   const activeLabel = chapters.find((chapter) => chapter.id === activeId)?.label ?? '';
+  const hasSecondary = Boolean(details?.[activeId]);
 
-  return <div className="learning-content-frame" data-learning-content-frame>
+  return <div className={`learning-content-frame${hasSecondary ? ' has-secondary-directory' : ''}${directoryCollapsed ? ' directory-collapsed' : ''}`} data-learning-content-frame>
     <button
       aria-controls="learning-page-directory"
       aria-expanded={drawerOpen}
@@ -291,8 +300,16 @@ export function LearningContentFrame({
     ><span>本页目录</span><b>{activeLabel}</b><em aria-hidden="true">☰</em></button>
     <aside className={`learning-directory-column${drawerOpen ? ' open' : ''}`} id="learning-page-directory" aria-label={label}>
       <button className="learning-directory-close" data-learning-directory-initial-focus onClick={closeDrawer} type="button">关闭目录</button>
+      <button
+        aria-expanded={!directoryCollapsed}
+        className="learning-directory-collapse"
+        onClick={() => setDirectoryCollapsed((current) => !current)}
+        type="button"
+      >{directoryCollapsed ? '展开目录' : '收起目录'}</button>
+      <div className="learning-directory-content">
       {directoryTools}
       <LearningMacroDirectory details={details} />
+      </div>
     </aside>
     <article className="learning-reading-surface">{children}</article>
     {drawerOpen ? <button aria-label="关闭目录" className="learning-directory-backdrop" onClick={closeDrawer} type="button" /> : null}
