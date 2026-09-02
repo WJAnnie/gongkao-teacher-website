@@ -4,7 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { LearningContentFrame, useLearningChapterNavigation } from '../../learning-chapter-navigation';
 import type { CaseHighlight, WritingCaseCategory } from './writing-case-data';
 import type { HotspotCategory, HotspotHighlight } from './writing-hotspot-schema';
+import { hotspotLeafIndex, caseLeafIndex } from './writing-library-leaf-index';
 import { caseIndex, hotspotIndex, type CaseIndexItem, type HotspotIndexItem } from './writing-library-index';
+import { WritingInlineDisclosure } from './writing-inline-disclosure';
 import { WritingMetaphorLibrary } from './writing-metaphor-library';
 
 type FoundationLibrary = typeof import('./writing-foundation-data');
@@ -35,17 +37,17 @@ const foundationIndex = {
 } as const;
 
 const defaultSelections: Record<FoundationModuleKey, GenericSelection> = {
-  terms: { category: 'problems', leaf: '0' },
+  terms: { category: 'problems', leaf: '' },
   parallel: { category: 'coordinate', leaf: '' },
-  sentences: { category: 'development', leaf: '0' },
-  quotes: { category: 'action-responsibility', leaf: '0' },
-  essay: { category: 'title', leaf: 'method' },
+  sentences: { category: 'development', leaf: '' },
+  quotes: { category: 'action-responsibility', leaf: '' },
+  essay: { category: 'title', leaf: '' },
 };
 
 function normalizeIndexedSelection(selection: GenericSelection, categories: readonly { key: string; entries: readonly unknown[] }[]) {
   const category = categories.find((item) => item.key === selection.category) ?? categories[0];
   const leafIndex = Number(selection.leaf);
-  const leaf = Number.isInteger(leafIndex) && leafIndex >= 0 && leafIndex < category.entries.length ? String(leafIndex) : '0';
+  const leaf = Number.isInteger(leafIndex) && leafIndex >= 0 && leafIndex < category.entries.length ? String(leafIndex) : '';
   return { category: category.key, leaf };
 }
 
@@ -137,12 +139,21 @@ function Breadcrumb({ items }: { items: string[] }) {
   return <nav className="writing-breadcrumb" aria-label="当前位置">{items.map((item, index) => <span key={`${item}-${index}`}>{item}</span>)}</nav>;
 }
 
-function TreeBranch({ active, children, label, onClick }: { active: boolean; children?: ReactNode; label: string; onClick: () => void }) {
-  return <div className={`writing-tree-branch${active ? ' open' : ''}`}><button aria-expanded={children ? active : undefined} className={active ? 'active' : ''} onClick={onClick} type="button"><b>{label}</b>{children ? <i aria-hidden="true">⌄</i> : null}</button>{active ? children : null}</div>;
-}
-
-function TreeLeaves({ children, label }: { children: ReactNode; label: string }) {
-  return <nav className="writing-tree-leaves" aria-label={label}>{children}</nav>;
+function SecondaryDirectory({ active, items, label, onSelect }: {
+  active: string;
+  items: readonly (readonly [string, string])[];
+  label: string;
+  onSelect: (key: string) => void;
+}) {
+  return <div className="writing-secondary-directory" aria-label={label}>
+    {items.map(([key, itemLabel]) => <button
+      aria-current={active === key ? 'location' : undefined}
+      className={active === key ? 'active' : ''}
+      key={key}
+      onClick={() => onSelect(key)}
+      type="button"
+    >{itemLabel}</button>)}
+  </div>;
 }
 
 export function WritingLibraryManual() {
@@ -150,12 +161,12 @@ export function WritingLibraryManual() {
   const activeLayer = (activeId.replace('writing-', '') || 'hotspots') as WritingLayerKey;
   const [hotspotKey, setHotspotKey] = useState<HotspotIndexItem['key']>('development');
   const [hotspotCategory, setHotspotCategory] = useState<HotspotCategory | null>(null);
-  const [hotspotState, setHotspotState] = useState<LoadState>('loading');
+  const [hotspotState, setHotspotState] = useState<LoadState>('idle');
   const [hotspotReload, setHotspotReload] = useState(0);
   const [activeArticle, setActiveArticle] = useState('');
   const [caseKey, setCaseKey] = useState<CaseIndexItem['key']>('people');
   const [caseCategory, setCaseCategory] = useState<WritingCaseCategory | null>(null);
-  const [caseState, setCaseState] = useState<LoadState>('loading');
+  const [caseState, setCaseState] = useState<LoadState>('idle');
   const [caseReload, setCaseReload] = useState(0);
   const [activeCase, setActiveCase] = useState('');
   const [foundation, setFoundation] = useState<FoundationLibrary | null>(null);
@@ -172,37 +183,37 @@ export function WritingLibraryManual() {
   const currentLayer = writingLayers.find((item) => item.key === activeLayer) ?? writingLayers[0];
 
   const openHotspot = useCallback((key: HotspotIndexItem['key'], slug = '') => {
-    if (key !== hotspotKey) setHotspotState('loading');
     setHotspotKey(key);
-    if (slug) setActiveArticle(slug);
-  }, [hotspotKey]);
+    setActiveArticle(slug);
+  }, []);
 
   const openCase = useCallback((key: CaseIndexItem['key'], slug = '') => {
-    if (key !== caseKey) setCaseState('loading');
     setCaseKey(key);
-    if (slug) setActiveCase(slug);
-  }, [caseKey]);
+    setActiveCase(slug);
+  }, []);
 
   useEffect(() => {
     if (activeLayer !== 'hotspots') return;
+    if (!activeArticle) return;
     const request = ++hotspotRequest.current;
+    setHotspotState('loading');
     void loadHotspotCached(hotspotKey).then((category) => {
       if (request !== hotspotRequest.current) return;
       setHotspotCategory(category);
-      setActiveArticle((current) => category.articles.some((item) => item.slug === current) ? current : category.articles[0]?.slug ?? '');
       setHotspotState('ready');
-    }).catch(() => request === hotspotRequest.current && setHotspotState('error'));
+    }).catch(() => { if (request === hotspotRequest.current) setHotspotState('error'); });
   }, [activeLayer, hotspotKey, hotspotReload]);
 
   useEffect(() => {
     if (activeLayer !== 'cases') return;
+    if (!activeCase) return;
     const request = ++caseRequest.current;
+    setCaseState('loading');
     void loadCaseCached(caseKey).then((category) => {
       if (request !== caseRequest.current) return;
       setCaseCategory(category);
-      setActiveCase((current) => category.cases.some((item) => item.slug === current) ? current : category.cases[0]?.slug ?? '');
       setCaseState('ready');
-    }).catch(() => request === caseRequest.current && setCaseState('error'));
+    }).catch(() => { if (request === caseRequest.current) setCaseState('error'); });
   }, [activeLayer, caseKey, caseReload]);
 
   useEffect(() => {
@@ -218,7 +229,7 @@ export function WritingLibraryManual() {
         const essayStage = library.essayStages.some((item) => item.key === current.essay.category)
           ? current.essay.category
           : library.essayStages[0].key;
-        const essayLeaf = ['method', 'counterexample', 'example'].includes(current.essay.leaf) ? current.essay.leaf : 'method';
+        const essayLeaf = ['method', 'counterexample', 'example'].includes(current.essay.leaf) ? current.essay.leaf : '';
         return {
           terms: normalizeIndexedSelection(current.terms, library.termCategories),
           parallel,
@@ -255,8 +266,8 @@ export function WritingLibraryManual() {
 
   const currentPath = useMemo(() => {
     if (!restored) return [];
-    if (activeLayer === 'hotspots') return activeArticle ? ['hotspots', hotspotKey, activeArticle] : [];
-    if (activeLayer === 'cases') return activeCase ? ['cases', caseKey, activeCase] : [];
+    if (activeLayer === 'hotspots') return ['hotspots', hotspotKey, ...(activeArticle ? [activeArticle] : [])];
+    if (activeLayer === 'cases') return ['cases', caseKey, ...(activeCase ? [activeCase] : [])];
     if (activeLayer === 'metaphors') return ['metaphors', metaphorQuery || 'library'];
     const selection = selections[activeLayer];
     return [activeLayer, selection.category, ...(selection.leaf ? [selection.leaf] : [])];
@@ -287,6 +298,24 @@ export function WritingLibraryManual() {
     setSelections((current) => ({ ...current, [module]: { category, leaf } }));
   };
 
+  const toggleHotspotArticle = (slug: string) => {
+    setActiveArticle((current) => current === slug ? '' : slug);
+  };
+
+  const toggleCaseItem = (slug: string) => {
+    setActiveCase((current) => current === slug ? '' : slug);
+  };
+
+  const toggleGenericLeaf = (module: FoundationModuleKey, leaf: string) => {
+    setSelections((current) => ({
+      ...current,
+      [module]: {
+        ...current[module],
+        leaf: current[module].leaf === leaf ? '' : leaf,
+      },
+    }));
+  };
+
   const selectSearchResult = (result: SearchResult) => {
     activateChapter(`writing-${result.module}`, null, 'directory');
     if (result.module === 'hotspots') openHotspot(result.category as HotspotIndexItem['key'], result.leaf);
@@ -300,44 +329,15 @@ export function WritingLibraryManual() {
     return items.find((item) => item.key === selections[module].category) ?? items[0];
   }
 
-  const genericDetails = (module: FoundationModuleKey) => {
-    const index = foundationIndex[module];
-    const selection = selections[module];
-    return <div className="writing-tree-level-two">{index.map(([key, label]) => {
-      const active = selection.category === key;
-      if (module === 'parallel') return <TreeBranch active={active} key={key} label={label} onClick={() => selectGeneric(module, key)} />;
-      let entries: readonly (readonly [string, string])[] = [];
-      if (module === 'essay') entries = [['method', '写法'], ['counterexample', '常见问题'], ['example', '迁移示例']];
-      else if (foundation && module === 'terms') entries = foundation.termCategories.find((item) => item.key === key)?.entries.map((entry, entryIndex) => [String(entryIndex), entry.after] as const) ?? [];
-      else if (foundation && module === 'sentences') entries = foundation.sentenceCategories.find((item) => item.key === key)?.entries.map((entry, entryIndex) => [String(entryIndex), entry.text] as const) ?? [];
-      else if (foundation && module === 'quotes') entries = foundation.quoteCategories.find((item) => item.key === key)?.entries.map((entry, entryIndex) => [String(entryIndex), entry.text] as const) ?? [];
-      return <TreeBranch active={active} key={key} label={label} onClick={() => selectGeneric(module, key, active ? selection.leaf : module === 'essay' ? 'method' : '0')}>
-        <TreeLeaves label={`${label}目录`}>{entries.map(([leaf, leafLabel]) => <button className={active && selection.leaf === leaf ? 'active' : ''} key={leaf} onClick={() => selectGeneric(module, key, leaf)} type="button">{leafLabel}</button>)}</TreeLeaves>
-      </TreeBranch>;
-    })}</div>;
-  };
-
   const details: Record<string, ReactNode> = {
-    'writing-hotspots': <div className="writing-tree-level-two">{hotspotIndex.map((category) => {
-      const active = hotspotKey === category.key;
-      const ready = active && hotspotCategory?.key === category.key && hotspotState === 'ready';
-      return <TreeBranch active={active} key={category.key} label={category.label} onClick={() => openHotspot(category.key)}>
-        {ready ? <TreeLeaves label={`${category.label}文章`}>{hotspotCategory.articles.map((entry) => <button className={activeArticle === entry.slug ? 'active' : ''} key={entry.slug} onClick={() => setActiveArticle(entry.slug)} type="button">{entry.title}</button>)}</TreeLeaves> : <span className="writing-tree-status">正在打开文章目录…</span>}
-      </TreeBranch>;
-    })}</div>,
-    'writing-cases': <div className="writing-tree-level-two">{caseIndex.map((category) => {
-      const active = caseKey === category.key;
-      const ready = active && caseCategory?.key === category.key && caseState === 'ready';
-      return <TreeBranch active={active} key={category.key} label={category.label} onClick={() => openCase(category.key)}>
-        {ready ? <TreeLeaves label={`${category.label}案例`}>{caseCategory.cases.map((entry) => <button className={activeCase === entry.slug ? 'active' : ''} key={entry.slug} onClick={() => setActiveCase(entry.slug)} type="button">{entry.title}</button>)}</TreeLeaves> : <span className="writing-tree-status">正在打开案例目录…</span>}
-      </TreeBranch>;
-    })}</div>,
-    'writing-terms': genericDetails('terms'),
-    'writing-metaphors': <div className="writing-tree-level-two"><TreeBranch active label="检索词库" onClick={() => undefined} /></div>,
-    'writing-parallel': genericDetails('parallel'),
-    'writing-sentences': genericDetails('sentences'),
-    'writing-quotes': genericDetails('quotes'),
-    'writing-essay': genericDetails('essay'),
+    'writing-hotspots': <SecondaryDirectory active={hotspotKey} items={hotspotIndex.map((item) => [item.key, item.label] as const)} label="热点时评二级目录" onSelect={(key) => openHotspot(key as HotspotIndexItem['key'])} />,
+    'writing-cases': <SecondaryDirectory active={caseKey} items={caseIndex.map((item) => [item.key, item.label] as const)} label="案例素材二级目录" onSelect={(key) => openCase(key as CaseIndexItem['key'])} />,
+    'writing-terms': <SecondaryDirectory active={selections.terms.category} items={foundationIndex.terms} label="规范用词二级目录" onSelect={(key) => selectGeneric('terms', key)} />,
+    'writing-metaphors': <SecondaryDirectory active="library" items={[['library', '检索词库']]} label="比喻词库二级目录" onSelect={() => undefined} />,
+    'writing-parallel': <SecondaryDirectory active={selections.parallel.category} items={foundationIndex.parallel} label="对仗句库二级目录" onSelect={(key) => selectGeneric('parallel', key)} />,
+    'writing-sentences': <SecondaryDirectory active={selections.sentences.category} items={foundationIndex.sentences} label="主题佳句二级目录" onSelect={(key) => selectGeneric('sentences', key)} />,
+    'writing-quotes': <SecondaryDirectory active={selections.quotes.category} items={foundationIndex.quotes} label="名人箴言二级目录" onSelect={(key) => selectGeneric('quotes', key)} />,
+    'writing-essay': <SecondaryDirectory active={selections.essay.category} items={foundationIndex.essay} label="作文框架二级目录" onSelect={(key) => selectGeneric('essay', key)} />,
   };
 
   const searchTools = <div className="writing-library-search">
@@ -353,27 +353,49 @@ export function WritingLibraryManual() {
 
   const article = hotspotCategory?.articles.find((item) => item.slug === activeArticle) ?? null;
   const caseItem = caseCategory?.cases.find((item) => item.slug === activeCase) ?? null;
+  const hotspotMeta = hotspotIndex.find((item) => item.key === hotspotKey) ?? hotspotIndex[0];
+  const caseMeta = caseIndex.find((item) => item.key === caseKey) ?? caseIndex[0];
+  const hotspotItems = hotspotLeafIndex[hotspotKey].map((item) => ({ id: item.slug, no: item.no, title: item.title }));
+  const caseItems = caseLeafIndex[caseKey].map((item) => ({ id: item.slug, no: item.no, title: item.title }));
 
   function renderReading() {
     if (activeLayer === 'hotspots') {
-      if (hotspotState === 'loading') return <LoadingBlock label="热点文章" />;
-      if (hotspotState === 'error') return <ErrorBlock label="热点文章" retry={() => { hotspotCache.delete(hotspotKey); setHotspotReload((value) => value + 1); }} />;
-      if (!article || !hotspotCategory) return <LoadingBlock label="热点文章" />;
       return <section className="writing-module-view writing-hotspot-view" data-writing-module="hotspots">
-        <Breadcrumb items={['写作积累', '热点时评', hotspotCategory.label, article.title]} />
-        <header><span>{currentLayer.icon}</span><div><p>{hotspotCategory.label}</p><h2>{article.title}</h2><em>{article.tags.join(' · ')}</em></div></header>
-        <article className="writing-editorial-paper"><p className="writing-paper-intro">{annotate(article.intro, article.highlights)}<strong>{annotate(article.thesis, article.highlights)}</strong></p>{article.sections.map((section) => <section key={section.title}><h3>{annotate(section.title, article.highlights)}</h3><p>{annotate(section.body, article.highlights)}</p></section>)}<p>{annotate(article.conclusion, article.highlights)}</p></article>
+        <Breadcrumb items={['写作积累', '热点时评', hotspotMeta.label]} />
+        <WritingInlineDisclosure
+          activeId={activeArticle}
+          items={hotspotItems}
+          label={`${hotspotMeta.label}专题文章`}
+          onToggle={toggleHotspotArticle}
+        >
+          {hotspotState === 'loading' ? <LoadingBlock label="热点文章" /> : null}
+          {hotspotState === 'error' ? <ErrorBlock label="热点文章" retry={() => { hotspotCache.delete(hotspotKey); setHotspotReload((value) => value + 1); }} /> : null}
+          {hotspotState === 'ready' && article ? <article className="writing-editorial-paper">
+            <header><span>{currentLayer.icon}</span><div><p>{hotspotMeta.label}</p><h2>{article.title}</h2><em>{article.tags.join(' · ')}</em></div></header>
+            <p className="writing-paper-intro">{annotate(article.intro, article.highlights)}<strong>{annotate(article.thesis, article.highlights)}</strong></p>
+            {article.sections.map((section) => <section key={section.title}><h3>{annotate(section.title, article.highlights)}</h3><p>{annotate(section.body, article.highlights)}</p></section>)}
+            <p>{annotate(article.conclusion, article.highlights)}</p>
+          </article> : null}
+        </WritingInlineDisclosure>
       </section>;
     }
     if (activeLayer === 'cases') {
-      if (caseState === 'loading') return <LoadingBlock label="案例素材" />;
-      if (caseState === 'error') return <ErrorBlock label="案例素材" retry={() => { caseCache.delete(caseKey); setCaseReload((value) => value + 1); }} />;
-      if (!caseItem || !caseCategory) return <LoadingBlock label="案例素材" />;
-      return <section className="writing-module-view writing-case-dossier" data-writing-module="cases">
-        <Breadcrumb items={['写作积累', '案例素材', caseCategory.label, caseItem.title]} />
-        <header><span>{currentLayer.icon}</span><div><p>{caseCategory.label}</p><h2>{caseItem.title}</h2><em>{caseItem.tags.join(' · ')}</em></div></header>
-        <section className="writing-dossier-facts"><b>案例原貌</b><p>{caseItem.summary}</p></section>
-        <div className="writing-dossier-uses">{caseItem.usages.map((usage) => <article key={usage.title}><span>写进文章</span><h3>{usage.title}</h3><p>{annotate(usage.text, usage.highlights)}</p></article>)}</div>
+      return <section className="writing-module-view writing-case-view" data-writing-module="cases">
+        <Breadcrumb items={['写作积累', '案例素材', caseMeta.label]} />
+        <WritingInlineDisclosure
+          activeId={activeCase}
+          items={caseItems}
+          label={`${caseMeta.label}案例素材`}
+          onToggle={toggleCaseItem}
+        >
+          {caseState === 'loading' ? <LoadingBlock label="案例素材" /> : null}
+          {caseState === 'error' ? <ErrorBlock label="案例素材" retry={() => { caseCache.delete(caseKey); setCaseReload((value) => value + 1); }} /> : null}
+          {caseState === 'ready' && caseItem ? <article className="writing-editorial-paper writing-case-article">
+            <header><span>{currentLayer.icon}</span><div><p>{caseMeta.label}</p><h2>{caseItem.title}</h2><em>{caseItem.tags.join(' · ')}</em></div></header>
+            <section><h3>案例原貌</h3><p>{caseItem.summary}</p></section>
+            {caseItem.usages.map((usage) => <section key={usage.title}><h3>{usage.title}</h3><p>{annotate(usage.text, usage.highlights)}</p></section>)}
+          </article> : null}
+        </WritingInlineDisclosure>
       </section>;
     }
     if (activeLayer === 'metaphors') return <section className="writing-module-view" data-writing-module="metaphors"><Breadcrumb items={['写作积累', '比喻词库', metaphorQuery || '检索词库']} /><WritingMetaphorLibrary initialQuery={metaphorQuery === 'library' ? '' : metaphorQuery} key={metaphorQuery} /></section>;
@@ -382,8 +404,11 @@ export function WritingLibraryManual() {
 
     if (activeLayer === 'terms') {
       const category = foundationCategory(foundation.termCategories, 'terms');
-      const entry = category.entries[Number(selections.terms.leaf)] ?? category.entries[0];
-      return <section className="writing-module-view writing-term-workbench" data-writing-module="terms"><Breadcrumb items={['写作积累', '规范用词', category.label, entry.after]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>把意思说准，再把句子写短</h2><em>{category.desc}</em></div></header><div className="writing-term-compare"><article><span>材料里常见</span><p>{entry.before}</p></article><i aria-hidden="true">→</i><article><span>规范表达</span><p>{entry.after}</p></article></div><aside><b>怎么用</b><p>{entry.note}</p></aside></section>;
+      return <section className="writing-module-view writing-term-workbench" data-writing-module="terms"><Breadcrumb items={['写作积累', '规范用词', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>把意思说准，再把句子写短</h2><em>{category.desc}</em></div></header>
+        <WritingInlineDisclosure activeId={selections.terms.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: entry.after, meta: entry.before }))} label={`${category.label}规范用词`} onToggle={(leaf) => toggleGenericLeaf('terms', leaf)}>
+          {(() => { const entry = category.entries[Number(selections.terms.leaf)]; return entry ? <><div className="writing-term-compare"><article><span>材料里常见</span><p>{entry.before}</p></article><i aria-hidden="true">→</i><article><span>规范表达</span><p>{entry.after}</p></article></div><aside><b>怎么用</b><p>{entry.note}</p></aside></> : null; })()}
+        </WritingInlineDisclosure>
+      </section>;
     }
     if (activeLayer === 'parallel') {
       const category = foundationCategory(foundation.parallelCategories, 'parallel');
@@ -391,19 +416,29 @@ export function WritingLibraryManual() {
     }
     if (activeLayer === 'sentences') {
       const category = foundationCategory(foundation.sentenceCategories, 'sentences');
-      const entry = category.entries[Number(selections.sentences.leaf)] ?? category.entries[0];
-      return <section className="writing-module-view writing-sentence-notebook" data-writing-module="sentences"><Breadcrumb items={['写作积累', '主题佳句', category.label, entry.purpose]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>{entry.purpose}</h2><em>{category.desc}</em></div></header><blockquote>{entry.text}</blockquote><p className="writing-copy-practice">先判断这句话承担什么作用，再替换其中的主题词。不要脱离段落逻辑单独套用。</p></section>;
+      return <section className="writing-module-view writing-sentence-notebook" data-writing-module="sentences"><Breadcrumb items={['写作积累', '主题佳句', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>按用途积累表达</h2><em>{category.desc}</em></div></header>
+        <WritingInlineDisclosure activeId={selections.sentences.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: entry.purpose, meta: entry.text }))} label={`${category.label}主题佳句`} onToggle={(leaf) => toggleGenericLeaf('sentences', leaf)}>
+          {(() => { const entry = category.entries[Number(selections.sentences.leaf)]; return entry ? <><blockquote>{entry.text}</blockquote><p className="writing-copy-practice">先判断这句话承担什么作用，再替换其中的主题词。不要脱离段落逻辑单独套用。</p></> : null; })()}
+        </WritingInlineDisclosure>
+      </section>;
     }
     if (activeLayer === 'quotes') {
       const category = foundationCategory(foundation.quoteCategories, 'quotes');
-      const entry = category.entries[Number(selections.quotes.leaf)] ?? category.entries[0];
-      return <section className="writing-module-view writing-quote-card" data-writing-module="quotes"><Breadcrumb items={['写作积累', '名人箴言', category.label, entry.author]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>{entry.author}</h2><em>{entry.source}</em></div></header><blockquote>{entry.text}</blockquote><div><article><b>适用语境</b><p>{entry.context}</p></article><article><b>使用边界</b><p>{entry.boundary}</p></article></div></section>;
+      return <section className="writing-module-view writing-quote-card" data-writing-module="quotes"><Breadcrumb items={['写作积累', '名人箴言', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>连同出处和边界一起记</h2><em>{category.desc}</em></div></header>
+        <WritingInlineDisclosure activeId={selections.quotes.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: `${entry.author}｜${entry.text}` }))} label={`${category.label}名人箴言`} onToggle={(leaf) => toggleGenericLeaf('quotes', leaf)}>
+          {(() => { const entry = category.entries[Number(selections.quotes.leaf)]; return entry ? <><blockquote>{entry.text}</blockquote><div><article><b>适用语境</b><p>{entry.context}</p></article><article><b>使用边界</b><p>{entry.boundary}</p></article></div></> : null; })()}
+        </WritingInlineDisclosure>
+      </section>;
     }
     const stage = foundation.essayStages.find((item) => item.key === selections.essay.category) ?? foundation.essayStages[0];
-    const facet = selections.essay.leaf || 'method';
+    const facet = selections.essay.leaf;
     const facetLabel = facet === 'counterexample' ? '常见问题' : facet === 'example' ? '迁移示例' : '写法';
     const facetText = facet === 'counterexample' ? stage.counterexample : facet === 'example' ? stage.example : stage.method;
-    return <section className="writing-module-view writing-essay-blueprint" data-writing-module="essay"><Breadcrumb items={['写作积累', '作文框架', stage.label, facetLabel]} /><header><span>{currentLayer.icon}</span><div><p>文章骨架 · {stage.no}</p><h2>{stage.label}</h2><em>一篇文章要沿着结构向前推进，而不是把好句子堆在一起。</em></div></header><div className="writing-blueprint-track">{foundation.essayStages.map((item) => <span className={item.key === stage.key ? 'active' : ''} key={item.key}>{item.no}<b>{item.label}</b></span>)}</div><article><span>{facetLabel}</span><p>{facetText}</p></article></section>;
+    return <section className="writing-module-view writing-essay-blueprint" data-writing-module="essay"><Breadcrumb items={['写作积累', '作文框架', stage.label]} /><header><span>{currentLayer.icon}</span><div><p>文章骨架 · {stage.no}</p><h2>{stage.label}</h2><em>一篇文章要沿着结构向前推进，而不是把好句子堆在一起。</em></div></header><div className="writing-blueprint-track">{foundation.essayStages.map((item) => <span className={item.key === stage.key ? 'active' : ''} key={item.key}>{item.no}<b>{item.label}</b></span>)}</div>
+      <WritingInlineDisclosure activeId={facet} items={[{ id: 'method', no: '01', title: '写法' }, { id: 'counterexample', no: '02', title: '常见问题' }, { id: 'example', no: '03', title: '迁移示例' }]} label={`${stage.label}写作要点`} onToggle={(leaf) => toggleGenericLeaf('essay', leaf)}>
+        <article className="writing-editorial-paper"><span>{facetLabel}</span><p>{facetText}</p></article>
+      </WritingInlineDisclosure>
+    </section>;
   }
 
   return <LearningContentFrame details={details} directoryTools={searchTools} label="写作积累学习目录">
