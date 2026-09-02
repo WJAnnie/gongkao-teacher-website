@@ -38,9 +38,9 @@ export async function loadCaseCategory(key: CaseIndexItem['key']): Promise<Writi
   // 案例正文不进入写作积累首屏。只有学生选择某一案例类型时才加载案例数据模块。
   // 后续案例量继续扩大时，可以在不改页面组件的情况下，把这三个数据模块进一步拆成按类别文件。
   const [baseModule, expansionModule, topupModule] = await Promise.all([
-    import('./writing-case-data'),
-    import('./writing-case-expansion'),
-    import('./writing-case-library-topups'),
+    import('./writing-case-data.ts'),
+    import('./writing-case-expansion.ts'),
+    import('./writing-case-library-topups.ts'),
   ]);
 
   const base = baseModule.writingCaseCategories.find((category) => category.key === key);

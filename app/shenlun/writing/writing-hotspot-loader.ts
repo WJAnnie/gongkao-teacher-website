@@ -3,20 +3,20 @@ import type { HotspotIndexItem } from './writing-library-index';
 
 async function loadBaseCategory(key: HotspotIndexItem['key']): Promise<HotspotCategory> {
   switch (key) {
-    case 'development': return (await import('./writing-hotspot-development')).developmentCategory;
-    case 'culture': return (await import('./writing-hotspot-culture')).cultureCategory;
-    case 'people': return (await import('./writing-hotspot-people')).peopleCategory;
-    case 'government': return (await import('./writing-hotspot-government')).governmentCategory;
-    case 'grassroots': return (await import('./writing-hotspot-grassroots')).grassrootsCategory;
-    case 'law': return (await import('./writing-hotspot-law')).lawCategory;
-    case 'values': return (await import('./writing-hotspot-values')).valuesCategory;
-    case 'era': return (await import('./writing-hotspot-era')).eraCategory;
+    case 'development': return (await import('./writing-hotspot-development.ts')).developmentCategory;
+    case 'culture': return (await import('./writing-hotspot-culture.ts')).cultureCategory;
+    case 'people': return (await import('./writing-hotspot-people.ts')).peopleCategory;
+    case 'government': return (await import('./writing-hotspot-government.ts')).governmentCategory;
+    case 'grassroots': return (await import('./writing-hotspot-grassroots.ts')).grassrootsCategory;
+    case 'law': return (await import('./writing-hotspot-law.ts')).lawCategory;
+    case 'values': return (await import('./writing-hotspot-values.ts')).valuesCategory;
+    case 'era': return (await import('./writing-hotspot-era.ts')).eraCategory;
   }
 }
 
 async function loadExtraArticles(key: HotspotIndexItem['key']) {
-  if (key === 'culture') return (await import('./writing-hotspot-extras')).cultureExtraArticles;
-  if (key === 'government') return (await import('./writing-hotspot-extras')).governmentExtraArticles;
+  if (key === 'culture') return (await import('./writing-hotspot-extras.ts')).cultureExtraArticles;
+  if (key === 'government') return (await import('./writing-hotspot-extras.ts')).governmentExtraArticles;
   return [];
 }
 
@@ -24,9 +24,9 @@ export async function loadHotspotCategory(key: HotspotIndexItem['key']): Promise
   const [base, extras, expansion, refinement, audit] = await Promise.all([
     loadBaseCategory(key),
     loadExtraArticles(key),
-    import('./writing-hotspot-library-expansion'),
-    import('./writing-hotspot-refinement'),
-    import('./writing-hotspot-audit'),
+    import('./writing-hotspot-library-expansion.ts'),
+    import('./writing-hotspot-refinement.ts'),
+    import('./writing-hotspot-audit.ts'),
   ]);
 
   const articles = [
