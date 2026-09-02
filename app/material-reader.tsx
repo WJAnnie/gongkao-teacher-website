@@ -25,7 +25,7 @@ export function MaterialReader() {
     <section className="note-library" aria-label="学习笔记库">
       <header className="note-library-heading">
         <div>
-          <p className="section-index">READ / 直接开始学</p>
+          <p className="section-index">直接开始学</p>
           <h2>学习笔记</h2>
         </div>
         <p>不是只给目录。每篇都包含核心方法、检查要点和一个可以马上做的小练习。</p>

@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import { LearningContentFrame } from '../learning-chapter-navigation';
 
 type InterviewItem = readonly [no: string, title: string, desc: string];
@@ -15,8 +14,6 @@ export function InterviewLearningContent({
   cards,
   flow,
   flowId,
-  heading,
-  kicker,
   label,
   mapId,
 }: {
@@ -24,14 +21,11 @@ export function InterviewLearningContent({
   cards: readonly InterviewItem[];
   flow: readonly InterviewItem[];
   flowId: string;
-  heading: ReactNode;
-  kicker: string;
   label: string;
   mapId: string;
 }) {
   return <LearningContentFrame label={label}>
     <section id={mapId}>
-      <div className="interview-content-head"><span>{kicker}</span><h2>{heading}</h2></div>
       <div className="interview-card-grid">
         {cards.map(([no, title, desc]) => <article className="interview-card" key={title}><span>{no}</span><h3>{title}</h3><p>{desc}</p></article>)}
       </div>

@@ -15,9 +15,9 @@ const archiveCards = [
 ] as const;
 
 function suggestedTime(type: string) {
-  if (type.includes('文章写作')) return '60 MIN';
-  if (type.includes('贯彻执行')) return '30 MIN';
-  return '20 MIN';
+  if (type.includes('文章写作')) return '60 分钟';
+  if (type.includes('贯彻执行')) return '30 分钟';
+  return '20 分钟';
 }
 
 function reviewNote(type: string) {
@@ -32,14 +32,8 @@ function reviewNote(type: string) {
 export default function ShenlunQuestionsPage() {
   const shenlunQuestions = questions.filter((item) => item.subject === '申论' && item.year !== '专项');
   return (
-    <ShenlunShell tone="questions" eyebrow="PAST PAPERS / 真题精练" title="真题精练" desc="先从 2020—2025 国考地市级开始。按年份做整卷，按题型做专项，再用复盘把方法留下来。">
+    <ShenlunShell tone="questions" eyebrow="真题精练" title="真题精练" desc="先从 2020—2025 国考地市级开始。按年份做整卷，按题型做专项，再用复盘把方法留下来。">
       <LearningContentFrame label="真题精练学习目录">
-        <div className="shenlun-section-head">
-          <span>EXAM ARCHIVE / 真题档案</span>
-          <h2>六年国考，<br />三种练法。</h2>
-          <p>站内首批整理 30 道国考申论任务。题意摘要、训练重点和参考作答方向放在同一条记录里，做题和回看都更顺手。</p>
-        </div>
-
         <div className="shenlun-map-grid">
           {archiveCards.map(([no, title, meta, desc, chapterId]) => (
             <section className="shenlun-map-card" id={chapterId} key={no}>
@@ -53,7 +47,7 @@ export default function ShenlunQuestionsPage() {
 
         <section id="questions-index">
           <div className="shenlun-section-head" style={{ marginTop: '90px' }}>
-            <span>NATIONAL EXAM / 国考申论</span>
+            <span>国考申论</span>
             <h2>2020—2025<br />真题索引</h2>
             <p>每道题先看任务和训练重点，再进入作答。做完以后把自己的答案和参考方向放在一起对照。</p>
           </div>

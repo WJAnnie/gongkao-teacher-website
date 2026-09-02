@@ -10,13 +10,14 @@ import { questions } from '../app/question-bank-data.ts';
 
 const coreRoutes = [...shenlunRoutes, ...interviewRoutes];
 
-test('every core learning route declares four stable macro chapters', () => {
+test('every core learning route declares stable chapters and writing exposes all eight modules', () => {
   assert.equal(coreRoutes.length, 8);
   for (const route of coreRoutes) {
     const chapters = learningPageChapters[route.key];
-    assert.equal(chapters.length, 4, route.key);
-    assert.equal(new Set(chapters.map((item) => item.id)).size, 4, route.key);
-    assert.equal(new Set(chapters.map((item) => item.targetId)).size, 4, route.key);
+    const expectedCount = route.key === 'shenlun-writing' ? 8 : 4;
+    assert.equal(chapters.length, expectedCount, route.key);
+    assert.equal(new Set(chapters.map((item) => item.id)).size, expectedCount, route.key);
+    assert.equal(new Set(chapters.map((item) => item.targetId)).size, expectedCount, route.key);
     chapters.forEach((item, index) => {
       assert.equal(item.no, String(index + 1).padStart(2, '0'));
       assert.match(item.id, /^[a-z0-9-]+$/);
@@ -33,6 +34,7 @@ test('chapter configuration remains metadata-only', async () => {
 
 const frameSource = await readFile(new URL('../app/learning-page-frame.tsx', import.meta.url), 'utf8').catch(() => '');
 const navigationSource = await readFile(new URL('../app/learning-chapter-navigation.tsx', import.meta.url), 'utf8').catch(() => '');
+const topNavigationSource = await readFile(new URL('../app/learning-nav.tsx', import.meta.url), 'utf8').catch(() => '');
 
 test('shared frame composes slots without importing specialist content', () => {
   assert.match(frameSource, /LearningChapterProvider/);
@@ -46,6 +48,11 @@ test('one client chapter source owns Hero and directory state', () => {
   assert.match(navigationSource, /LearningHeroChapterStrip/);
   assert.match(navigationSource, /LearningMacroDirectory/);
   assert.match(navigationSource, /IntersectionObserver/);
+});
+
+test('compact top navigation starts closed so it cannot cover page content', () => {
+  assert.match(topNavigationSource, /useState<string \| null>\(null\)/);
+  assert.doesNotMatch(topNavigationSource, /useState<string \| null>\(activeGroup\)/);
 });
 
 const rootLayoutSource = await readFile(new URL('../app/layout.tsx', import.meta.url), 'utf8');
@@ -85,13 +92,14 @@ test('root-imported frame css cannot target legacy LearningShell classes', () =>
 });
 
 const shenlunShellSource = await readFile(new URL('../app/shenlun-shell.tsx', import.meta.url), 'utf8');
+const frameworkPageSource = await readFile(new URL('../app/shenlun/framework/page.tsx', import.meta.url), 'utf8');
 const frameworkManualSource = await readFile(new URL('../app/shenlun/framework/framework-manual.tsx', import.meta.url), 'utf8');
 const questionsPageSource = await readFile(new URL('../app/shenlun/questions/page.tsx', import.meta.url), 'utf8');
 const videosPageSource = await readFile(new URL('../app/shenlun/videos/page.tsx', import.meta.url), 'utf8');
-const writingStaticPagesSource = await readFile(new URL('../app/shenlun/writing/writing-static-pages.tsx', import.meta.url), 'utf8');
 const shenlunQuestionsSource = await readFile(new URL('../app/shenlun/questions/page.tsx', import.meta.url), 'utf8');
 const writingPageSource = await readFile(new URL('../app/shenlun/writing/page.tsx', import.meta.url), 'utf8');
-const writingStaticSource = await readFile(new URL('../app/shenlun/writing/writing-static-pages.tsx', import.meta.url), 'utf8');
+const writingManualSource = await readFile(new URL('../app/shenlun/writing/writing-library-manual.tsx', import.meta.url), 'utf8');
+const writingFoundationSource = await readFile(new URL('../app/shenlun/writing/writing-foundation-data.ts', import.meta.url), 'utf8').catch(() => '');
 const interviewShellSource = await readFile(new URL('../app/interview/interview-shell.tsx', import.meta.url), 'utf8');
 const interviewContentSource = await readFile(new URL('../app/interview/interview-learning-content.tsx', import.meta.url), 'utf8').catch(() => '');
 const interviewPagePaths = ['methods', 'questions', 'expression', 'videos'];
@@ -104,6 +112,14 @@ test('core Shenlun pages use the shared frame while the Shenlun landing keeps it
   assert.match(shenlunShellSource, /tone === 'home'/);
   assert.match(shenlunShellSource, /<LearningPageFrame/);
   assert.doesNotMatch(shenlunShellSource, /FrameworkHeroMenu|WritingHeroMenu|PageGuide/);
+});
+
+test('core pages enter real content without a repeated post-Hero introduction screen', () => {
+  assert.doesNotMatch(frameworkPageSource, /shenlun-section-head/);
+  assert.equal((questionsPageSource.match(/shenlun-section-head/g) ?? []).length, 1, 'questions keeps only its real index heading');
+  assert.doesNotMatch(videosPageSource, /shenlun-section-head/);
+  assert.doesNotMatch(interviewContentSource, /interview-content-head/);
+  assert.doesNotMatch(writingPageSource, /shenlun-section-head|WritingStaticLanding/);
 });
 
 test('framework manual consumes the shared chapter context without custom events', () => {
@@ -120,8 +136,8 @@ test('Shenlun chapter metadata has a body target on every core route', () => {
   for (const targetId of ['shenlun-video-course', 'shenlun-video-classroom', 'shenlun-video-worklog', 'shenlun-video-notes']) {
     assert.match(videosPageSource, new RegExp(targetId), targetId);
   }
-  for (const targetId of ['writing-viewpoints', 'writing-evidence', 'writing-language', 'writing-essay']) {
-    assert.match(writingStaticPagesSource, new RegExp(targetId), targetId);
+  for (const targetId of ['writing-hotspots', 'writing-cases', 'writing-terms', 'writing-metaphors', 'writing-parallel', 'writing-sentences', 'writing-quotes', 'writing-essay']) {
+    assert.match(writingManualSource, new RegExp(targetId), targetId);
   }
 });
 
@@ -161,16 +177,35 @@ test('Shenlun questions keeps archive, toolbar, and question rows inside four ta
   }
 });
 
-test('writing keeps eight static entries under four macro groups', () => {
-  assert.match(writingPageSource, /<LearningContentFrame/);
-  for (const id of ['writing-viewpoints', 'writing-evidence', 'writing-language', 'writing-essay']) {
-    assert.match(writingStaticSource, new RegExp(id));
+test('writing is one eight-module manual with real hierarchy and state restoration', () => {
+  assert.match(writingPageSource, /<WritingLibraryManual/);
+  assert.doesNotMatch(writingPageSource, /WritingStaticLanding/);
+  assert.match(writingManualSource, /<LearningContentFrame/);
+  assert.match(writingManualSource, /useLearningChapterNavigation/);
+  assert.match(writingManualSource, /sessionStorage/);
+  assert.match(writingManualSource, /window\.location\.hash/);
+  assert.match(writingManualSource, /writing-library-search/);
+  assert.match(writingManualSource, /writing-breadcrumb/);
+  assert.doesNotMatch(writingManualSource, /下一轮|继续建设|静态页面|一次性下载|脚本异常/);
+  assert.doesNotMatch(writingManualSource, /writing-hotspot-all|writing-case-all/);
+});
+
+test('writing foundation modules meet the minimum useful first-edition volume', async () => {
+  const data = await import('../app/shenlun/writing/writing-foundation-data.ts');
+  assert.equal(data.termCategories.length, 5);
+  assert.ok(data.termCategories.every((category) => category.entries.length >= 15));
+  assert.equal(data.parallelCategories.length, 5);
+  assert.ok(data.parallelCategories.every((category) => category.entries.length >= 10));
+  assert.equal(data.sentenceCategories.length, 5);
+  assert.ok(data.sentenceCategories.every((category) => category.entries.length >= 10));
+  assert.equal(data.quoteCategories.length, 5);
+  assert.ok(data.quoteCategories.every((category) => category.entries.length >= 8));
+  assert.equal(data.essayStages.length, 6);
+  assert.ok(data.essayStages.every((stage) => stage.method && stage.counterexample && stage.example));
+  for (const collection of [data.termCategories, data.parallelCategories, data.sentenceCategories, data.quoteCategories, data.essayStages]) {
+    collection.forEach((item) => assert.match(writingManualSource, new RegExp(`['"]${item.key}['"]`), `missing directory key: ${item.key}`));
   }
-  assert.equal((writingStaticSource.match(/href: '/g) ?? []).length, 8);
-  for (const href of ['/shenlun/writing/hotspots/', '/shenlun/writing/cases/', '/shenlun/writing/metaphors/']) {
-    assert.match(writingStaticSource, new RegExp(href.replaceAll('/', '\\/')));
-  }
-  assert.doesNotMatch(writingStaticSource, /writing-hotspot-all|writing-case-all|writing-metaphor-data/);
+  assert.doesNotMatch(writingFoundationSource, /下一轮|继续建设|静态页面|一次加载|扩容|脚本异常/);
 });
 
 test('interview shell is a thin shared-frame adapter', () => {

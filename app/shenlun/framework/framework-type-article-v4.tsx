@@ -8,7 +8,7 @@ function Format({title,salutation,children,signature,date}:{title:string;salutat
 
 export function FrameworkTypeArticleV4(){return <div className="framework-voice-course">
   <section className="expression-chapter framework-voice-section" id="type-summary">
-    <header className="framework-voice-head"><span>01 / SUMMARY</span><h3>归纳概括：看起来最基础，实际上是后面所有题型的地基。</h3><p>归纳概括的本质很简单：题目让你找某种要素，你就把材料里属于这种要素的内容尽量找全，再把它写得简洁、清楚、有层次。</p></header>
+    <header className="framework-voice-head"><span>01</span><h3>归纳概括：看起来最基础，实际上是后面所有题型的地基。</h3><p>归纳概括的本质很简单：题目让你找某种要素，你就把材料里属于这种要素的内容尽量找全，再把它写得简洁、清楚、有层次。</p></header>
     <Prose>
       <p>很多同学把归纳概括理解成“找关键词”。这个理解不算错，但太浅。真正的难点至少有五个：对象有没有看准、要素有没有判断对、案例会不会转化、层级能不能控制、同义内容会不会合并。</p>
       <p>我更希望你先记住一句：<strong>材料说什么是一回事，题目让你从材料里找什么是另一回事。</strong>材料可以同时出现问题、原因、做法和效果，题目如果只问效果，你就不能因为某个做法很重要而把它也写进去。</p>
@@ -66,7 +66,7 @@ export function FrameworkTypeArticleV4(){return <div className="framework-voice-
   </section>
 
   <section className="expression-chapter framework-voice-section" id="type-analysis">
-    <header className="framework-voice-head"><span>02 / ANALYSIS</span><h3>综合分析：先拆开看，再合起来说；真正难的是关系和观点。</h3><p>“看法、评析、理解、认识、分析、比较、原因”都可能出现在这一类题里。题型名称只是入口，最终还是要判断材料要求你分析什么。</p></header>
+    <header className="framework-voice-head"><span>02</span><h3>综合分析：先拆开看，再合起来说；真正难的是关系和观点。</h3><p>“看法、评析、理解、认识、分析、比较、原因”都可能出现在这一类题里。题型名称只是入口，最终还是要判断材料要求你分析什么。</p></header>
     <Prose>
       <p>所谓分析，就是把一个复杂对象拆成部分、维度或要素分别理解；所谓综合，是把已经拆开的内容重新组织成有观点、有顺序的答案。</p>
       <p>很多同学只会背“是什么—为什么—怎么办”。这三个词是帮助你建立正常认识顺序的工具，不是强迫每道题写三段。材料没有问题，也没有对策，就没必要为了凑“怎么办”凭空编一句。</p>
@@ -121,7 +121,7 @@ export function FrameworkTypeArticleV4(){return <div className="framework-voice-
   </section>
 
   <section className="expression-chapter framework-voice-section" id="type-solution">
-    <header className="framework-voice-head"><span>03 / SOLUTION</span><h3>提出对策：材料给方向，你负责把问题真正解决掉。</h3><p>这类题真正考“提出”。既要会找材料里的现成对策，也要会从问题、案例和工作常识中把必要措施补完整。</p></header>
+    <header className="framework-voice-head"><span>03</span><h3>提出对策：材料给方向，你负责把问题真正解决掉。</h3><p>这类题真正考“提出”。既要会找材料里的现成对策，也要会从问题、案例和工作常识中把必要措施补完整。</p></header>
     <Prose>
       <p>对策来源大致分三类。第一类是<strong>直接对策</strong>，材料已经明确说“要、应当、建议、通过某种方式”；第二类是<strong>间接对策</strong>，从问题、危害、原因、目的或案例反推；第三类是<strong>补充和细化</strong>，材料给出方向但太宏观，你根据题目身份、权限和材料语境把它写得可执行。</p>
       <p>“具体”不等于越长越好。具体到什么程度，看字数和材料。材料没有部门、专家、平台，就不要为了显得专业凭空编一堆名词。</p>
@@ -162,7 +162,7 @@ export function FrameworkTypeArticleV4(){return <div className="framework-voice-
   </section>
 
   <section className="expression-chapter framework-voice-section" id="type-implementation">
-    <header className="framework-voice-head"><span>04 / OFFICIAL WRITING</span><h3>公文写作：先把任务和对象想清楚，再谈格式。</h3><p>公文不是格式题，但格式一定要会。它真正考的是：你以什么身份，写给谁，为什么写，希望对方知道什么、理解什么、做什么。</p></header>
+    <header className="framework-voice-head"><span>04</span><h3>公文写作：先把任务和对象想清楚，再谈格式。</h3><p>公文不是格式题，但格式一定要会。它真正考的是：你以什么身份，写给谁，为什么写，希望对方知道什么、理解什么、做什么。</p></header>
     <Prose>
       <p>申论里常见的非法定公文，可以分成常规类、提纲类、方案类、文章类。四类文种都要有开头，只是正式程度、格式完整度、主体内容和字数分配不同。</p>
       <p>你先别急着背每种文种的固定模板。看到题目先问：<strong>我是谁？对象是谁？这篇东西拿来干什么？材料要求我传达哪些信息？</strong>这四个问题清楚了，开头和主体一般就不会乱。</p>
@@ -232,7 +232,7 @@ export function FrameworkTypeArticleV4(){return <div className="framework-voice-
   </section>
 
   <section className="expression-chapter framework-voice-section" id="type-essay">
-    <header className="framework-voice-head"><span>05 / ESSAY</span><h3>文章写作：先把观点找准，再谈写得好不好。</h3><p>作文是发表观点并论证观点的过程。真正稳定的顺序永远是：主题—角度—总论点—分论点—论证—表达。</p></header>
+    <header className="framework-voice-head"><span>05</span><h3>文章写作：先把观点找准，再谈写得好不好。</h3><p>作文是发表观点并论证观点的过程。真正稳定的顺序永远是：主题—角度—总论点—分论点—论证—表达。</p></header>
     <Prose>
       <p>很多同学刚学作文最容易走两个极端：一种只背漂亮开头和名言，文章看着热闹却不知道在论证什么；另一种只会把三个分论点摆出来，每段都是“很重要、要加强”，文章缺少真正分析。</p>
       <p>我更看重两件事：<strong>写对，写好。</strong>先确保主题、总论点、分论点和文章结构没有跑，再用案例、道理、语言和积累把文章往上提。</p>

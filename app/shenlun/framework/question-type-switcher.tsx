@@ -21,7 +21,7 @@ export function QuestionTypeSwitcher({ items }: { items: QuestionTypeKnowledge[]
 
       <article className="question-type-inline">
         <div className="question-type-inline-head">
-          <span>{active.no} / {active.en}</span>
+          <span>{active.no}</span>
           <h3>{active.title}</h3>
         </div>
         <p>{active.tagline} {active.task}</p>

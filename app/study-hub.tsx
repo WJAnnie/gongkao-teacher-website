@@ -180,7 +180,7 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
 
       <header className="section-heading dark-text study-heading">
         <div>
-          <p className="section-index">{standalone ? 'LEARNING DESK' : 'PRACTICE DESK / 通用训练工作台'}</p>
+          <p className="section-index">{standalone ? '学习台' : '通用训练工作台'}</p>
           <h2>{standalone ? (initialTab === '题库' ? '真题题库' : initialTab === '资料' ? '学习资料' : '训练工具') : '通用训练中心'}</h2>
         </div>
         <p>{standalone ? '题库、资料和工具放在同一套学习系统里。' : '选完申论或面试，再用这里的通用题库、资料和工具完成训练。'}<br />学完马上练，练完马上复盘。</p>
@@ -234,7 +234,7 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
 
           {randomQuestion && (
             <article className="random-question">
-              <span>RANDOM / 今日抽题</span>
+              <span>今日抽题</span>
               <strong>{randomQuestion.subject} · {randomQuestion.type} · {randomQuestion.topic}</strong>
               <h3>{randomQuestion.summary}</h3>
               <p>训练重点：{randomQuestion.focus}</p>
@@ -265,7 +265,7 @@ export function StudyHub({ initialTab = '题库', standalone = false }: { initia
         <div className="material-library">
           <div className="material-intro">
             <strong>资料不是越多越好。</strong>
-            <p>这里按“学完能不能马上练”来组织内容：方法 → 示例 → 练习 → 复盘。后续每个条目都可以继续扩展成独立文章或专题页。</p>
+            <p>这里按“学完能不能马上练”来组织内容：方法 → 示例 → 练习 → 复盘。每个条目都配有相应的方法、示例与练习，复盘时可以按主题快速回查。</p>
           </div>
           <div className="material-grid">
             {materials.map((item, index) => (

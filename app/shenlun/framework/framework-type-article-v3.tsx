@@ -21,10 +21,10 @@ function CritiqueExample({ label,title,children,notes }:{label:string;title:stri
 export function FrameworkTypeArticleV3(){
 return <div className="expression-v2-course type-v2-course type-v3-course">
 <section className="expression-chapter expression-v2-section type-chapter" id="type-summary">
-<header className="expression-v2-head compact"><span>01 / SUMMARY</span><h3>归纳概括，先把“题目问什么”变成“材料里找什么”。</h3><p>这是五大题型的地基。后面的分析、对策、公文甚至作文，都离不开概括、归纳和层级判断。</p></header>
+<header className="expression-v2-head compact"><span>01</span><h3>归纳概括，先把“题目问什么”变成“材料里找什么”。</h3><p>这是五大题型的地基。后面的分析、对策、公文甚至作文，都离不开概括、归纳和层级判断。</p></header>
 <Prose><p>很多人以为归纳概括最简单，因为题目通常写得很直白。真正做起来，难点却很集中：<strong>对象有没有看准、要素有没有找对、材料有没有压缩、层级有没有控制、同义内容有没有合并。</strong></p><p>先建立一个最朴素的判断：题目问什么要素，就围绕这个要素穷尽材料。问题就是问题，原因就是原因，做法就是做法，成效就是成效。材料里其他内容再重要，如果没有服务当前任务，也不能全塞进答案。</p></Prose>
 <div className="expression-v2-subtitle strong"><span>底层区分</span><h4>单一要素与复合要素，区别在“题目有没有明确告诉你找什么”</h4></div>
-<div className="type-v2-answer-shape"><article><span>SINGLE</span><h5>单一要素</h5><p>题干直接告诉你寻找的问题、原因、做法、成效、特点、变化、经验等。</p></article><article><span>COMPOSITE</span><h5>复合要素</h5><p>题干没有把答案组成说死，需要理解任务后判断要写哪些要素。典型如谈理解、谈看法和大量公文任务。</p></article></div>
+<div className="type-v2-answer-shape"><article><span>一类信息</span><h5>单一要素</h5><p>题干直接告诉你寻找的问题、原因、做法、成效、特点、变化、经验等。</p></article><article><span>多类信息</span><h5>复合要素</h5><p>题干没有把答案组成说死，需要理解任务后判断要写哪些要素。典型如谈理解、谈看法和大量公文任务。</p></article></div>
 <TeacherNote>“概括问题并提出建议”虽然问两个内容，但两个要素都已经明确，所以是两问，不等于复合要素。</TeacherNote>
 <TypeMap />
 <div className="expression-v2-subtitle"><span>概括与归纳</span><h4>先把话说短，再把同类内容放到一起</h4></div>
@@ -50,7 +50,7 @@ return <div className="expression-v2-course type-v2-course type-v3-course">
 </section>
 
 <section className="expression-chapter expression-v2-section type-chapter" id="type-analysis">
-<header className="expression-v2-head compact"><span>02 / ANALYSIS</span><h3>综合分析，先把复杂对象拆开，再把关系重新合起来。</h3><p>分析是理解各部分，综合是把部分按题目要求重新组织。真正难的是关系，不是字数。</p></header>
+<header className="expression-v2-head compact"><span>02</span><h3>综合分析，先把复杂对象拆开，再把关系重新合起来。</h3><p>分析是理解各部分，综合是把部分按题目要求重新组织。真正难的是关系，不是字数。</p></header>
 <Prose><p>综合分析常见标志有看法、评析、理解、认识、分析、比较、对比、分析原因等。题目名字相似，任务却可能完全不同。</p><p><strong>分析</strong>可以按材料分部、主题维度或要素拆分；<strong>综合</strong>要求答案具有观点和先后逻辑，常见“并列中带递进”或“递进中带并列”。</p></Prose>
 <div className="type-v2-analysis-grid"><article><span>01</span><h5>现象分析</h5><b>看法 / 评价 / 评析</b><p>核心是观点。再根据材料写合理性、问题、影响、原因和必要对策。</p></article><article><span>02</span><h5>理解分析</h5><b>解释词句 / 概念 / 关系</b><p>核心是解释内涵，再看表现形式、意义问题、关系和总结。</p></article><article><span>03</span><h5>原因分析</h5><b>明确问“为什么”</b><p>要素明确，难点在理解、同义合并、归纳层级，有时需要用自己的规范表达形容本质。</p></article><article><span>04</span><h5>对比分析</h5><b>同一把尺子比较</b><p>先找共同本质，再比较目的、做法、效果、性质等维度。</p></article></div>
 <div className="expression-v2-subtitle"><span>现象分析</span><h4>先定观点，再决定“为什么”写哪些利弊和问题</h4></div>
@@ -69,7 +69,7 @@ return <div className="expression-v2-course type-v2-course type-v3-course">
 </section>
 
 <section className="expression-chapter expression-v2-section type-chapter" id="type-solution">
-<header className="expression-v2-head compact"><span>03 / SOLUTION</span><h3>提出对策，重点在“提出”：材料给方向，你要把措施写得能执行。</h3><p>对策的价值不在于词多高级，而在于能否解决题目里的真实问题。</p></header>
+<header className="expression-v2-head compact"><span>03</span><h3>提出对策，重点在“提出”：材料给方向，你要把措施写得能执行。</h3><p>对策的价值不在于词多高级，而在于能否解决题目里的真实问题。</p></header>
 <Prose><p>常见任务包括单纯提出对策、归纳问题并提出对策、启示题。先判断是一问还是两问，再判断材料里的对策够不够、哪些问题还需要反推。</p></Prose>
 <div className="expression-v2-subtitle strong"><span>三类来源</span><h4>直接对策、间接对策、自编对策</h4></div>
 <div className="type-v2-source-flow"><article><span>01</span><b>直接对策</b><p>材料已有措施、政策要求、成功经验，先归纳概括，必要时补一点执行细节。</p></article><article><span>02</span><b>间接对策</b><p>从问题、危害、原因、意义、目的反推；案例型材料则总结其解决问题的本质。</p></article><article><span>03</span><b>自编细化</b><p>在材料方向上补主体、对象、方式、内容、保障，让措施从方向变成可操作动作。</p></article><article><span>04</span><b>额外补充</b><p>材料没有覆盖所有主要问题时，在身份权限和常识范围内补齐。</p></article></div>
@@ -85,7 +85,7 @@ return <div className="expression-v2-course type-v2-course type-v3-course">
 </section>
 
 <section className="expression-chapter expression-v2-section type-chapter" id="type-implementation">
-<header className="expression-v2-head compact"><span>04 / IMPLEMENTATION</span><h3>公文写作，所有类别都先有开头，再进入主体任务。</h3><p>格式要会，内容更要完整。公文不是省格子的技巧题，而是带着身份把一件事说清楚、说完整。</p></header>
+<header className="expression-v2-head compact"><span>04</span><h3>公文写作，所有类别都先有开头，再进入主体任务。</h3><p>格式要会，内容更要完整。公文不是省格子的技巧题，而是带着身份把一件事说清楚、说完整。</p></header>
 <Prose><p>做公文先回答四件事：<strong>我是谁、写给谁、为什么写、希望对方知道或做什么。</strong>然后再判断文种、格式和材料取舍。</p><p>你的答案可以简洁，但不能为了省格子把必要开头删掉。开头承担背景、目的、意义、问题或沟通话术，它决定读者为什么要继续读下去。</p></Prose>
 <div className="expression-v2-subtitle strong"><span>文种地图</span><h4>常规类、提纲类、文章类、方案类</h4></div>
 <div className="type-v2-analysis-grid"><article><span>01</span><h5>常规类</h5><b>建议书、倡议书、公开信、发言稿、宣传单、致辞等</b><p>最接近现实正式沟通，格式通常最完整。</p></article><article><span>02</span><h5>提纲类</h5><b>发言提纲、汇报提纲、经验介绍提纲</b><p>属于半成品或内部材料，形式可以从简，但开头和主体内容仍要完整。</p></article><article><span>03</span><h5>文章类</h5><b>短评、时评、短文、介绍性文章</b><p>更像小文章，重观点、发展历程、利弊、特点和多个方面。</p></article><article><span>04</span><h5>方案类</h5><b>工作方案、活动方案、征集启事、招募启事</b><p>强调现实执行，流程、对象、时间、要求、参与方式、后续保障必须清楚。</p></article></div>
@@ -109,7 +109,7 @@ return <div className="expression-v2-course type-v2-course type-v3-course">
 </section>
 
 <section className="expression-chapter expression-v2-section type-chapter" id="type-essay">
-<header className="expression-v2-head compact"><span>05 / ESSAY</span><h3>文章写作，先把立意搭稳，再谈文采和“好看”。</h3><p>申论作文是发表观点并论证观点的过程。标题、引论、正论、结论都服务于同一个中心。</p></header>
+<header className="expression-v2-head compact"><span>05</span><h3>文章写作，先把立意搭稳，再谈文采和“好看”。</h3><p>申论作文是发表观点并论证观点的过程。标题、引论、正论、结论都服务于同一个中心。</p></header>
 <Prose><p>作文最怕“写得很多，却不知道在证明什么”。先找主题，再确定角度，把“主题+角度”完整说成一句话，就是总论点。分论点必须支撑总论点，彼此保持相近层级。</p><p>主题可能直接给出，也可能需要从案例中理解。理解任何抽象概念，都要回到主体或对象：这个概念对谁而言是什么、为什么重要、如何实现。</p></Prose>
 <div className="expression-v2-subtitle strong"><span>四种角度</span><h4>政论文、策论文、综合文、思辨文</h4></div>
 <div className="type-v2-analysis-grid essay-grid"><article><span>01</span><h5>政论文</h5><b>为什么重要</b><p>把抽象主题拆成几个具体价值、作用或必要性。</p></article><article><span>02</span><h5>策论文</h5><b>怎样做到</b><p>默认主题方向正确，正文重点论证实现路径。</p></article><article><span>03</span><h5>综合文</h5><b>意义与做法共同展开</b><p>材料既强调价值又强调路径，或者能看到两类并列分论点时使用。</p></article><article><span>04</span><h5>思辨文</h5><b>论证 A 与 B 的关系</b><p>如果两个概念是辩证、相互促进、条件或因果关系，核心要写清“关系”。</p></article></div>

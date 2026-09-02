@@ -24,14 +24,14 @@ const flow = [
 ] as const;
 
 const boards = [
-  { id: 'interview-questions-index', eyebrow: 'ARCHIVE / 当前索引', title: '先从国考税务练起。', desc: '站内已有 2024—2026 税务系统公开考生回忆题，可用来练综合分析、组织协调、应急和情景模拟。', items: ['同一天题目连做，感受整套节奏', '同一题型跨年份做，观察命题变化', '保留第一次提纲，方便对比'] },
-  { id: 'interview-questions-review', eyebrow: 'REVIEW / 复盘清单', title: '每次只记五项。', desc: '记录越简单，越容易坚持。', items: ['题目任务有没有答全', '最有效的一个观点是什么', '最空的一段在哪里', '有没有明显卡顿或重复', '下一次只改哪一件事'] },
+  { id: 'interview-questions-index', eyebrow: '当前索引', title: '先从国考税务练起。', desc: '这里收录了 2024—2026 年税务系统公开考生回忆题，可用来练综合分析、组织协调、应急和情景模拟。', items: ['同一天题目连做，感受整套节奏', '同一题型跨年份做，观察命题变化', '保留第一次提纲，方便对比'] },
+  { id: 'interview-questions-review', eyebrow: '复盘清单', title: '每次只记五项。', desc: '记录越简单，越容易坚持。', items: ['题目任务有没有答全', '最有效的一个观点是什么', '最空的一段在哪里', '有没有明显卡顿或重复', '下一次只改哪一件事'] },
 ] as const satisfies readonly [InterviewBoard, InterviewBoard];
 
 export default function InterviewQuestionsPage() {
   return (
-    <InterviewShell tone="questions" eyebrow="PRACTICE / 真题实战" title="真题实战" desc="真题按系统、地区、年份和题型整理。做题时把提纲、作答、修改放在同一条记录里，更容易看见自己的变化。">
-      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-questions-flow" heading={<>按系统整理，<br />按题型练透。</>} kicker="REAL QUESTIONS / 真题训练" label="真题实战学习目录" mapId="interview-questions-map" /></section>
+    <InterviewShell tone="questions" eyebrow="真题实战" title="真题实战" desc="真题按系统、地区、年份和题型整理。做题时把提纲、作答、修改放在同一条记录里，更容易看见自己的变化。">
+      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-questions-flow" label="真题实战学习目录" mapId="interview-questions-map" /></section>
     </InterviewShell>
   );
 }

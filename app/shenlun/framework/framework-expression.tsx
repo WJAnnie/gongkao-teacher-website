@@ -95,20 +95,20 @@ export function FrameworkExpression() {
 
       <section className="expression-chapter expression-opening" id="expression-know">
         <div className="expression-chapter-head">
-          <span>01 / KNOW THE EXAM</span>
+          <span>01</span>
           <h4>先别急着学技巧，<br />把申论这件事弄明白。</h4>
           <p>第一次接触申论，你可以先把它理解成一场材料处理考试：给你一组材料，再给你几个任务，你要在规定时间、规定字数和规定答题区域里，把材料整理成符合要求的答案。</p>
         </div>
         <div className="expression-rule-equation" aria-label="申论基础关系">
-          <article><span>QUESTION</span><b>题目</b><p>告诉你找什么</p></article>
+          <article><span>先看任务</span><b>题目</b><p>告诉你找什么</p></article>
           <i>→</i>
-          <article><span>MATERIAL</span><b>材料</b><p>决定你有什么</p></article>
+          <article><span>再找依据</span><b>材料</b><p>决定你有什么</p></article>
           <i>→</i>
-          <article><span>ANSWER</span><b>答案</b><p>看你怎么整理</p></article>
+          <article><span>最后组织</span><b>答案</b><p>看你怎么整理</p></article>
         </div>
         <TeacherNote>申论是主观题，但小题绝大多数时候没有你想象中那么“主观”。先看题目要什么，再看材料给什么。别一上来就想着“我有什么观点”。</TeacherNote>
 
-        <div className="expression-subhead"><span>EXAM STRUCTURE</span><h5>一张申论卷，先看懂三个部分</h5></div>
+        <div className="expression-subhead"><span>试卷结构</span><h5>一张申论卷，先看懂三个部分</h5></div>
         <div className="expression-three-cards">
           <article><span>01</span><h6>注意事项</h6><p>考试时间、填写方式、作答位置和需要特别注意的规则。真正上考场时，先花一点时间把它看完。</p></article>
           <article><span>02</span><h6>给定资料</h6><p>这是答案的原料。经济、政治、文化、社会、生态等内容都有可能出现，形式可能是政策、评论、案例或数据。</p></article>
@@ -117,7 +117,7 @@ export function FrameworkExpression() {
 
         <div className="expression-exam-compare">
           <div className="expression-compare-intro">
-            <span>2026 / OFFICIAL</span>
+            <span>2026</span>
             <h5>国考和江苏省考，先知道区别在哪</h5>
             <p>下面只写官方大纲能确认的内容。题量、材料数量会变化，备考时不要把“近年常见”当成永久规则。</p>
           </div>
@@ -134,7 +134,7 @@ export function FrameworkExpression() {
 
       <section className="expression-chapter" id="expression-sheet">
         <div className="expression-chapter-head compact">
-          <span>02 / ANSWER SHEET</span>
+          <span>02</span>
           <h4>你最后面对的，<br />是一张有格子的答题卡。</h4>
           <p>很多同学学申论，只研究答案对不对，却很少想答案写不写得下。真正考试的时候，格子会逼着你做取舍。</p>
         </div>
@@ -166,7 +166,7 @@ export function FrameworkExpression() {
 
       <section className="expression-chapter" id="expression-audit">
         <div className="expression-chapter-head compact">
-          <span>03 / READ THE QUESTION</span>
+          <span>03</span>
           <h4>真正做题的第一步：<br />审题五看。</h4>
           <p>我建议固定成五个动作：范围、对象、问法（要素）、要求、字数。每一道题先过这五关，再进去读材料。</p>
         </div>
@@ -180,7 +180,7 @@ export function FrameworkExpression() {
             {auditSteps.map((item) => <button className={audit === item.key ? 'active' : ''} key={item.key} onClick={() => setAudit(item.key)}><span>{item.no}</span><b>{item.title}</b><small>{item.short}</small></button>)}
           </div>
           <div className="expression-audit-answer">
-            <span>{activeAudit.no} / CHECK</span>
+            <span>{activeAudit.no}</span>
             <h5>{activeAudit.title}</h5>
             <p>{activeAudit.text}</p>
           </div>
@@ -194,14 +194,14 @@ export function FrameworkExpression() {
 
       <section className="expression-chapter" id="expression-read">
         <div className="expression-chapter-head compact">
-          <span>04 / READ THE MATERIAL</span>
+          <span>04</span>
           <h4>材料别一句一句抄，<br />先看它在干什么。</h4>
           <p>读材料时先看一段、几段之间的关系，再看每一句。核心问题一直只有一个：对题目所问的对象来说，这一段到底在说什么？</p>
         </div>
 
         <div className="expression-material-lab">
           <div className="expression-material-source">
-            <span>MATERIAL / 同一段材料</span>
+            <span>同一段材料</span>
             <p>某社区过去居民办事要往返多个窗口，同一份材料经常重复提交。后来社区上线线上服务平台，将多个事项统一办理，群众提交一次材料即可完成申请。平台上线后，平均办理时间由3天缩短至半天，群众投诉量明显下降。</p>
           </div>
           <div className="expression-material-switch">
@@ -209,7 +209,7 @@ export function FrameworkExpression() {
               {(Object.keys(materialViews) as MaterialView[]).map((key) => <button key={key} className={materialView === key ? 'active' : ''} onClick={() => setMaterialView(key)}>{materialViews[key].label}</button>)}
             </div>
             <article>
-              <span>ANSWER / 现在该找什么</span>
+              <span>现在该找什么</span>
               <h5>{activeMaterial.answer}</h5>
               <p>{activeMaterial.note}</p>
             </article>
@@ -217,7 +217,7 @@ export function FrameworkExpression() {
         </div>
         <TeacherNote>材料没有换。题目一换，答案就换。以后读每一句材料，都把它放回“对象 + 要素”里判断。</TeacherNote>
 
-        <div className="expression-subhead"><span>MATERIAL TYPES</span><h5>四类材料，处理方式不完全一样</h5></div>
+        <div className="expression-subhead"><span>材料类型</span><h5>四类材料，处理方式不完全一样</h5></div>
         <div className="expression-material-types">
           <article><span>01</span><h6>理论型</h6><p>政策、讲话、宏观观点。经常负责点主题、定方向，作文和理解主题时尤其重要。</p><small>先理解方向，不要整段照搬。</small></article>
           <article><span>02</span><h6>评论型</h6><p>专家、群众、媒体直接评价。问题、意义、原因、对策往往说得比较直白。</p><small>这类材料通常更“好抄”。</small></article>
@@ -238,7 +238,7 @@ export function FrameworkExpression() {
 
       <section className="expression-chapter" id="expression-transform">
         <div className="expression-chapter-head compact">
-          <span>05 / MATERIAL → ANSWER</span>
+          <span>05</span>
           <h4>找到内容以后，<br />还没到往答题卡上写的时候。</h4>
           <p>材料变成答案，中间至少要经过五个动作。你会发现，很多“答案不漂亮”的问题，其实是在这一步就已经出现了。</p>
         </div>
@@ -253,7 +253,7 @@ export function FrameworkExpression() {
         </div>
 
         <div className="expression-level-demo">
-          <div className="expression-level-intro"><span>LEVEL / 答案的“度”</span><h5>真正要练的，是中观表达</h5><p>写得太大，什么都说了，等于没有区分度；写得太细，材料搬了一大串，格子很快就不够。</p></div>
+          <div className="expression-level-intro"><span>答案的“度”</span><h5>真正要练的，是中观表达</h5><p>写得太大，什么都说了，等于没有区分度；写得太细，材料搬了一大串，格子很快就不够。</p></div>
           <div className="expression-levels">
             <article><span>宏观</span><b>加强基层治理。</b><p>太大。可以当方向，但很难直接体现材料里的具体得分信息。</p></article>
             <article className="recommended"><span>中观 ✓</span><b>完善社区走访和群众沟通机制。</b><p>既能概括材料，又保留了足够的信息量。这个程度通常最值得练。</p></article>
@@ -262,7 +262,7 @@ export function FrameworkExpression() {
         </div>
 
         <div className="expression-merge-demo">
-          <span>SAME MEANING / 同义合并</span>
+          <span>同义合并</span>
           <div className="before"><p>设立服务热线</p><p>建立群众反馈邮箱</p><p>开发网上留言平台</p></div>
           <i>→</i>
           <div className="after"><b>畅通群众反馈渠道。</b><p>通过热线、邮箱和网络平台收集意见。</p></div>
@@ -272,7 +272,7 @@ export function FrameworkExpression() {
 
       <section className="expression-chapter" id="expression-logic">
         <div className="expression-chapter-head compact">
-          <span>06 / ORGANIZE THE ANSWER</span>
+          <span>06</span>
           <h4>找到要点只是第一步，<br />还要把关系写出来。</h4>
           <p>“有条理”不等于前面加上1、2、3。真正的条理，是同一层级放在一起，有先后关系的按先后组织。</p>
         </div>
@@ -300,7 +300,7 @@ export function FrameworkExpression() {
 
       <section className="expression-chapter expression-finish" id="expression-finish">
         <div className="expression-chapter-head compact">
-          <span>07 / FINISH ONE QUESTION</span>
+          <span>07</span>
           <h4>最后，把前面的东西<br />真的用在一道题上。</h4>
           <p>我上课更希望你形成一套稳定动作。看见一道题，不靠感觉冲进去读，而是知道自己现在处在哪一步。</p>
         </div>

@@ -13,11 +13,11 @@ function scrollTermTop(index: number) {
   });
 }
 
-export function WritingMetaphorLibrary() {
+export function WritingMetaphorLibrary({ initialQuery = '' }: { initialQuery?: string }) {
   const [entries, setEntries] = useState<MetaphorEntry[]>([]);
   const [sourceLinks, setSourceLinks] = useState<SourceLink[]>([]);
   const [loadState, setLoadState] = useState<LoadState>('loading');
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(initialQuery);
   const [active, setActive] = useState<number | null>(null);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function WritingMetaphorLibrary() {
   return (
     <section className={styles.library}>
       <header className={styles.intro}>
-        <span>04 / METAPHOR LIBRARY</span>
+        <span>04</span>
         <h2>比喻用词怎么积累</h2>
         <p>这一部分不按主题硬分类。比喻词真正好用的地方，在于把抽象关系说得更具体：方向可以有“指南针”，基础可以有“压舱石”，改革难题可以是“硬骨头”，基层治理可以深入“神经末梢”。学习时先弄懂比喻背后的关系，再记常见搭配；写作时一段用准一个，通常比连续堆三四个更有力量。</p>
         <div className={styles.notice}><b>{loadState === 'ready' ? `${entries.length} 条` : '词库加载中'}</b><span>权威语料筛选 + 教学释义整理</span><em>不要求按顺序背，直接搜索需要的表达</em></div>

@@ -4,7 +4,7 @@ export function QuestionTypePage({ data }: { data: QuestionTypeKnowledge }) {
   return (
     <section className="shenlun-content question-type-knowledge">
       <div className="shenlun-section-head">
-        <span>{data.en} / 题型知识页</span>
+        <span>题型知识页</span>
         <h2>{data.title}<br />怎么做</h2>
         <p>{data.task}</p>
       </div>
@@ -28,23 +28,23 @@ export function QuestionTypePage({ data }: { data: QuestionTypeKnowledge }) {
 
       <div className="question-type-detail-grid">
         <article>
-          <span>STRUCTURE / 答案结构</span>
+          <span>答案结构</span>
           <h3>先把骨架立住</h3>
           <ol>{data.structure.map((item) => <li key={item}>{item}</li>)}</ol>
         </article>
         <article>
-          <span>REMINDER / 高频提醒</span>
+          <span>高频提醒</span>
           <h3>容易失分的地方</h3>
           <ul>{data.review.map((item) => <li key={item}>{item}</li>)}</ul>
         </article>
         <article>
-          <span>MISTAKES / 常见误区</span>
+          <span>常见误区</span>
           <h3>做完重点检查</h3>
           <ul>{data.mistakes.map((item) => <li key={item}>{item}</li>)}</ul>
         </article>
         <article>
-          <span>PRACTICE / 练习方向</span>
-          <h3>下一轮怎么练</h3>
+          <span>练习方向</span>
+          <h3>接着怎么练</h3>
           <ul>{data.practice.map((item) => <li key={item}>{item}</li>)}</ul>
         </article>
       </div>

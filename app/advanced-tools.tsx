@@ -55,7 +55,7 @@ export function AdvancedTools() {
     <section className="advanced-tools" aria-label="进阶训练工具">
       <header className="advanced-tools-heading">
         <div>
-          <p className="section-index">MORE TOOLS / 每天真的练起来</p>
+          <p className="section-index">每天真的练起来</p>
           <h2>进阶工具</h2>
         </div>
         <p>计时解决“时间感”，这些工具继续解决“今天练什么”和“练完怎么判断”。</p>

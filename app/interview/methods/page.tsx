@@ -24,14 +24,14 @@ const flow = [
 ] as const;
 
 const boards = [
-  { id: 'interview-methods-practice', eyebrow: 'PRACTICE / 一题三遍', title: '同一道题，练三次。', desc: '第一遍只列提纲，第二遍完整作答，第三遍根据录音重答。三遍之间只改最明显的问题。', items: ['提纲控制在 30—60 秒', '完整作答记录时间', '重答时删掉空话和重复'] },
-  { id: 'interview-methods-check', eyebrow: 'CHECK / 答后检查', title: '四个问题就够了。', desc: '答完先别急着找参考答案，回听自己的内容。', items: ['题目交代的任务完成了吗', '前后顺序听得懂吗', '例子真的在证明观点吗', '有没有明显的模板词和重复句'] },
+  { id: 'interview-methods-practice', eyebrow: '一题三遍', title: '同一道题，练三次。', desc: '第一遍只列提纲，第二遍完整作答，第三遍根据录音重答。三遍之间只改最明显的问题。', items: ['提纲控制在 30—60 秒', '完整作答记录时间', '重答时删掉空话和重复'] },
+  { id: 'interview-methods-check', eyebrow: '答后检查', title: '四个问题就够了。', desc: '答完先别急着找参考答案，回听自己的内容。', items: ['题目交代的任务完成了吗', '前后顺序听得懂吗', '例子真的在证明观点吗', '有没有明显的模板词和重复句'] },
 ] as const satisfies readonly [InterviewBoard, InterviewBoard];
 
 export default function InterviewMethodsPage() {
   return (
-    <InterviewShell tone="methods" eyebrow="METHOD / 题型方法" title="题型方法" desc="结构化面试常见题型都有稳定的思考抓手。先看任务，再搭结构，最后把内容说顺。">
-      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-methods-flow" heading={<>先认任务，<br />再组织答案。</>} kicker="QUESTION TYPES / 题型地图" label="题型方法学习目录" mapId="interview-methods-map" /></section>
+    <InterviewShell tone="methods" eyebrow="题型方法" title="题型方法" desc="结构化面试常见题型都有稳定的思考抓手。先看任务，再搭结构，最后把内容说顺。">
+      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-methods-flow" label="题型方法学习目录" mapId="interview-methods-map" /></section>
     </InterviewShell>
   );
 }

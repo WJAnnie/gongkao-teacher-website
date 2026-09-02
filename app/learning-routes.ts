@@ -34,13 +34,6 @@ export type LearningMacroChapter = Readonly<{
   ariaLabel?: string;
 }>;
 
-type FourLearningChapters = readonly [
-  LearningMacroChapter,
-  LearningMacroChapter,
-  LearningMacroChapter,
-  LearningMacroChapter,
-];
-
 export const learningPageChapters = {
   'shenlun-framework': [
     { id: 'framework-expression', no: '01', label: '表达规则', targetId: 'framework-expression' },
@@ -55,10 +48,14 @@ export const learningPageChapters = {
     { id: 'questions-index', no: '04', label: '真题索引', targetId: 'questions-index' },
   ],
   'shenlun-writing': [
-    { id: 'writing-viewpoints', no: '01', label: '观点与热点', targetId: 'writing-viewpoints' },
-    { id: 'writing-evidence', no: '02', label: '案例与论据', targetId: 'writing-evidence' },
-    { id: 'writing-language', no: '03', label: '词语与修辞', targetId: 'writing-language' },
-    { id: 'writing-essay', no: '04', label: '作文与结构', targetId: 'writing-essay' },
+    { id: 'writing-hotspots', no: '01', label: '热点时评', targetId: 'writing-hotspots' },
+    { id: 'writing-cases', no: '02', label: '案例素材', targetId: 'writing-cases' },
+    { id: 'writing-terms', no: '03', label: '规范用词', targetId: 'writing-terms' },
+    { id: 'writing-metaphors', no: '04', label: '比喻词库', targetId: 'writing-metaphors' },
+    { id: 'writing-parallel', no: '05', label: '对仗句库', targetId: 'writing-parallel' },
+    { id: 'writing-sentences', no: '06', label: '主题佳句', targetId: 'writing-sentences' },
+    { id: 'writing-quotes', no: '07', label: '名人箴言', targetId: 'writing-quotes' },
+    { id: 'writing-essay', no: '08', label: '作文框架', targetId: 'writing-essay' },
   ],
   'shenlun-videos': [
     { id: 'shenlun-video-course', no: '01', label: '课程精讲', targetId: 'shenlun-video-course' },
@@ -90,4 +87,4 @@ export const learningPageChapters = {
     { id: 'interview-videos-class', no: '03', label: '看课堂', targetId: 'interview-videos-class' },
     { id: 'interview-videos-notes', no: '04', label: '课后笔记', targetId: 'interview-videos-notes' },
   ],
-} as const satisfies Record<LearningRouteKey, FourLearningChapters>;
+} as const satisfies Record<LearningRouteKey, readonly LearningMacroChapter[]>;

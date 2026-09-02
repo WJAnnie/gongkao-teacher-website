@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 
 export const coreAbilityChapters = [
-  { id: 'ability-01', no: '01', title: '分析能力', en: 'ANALYZE' },
-  { id: 'ability-02', no: '02', title: '综合能力', en: 'SYNTHESIZE' },
-  { id: 'ability-03', no: '03', title: '概括能力', en: 'CONDENSE' },
-  { id: 'ability-04', no: '04', title: '归纳能力', en: 'GENERALIZE' },
-  { id: 'ability-05', no: '05', title: '表达能力', en: 'EXPRESS' },
+  { id: 'ability-01', no: '01', title: '分析能力', en: '拆开关系' },
+  { id: 'ability-02', no: '02', title: '综合能力', en: '合并信息' },
+  { id: 'ability-03', no: '03', title: '概括能力', en: '压缩原意' },
+  { id: 'ability-04', no: '04', title: '归纳能力', en: '提炼共性' },
+  { id: 'ability-05', no: '05', title: '表达能力', en: '准确成文' },
 ] as const;
 
 function Prose({ children }: { children: ReactNode }) { return <div className="framework-voice-prose">{children}</div>; }
@@ -15,7 +15,7 @@ function Example({label,title,children,note}:{label:string;title:string;children
 
 export function FrameworkAbilities(){return <div className="framework-voice-course">
   <section className="framework-voice-section" aria-label="核心能力总览">
-    <header className="framework-voice-head"><span>ABILITY MAP / 能力关系</span><h3>材料不会自己变成答案，中间至少要经过五个动作。</h3><p>我更愿意把核心能力放到真实做题流程里理解：先分析，再综合；接着概括、归纳，最后把已经想清楚的内容表达出来。</p></header>
+    <header className="framework-voice-head"><span>能力关系</span><h3>材料不会自己变成答案，中间至少要经过五个动作。</h3><p>我更愿意把核心能力放到真实做题流程里理解：先分析，再综合；接着概括、归纳，最后把已经想清楚的内容表达出来。</p></header>
     <Prose>
       <p>这五项能力不是五门互相隔开的课程。你在分析材料时已经开始概括，在写答案时也可能重新分析。但把它们拆开讲有一个好处：做错题以后，你能判断自己究竟错在哪一环。</p>
       <p>有的同学漏点，是分析时没看懂这句话对题干主体意味着什么；有的点都找到了，答案却东一块西一块，是综合没做好；还有的理解完全正确，一落笔就超字数，是概括和层级判断出了问题。</p>
@@ -25,7 +25,7 @@ export function FrameworkAbilities(){return <div className="framework-voice-cour
   </section>
 
   <section className="framework-voice-section" id="ability-01">
-    <header className="framework-voice-head"><span>01 / ANALYZE</span><h3>分析能力：先把材料拆开，再判断每一部分对题干到底意味着什么。</h3><p>很多同学读申论会出现一种很典型的状态：每个字都认识，每句话似乎也懂，读完以后却只剩一团模糊印象。这个时候缺的往往不是知识，而是分析。</p></header>
+    <header className="framework-voice-head"><span>01</span><h3>分析能力：先把材料拆开，再判断每一部分对题干到底意味着什么。</h3><p>很多同学读申论会出现一种很典型的状态：每个字都认识，每句话似乎也懂，读完以后却只剩一团模糊印象。这个时候缺的往往不是知识，而是分析。</p></header>
     <Prose>
       <p>分析的第一层是看宏观结构。哪几个自然段是一部分？这一部分为什么放在一起？材料是在讲背景、案例、问题、原因、做法、成效，还是在对前文作解释和评论？</p>
       <p>第二层才是逐句理解。题干问谁，就始终围绕谁读。<strong>同一句话脱离题干主体，没有固定的“问题、原因、做法”身份。</strong>它到底是什么，要看它对当前主体和任务承担什么作用。</p>
@@ -74,7 +74,7 @@ export function FrameworkAbilities(){return <div className="framework-voice-cour
   </section>
 
   <section className="framework-voice-section" id="ability-02">
-    <header className="framework-voice-head"><span>02 / SYNTHESIZE</span><h3>综合能力：分析让你看清碎片，综合让你把碎片重新变成答案。</h3><p>材料可以为了叙事把同一类信息拆在四处，答案却要把它们重新归类、排序、组织，让阅卷人顺着你的表达自然看懂。</p></header>
+    <header className="framework-voice-head"><span>02</span><h3>综合能力：分析让你看清碎片，综合让你把碎片重新变成答案。</h3><p>材料可以为了叙事把同一类信息拆在四处，答案却要把它们重新归类、排序、组织，让阅卷人顺着你的表达自然看懂。</p></header>
     <Prose>
       <p>综合首先解决“答案长什么样”。单一要素题大多写总分结构；复合任务要判断先解释、再分析还是先分A/B；公文要有开头、主体、结尾；作文要有总论点、分论点和论证。</p>
       <p>其次解决“先后顺序”。问题说完以后再写原因，原因说完再写对策，这是递进；问题内部几个方面又是并列。于是很多答案天然就是<strong>递进中带并列</strong>。</p>
@@ -110,7 +110,7 @@ export function FrameworkAbilities(){return <div className="framework-voice-cour
   </section>
 
   <section className="framework-voice-section" id="ability-03">
-    <header className="framework-voice-head"><span>03 / CONDENSE</span><h3>概括能力：把材料写短，但“怎么简”和“要不要简”是两道不同的问题。</h3><p>概括不是删字比赛。真正难的是判断层级：材料里哪些信息必须原样保留，哪些可以压缩，哪些已经太细，需要上提到更有代表性的表达。</p></header>
+    <header className="framework-voice-head"><span>03</span><h3>概括能力：把材料写短，但“怎么简”和“要不要简”是两道不同的问题。</h3><p>概括不是删字比赛。真正难的是判断层级：材料里哪些信息必须原样保留，哪些可以压缩，哪些已经太细，需要上提到更有代表性的表达。</p></header>
     <Prose>
       <p>我不赞成为了显得规范，把所有材料都改成四个字。材料本身已经准确、简洁、有采分价值时，直接用就是最好的表达。需要明显转换的，通常是啰嗦、口语化、案例化、顿号细节太多，或者层级明显过细的内容。</p>
       <p>先回答“要不要简”。看三件事：<strong>题目问得大不大、材料给了多少信息、字数要求紧不紧。</strong>题目问得很小，微观细节就可能是答案；题目问经验启示，写得太小就会失去普适性。</p>
@@ -148,7 +148,7 @@ export function FrameworkAbilities(){return <div className="framework-voice-cour
   </section>
 
   <section className="framework-voice-section" id="ability-04">
-    <header className="framework-voice-head"><span>04 / GENERALIZE</span><h3>归纳能力：概括以后再问一句——这些内容共同说明什么？</h3><p>归纳经常写在概括前面，像一个小标题。但它不只是分类标签，最重要的是能够直接回答题干问题。</p></header>
+    <header className="framework-voice-head"><span>04</span><h3>归纳能力：概括以后再问一句——这些内容共同说明什么？</h3><p>归纳经常写在概括前面，像一个小标题。但它不只是分类标签，最重要的是能够直接回答题干问题。</p></header>
     <Prose>
       <p>很多同学会分类，却不会归纳。看到几个点分别涉及硬件、人员、制度，于是写“硬件方面、人员方面、制度方面”。这对自己思考有帮助，但未必直接回答题目。</p>
       <p>如果题目问“市场存在的问题”，真正合适的归纳应该是“设施配备不足、管理力量薄弱、制度不健全”。<strong>归纳词本身就要带答案性质。</strong></p>
@@ -192,7 +192,7 @@ export function FrameworkAbilities(){return <div className="framework-voice-cour
   </section>
 
   <section className="framework-voice-section" id="ability-05">
-    <header className="framework-voice-head"><span>05 / EXPRESS</span><h3>表达能力：小题先追求准确正式，作文再追求思想和语言的上限。</h3><p>申论表达不等于“机关腔”。真正合适的语言，是身份合适、信息明确、结构完整、少口语、少空话。</p></header>
+    <header className="framework-voice-head"><span>05</span><h3>表达能力：小题先追求准确正式，作文再追求思想和语言的上限。</h3><p>申论表达不等于“机关腔”。真正合适的语言，是身份合适、信息明确、结构完整、少口语、少空话。</p></header>
     <Prose>
       <p>小题表达要求并没有想象中那么高。大多数时候，只要你把材料理解对，使用规范动词和中观概念，把主谓宾、动宾关系写清楚，就已经很好。</p>
       <p>作文不一样。作文需要观点、论证和语言层次，才会逐渐涉及名言、案例、意义表达、句式变化和更高层次的思想。</p>

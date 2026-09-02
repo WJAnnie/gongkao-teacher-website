@@ -24,14 +24,14 @@ const flow = [
 ] as const;
 
 const boards = [
-  { id: 'interview-expression-daily', eyebrow: 'DAILY / 每日小练', title: '十分钟就能做完。', desc: '找一道题，只练开头、结构和一个例子。短练习更适合每天保持口感。', items: ['30 秒说观点', '1 分钟说结构', '补一个具体例子', '回听一次'] },
-  { id: 'interview-expression-review', eyebrow: 'VOICE / 回听重点', title: '听自己，比看稿有用。', desc: '录音里最容易听出重复、句子太长和观点不清。', items: ['第一句话有没有观点', '一句话是不是太长', '有没有连续重复同一个词', '结尾有没有突然收住'] },
+  { id: 'interview-expression-daily', eyebrow: '每日小练', title: '十分钟就能做完。', desc: '找一道题，只练开头、结构和一个例子。短练习更适合每天保持口感。', items: ['30 秒说观点', '1 分钟说结构', '补一个具体例子', '回听一次'] },
+  { id: 'interview-expression-review', eyebrow: '回听重点', title: '听自己，比看稿有用。', desc: '录音里最容易听出重复、句子太长和观点不清。', items: ['第一句话有没有观点', '一句话是不是太长', '有没有连续重复同一个词', '结尾有没有突然收住'] },
 ] as const satisfies readonly [InterviewBoard, InterviewBoard];
 
 export default function InterviewExpressionPage() {
   return (
-    <InterviewShell tone="expression" eyebrow="SPEAK / 表达训练" title="表达训练" desc="面试表达靠长期练习。观点、结构、例子和语气分开练，最后再合到一遍完整作答里。">
-      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-expression-flow" heading={<>想明白，<br />再说顺。</>} kicker="EXPRESSION / 表达训练" label="表达训练学习目录" mapId="interview-expression-map" /></section>
+    <InterviewShell tone="expression" eyebrow="表达训练" title="表达训练" desc="面试表达靠长期练习。观点、结构、例子和语气分开练，最后再合到一遍完整作答里。">
+      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-expression-flow" label="表达训练学习目录" mapId="interview-expression-map" /></section>
     </InterviewShell>
   );
 }

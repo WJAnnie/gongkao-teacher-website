@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import { ShenlunShell } from '../../../../shenlun-shell';
-import { HotspotStaticCategory } from '../../writing-hotspot-static-category';
 import { hotspotIndex } from '../../writing-library-index';
+import { WritingLegacyEntry } from '../../writing-legacy-entry';
 
 export function generateStaticParams() {
   return hotspotIndex.map((item) => ({ category: item.key }));
@@ -19,7 +18,5 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
 export default async function HotspotWritingCategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
   const item = hotspotIndex.find((entry) => entry.key === category);
-  return <ShenlunShell tone="writing" eyebrow="HOT TOPICS / 热点时评" title={item?.label ?? '热点时评'} desc="当前页面只包含这一知识领域的文章。点击具体文章即可原生展开阅读，即使增强脚本失效也不影响正文。">
-    <section className="shenlun-content framework-content writing-content"><HotspotStaticCategory categoryKey={category} /></section>
-  </ShenlunShell>;
+  return <WritingLegacyEntry target={`hotspots/${item?.key ?? 'development'}`} title={item?.label ?? '热点时评'} />;
 }

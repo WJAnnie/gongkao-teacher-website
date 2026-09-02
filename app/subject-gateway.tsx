@@ -14,22 +14,22 @@ type ModulePresentation = {
 };
 
 const modulePresentation = {
-  'shenlun-framework': { no: '01', en: 'METHOD', desc: '题型 · 能力 · 规则 · 技巧', classTone: 'framework' },
-  'shenlun-questions': { no: '02', en: 'PRACTICE', desc: '国考 · 联考 · 地方真题', classTone: 'questions' },
-  'shenlun-writing': { no: '03', en: 'WRITING', desc: '热点 · 案例 · 用词 · 作文', classTone: 'writing' },
-  'shenlun-videos': { no: '04', en: 'CLASS', desc: '精讲 · 实录 · 日常 · 分享', classTone: 'videos' },
-  'interview-methods': { no: '01', en: 'METHOD', desc: '分析 · 组织 · 应急 · 模拟', classTone: 'framework' },
-  'interview-questions': { no: '02', en: 'PRACTICE', desc: '国考 · 省考 · 回忆真题', classTone: 'questions' },
-  'interview-expression': { no: '03', en: 'SPEAK', desc: '观点 · 结构 · 例证 · 表达', classTone: 'writing' },
-  'interview-videos': { no: '04', en: 'CLASS', desc: '精讲 · 实录 · 日常 · 分享', classTone: 'videos' },
+  'shenlun-framework': { no: '01', en: '方法框架', desc: '题型 · 能力 · 规则 · 技巧', classTone: 'framework' },
+  'shenlun-questions': { no: '02', en: '真题精练', desc: '国考 · 联考 · 地方真题', classTone: 'questions' },
+  'shenlun-writing': { no: '03', en: '写作积累', desc: '热点 · 案例 · 用词 · 作文', classTone: 'writing' },
+  'shenlun-videos': { no: '04', en: '课程现场', desc: '精讲 · 实录 · 日常 · 分享', classTone: 'videos' },
+  'interview-methods': { no: '01', en: '题型方法', desc: '分析 · 组织 · 应急 · 模拟', classTone: 'framework' },
+  'interview-questions': { no: '02', en: '真题实战', desc: '国考 · 省考 · 回忆真题', classTone: 'questions' },
+  'interview-expression': { no: '03', en: '表达训练', desc: '观点 · 结构 · 例证 · 表达', classTone: 'writing' },
+  'interview-videos': { no: '04', en: '课程现场', desc: '精讲 · 实录 · 日常 · 分享', classTone: 'videos' },
 } as const satisfies Record<LearningRouteKey, ModulePresentation>;
 
 const shenlunModules = shenlunRoutes.map((route) => ({ route, ...modulePresentation[route.key] }));
 const interviewModules = interviewRoutes.map((route) => ({ route, ...modulePresentation[route.key] }));
 
 const tracks = [
-  { key: '申论' as const, code: 'A', en: 'SHENLUN', note: '材料 · 题型 · 写作', modules: shenlunModules },
-  { key: '面试' as const, code: 'B', en: 'INTERVIEW', note: '审题 · 观点 · 表达', modules: interviewModules },
+  { key: '申论' as const, code: 'A', en: '申论路径', note: '材料 · 题型 · 写作', modules: shenlunModules },
+  { key: '面试' as const, code: 'B', en: '面试路径', note: '审题 · 观点 · 表达', modules: interviewModules },
 ];
 
 export function SubjectGateway() {
@@ -38,7 +38,7 @@ export function SubjectGateway() {
   return (
     <div className="subject-gateway" aria-label="申论与面试学习目录" onMouseLeave={() => setActive(null)}>
       <div className="subject-gateway-kicker">
-        <span>LEARNING INDEX</span>
+        <span>学习索引</span>
         <b>学习目录</b>
       </div>
 

@@ -35,7 +35,7 @@ export function LearningPageFrame({
 }) {
   const primary = subject === 'shenlun' ? shenlunRoutes : interviewRoutes;
   const secondary = subject === 'shenlun' ? interviewRoutes : shenlunRoutes;
-  const subjectLabel = subject === 'shenlun' ? '申 / SHENLUN' : '面 / INTERVIEW';
+  const subjectLabel = subject === 'shenlun' ? '申论' : '结构化面试';
   const subjectName = subject === 'shenlun' ? '申论学习' : '结构化面试';
   const secondaryName = subject === 'shenlun' ? '面试学习' : '申论学习';
 

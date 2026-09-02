@@ -1,0 +1,253 @@
+.learning-page-frame.writing .learning-hero-bottom {
+  top: 352px;
+  height: 228px;
+}
+
+.learning-page-frame.writing .learning-hero-bottom > p {
+  top: 0;
+  bottom: auto;
+  width: min(720px, 62vw);
+}
+
+.learning-page-frame.writing .learning-chapter-strip {
+  top: 84px;
+  left: 0;
+  right: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  height: 112px;
+}
+
+.learning-page-frame.writing .learning-chapter-strip > button {
+  min-height: 56px;
+}
+
+.learning-page-frame.writing .learning-chapter-strip > button:nth-child(1),
+.learning-page-frame.writing .learning-directory-group:nth-of-type(1) > button { --module-color: #a45438; }
+.learning-page-frame.writing .learning-chapter-strip > button:nth-child(2),
+.learning-page-frame.writing .learning-directory-group:nth-of-type(2) > button { --module-color: #315f8e; }
+.learning-page-frame.writing .learning-chapter-strip > button:nth-child(3),
+.learning-page-frame.writing .learning-directory-group:nth-of-type(3) > button { --module-color: #5a7451; }
+.learning-page-frame.writing .learning-chapter-strip > button:nth-child(4),
+.learning-page-frame.writing .learning-directory-group:nth-of-type(4) > button { --module-color: #8a5a7b; }
+.learning-page-frame.writing .learning-chapter-strip > button:nth-child(5),
+.learning-page-frame.writing .learning-directory-group:nth-of-type(5) > button { --module-color: #8b6a2c; }
+.learning-page-frame.writing .learning-chapter-strip > button:nth-child(6),
+.learning-page-frame.writing .learning-directory-group:nth-of-type(6) > button { --module-color: #49707a; }
+.learning-page-frame.writing .learning-chapter-strip > button:nth-child(7),
+.learning-page-frame.writing .learning-directory-group:nth-of-type(7) > button { --module-color: #704a45; }
+.learning-page-frame.writing .learning-chapter-strip > button:nth-child(8),
+.learning-page-frame.writing .learning-directory-group:nth-of-type(8) > button { --module-color: #394a61; }
+
+.learning-page-frame.writing .learning-chapter-strip > button > span,
+.learning-page-frame.writing .learning-directory-group > button > span,
+.learning-page-frame.writing .learning-directory-group > button > i {
+  color: var(--module-color, var(--learning-accent));
+}
+
+.learning-page-frame.writing .learning-chapter-strip > button.active,
+.learning-page-frame.writing .learning-directory-group.active > button {
+  box-shadow: inset 3px 0 0 var(--module-color, var(--learning-accent));
+  background: color-mix(in srgb, var(--module-color, var(--learning-accent)) 9%, var(--learning-paper-raised));
+}
+
+.learning-page-frame.writing .learning-content-frame {
+  grid-template-columns: minmax(250px, 300px) minmax(0, 900px);
+  gap: clamp(30px, 4vw, 70px);
+  width: min(100% - 48px, 1280px);
+  padding-top: clamp(46px, 6vw, 82px);
+}
+
+.writing-library-search {
+  position: relative;
+  z-index: 3;
+  margin-bottom: 16px;
+  padding: 14px;
+  border: 1px solid var(--learning-border);
+  background: color-mix(in srgb, var(--learning-paper-raised) 92%, white);
+}
+
+.writing-library-search > label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--learning-muted);
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+
+.writing-library-search > div:first-of-type {
+  display: flex;
+  border-bottom: 2px solid var(--learning-ink);
+}
+
+.writing-library-search input {
+  min-width: 0;
+  flex: 1;
+  padding: 8px 2px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--learning-ink);
+  font: 13px/1.4 inherit;
+}
+
+.writing-library-search input::placeholder { color: color-mix(in srgb, var(--learning-muted) 72%, transparent); }
+.writing-library-search > div > button { border: 0; background: transparent; color: var(--learning-muted); font-size: 11px; cursor: pointer; }
+
+.writing-search-results {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: -1px;
+  right: -1px;
+  display: grid;
+  max-height: 360px;
+  overflow: auto;
+  border: 1px solid var(--learning-border);
+  background: var(--learning-paper-raised);
+  box-shadow: 0 18px 34px rgba(37, 37, 31, .14);
+}
+
+.writing-search-results > span { padding: 14px; color: var(--learning-muted); font-size: 12px; }
+.writing-search-results > button { display: grid; gap: 3px; padding: 11px 14px; border: 0; border-bottom: 1px solid var(--learning-border); background: transparent; color: var(--learning-ink); text-align: left; cursor: pointer; }
+.writing-search-results > button:hover, .writing-search-results > button:focus-visible { background: color-mix(in srgb, var(--learning-accent) 8%, transparent); }
+.writing-search-results b { overflow: hidden; font: 600 12px/1.45 inherit; text-overflow: ellipsis; white-space: nowrap; }
+.writing-search-results span { color: var(--learning-muted); font-size: 10px; }
+
+.writing-tree-level-two { padding: 4px 0 10px 18px; border-left: 1px solid var(--learning-border); }
+.writing-tree-branch > button { display: grid; grid-template-columns: 1fr auto; align-items: center; width: 100%; min-height: 38px; padding: 7px 9px; border: 0; background: transparent; color: var(--learning-muted); text-align: left; cursor: pointer; }
+.writing-tree-branch > button:hover, .writing-tree-branch > button:focus-visible, .writing-tree-branch > button.active { color: var(--learning-ink); background: color-mix(in srgb, var(--module-color, var(--learning-accent)) 8%, transparent); }
+.writing-tree-branch > button b { font-size: 12px; font-weight: 560; }
+.writing-tree-branch > button i { color: var(--module-color, var(--learning-accent)); font-style: normal; transition: transform .18s ease; }
+.writing-tree-branch.open > button i { transform: rotate(180deg); }
+.writing-tree-status { display: block; padding: 8px 10px 12px; color: var(--learning-muted); font-size: 11px; }
+
+.writing-tree-leaves { display: grid; max-height: 320px; margin: 2px 0 8px 12px; overflow: auto; border-left: 1px solid color-mix(in srgb, var(--module-color, var(--learning-accent)) 40%, transparent); }
+.writing-tree-leaves > button { overflow: hidden; padding: 7px 10px; border: 0; background: transparent; color: var(--learning-muted); font: 11px/1.45 inherit; text-align: left; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+.writing-tree-leaves > button:hover, .writing-tree-leaves > button:focus-visible, .writing-tree-leaves > button.active { color: var(--learning-ink); background: color-mix(in srgb, var(--module-color, var(--learning-accent)) 10%, transparent); }
+.writing-tree-leaves > button.active { box-shadow: inset 2px 0 0 var(--module-color, var(--learning-accent)); font-weight: 650; }
+
+.writing-manual-surface { --module-accent: #a45438; min-height: 640px; }
+.writing-module-cases { --module-accent: #315f8e; }
+.writing-module-terms { --module-accent: #5a7451; }
+.writing-module-metaphors { --module-accent: #8a5a7b; }
+.writing-module-parallel { --module-accent: #8b6a2c; }
+.writing-module-sentences { --module-accent: #49707a; }
+.writing-module-quotes { --module-accent: #704a45; }
+.writing-module-essay { --module-accent: #394a61; }
+
+.writing-breadcrumb { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 28px; color: var(--learning-muted); font-size: 10px; letter-spacing: .04em; }
+.writing-breadcrumb span:not(:last-child)::after { content: '／'; margin-left: 7px; color: color-mix(in srgb, var(--learning-muted) 55%, transparent); }
+.writing-breadcrumb span:last-child { color: var(--module-accent); font-weight: 700; }
+
+.writing-module-view { animation: writing-content-arrive .32s ease both; }
+.writing-module-view > header { display: grid; grid-template-columns: 64px 1fr; gap: 22px; align-items: start; margin-bottom: 34px; padding-bottom: 26px; border-bottom: 1px solid var(--learning-border); }
+.writing-module-view > header > span { display: grid; place-items: center; width: 58px; height: 58px; border: 1px solid var(--module-accent); border-radius: 50%; color: var(--module-accent); font: 500 24px/1 "Songti SC", serif; }
+.writing-module-view > header p { margin: 0 0 5px; color: var(--module-accent); font-size: 11px; letter-spacing: .12em; }
+.writing-module-view > header h2 { margin: 0 0 8px; font: 500 clamp(28px, 4vw, 46px)/1.1 "Songti SC", serif; }
+.writing-module-view > header em { color: var(--learning-muted); font: normal 12px/1.7 inherit; }
+
+.writing-editorial-paper { padding: clamp(28px, 5vw, 58px); border-top: 5px solid var(--module-accent); background: #fffef9; box-shadow: 0 16px 44px rgba(70, 54, 39, .08); }
+.writing-editorial-paper p { margin: 0 0 1.4em; font: 16px/2 "Songti SC", serif; }
+.writing-editorial-paper h3 { margin: 2em 0 .65em; color: var(--module-accent); font: 600 20px/1.5 "Songti SC", serif; }
+.writing-editorial-paper .writing-paper-intro { font-size: 18px; }
+.writing-editorial-paper .writing-paper-intro > strong { display: block; margin-top: 1.4em; padding-left: 18px; border-left: 3px solid var(--module-accent); }
+
+.writing-dossier-facts { position: relative; padding: 30px; border: 1px solid var(--learning-border); background: color-mix(in srgb, var(--module-accent) 5%, #fffef9); }
+.writing-dossier-facts::before { content: '案例档案'; position: absolute; top: 12px; right: 16px; color: color-mix(in srgb, var(--module-accent) 28%, transparent); font: 700 10px/1 monospace; letter-spacing: .16em; }
+.writing-dossier-facts > b { display: block; margin-bottom: 12px; color: var(--module-accent); font-size: 12px; }
+.writing-dossier-facts p { margin: 0; font: 15px/1.9 "Songti SC", serif; }
+.writing-dossier-uses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.writing-dossier-uses article { padding: 24px; border-top: 3px solid var(--module-accent); background: var(--learning-paper-raised); }
+.writing-dossier-uses span { color: var(--module-accent); font-size: 10px; }
+.writing-dossier-uses h3 { margin: 8px 0 12px; font: 600 17px/1.4 "Songti SC", serif; }
+.writing-dossier-uses p { margin: 0; font: 14px/1.85 "Songti SC", serif; }
+
+.writing-term-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: stretch; }
+.writing-term-compare article { min-height: 180px; padding: 28px; border: 1px solid var(--learning-border); background: var(--learning-paper-raised); }
+.writing-term-compare article:last-child { border-color: var(--module-accent); background: color-mix(in srgb, var(--module-accent) 7%, var(--learning-paper-raised)); }
+.writing-term-compare span { color: var(--module-accent); font-size: 11px; }
+.writing-term-compare p { margin: 24px 0 0; font: 600 24px/1.5 "Songti SC", serif; }
+.writing-term-compare > i { align-self: center; color: var(--module-accent); font-style: normal; }
+.writing-term-workbench > aside { margin-top: 18px; padding: 20px 24px; border-left: 4px solid var(--module-accent); background: color-mix(in srgb, var(--module-accent) 5%, transparent); }
+.writing-term-workbench > aside p { margin: 6px 0 0; line-height: 1.8; }
+
+.writing-parallel-list { display: grid; gap: 12px; }
+.writing-parallel-list article { display: grid; grid-template-columns: 42px 1fr; border: 1px solid var(--learning-border); background: var(--learning-paper-raised); }
+.writing-parallel-list article > span { padding: 20px 10px; color: var(--module-accent); font: italic 11px Georgia, serif; text-align: center; }
+.writing-parallel-list article > div { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 20px; padding: 18px 22px; border-left: 1px solid var(--learning-border); }
+.writing-parallel-list p { margin: 0; font: 600 16px/1.6 "Songti SC", serif; }
+.writing-parallel-list i { background: var(--module-accent); opacity: .35; }
+.writing-parallel-list em { grid-column: 1 / -1; color: var(--learning-muted); font: normal 11px/1.6 inherit; }
+
+.writing-sentence-notebook { padding: 0 34px 44px; background: repeating-linear-gradient(to bottom, transparent 0 37px, color-mix(in srgb, var(--module-accent) 18%, transparent) 38px), var(--learning-paper-raised); }
+.writing-sentence-notebook .writing-breadcrumb { padding-top: 24px; }
+.writing-sentence-notebook > header { background: var(--learning-paper-raised); }
+.writing-sentence-notebook blockquote { margin: 70px 5vw; color: var(--learning-ink); font: 500 clamp(24px, 4vw, 38px)/1.75 "Kaiti SC", "STKaiti", serif; }
+.writing-copy-practice { padding: 16px 20px; border-left: 3px solid var(--module-accent); background: color-mix(in srgb, var(--module-accent) 7%, var(--learning-paper-raised)); color: var(--learning-muted); line-height: 1.8; }
+
+.writing-quote-card > blockquote { position: relative; margin: 0; padding: 52px clamp(30px, 6vw, 76px); border: 1px solid var(--module-accent); color: var(--module-accent); font: 500 clamp(26px, 4vw, 42px)/1.6 "Kaiti SC", "STKaiti", serif; text-align: center; }
+.writing-quote-card > blockquote::before { content: '“'; position: absolute; top: 12px; left: 20px; opacity: .25; font: 80px/1 Georgia, serif; }
+.writing-quote-card > div:last-child { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 18px; background: var(--learning-border); border: 1px solid var(--learning-border); }
+.writing-quote-card > div article { padding: 24px; background: var(--learning-paper-raised); }
+.writing-quote-card > div b { color: var(--module-accent); font-size: 12px; }
+.writing-quote-card > div p { margin: 10px 0 0; line-height: 1.8; }
+
+.writing-blueprint-track { display: grid; grid-template-columns: repeat(6, 1fr); margin-bottom: 22px; border: 1px solid var(--learning-border); }
+.writing-blueprint-track > span { display: grid; gap: 6px; padding: 14px 8px; border-right: 1px solid var(--learning-border); color: var(--learning-muted); font: italic 10px Georgia, serif; text-align: center; }
+.writing-blueprint-track > span:last-child { border-right: 0; }
+.writing-blueprint-track b { font: 500 11px/1.3 inherit; }
+.writing-blueprint-track > span.active { color: white; background: var(--module-accent); }
+.writing-essay-blueprint > article { min-height: 240px; padding: clamp(30px, 6vw, 62px); border: 1px solid var(--module-accent); background: linear-gradient(135deg, color-mix(in srgb, var(--module-accent) 7%, transparent), transparent 55%); }
+.writing-essay-blueprint > article span { color: var(--module-accent); font-size: 11px; letter-spacing: .12em; }
+.writing-essay-blueprint > article p { max-width: 700px; margin: 30px 0 0; font: 500 20px/1.9 "Songti SC", serif; }
+
+@keyframes writing-content-arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.writing-legacy-entry {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  padding: 32px;
+  color: #25251f;
+  background: #f4f0e6;
+  text-align: center;
+}
+.writing-legacy-entry > span { color: #6f7f3b; font-size: 11px; letter-spacing: .16em; }
+.writing-legacy-entry h1 { margin: 16px 0 10px; font: 500 clamp(38px, 8vw, 74px)/1 "Songti SC", serif; }
+.writing-legacy-entry p { margin: 0 0 24px; color: rgba(37, 37, 31, .66); }
+.writing-legacy-entry a { justify-self: center; padding: 10px 18px; border: 1px solid #25251f; color: inherit; text-decoration: none; }
+
+@media (max-width: 980px) {
+  .learning-page-frame.writing .learning-chapter-strip > button { grid-template-columns: 25px 1fr; }
+  .learning-page-frame.writing .learning-chapter-strip > button > i { display: none; }
+  .learning-page-frame.writing .learning-content-frame { grid-template-columns: 220px minmax(0, 1fr); gap: 28px; }
+}
+
+@media (max-width: 820px) {
+  .learning-page-frame.writing .learning-page-hero { height: auto; min-height: 830px; }
+  .learning-page-frame.writing .learning-hero-bottom { height: auto; }
+  .learning-page-frame.writing .learning-hero-bottom > p { width: 100%; }
+  .learning-page-frame.writing .learning-hero-bottom { min-width: 0; max-width: 100%; }
+  .learning-page-frame.writing .learning-chapter-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; max-width: 100%; height: auto; margin-top: 94px; overflow: hidden; }
+  .learning-page-frame.writing .learning-chapter-strip > button { grid-template-columns: 24px minmax(0, 1fr); min-width: 0; padding-inline: 9px; }
+  .learning-page-frame.writing .learning-chapter-strip > button > b { min-width: 0; white-space: nowrap; }
+  .learning-page-frame.writing .learning-content-frame { width: min(100% - 28px, 720px); }
+  .writing-dossier-uses, .writing-quote-card > div:last-child { grid-template-columns: 1fr; }
+  .writing-term-compare { grid-template-columns: 1fr; }
+  .writing-term-compare > i { transform: rotate(90deg); justify-self: center; }
+  .writing-parallel-list article > div { grid-template-columns: 1fr; gap: 10px; }
+  .writing-parallel-list article > div i { height: 1px; }
+  .writing-blueprint-track { grid-template-columns: repeat(3, 1fr); }
+  .writing-tree-leaves { max-height: none; }
+}
+
+@media (max-width: 420px) {
+  .learning-page-frame.writing .learning-page-hero { min-height: 790px; }
+  .learning-page-frame.writing .learning-chapter-strip { margin-top: 68px; }
+  .learning-page-frame.writing .learning-chapter-strip > button { grid-template-columns: 22px minmax(0, 1fr); padding-inline: 7px; }
+  .learning-page-frame.writing .learning-chapter-strip > button > b { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .writing-module-view { animation: none; }
+}

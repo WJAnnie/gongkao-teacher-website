@@ -49,7 +49,7 @@ export function FrameworkTypeArticleV2() {
     <div className="expression-v2-course type-v2-course type-v3-course">
       <section className="expression-chapter expression-v2-section type-chapter" id="type-summary">
         <header className="expression-v2-head compact">
-          <span>01 / SUMMARY</span>
+          <span>01</span>
           <h3>归纳概括，先学会回答题目真正问的东西。</h3>
           <p>五大题型的名字可以帮助我们快速定位，但真正开始做题时，第一步始终是：题目到底让我找什么、材料到底给了什么。</p>
         </header>
@@ -63,8 +63,8 @@ export function FrameworkTypeArticleV2() {
 
         <div className="expression-v2-subtitle strong"><span>先分清一个概念</span><h4>单一要素与复合要素，区别在“题目有没有明确告诉你找什么”</h4></div>
         <div className="type-v2-answer-shape">
-          <article><span>SINGLE ELEMENT</span><h5>单一要素</h5><p>题干已经明确告诉你要找什么。<br /><br />问题、原因、做法、成效、特点、变化、经验等，都是常见的明确要素。</p></article>
-          <article><span>COMPOSITE ELEMENT</span><h5>复合要素</h5><p>题干没有直接告诉你答案由哪几类要素组成。<br /><br />需要先理解任务，再判断要写内涵、表现、原因、影响、问题、做法、总结等哪些内容。</p></article>
+          <article><span>只找一类信息</span><h5>单一要素</h5><p>题干已经明确告诉你要找什么。<br /><br />问题、原因、做法、成效、特点、变化、经验等，都是常见的明确要素。</p></article>
+          <article><span>组合多类信息</span><h5>复合要素</h5><p>题干没有直接告诉你答案由哪几类要素组成。<br /><br />需要先理解任务，再判断要写内涵、表现、原因、影响、问题、做法、总结等哪些内容。</p></article>
         </div>
         <Prose>
           <p><strong>“一次问两个东西”并不等于复合要素。</strong>比如“概括问题并提出建议”，虽然题目有两个任务，但“问题”和“建议”都已经说得很清楚，只是两问或多任务。</p>
@@ -121,7 +121,7 @@ export function FrameworkTypeArticleV2() {
 
       <section className="expression-chapter expression-v2-section type-chapter" id="type-analysis">
         <header className="expression-v2-head compact">
-          <span>02 / ANALYSIS</span>
+          <span>02</span>
           <h3>综合分析，先理解，再把关系重新组织。</h3>
           <p>这类题的难点常常不在“材料有没有答案”，而在于题目没有把答案结构直接告诉你。你需要把材料拆开看，再重新合起来。</p>
         </header>
@@ -184,7 +184,7 @@ export function FrameworkTypeArticleV2() {
 
       <section className="expression-chapter expression-v2-section type-chapter" id="type-solution">
         <header className="expression-v2-head compact">
-          <span>03 / SOLUTION</span>
+          <span>03</span>
           <h3>提出对策，先把问题看准，再把办法写实。</h3>
           <p>对策不是几个“加强、完善、提高”的排列组合。真正有分的措施，需要对准问题、符合身份、具有现实可行性，还要写到能执行的程度。</p>
         </header>
@@ -211,8 +211,8 @@ export function FrameworkTypeArticleV2() {
 
         <div className="expression-v2-subtitle"><span>一问与两问</span><h4>先看题目到底要你交几份“作业”</h4></div>
         <div className="type-v2-answer-shape">
-          <article><span>ONE TASK</span><h5>只问对策</h5><p>1. 完善……。通过……；<br />2. 加强……。针对……；<br />3. 建立……。明确……。</p></article>
-          <article><span>TWO TASKS</span><h5>问题 + 对策</h5><p>一、问题：……<br />二、对策：……<br /><small>问题可以更简洁，对策通常需要更多空间展开。</small></p></article>
+          <article><span>一个作答任务</span><h5>只问对策</h5><p>1. 完善……。通过……；<br />2. 加强……。针对……；<br />3. 建立……。明确……。</p></article>
+          <article><span>两个作答任务</span><h5>问题 + 对策</h5><p>一、问题：……<br />二、对策：……<br /><small>问题可以更简洁，对策通常需要更多空间展开。</small></p></article>
         </div>
         <Prose>
           <p>两问题可以先根据材料信息量预估字数，常见训练中问题与对策大致可以按3:7到4:6考虑，但这不是固定比例。材料问题很多、题目对问题要求更细时，就要相应调整。</p>
@@ -223,7 +223,7 @@ export function FrameworkTypeArticleV2() {
 
       <section className="expression-chapter expression-v2-section type-chapter" id="type-implementation">
         <header className="expression-v2-head compact">
-          <span>04 / IMPLEMENTATION</span>
+          <span>04</span>
           <h3>公文写作，先把情境弄明白，再把格式放到正确的位置。</h3>
           <p>公文看起来文种很多，真正稳定的处理方式，是先识别“谁在什么场景下，为了什么目的，向谁完成什么沟通任务”。格式重要，但任务永远在格式前面。</p>
         </header>
@@ -344,7 +344,7 @@ export function FrameworkTypeArticleV2() {
 
       <section className="expression-chapter expression-v2-section type-chapter" id="type-essay">
         <header className="expression-v2-head compact">
-          <span>05 / ESSAY</span>
+          <span>05</span>
           <h3>文章写作，先把“我要证明什么”想清楚，再谈文采。</h3>
           <p>一篇申论文章真正站得住，需要主题明确、总论点稳定、分论点有层次、论证能推进。好词好句可以加分，但它们必须长在清楚的思路上。</p>
         </header>

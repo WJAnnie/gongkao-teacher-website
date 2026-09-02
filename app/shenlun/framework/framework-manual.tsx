@@ -170,7 +170,7 @@ export function FrameworkManual() {
 
       <aside className={`framework-manual-sidebar learning-directory-column${drawerOpen ? ' open' : ''}`} aria-label="方法框架学习目录">
         <button className="framework-drawer-close" data-learning-directory-initial-focus type="button" onClick={closeDrawer}>×</button>
-        <div className="framework-sidebar-kicker">申论方法 / METHOD</div>
+        <div className="framework-sidebar-kicker">申论方法</div>
         <nav className="framework-layer-nav" aria-label="方法框架章节">
           {layers.map((item) => {
             const open = activeLayer === item.key;
@@ -201,7 +201,7 @@ export function FrameworkManual() {
         {activeLayer === 'expression' && (
           <section className="framework-manual-article framework-expression-layer" id="framework-expression">
             <header className="framework-article-intro">
-              <span>01 / EXPRESSION RULES</span>
+              <span>01</span>
               <h2>表达规则</h2>
               <p>这一部分我想先把申论从头讲明白。先认识考试和答题卡，再学审题、读材料、整理答案和组织逻辑。后面的五大题型，都是在这些基本规则上往前走。</p>
             </header>
@@ -212,7 +212,7 @@ export function FrameworkManual() {
         {activeLayer === 'types' && (
           <section className="framework-manual-article framework-types-layer" id="framework-types">
             <header className="framework-article-intro">
-              <span>02 / FIVE QUESTION TYPES</span>
+              <span>02</span>
               <h2>题型框架</h2>
               <p>先别急着给每一道题贴标签。更重要的是先判断：题目有没有明确告诉你“要找什么”。问题、原因、做法、成效这类任务，要素很清楚；看法、理解、公文等任务，则要先读懂题目和材料，再判断答案需要哪些部分。把这层关系想明白，再看五大题型，很多所谓的“模板”自然就失去神秘感了。</p>
             </header>
@@ -223,7 +223,7 @@ export function FrameworkManual() {
         {activeLayer === 'abilities' && (
           <section className="framework-manual-article framework-abilities-layer" id="framework-abilities">
             <header className="framework-article-intro">
-              <span>03 / CORE ABILITIES</span>
+              <span>03</span>
               <h2>核心能力</h2>
               <p>同一道题，真正拉开差距的往往不是记住了哪个题型模板，而是能不能把材料看懂、拆开、重新组织，再在有限字数里写成准确的答案。这里按实际做题过程，把分析、综合、概括、归纳和表达五项能力拆开讲。</p>
             </header>
@@ -234,7 +234,7 @@ export function FrameworkManual() {
         {activeLayer === 'tips' && (
           <section className="framework-manual-article framework-tips-layer" id="framework-tips">
             <header className="framework-article-intro">
-              <span>04 / PRACTICAL NOTES</span>
+              <span>04</span>
               <h2>实用技巧</h2>
               <p>这里不按教材顺序讲知识，而是把做题时最容易卡住、最值得单独说清楚的问题写成一篇篇短文章。先看标题，遇到自己正在犯的问题再点开读；切换文章时，上一篇会自动收起。</p>
             </header>

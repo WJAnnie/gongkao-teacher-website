@@ -223,7 +223,7 @@ export function HomeSongPlayer() {
           <div className="home-song-head">
             <div className="home-song-orbit" aria-hidden="true"><i /><span>♪</span></div>
             <div className="home-song-meta">
-              <small>STUDY TRACK / 学习歌单</small>
+              <small>学习歌单</small>
               <strong>向岸</strong>
               <em>{started ? (playing ? '正在播放' : '已暂停') : '点击播放键开始'}</em>
             </div>

@@ -100,7 +100,7 @@
 }
 
 .exam-review-stamp::after {
-  content: "REVIEW";
+  content: "复盘";
   position: absolute;
   bottom: 17%;
   font: italic 6px Georgia, serif;

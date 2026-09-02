@@ -39,11 +39,13 @@ const rootLayout = await read('../app/layout.tsx');
 const frameworkPage = await read('../app/shenlun/framework/page.tsx');
 const writingLayout = await read('../app/shenlun/writing/layout.tsx');
 const interviewShell = await read('../app/interview/interview-shell.tsx');
-const writingStaticPages = await read('../app/shenlun/writing/writing-static-pages.tsx');
 const hotspotCategoryPage = await read('../app/shenlun/writing/hotspots/[category]/page.tsx');
 const caseCategoryPage = await read('../app/shenlun/writing/cases/[category]/page.tsx');
-const hotspotCategoryView = await read('../app/shenlun/writing/writing-hotspot-static-category.tsx');
-const caseCategoryView = await read('../app/shenlun/writing/writing-case-static-category.tsx');
+const hotspotIndexPage = await read('../app/shenlun/writing/hotspots/page.tsx');
+const caseIndexPage = await read('../app/shenlun/writing/cases/page.tsx');
+const metaphorIndexPage = await read('../app/shenlun/writing/metaphors/page.tsx');
+const writingLegacyEntry = await read('../app/shenlun/writing/writing-legacy-entry.tsx');
+const writingLibraryManual = await read('../app/shenlun/writing/writing-library-manual.tsx');
 const frameworkDeepEnrichment = await read('../app/shenlun/framework/framework-deep-enrichment.tsx');
 const appSource = await readSourceTree('../app/');
 
@@ -111,23 +113,27 @@ test('retired framework scene and Hero standard styles are not imported', () => 
   assert.doesNotMatch(frameworkPage, /framework-scene-transition\.css/);
 });
 
-test('writing landing and indexes do not import article, case, or metaphor corpora', () => {
-  assert.doesNotMatch(writingStaticPages, /writing-hotspot-all/);
-  assert.doesNotMatch(writingStaticPages, /writing-case-all/);
-  assert.doesNotMatch(writingStaticPages, /writing-metaphor-data/);
+test('writing manual keeps large corpora behind dynamic loading boundaries', () => {
+  assert.doesNotMatch(writingLibraryManual, /from ['"]\.\/writing-hotspot-all/);
+  assert.doesNotMatch(writingLibraryManual, /from ['"]\.\/writing-case-all/);
+  assert.doesNotMatch(writingLibraryManual, /from ['"]\.\/writing-metaphor-data/);
+  assert.match(writingLibraryManual, /import\(['"]\.\/writing-metaphor-data['"]\)/);
+  assert.match(writingLibraryManual, /import\(['"]\.\/writing-hotspot-loader['"]\)/);
+  assert.match(writingLibraryManual, /import\(['"]\.\/writing-case-loader['"]\)/);
 });
 
-test('dynamic category routes load only their selected corpus boundary', () => {
-  assert.match(hotspotCategoryPage, /writing-hotspot-static-category/);
-  assert.match(caseCategoryPage, /writing-case-static-category/);
-  assert.match(hotspotCategoryView, /loadHotspotCategory/);
-  assert.doesNotMatch(hotspotCategoryView, /writing-hotspot-all/);
-  assert.match(caseCategoryView, /loadCaseCategory/);
-  assert.doesNotMatch(caseCategoryView, /writing-case-all/);
+test('legacy writing routes forward into canonical in-page directory state', () => {
+  for (const source of [hotspotIndexPage, hotspotCategoryPage, caseIndexPage, caseCategoryPage, metaphorIndexPage]) {
+    assert.match(source, /WritingLegacyEntry/);
+    assert.doesNotMatch(source, /ShenlunShell|StaticCategory|StaticIndex|DirectList/);
+  }
+  assert.match(writingLegacyEntry, /window\.location\.replace/);
+  assert.match(writingLegacyEntry, /\/shenlun\/writing\//);
+  assert.match(writingLegacyEntry, /window\.location\.hash/);
 });
 
-test('static writing navigation avoids Vinext RSC prefetch links', () => {
-  for (const source of [writingStaticPages, hotspotCategoryView, caseCategoryView]) {
+test('writing compatibility navigation avoids Vinext RSC prefetch links', () => {
+  for (const source of [writingLegacyEntry, hotspotIndexPage, hotspotCategoryPage, caseIndexPage, caseCategoryPage, metaphorIndexPage]) {
     assert.doesNotMatch(source, /from 'next\/link'/);
   }
 });
@@ -140,4 +146,9 @@ test('framework table rows use content-derived unique keys', () => {
 test('student-facing copy uses the current teacher name', () => {
   assert.doesNotMatch(appSource, /高老师|GAO\s*\//);
   assert.match(appSource, /云帆老师/);
+});
+
+test('student-facing copy excludes project-owner notes and decorative English labels', () => {
+  assert.doesNotMatch(appSource, /站内已有|后续每个条目都可以继续扩展成独立文章或专题页/);
+  assert.doesNotMatch(appSource, /BACK TO TOP|LEARNING DESK|LEARNING INDEX|CASE FILE|REVIEW|SHENLUN|INTERVIEW|YUNFAN\s*\/|[A-Z]{3,}\s*\/\s*[\u4e00-\u9fff]/);
 });

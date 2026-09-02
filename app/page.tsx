@@ -24,7 +24,7 @@ export default function Home() {
         <section className="hero" id="top">
           <div className="pointer-glow hero-pointer-glow" aria-hidden="true" />
           <div className="hero-grid" aria-hidden="true" />
-          <div className="hero-orbit" aria-hidden="true"><span /><div className="hero-orbit-review"><b>阅</b><small>REVIEW<br />审题 · 找点 · 表达 · 复盘</small></div></div>
+          <div className="hero-orbit" aria-hidden="true"><span /><div className="hero-orbit-review"><b>阅</b><small>审题 · 找点<br />表达 · 复盘</small></div></div>
           <p className="eyebrow"><span>01</span> 专注申论与结构化面试的长期学习站</p>
           <h1>把公考题做懂<br /><span className="title-outline">把话说清</span></h1>
           <div className="hero-bottom"><p className="hero-lead"><span>真题</span>、<span>方法</span>、<span>积累</span>，<br className="desktop-break" />还有课堂里反复讲过的那些细节。</p></div>
@@ -37,10 +37,10 @@ export default function Home() {
         <Image className="about-visual-art" src="/about-study-art.svg" alt="" aria-hidden="true" width={900} height={1100} />
         <HomeSongPlayer />
         <div className="about-copy">
-          <p className="section-index">02 — ABOUT / 云帆老师与答卷之外</p>
+          <p className="section-index">02 — 云帆老师与答卷之外</p>
           <div className="about-merged-grid">
             <div className="about-profile about-profile-expanded">
-              <div className="about-identity-line"><span>YUNFAN / 云帆老师</span><b>公考教师 · 申论 · 结构化面试</b></div>
+              <div className="about-identity-line"><span>云帆老师</span><b>公考教师 · 申论 · 结构化面试</b></div>
               <h2>把题目看明白，<br />把自己的答案<span>说清楚</span>。</h2>
               <div className="about-intro-lead">
                 <p>我是云帆老师，目前从事公考教学。课堂之外，我一直想有一个地方，把申论、结构化面试里真正需要反复练的东西整理下来。</p>
@@ -62,15 +62,15 @@ export default function Home() {
 
       <section className="bottom-materials" id="contact" aria-label="获取资料">
         <aside className="about-contact-card">
-          <div className="about-contact-head"><span>MATERIALS / 资料入口</span><b>资料 · 内容 · 日常</b></div>
+          <div className="about-contact-head"><span>资料入口</span><b>资料 · 内容 · 日常</b></div>
           <div className="about-contact-body">
-            <div className="qr-placeholder" aria-label="二维码区域"><div className="qr-pattern" aria-hidden="true" /><span>QR</span></div>
+            <div className="qr-placeholder" aria-label="二维码区域"><div className="qr-pattern" aria-hidden="true" /><span>扫码</span></div>
             <div className="contact-info"><span>答卷之外 · 云帆老师</span><h3>获取资料</h3><p>申论方法 · 结构化面试 · 真题训练 · 课堂内容</p></div>
           </div>
         </aside>
       </section>
 
-      <footer className="footer"><span>答卷之外 · 云帆老师 · 申论 × 结构化面试</span><a href="#top">BACK TO TOP ↑</a></footer>
+      <footer className="footer"><span>答卷之外 · 云帆老师 · 申论 × 结构化面试</span><a href="#top">返回顶部 ↑</a></footer>
     </main>
   );
 }

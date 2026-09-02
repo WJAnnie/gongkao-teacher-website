@@ -51,7 +51,7 @@
 
 .learning-page-frame .learning-page-hero > h1 {
   position: absolute;
-  top: 148px;
+  top: 176px;
   left: var(--learning-x);
   width: min(900px, 64vw);
   margin: 0;
@@ -200,10 +200,20 @@
   .learning-page-frame .learning-chapter-strip { margin-top: 28px; }
   .learning-page-frame .learning-content-frame { display: block; width: min(100% - 32px, 720px); padding: 56px 0; }
   .learning-page-frame .learning-directory-trigger { display: grid; grid-template-columns: auto 1fr auto; width: 100%; margin-bottom: 18px; padding: 12px; border: 1px solid var(--learning-border); background: var(--learning-paper-raised); color: var(--learning-ink); text-align: left; }
-  .learning-page-frame .learning-directory-column { position: fixed; z-index: 160; top: 0; left: 0; bottom: 0; width: min(86vw, 360px); max-height: none; padding: 20px; transform: translateX(-105%); transition: transform .24s ease; background: var(--learning-paper-raised); }
+  .learning-page-frame .learning-directory-column { position: fixed; z-index: 160; top: 0; left: 0; bottom: 0; width: min(86vw, 360px); max-height: none; padding: 90px 20px 20px; transform: translateX(-105%); transition: transform .24s ease; background: var(--learning-paper-raised); }
   .learning-page-frame .learning-directory-column.open { transform: translateX(0); }
   .learning-page-frame .learning-directory-close { display: block; margin: 0 0 18px auto; border: 0; background: transparent; color: var(--learning-ink); }
   .learning-page-frame .learning-directory-backdrop { display: block; position: fixed; z-index: 150; inset: 0; border: 0; background: rgba(20, 22, 24, .32); }
   .learning-page-frame .learning-page-footer { grid-template-columns: 1fr; padding-inline: 20px; }
   .learning-page-frame .learning-page-footer > p { grid-column: auto; }
+}
+
+@media (max-width: 760px) {
+  .learning-page-frame .learning-directory-column { padding-top: 120px; }
+}
+
+@media (max-width: 420px) {
+  .learning-page-frame .learning-page-hero { padding-inline: 18px; }
+  .learning-page-frame .learning-page-hero > h1 { max-width: 100%; font-size: clamp(48px, 15vw, 60px); letter-spacing: -.065em; }
+  .learning-page-frame .learning-hero-bottom { min-width: 0; max-width: 100%; }
 }

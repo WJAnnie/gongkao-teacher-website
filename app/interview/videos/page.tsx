@@ -24,14 +24,14 @@ const flow = [
 ] as const;
 
 const boards = [
-  { id: 'interview-videos-class', eyebrow: 'CLASS / 看课堂', title: '重点看修改过程。', desc: '一遍作答很难说明问题。课堂里真正有用的部分，往往是追问之后怎么调整观点和表达。', items: ['原回答卡在哪里', '老师追问了什么', '第二遍改了哪一句'] },
-  { id: 'interview-videos-notes', eyebrow: 'NOTE / 课后笔记', title: '每段视频留一条。', desc: '笔记不用长，能在下一道题里用出来就够了。', items: ['一个审题提醒', '一个结构动作', '一句更自然的表达', '一道想重答的题'] },
+  { id: 'interview-videos-class', eyebrow: '看课堂', title: '重点看修改过程。', desc: '一遍作答很难说明问题。课堂里真正有用的部分，往往是追问之后怎么调整观点和表达。', items: ['原回答卡在哪里', '老师追问了什么', '第二遍改了哪一句'] },
+  { id: 'interview-videos-notes', eyebrow: '课后笔记', title: '每段视频留一条。', desc: '笔记不用长，能在下一道题里用出来就够了。', items: ['一个审题提醒', '一个结构动作', '一句更自然的表达', '一道想重答的题'] },
 ] as const satisfies readonly [InterviewBoard, InterviewBoard];
 
 export default function InterviewVideosPage() {
   return (
-    <InterviewShell tone="videos" eyebrow="CLASSROOM / 课程现场" title="课程现场" desc="课程、课堂、真题讲评和教学日常都放在这里。看完一段，最好自己再开口答一次。">
-      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-videos-flow" heading={<>课程、课堂，<br />还有日常。</>} kicker="VIDEO ARCHIVE / 影像档案" label="面试课程现场目录" mapId="interview-videos-map" /></section>
+    <InterviewShell tone="videos" eyebrow="课程现场" title="课程现场" desc="课程、课堂、真题讲评和教学日常都放在这里。看完一段，最好自己再开口答一次。">
+      <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-videos-flow" label="面试课程现场目录" mapId="interview-videos-map" /></section>
     </InterviewShell>
   );
 }

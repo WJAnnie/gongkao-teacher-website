@@ -20,7 +20,7 @@ const groups = [
 
 export function LearningTopNav({ active }: { active?: LearningRouteKey }) {
   const activeGroup = active?.startsWith('interview-') ? 'interview' : active?.startsWith('shenlun-') ? 'shenlun' : null;
-  const [mobileOpen, setMobileOpen] = useState<string | null>(activeGroup);
+  const [mobileOpen, setMobileOpen] = useState<string | null>(null);
 
   return (
     <header className="learning-topnav">

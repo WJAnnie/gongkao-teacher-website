@@ -254,7 +254,7 @@ export function LearningHeroChapterStrip() {
 export function LearningMacroDirectory({ details = {} }: { details?: Readonly<Record<string, ReactNode>> }) {
   const { activeId, activateChapter, arrivingId, chapters } = useLearningChapterNavigation();
   return <nav className="learning-macro-directory" aria-label="本页目录">
-    <span className="learning-directory-kicker">CONTENT / 本页目录</span>
+    <span className="learning-directory-kicker">本页目录</span>
     {chapters.map((chapter) => <div className={`learning-directory-group${activeId === chapter.id ? ' active' : ''}${arrivingId === chapter.id ? ' arriving' : ''}`} key={chapter.id}>
       <button
         aria-current={activeId === chapter.id ? 'location' : undefined}
@@ -269,10 +269,12 @@ export function LearningMacroDirectory({ details = {} }: { details?: Readonly<Re
 
 export function LearningContentFrame({
   children,
+  directoryTools,
   details,
   label,
 }: {
   children: ReactNode;
+  directoryTools?: ReactNode;
   details?: Readonly<Record<string, ReactNode>>;
   label: string;
 }) {
@@ -289,6 +291,7 @@ export function LearningContentFrame({
     ><span>本页目录</span><b>{activeLabel}</b><em aria-hidden="true">☰</em></button>
     <aside className={`learning-directory-column${drawerOpen ? ' open' : ''}`} id="learning-page-directory" aria-label={label}>
       <button className="learning-directory-close" data-learning-directory-initial-focus onClick={closeDrawer} type="button">关闭目录</button>
+      {directoryTools}
       <LearningMacroDirectory details={details} />
     </aside>
     <article className="learning-reading-surface">{children}</article>

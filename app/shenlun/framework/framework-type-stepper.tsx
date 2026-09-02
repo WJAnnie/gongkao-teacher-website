@@ -70,7 +70,7 @@ export function FrameworkTypeStepper({ onActiveTypeChange }: { onActiveTypeChang
         const next = typeChapters[index + 1];
         return createPortal(
           <a href={`#${next.id}`} className="expression-next-link type-next-link" onClick={(event) => { event.preventDefault(); goToChapter(index + 1); }}>
-            <span>CONTINUE READING / 继续阅读</span>
+            <span>继续阅读</span>
             <ChapterMark number={index + 2} />
             <b>{next.label}</b>
             <em>↘</em>

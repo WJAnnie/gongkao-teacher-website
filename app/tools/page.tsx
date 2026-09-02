@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ToolsPage() {
   return (
     <LearningShell
-      eyebrow="PRACTICE TOOLS / 把训练做实"
+      eyebrow="训练工具"
       title="工具不替你思考，只负责让训练更接近考场。"
       desc="计时、草稿、字数、自检和练习记录都围绕一个目标：让一次练习留下可以复盘的数据，而不是做完就算。"
     >

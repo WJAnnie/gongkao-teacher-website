@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import { ShenlunShell } from '../../../shenlun-shell';
-import { HotspotStaticIndex } from '../writing-static-pages';
+import { WritingLegacyEntry } from '../writing-legacy-entry';
 
 export const metadata: Metadata = {
   title: '热点时评｜写作积累｜答卷之外',
@@ -8,7 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function HotspotWritingIndexPage() {
-  return <ShenlunShell tone="writing" eyebrow="HOT TOPICS / 热点时评" title="热点时评" desc="先选领域，再读文章。每个领域独立成页，不需要一次加载全部84篇正文。">
-    <section className="shenlun-content framework-content writing-content"><HotspotStaticIndex /></section>
-  </ShenlunShell>;
+  return <WritingLegacyEntry target="hotspots/development" title="热点时评" />;
 }

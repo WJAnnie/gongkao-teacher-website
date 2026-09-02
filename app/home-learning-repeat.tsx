@@ -44,15 +44,15 @@ export function HomeLearningRepeat() {
     <section className="repeat-learning" aria-labelledby="repeat-learning-title">
       <div className="repeat-learning-head">
         <div>
-          <span>LEARNING INDEX / 再次入口</span>
+          <span>再次入口</span>
           <h2 id="repeat-learning-title">从这里继续往下学</h2>
         </div>
         <p>方法、真题、积累和课堂都可以直接进入。选一门，继续练。</p>
       </div>
 
       <div className="repeat-learning-directory">
-        <LearningRow code="A" title="申论学习" en="SHENLUN" links={shenlunRoutes} />
-        <LearningRow code="B" title="面试学习" en="INTERVIEW" links={interviewRoutes} />
+        <LearningRow code="A" title="申论学习" en="申论路径" links={shenlunRoutes} />
+        <LearningRow code="B" title="面试学习" en="面试路径" links={interviewRoutes} />
       </div>
     </section>
   );

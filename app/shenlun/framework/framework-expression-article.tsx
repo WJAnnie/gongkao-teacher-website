@@ -45,7 +45,7 @@ export function FrameworkExpressionArticle() {
   return (
     <div className="framework-voice-course">
       <section className="expression-chapter framework-voice-section" id="expression-know">
-        <header className="framework-voice-head"><span>01 / KNOW THE EXAM</span><h3>先别急着学技巧，先把申论这件事看明白。</h3><p>我上课时更愿意先把考试本身讲清楚。申论一旦被理解成“材料—任务—答案”的过程，后面的题型、方法和表达都会顺很多。</p></header>
+        <header className="framework-voice-head"><span>01</span><h3>先别急着学技巧，先把申论这件事看明白。</h3><p>我上课时更愿意先把考试本身讲清楚。申论一旦被理解成“材料—任务—答案”的过程，后面的题型、方法和表达都会顺很多。</p></header>
         <Prose>
           <p>很多同学第一次碰申论，会有两个极端。有人觉得它很玄，仿佛需要一种自己暂时没有的“机关思维”；有人又觉得它很简单，觉得答案都在材料里，抄一抄就行。真正做几套题以后你会发现，两种理解都只碰到了表面。</p>
           <p>你可以先把申论理解成一场<strong>有任务、有材料、有时间、有字数、有答题区域的材料处理考试</strong>。题目先告诉你要做什么，材料提供信息，你要做的是理解、筛选、概括、归纳、分析、综合，最后用比较正式、规范、清楚的语言写成答案。</p>
@@ -55,7 +55,7 @@ export function FrameworkExpressionArticle() {
         </Prose>
 
         <Topic label="申论由什么组成" title="一张卷子看起来很厚，真正反复打交道的就是三件事" />
-        <div className="framework-voice-flow"><article><span>NOTICE</span><b>注意事项</b><p>告诉你考试时间、作答位置、书写工具、信息填写等基本规则。</p></article><article><span>MATERIAL</span><b>给定资料</b><p>答案原料。政策、评论、案例、数据会以不同方式传递信息。</p></article><article><span>TASK</span><b>作答要求</b><p>真正的任务书。范围、对象、问法、特殊要求和字数都在这里。</p></article></div>
+        <div className="framework-voice-flow"><article><span>先看规则</span><b>注意事项</b><p>告诉你考试时间、作答位置、书写工具、信息填写等基本规则。</p></article><article><span>再读依据</span><b>给定资料</b><p>答案原料。政策、评论、案例、数据会以不同方式传递信息。</p></article><article><span>最后审题</span><b>作答要求</b><p>真正的任务书。范围、对象、问法、特殊要求和字数都在这里。</p></article></div>
         <Prose>
           <p>注意事项平时不用每天背，但考前必须按照当年试卷认真看。比如使用什么书写工具、能不能在规定区域外作答、个人信息如何填写，都以当年官方要求为准。训练时养成“不在答案里透露个人真实信息、不额外写无关标记、字迹清楚”的习惯就够了。</p>
           <p>给定资料通常不是一篇完整文章，而是若干则不同来源的材料拼在一起。你读它时不能只问“这段是什么意思”，还要问“它为什么会被放进这套卷子里，它对当前题目有什么用”。</p>
@@ -82,7 +82,7 @@ export function FrameworkExpressionArticle() {
       </section>
 
       <section className="expression-chapter framework-voice-section" id="expression-sheet">
-        <header className="framework-voice-head"><span>02 / ANSWER SHEET</span><h3>答案最后要写进格子里，所以版面意识必须提前进入做题。</h3><p>很多同学平时只考虑“这个点是不是答案”，到了答题卡前才发现写不下。其实字数、格子和版面从来不是最后一步的问题。</p></header>
+        <header className="framework-voice-head"><span>02</span><h3>答案最后要写进格子里，所以版面意识必须提前进入做题。</h3><p>很多同学平时只考虑“这个点是不是答案”，到了答题卡前才发现写不下。其实字数、格子和版面从来不是最后一步的问题。</p></header>
         <Prose>
           <p>申论小题的答案要落在规定区域里，训练时可以按一格一字来估。你如果一直在电脑上无限往下写，会形成一种错觉：所有细节都值得保留。真正到了考场，格子会逼着你判断——哪些信息是核心，哪些可以压缩，哪些应该合并。</p>
           <p>所以我常说，<strong>字数本身也是题目的一部分。</strong>同样问一件事，200字和400字不可能写成同一个细度。字数越紧，越要重视中观概念、案例压缩和同义合并；字数较宽松，才有空间保留更多能独立采分的细节。</p>
@@ -105,7 +105,7 @@ export function FrameworkExpressionArticle() {
       </section>
 
       <section className="expression-chapter framework-voice-section" id="expression-audit">
-        <header className="framework-voice-head"><span>03 / READ THE QUESTION</span><h3>做题第一步，不是找答案，是先把任务边界框出来。</h3><p>我一般会让同学审题固定看五件事：范围、对象、问法（要素）、要求、字数。顺序可以形成自己的习惯，但五个都不能漏。</p></header>
+        <header className="framework-voice-head"><span>03</span><h3>做题第一步，不是找答案，是先把任务边界框出来。</h3><p>我一般会让同学审题固定看五件事：范围、对象、问法（要素）、要求、字数。顺序可以形成自己的习惯，但五个都不能漏。</p></header>
         <Prose>
           <p>审题失误特别可惜，因为它会让后面所有努力都建立在错误方向上。题目限定“给定资料2”，你却到处找；题目问“A市服务群众获得的收益”，你写了一堆A市采取的措施；题目要求“谈理解”，你只概括表面意思。材料读得越细，反而错得越完整。</p>
         </Prose>
@@ -137,7 +137,7 @@ export function FrameworkExpressionArticle() {
       </section>
 
       <section className="expression-chapter framework-voice-section" id="expression-read">
-        <header className="framework-voice-head"><span>04 / READ THE MATERIAL</span><h3>材料建议读三遍，每一遍做的事情不一样。</h3><p>很多同学觉得三遍太慢，其实真正拖时间的，是第一遍就陷进细节、第二遍还在重新找结构、第三遍写着写着才发现超字数。</p></header>
+        <header className="framework-voice-head"><span>04</span><h3>材料建议读三遍，每一遍做的事情不一样。</h3><p>很多同学觉得三遍太慢，其实真正拖时间的，是第一遍就陷进细节、第二遍还在重新找结构、第三遍写着写着才发现超字数。</p></header>
         <Topic label="第一遍 / 扫读" title="先看大结构：哪几段是一个部分，为什么是一部分" />
         <Prose>
           <p>第一遍不要急着追求每一句都完全理解。先建立材料地图：这一则大概讲几个部分？主体什么时候换了？时间有没有推进？前面在讲问题，后面是不是开始讲做法？案例前后有没有评论句？</p>
@@ -172,7 +172,7 @@ export function FrameworkExpressionArticle() {
       </section>
 
       <section className="expression-chapter framework-voice-section" id="expression-transform">
-        <header className="framework-voice-head"><span>05 / FROM MATERIAL TO ANSWER</span><h3>从材料到答案，中间不是一个“抄”字，而是一连串取舍。</h3><p>申论答案当然来源于材料，但材料写法是为了叙事和说明，答案写法是为了回应题目、方便阅卷。</p></header>
+        <header className="framework-voice-head"><span>05</span><h3>从材料到答案，中间不是一个“抄”字，而是一连串取舍。</h3><p>申论答案当然来源于材料，但材料写法是为了叙事和说明，答案写法是为了回应题目、方便阅卷。</p></header>
         <Prose>
           <p>最理想的情况，是材料本身已经出现准确、简洁、适合答案的表达，那就直接用。比如材料明确写“建立市、镇、村三级管理网络”，没必要非得换成另一句话证明自己会改写。</p>
           <p>需要转换的通常有四类：<strong>案例太长、语言太口语、顿号细节太多、层级过细。</strong>这时你要做的是保留“按义得分”的信息，把叙事外壳去掉。</p>
@@ -199,7 +199,7 @@ export function FrameworkExpressionArticle() {
       </section>
 
       <section className="expression-chapter framework-voice-section" id="expression-logic">
-        <header className="framework-voice-head"><span>06 / ORGANIZE THE ANSWER</span><h3>要点找齐以后，还要让答案有顺序、有层级、有完整句意。</h3><p>申论大多按点给分，但“按点”从来不等于把所有短语胡乱堆在一起。结构越复杂的题，越要考虑答案读起来是不是自然。</p></header>
+        <header className="framework-voice-head"><span>06</span><h3>要点找齐以后，还要让答案有顺序、有层级、有完整句意。</h3><p>申论大多按点给分，但“按点”从来不等于把所有短语胡乱堆在一起。结构越复杂的题，越要考虑答案读起来是不是自然。</p></header>
         <Topic label="单一要素" title="多数时候写成“归纳词 + 具体概括”的总分结构" />
         <Prose>
           <p>比如市场问题可以写：“一、设计不合理。过道狭窄，难以并排通行，排水不畅；二、设施配备不足。消防设施不全，存在安全隐患；三、市场环境较差。水沟存在异味，空气流通不畅。”</p>
@@ -224,7 +224,7 @@ export function FrameworkExpressionArticle() {
       </section>
 
       <section className="expression-chapter framework-voice-section" id="expression-finish">
-        <header className="framework-voice-head"><span>07 / FINISH ONE QUESTION</span><h3>最后把前面的动作连起来，完整做完一道题。</h3><p>真正的稳定，不是知道很多零散技巧，而是每一道题都能重复一套清楚的工作流程。</p></header>
+        <header className="framework-voice-head"><span>07</span><h3>最后把前面的动作连起来，完整做完一道题。</h3><p>真正的稳定，不是知道很多零散技巧，而是每一道题都能重复一套清楚的工作流程。</p></header>
         <Topic label="做题前" title="先看整套题，再进入第一道小题" />
         <Prose>
           <p>我建议开卷后先快速看所有题目，尤其看作文主题和各小题对应材料。目的不是提前做题，而是知道整套卷大概在围绕什么、哪些材料会重复使用。这样读材料时不容易完全割裂。</p>

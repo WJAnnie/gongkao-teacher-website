@@ -460,7 +460,7 @@
 }
 
 .shenlun-route-strip::before,
-.interview-route-strip::before { content: "LEARNING PATH / 点击切换栏目"; }
+.interview-route-strip::before { content: "本页路径 · 点击切换栏目"; }
 
 .subject-track-button {
   grid-template-columns: 28px minmax(145px,1fr) auto auto !important;

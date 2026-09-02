@@ -28,7 +28,7 @@ export function FrameworkTypeArticle() {
     <div className="expression-v2-course type-v2-course">
       <section className="expression-chapter expression-v2-section type-chapter" id="type-summary">
         <header className="expression-v2-head compact">
-          <span>01 / SUMMARY</span>
+          <span>01</span>
           <h3>归纳概括，先学会回答题目真正问的东西。</h3>
           <p>五大题型看起来各有名字，真正开始做题时，第一步却很朴素：题目有没有把“我要找什么”说清楚？</p>
         </header>
@@ -42,8 +42,8 @@ export function FrameworkTypeArticle() {
 
         <div className="expression-v2-subtitle strong"><span>先分清一个概念</span><h4>单一要素与复合要素，区别不在“问了几个问题”</h4></div>
         <div className="type-v2-answer-shape">
-          <article><span>SINGLE ELEMENT</span><h5>单一要素</h5><p>题干已经明确告诉你要找什么。<br /><br />问题、原因、做法、成效、特点、变化、经验等，都属于常见的明确要素。</p></article>
-          <article><span>COMPOSITE ELEMENT</span><h5>复合要素</h5><p>题干没有直接告诉你要找哪几类要素。<br /><br />需要先理解任务，再判断要写内涵、表现、原因、影响、问题、对策等哪些内容。</p></article>
+          <article><span>只找一类信息</span><h5>单一要素</h5><p>题干已经明确告诉你要找什么。<br /><br />问题、原因、做法、成效、特点、变化、经验等，都属于常见的明确要素。</p></article>
+          <article><span>组合多类信息</span><h5>复合要素</h5><p>题干没有直接告诉你要找哪几类要素。<br /><br />需要先理解任务，再判断要写内涵、表现、原因、影响、问题、对策等哪些内容。</p></article>
         </div>
         <Prose>
           <p>这里有一个很容易混淆的地方：<strong>“一次问两个东西”不等于复合要素。</strong></p>
@@ -121,7 +121,7 @@ export function FrameworkTypeArticle() {
 
       <section className="expression-chapter expression-v2-section type-chapter" id="type-analysis">
         <header className="expression-v2-head compact">
-          <span>02 / ANALYSIS</span>
+          <span>02</span>
           <h3>综合分析，不是多写一点，而是先把题目真正要你分析什么弄明白。</h3>
           <p>综合分析之所以容易让人乱，是因为它经常不是“给你一个明确要素，然后去找”。很多时候，你要先理解任务，再决定答案里需要哪些部分。</p>
         </header>
@@ -218,7 +218,7 @@ export function FrameworkTypeArticle() {
 
       <section className="expression-chapter expression-v2-section type-chapter" id="type-solution">
         <header className="expression-v2-head compact">
-          <span>03 / SOLUTION</span>
+          <span>03</span>
           <h3>提出对策，真正难的不是“会不会写措施”，而是“措施能不能解决这个问题”。</h3>
           <p>对策写得再规范，如果和材料里的问题对不上，仍然只是漂亮的空话。</p>
         </header>
@@ -232,8 +232,8 @@ export function FrameworkTypeArticle() {
 
         <div className="expression-v2-subtitle strong"><span>先分两种常见任务</span><h4>只问对策，与“问题 + 对策”的两问，写法不一样</h4></div>
         <div className="type-v2-answer-shape">
-          <article><span>ONE TASK</span><h5>只问对策</h5><p>核心字数全部用于解决问题。<br /><br />先归纳措施方向，再尽量写清动作、对象和方式。</p></article>
-          <article><span>TWO TASKS</span><h5>问题 + 对策</h5><p>先用较少字数概括问题，再把更多空间留给对策。<br /><br /><small>这是两个明确任务，不等于复合要素。</small></p></article>
+          <article><span>一个作答任务</span><h5>只问对策</h5><p>核心字数全部用于解决问题。<br /><br />先归纳措施方向，再尽量写清动作、对象和方式。</p></article>
+          <article><span>两个作答任务</span><h5>问题 + 对策</h5><p>先用较少字数概括问题，再把更多空间留给对策。<br /><br /><small>这是两个明确任务，不等于复合要素。</small></p></article>
         </div>
         <Prose>
           <p>两问题如果总字数比较紧，问题部分可以写得更精炼，对策部分通常要更展开。</p>
@@ -283,7 +283,7 @@ export function FrameworkTypeArticle() {
 
       <section className="expression-chapter expression-v2-section type-chapter" id="type-implementation">
         <header className="expression-v2-head compact">
-          <span>04 / IMPLEMENTATION</span>
+          <span>04</span>
           <h3>公文写作，先把这场“沟通”想清楚，再谈格式。</h3>
           <p>公文题最容易被学成格式题。可真正决定内容的，始终是身份、对象、目的和任务。</p>
         </header>
@@ -333,9 +333,9 @@ export function FrameworkTypeArticle() {
           <p>判断标准仍然是现实沟通：<strong>如果这篇东西真的发出去，最后一句应该怎么自然结束？</strong></p>
         </Prose>
         <div className="type-v2-answer-shape">
-          <article><span>OPENING</span><h5>开头</h5><p>背景 / 问题 / 意义 / 目的</p></article>
-          <article><span>BODY</span><h5>主体</h5><p>做法 / 情况 / 经验 / 流程 / 要求</p></article>
-          <article><span>ENDING</span><h5>结尾</h5><p>总结 / 呼吁 / 安排 / 感谢</p></article>
+          <article><span>说明来意</span><h5>开头</h5><p>背景 / 问题 / 意义 / 目的</p></article>
+          <article><span>完成任务</span><h5>主体</h5><p>做法 / 情况 / 经验 / 流程 / 要求</p></article>
+          <article><span>自然收束</span><h5>结尾</h5><p>总结 / 呼吁 / 安排 / 感谢</p></article>
         </div>
 
         <div className="expression-v2-subtitle strong"><span>两个例子</span><h4>同样是材料，一换任务，内容取舍就会跟着变</h4></div>
@@ -356,7 +356,7 @@ export function FrameworkTypeArticle() {
 
       <section className="expression-chapter expression-v2-section type-chapter" id="type-essay">
         <header className="expression-v2-head compact">
-          <span>05 / ESSAY</span>
+          <span>05</span>
           <h3>文章写作，先让整篇文章知道自己在证明什么。</h3>
           <p>作文当然需要表达，但真正让文章站得住的，是主题、立意、分论点和论证关系。文采是放大器，逻辑才是地基。</p>
         </header>
