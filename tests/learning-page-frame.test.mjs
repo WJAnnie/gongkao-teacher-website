@@ -35,6 +35,7 @@ test('chapter configuration remains metadata-only', async () => {
 const frameSource = await readFile(new URL('../app/learning-page-frame.tsx', import.meta.url), 'utf8').catch(() => '');
 const navigationSource = await readFile(new URL('../app/learning-chapter-navigation.tsx', import.meta.url), 'utf8').catch(() => '');
 const topNavigationSource = await readFile(new URL('../app/learning-nav.tsx', import.meta.url), 'utf8').catch(() => '');
+const frameCss = await readFile(new URL('../app/learning-page-frame.css', import.meta.url), 'utf8').catch(() => '');
 
 test('shared frame composes slots without importing specialist content', () => {
   assert.match(frameSource, /LearningChapterProvider/);
@@ -71,7 +72,6 @@ test('shared reading geometry is left aligned and lets the reading column grow',
 });
 
 const rootLayoutSource = await readFile(new URL('../app/layout.tsx', import.meta.url), 'utf8');
-const frameCss = await readFile(new URL('../app/learning-page-frame.css', import.meta.url), 'utf8').catch(() => '');
 const transitionCss = await readFile(new URL('../app/learning-scene-transition.css', import.meta.url), 'utf8').catch(() => '');
 
 test('root imports only generic learning frame and transition styles', () => {
