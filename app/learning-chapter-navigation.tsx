@@ -251,13 +251,29 @@ export function LearningHeroChapterStrip() {
   </nav>;
 }
 
+export function LearningSecondaryDirectory({ active, items, label, onSelect }: {
+  active: string;
+  items: readonly { readonly key: string; readonly no?: string; readonly label: string }[];
+  label: string;
+  onSelect: (key: string) => void;
+}) {
+  return <div className="learning-directory-list" aria-label={label}>
+    {items.map((item, index) => <button
+      aria-current={active === item.key ? 'location' : undefined}
+      className={active === item.key ? 'active' : ''}
+      key={item.key}
+      onClick={() => onSelect(item.key)}
+      type="button"
+    ><span>{item.no ?? String(index + 1).padStart(2, '0')}</span><b>{item.label}</b></button>)}
+  </div>;
+}
+
 export function LearningMacroDirectory({ details = {} }: { details?: Readonly<Record<string, ReactNode>> }) {
   const { activeId, activateChapter, arrivingId, chapters } = useLearningChapterNavigation();
   const activeDetails = details[activeId];
 
   return <div className={`learning-directory-cascade${activeDetails ? ' has-secondary' : ''}`}>
-    <nav className="learning-directory-primary learning-macro-directory" aria-label="一级目录">
-      <span className="learning-directory-kicker">一级目录</span>
+    <nav className="learning-directory-primary learning-macro-directory" aria-label="本页章节">
       {chapters.map((chapter) => <div className={`learning-directory-group${activeId === chapter.id ? ' active' : ''}${arrivingId === chapter.id ? ' arriving' : ''}`} key={chapter.id}>
         <button
           aria-current={activeId === chapter.id ? 'location' : undefined}
@@ -267,8 +283,7 @@ export function LearningMacroDirectory({ details = {} }: { details?: Readonly<Re
         ><span>{chapter.no}</span><b>{chapter.label}</b><i aria-hidden="true">→</i></button>
       </div>)}
     </nav>
-    {activeDetails ? <nav className="learning-directory-secondary" aria-label="二级目录">
-      <span className="learning-directory-kicker">二级目录</span>
+    {activeDetails ? <nav className="learning-directory-secondary" aria-label="本章细目">
       {activeDetails}
     </nav> : null}
   </div>;

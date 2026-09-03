@@ -1,3 +1,4 @@
+
 /*
  * 全站交互语义统一
  * 目标只有两条：真正能点的必须有一致的交互反馈；纯内容不能再伪装成按钮或入口。
@@ -8,39 +9,30 @@
 
 :where(
   .nav-shell a,
-  .learning-topnav a,
-  .learning-mobile-group-trigger,
-  .subject-track-button,
-  .subject-module-card,
-  .repeat-learning-link,
-  .shenlun-route-strip > a,
-  .framework-layer-trigger,
-  .framework-sub-nav button,
-  .framework-mobile-index,
-  .framework-drawer-close,
-  .question-type-switcher-tabs button,
-  .tips-article-trigger
+.learning-topnav a,
+.learning-mobile-group-trigger,
+.subject-track-button,
+.subject-module-card,
+.repeat-learning-link,
+.shenlun-route-strip > a,
+.question-type-switcher-tabs button,
+.tips-article-trigger
 ) {
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
-
 /* 所有真实交互控件使用同一套键盘焦点语言。 */
 :where(
   .nav-shell a,
-  .learning-topnav a,
-  .learning-mobile-group-trigger,
-  .subject-track-button,
-  .subject-module-card,
-  .repeat-learning-link,
-  .shenlun-route-strip > a,
-  .framework-layer-trigger,
-  .framework-sub-nav button,
-  .framework-mobile-index,
-  .framework-drawer-close,
-  .question-type-switcher-tabs button,
-  .tips-article-trigger
+.learning-topnav a,
+.learning-mobile-group-trigger,
+.subject-track-button,
+.subject-module-card,
+.repeat-learning-link,
+.shenlun-route-strip > a,
+.question-type-switcher-tabs button,
+.tips-article-trigger
 ):focus-visible {
   outline: 2px solid color-mix(in srgb, var(--interaction-accent, var(--blue)) 62%, transparent);
   outline-offset: 3px;
@@ -54,36 +46,30 @@
 
 /* 鼠标环境下，只有真实可点击项获得“靠近 + 高亮”的反馈。 */
 @media (hover: hover) and (pointer: fine) {
-  .framework-sub-nav button:hover,
+  .learning-directory-list > button:hover,
   .question-type-switcher-tabs button:hover,
   .tips-article-trigger:hover {
     box-shadow: inset 3px 0 0 color-mix(in srgb, var(--interaction-accent, var(--blue)) 72%, transparent);
   }
 }
-
 /* 触屏按下时也要给出明确反馈，而不是只有桌面 hover 才看得出能点。 */
 :where(
   .learning-mobile-group-trigger,
-  .subject-track-button,
-  .subject-module-card,
-  .repeat-learning-link,
-  .shenlun-route-strip > a,
-  .framework-layer-trigger,
-  .framework-sub-nav button,
-  .question-type-switcher-tabs button,
-  .tips-article-trigger
+.subject-track-button,
+.subject-module-card,
+.repeat-learning-link,
+.shenlun-route-strip > a,
+.question-type-switcher-tabs button,
+.tips-article-trigger
 ):active {
   background-color: color-mix(in srgb, var(--interaction-accent, var(--blue)) 9%, transparent);
 }
-
 /* 当前页 / 当前项保持统一的“强调色 + 实体状态”，避免只靠文字颜色。 */
 :where(
   .learning-nav-items a.active,
-  .learning-mobile-group-items a.active,
-  .shenlun-route-strip > a.active,
-  .framework-layer-trigger.active,
-  .framework-sub-nav button.active,
-  .question-type-switcher-tabs button.active
+.learning-mobile-group-items a.active,
+.shenlun-route-strip > a.active,
+.question-type-switcher-tabs button.active
 ) {
   font-weight: 700;
 }
@@ -342,18 +328,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :where(
+:where(
     .nav-shell a,
-    .learning-topnav a,
-    .learning-mobile-group-trigger,
-    .subject-track-button,
-    .subject-module-card,
-    .repeat-learning-link,
-    .shenlun-route-strip > a,
-    .framework-layer-trigger,
-    .framework-sub-nav button,
-    .question-type-switcher-tabs button,
-    .tips-article-trigger
+.learning-topnav a,
+.learning-mobile-group-trigger,
+.subject-track-button,
+.subject-module-card,
+.repeat-learning-link,
+.shenlun-route-strip > a,
+.question-type-switcher-tabs button,
+.tips-article-trigger
   ) {
     transition-duration: 0.01ms !important;
   }
@@ -491,34 +475,6 @@
   transform: none !important;
 }
 
-.framework-layer-nav .framework-layer-trigger > i {
-  width: 24px;
-  height: 24px;
-  display: grid;
-  place-items: center;
-  border: 1px solid color-mix(in srgb, var(--shenlun-accent) 38%, rgba(37,37,31,.14));
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--shenlun-accent) 7%, var(--paper));
-}
-
-.framework-layer-group .framework-sub-nav button {
-  grid-template-columns: 27px 1fr 20px !important;
-}
-
-.framework-layer-group .framework-sub-nav button::after {
-  content: "›";
-  justify-self: end;
-  color: color-mix(in srgb, var(--shenlun-accent) 72%, var(--ink));
-  font: 600 16px/1 Georgia, serif;
-  opacity: .72;
-}
-
-.framework-layer-group .framework-sub-nav button:hover::after,
-.framework-layer-group .framework-sub-nav button.active::after {
-  opacity: 1;
-  transform: translateX(2px);
-}
-
 .question-type-switcher-tabs button {
   position: relative;
   padding-right: 52px !important;
@@ -567,10 +523,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .learning-entry-link,
-  .learning-entry-link__arrow,
-  .subject-track-arrow,
-  .framework-layer-group .framework-sub-nav button::after {
+.learning-entry-link,
+.learning-entry-link__arrow,
+.subject-track-arrow {
     transition: none !important;
   }
 }

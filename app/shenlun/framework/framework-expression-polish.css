@@ -1,19 +1,11 @@
 /* 最终阅读版：目录更靠左、更窄，正文获得更多宽度 */
-.framework-manual {
+.framework-content {
   grid-template-columns: 188px minmax(0,1fr);
   gap: clamp(22px,2.6vw,42px);
   padding-left: clamp(12px,1.8vw,28px);
   padding-right: clamp(28px,4.5vw,70px);
 }
-.framework-manual-sidebar { padding: 18px 8px 24px 0; }
-.framework-sidebar-kicker { padding-left: 14px; font-size: 8px; }
-.framework-layer-nav button { min-height: 42px; padding: 8px 8px 8px 14px; grid-template-columns: 26px 1fr; }
-.framework-layer-nav b { font-size: 15px; }
-.framework-sub-nav { margin-left: 14px; padding-left: 12px; }
-.framework-sub-nav button { min-height: 34px; padding: 6px 6px; grid-template-columns: 26px 1fr; }
-.framework-sub-nav b { font-size: 12px; line-height: 1.25; }
-.framework-sub-nav button.active::before { left: -15px; }
-.framework-manual-reading { max-width: 1180px; width: 100%; }
+.framework-content .learning-reading-surface { max-width: 1180px; width: 100%; }
 
 /* 文章总标题不再抢正文 */
 .framework-article-intro { padding: clamp(34px,4vw,58px) clamp(28px,3.4vw,50px) clamp(26px,3vw,42px); }
@@ -27,11 +19,11 @@
 .expression-v2-section { padding-left: clamp(26px,3.4vw,50px); padding-right: clamp(26px,3.4vw,50px); }
 
 /* 章节过渡更像文章副标题 */
-.framework-manual .expression-next-link {
+.framework-content .expression-next-link {
   position: relative;
   overflow: hidden;
 }
-.framework-manual .expression-next-link::before {
+.framework-content .expression-next-link::before {
   content: "";
   position: absolute;
   left: 0;
@@ -40,13 +32,13 @@
   height: 3px;
   background: var(--shenlun-accent);
 }
-.framework-manual .expression-next-link span {
+.framework-content .expression-next-link span {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .14em;
   opacity: .88;
 }
-.framework-manual .expression-next-link b { letter-spacing: -.025em; }
+.framework-content .expression-next-link b { letter-spacing: -.025em; }
 
 /* 正文优先可读性 */
 .expression-v2-note p,
@@ -58,14 +50,12 @@
 .expression-v2-demo-question p { font-size: 19px; }
 
 @media (max-width: 1020px) and (min-width: 821px) {
-  .framework-manual { grid-template-columns: 172px minmax(0,1fr); gap: 20px; padding-left: 10px; padding-right: 22px; }
-  .framework-layer-nav b { font-size: 14px; }
-  .framework-sub-nav b { font-size: 11px; }
+  .framework-content { grid-template-columns: 172px minmax(0,1fr); gap: 20px; padding-left: 10px; padding-right: 22px; }
 }
 
 @media (max-width: 820px) {
-  .framework-manual { display:block; padding:0 0 82px; }
-  .framework-manual-reading { max-width:none; }
+  .framework-content { display:block; padding:0 0 82px; }
+  .framework-content .learning-reading-surface { max-width:none; }
   .framework-article-intro { padding-inline:22px; }
   .expression-v2-section { padding-inline:20px; }
 }

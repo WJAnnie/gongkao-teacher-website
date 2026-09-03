@@ -66,7 +66,11 @@ test('shared content frame supports a left-to-right directory and one whole-dire
 });
 
 test('shared reading geometry is left aligned and lets the reading column grow', () => {
-  assert.match(frameCss, /justify-content:\s*start/);
+  // 目录贴页面最左：内容框不再居中收窄，而是整幅铺开、左列固定宽度。
+  assert.match(frameCss, /learning-content-frame \{[^}]*width: 100%;[^}]*margin: 0;/s);
+  assert.match(frameCss, /grid-template-columns: var\(--learning-directory-width\) minmax\(0, 1fr\)/);
+  // 正文在剩余空间里居中，宽度可按页覆盖。
+  assert.match(frameCss, /learning-reading-surface \{[^}]*var\(--learning-reading-width[^}]*margin-inline: auto;/s);
   assert.match(frameCss, /learning-content-frame\.directory-collapsed/);
   assert.match(frameCss, /learning-directory-cascade/);
 });
@@ -139,8 +143,11 @@ test('core pages enter real content without a repeated post-Hero introduction sc
 
 test('framework manual consumes the shared chapter context without custom events', () => {
   assert.match(frameworkManualSource, /useLearningChapterNavigation/);
-  assert.match(frameworkManualSource, /data-learning-directory-id/);
+  // 目录本身已交给共享组件渲染，方法框架只提供各章的细目。
+  assert.match(frameworkManualSource, /<LearningContentFrame/);
+  assert.match(frameworkManualSource, /<LearningSecondaryDirectory/);
   assert.doesNotMatch(frameworkManualSource, /framework-hero-select|startViewTransition/);
+  assert.match(navigationSource, /data-learning-directory-id/);
 });
 
 test('Shenlun chapter metadata has a body target on every core route', () => {

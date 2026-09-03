@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { LearningContentFrame, useLearningChapterNavigation } from '../../learning-chapter-navigation';
+import { LearningContentFrame, LearningSecondaryDirectory, useLearningChapterNavigation } from '../../learning-chapter-navigation';
 import type { CaseHighlight, WritingCaseCategory } from './writing-case-data';
 import type { HotspotCategory, HotspotHighlight } from './writing-hotspot-schema';
 import { hotspotLeafIndex, caseLeafIndex } from './writing-library-leaf-index';
@@ -145,15 +145,12 @@ function SecondaryDirectory({ active, items, label, onSelect }: {
   label: string;
   onSelect: (key: string) => void;
 }) {
-  return <div className="writing-secondary-directory" aria-label={label}>
-    {items.map(([key, itemLabel]) => <button
-      aria-current={active === key ? 'location' : undefined}
-      className={active === key ? 'active' : ''}
-      key={key}
-      onClick={() => onSelect(key)}
-      type="button"
-    >{itemLabel}</button>)}
-  </div>;
+  return <LearningSecondaryDirectory
+    active={active}
+    items={items.map(([key, itemLabel]) => ({ key, label: itemLabel }))}
+    label={label}
+    onSelect={onSelect}
+  />;
 }
 
 export function WritingLibraryManual() {
@@ -336,14 +333,14 @@ export function WritingLibraryManual() {
   }
 
   const details: Record<string, ReactNode> = {
-    'writing-hotspots': <SecondaryDirectory active={hotspotKey} items={hotspotIndex.map((item) => [item.key, item.label] as const)} label="热点时评二级目录" onSelect={(key) => openHotspot(key as HotspotIndexItem['key'])} />,
-    'writing-cases': <SecondaryDirectory active={caseKey} items={caseIndex.map((item) => [item.key, item.label] as const)} label="案例素材二级目录" onSelect={(key) => openCase(key as CaseIndexItem['key'])} />,
-    'writing-terms': <SecondaryDirectory active={selections.terms.category} items={foundationIndex.terms} label="规范用词二级目录" onSelect={(key) => selectGeneric('terms', key)} />,
-    'writing-metaphors': <SecondaryDirectory active="library" items={[['library', '检索词库']]} label="比喻词库二级目录" onSelect={() => undefined} />,
-    'writing-parallel': <SecondaryDirectory active={selections.parallel.category} items={foundationIndex.parallel} label="对仗句库二级目录" onSelect={(key) => selectGeneric('parallel', key)} />,
-    'writing-sentences': <SecondaryDirectory active={selections.sentences.category} items={foundationIndex.sentences} label="主题佳句二级目录" onSelect={(key) => selectGeneric('sentences', key)} />,
-    'writing-quotes': <SecondaryDirectory active={selections.quotes.category} items={foundationIndex.quotes} label="名人箴言二级目录" onSelect={(key) => selectGeneric('quotes', key)} />,
-    'writing-essay': <SecondaryDirectory active={selections.essay.category} items={foundationIndex.essay} label="作文框架二级目录" onSelect={(key) => selectGeneric('essay', key)} />,
+    'writing-hotspots': <SecondaryDirectory active={hotspotKey} items={hotspotIndex.map((item) => [item.key, item.label] as const)} label="热点时评细目" onSelect={(key) => openHotspot(key as HotspotIndexItem['key'])} />,
+    'writing-cases': <SecondaryDirectory active={caseKey} items={caseIndex.map((item) => [item.key, item.label] as const)} label="案例素材细目" onSelect={(key) => openCase(key as CaseIndexItem['key'])} />,
+    'writing-terms': <SecondaryDirectory active={selections.terms.category} items={foundationIndex.terms} label="规范用词细目" onSelect={(key) => selectGeneric('terms', key)} />,
+    'writing-metaphors': <SecondaryDirectory active="library" items={[['library', '检索词库']]} label="比喻词库细目" onSelect={() => undefined} />,
+    'writing-parallel': <SecondaryDirectory active={selections.parallel.category} items={foundationIndex.parallel} label="对仗句库细目" onSelect={(key) => selectGeneric('parallel', key)} />,
+    'writing-sentences': <SecondaryDirectory active={selections.sentences.category} items={foundationIndex.sentences} label="主题佳句细目" onSelect={(key) => selectGeneric('sentences', key)} />,
+    'writing-quotes': <SecondaryDirectory active={selections.quotes.category} items={foundationIndex.quotes} label="名人箴言细目" onSelect={(key) => selectGeneric('quotes', key)} />,
+    'writing-essay': <SecondaryDirectory active={selections.essay.category} items={foundationIndex.essay} label="作文框架细目" onSelect={(key) => selectGeneric('essay', key)} />,
   };
 
   const searchTools = <div className="writing-library-search">
@@ -379,7 +376,7 @@ export function WritingLibraryManual() {
           {hotspotState === 'ready' && article ? <article className="writing-editorial-paper">
             <header><h2>{article.title}</h2></header>
             <p className="writing-paper-intro">{annotate(article.intro, article.highlights)}<strong className="writing-paper-inline-thesis">{annotate(article.thesis, article.highlights)}</strong></p>
-            {article.sections.map((section) => <section key={section.title}><h3>{annotate(section.title, article.highlights)}</h3><p>{annotate(section.body, article.highlights)}</p></section>)}
+            {article.sections.map((section) => <p key={section.title} className="writing-paper-point"><strong className="writing-paper-inline-point">{annotate(section.title, article.highlights)}</strong>{annotate(section.body, article.highlights)}</p>)}
             <p>{annotate(article.conclusion, article.highlights)}</p>
           </article> : null}
         </WritingInlineDisclosure>

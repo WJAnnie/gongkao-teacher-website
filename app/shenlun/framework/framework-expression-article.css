@@ -107,10 +107,10 @@
 .expression-v2-final-map p { margin:10px 0 0; font:500 20px/1.7 "Songti SC","SimSun",serif; }
 
 /* 章节过渡：把英文提示和正文标题明显区分 */
-.framework-manual .expression-next-link { margin-top:64px; min-height:112px; grid-template-columns:210px 1fr auto; padding:24px 30px; border-top:1px solid color-mix(in srgb,var(--shenlun-accent) 42%,rgba(37,37,31,.15)); background:linear-gradient(90deg,color-mix(in srgb,var(--shenlun-accent) 7%,transparent),transparent 72%); }
-.framework-manual .expression-next-link span { font:700 10px/1.3 system-ui,sans-serif; letter-spacing:.16em; color:var(--shenlun-accent); }
-.framework-manual .expression-next-link b { font-size:clamp(28px,3vw,42px); font-weight:500; }
-.framework-manual .expression-next-link em { font-size:30px; }
+.framework-content .expression-next-link { margin-top:64px; min-height:112px; grid-template-columns:210px 1fr auto; padding:24px 30px; border-top:1px solid color-mix(in srgb,var(--shenlun-accent) 42%,rgba(37,37,31,.15)); background:linear-gradient(90deg,color-mix(in srgb,var(--shenlun-accent) 7%,transparent),transparent 72%); }
+.framework-content .expression-next-link span { font:700 10px/1.3 system-ui,sans-serif; letter-spacing:.16em; color:var(--shenlun-accent); }
+.framework-content .expression-next-link b { font-size:clamp(28px,3vw,42px); font-weight:500; }
+.framework-content .expression-next-link em { font-size:30px; }
 
 @media (max-width: 980px) {
   .expression-v2-head { grid-template-columns:1fr; gap:20px; }
@@ -134,7 +134,7 @@
   .expression-v2-rules, .expression-v2-material-types, .expression-v2-lines { grid-template-columns:1fr; }
   .expression-v2-rules article + article, .expression-v2-material-types article + article, .expression-v2-lines > div + div { border-left:0; border-top:1px solid var(--v2-line); }
   .expression-v2-merge { grid-template-columns:1fr; }
-  .framework-manual .expression-next-link { grid-template-columns:1fr auto; gap:8px; min-height:96px; padding:20px; }
-  .framework-manual .expression-next-link span { grid-column:1/-1; }
-  .framework-manual .expression-next-link b { font-size:28px; }
+  .framework-content .expression-next-link { grid-template-columns:1fr auto; gap:8px; min-height:96px; padding:20px; }
+  .framework-content .expression-next-link span { grid-column:1/-1; }
+  .framework-content .expression-next-link b { font-size:28px; }
 }

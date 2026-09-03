@@ -118,14 +118,47 @@
   overflow: hidden;
 }
 
+.learning-page-frame .learning-macro-directory .learning-directory-group > button {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px 10px 20px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.learning-page-frame .learning-macro-directory .learning-directory-group > button::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: transparent;
+  transform: translateY(-50%);
+}
+
+.learning-page-frame .learning-directory-group.active > button::before {
+  background: var(--learning-accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--learning-accent) 52%, transparent);
+}
+
 .learning-page-frame .learning-chapter-strip > button:hover,
 .learning-page-frame .learning-chapter-strip > button:focus-visible,
-.learning-page-frame .learning-chapter-strip > button.active,
-.learning-page-frame .learning-macro-directory .learning-directory-group > button:hover,
-.learning-page-frame .learning-macro-directory .learning-directory-group > button:focus-visible,
-.learning-page-frame .learning-directory-group.active > button {
+.learning-page-frame .learning-chapter-strip > button.active {
   color: var(--learning-ink);
   background: color-mix(in srgb, var(--learning-accent) 8%, var(--learning-paper-raised));
+}
+
+.learning-page-frame .learning-macro-directory .learning-directory-group > button:hover,
+.learning-page-frame .learning-macro-directory .learning-directory-group > button:focus-visible {
+  color: var(--learning-ink);
+  background: color-mix(in srgb, var(--learning-accent) 7%, transparent);
+}
+
+.learning-page-frame .learning-directory-group.active > button {
+  color: var(--learning-ink);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--learning-accent) 11%, transparent), transparent);
 }
 
 .learning-page-frame .learning-chapter-strip > button:focus-visible,
@@ -139,27 +172,26 @@
 
 .learning-page-frame .learning-chapter-strip > button > span,
 .learning-page-frame .learning-macro-directory button > span { color: var(--learning-accent); font: italic 10px Georgia, serif; }
-.learning-page-frame .learning-chapter-strip > button > b,
-.learning-page-frame .learning-macro-directory button > b { font-size: 12px; font-weight: 650; }
+.learning-page-frame .learning-chapter-strip > button > b { font-size: 12px; font-weight: 650; }
+.learning-page-frame .learning-macro-directory .learning-directory-group > button > b { font: 500 17px/1.2 "Songti SC", "SimSun", serif; }
 .learning-page-frame .learning-chapter-strip > button > i,
 .learning-page-frame .learning-macro-directory button > i { color: var(--learning-accent); font-style: normal; font-size: 10px; }
 
 .learning-page-frame .learning-page-color-line { height: 6px; background: var(--learning-accent); }
 
 .learning-page-frame .learning-content-frame {
-  --learning-directory-width: 224px;
+  --learning-directory-width: 252px;
   position: relative;
   display: grid;
-  grid-template-columns: var(--learning-directory-width) minmax(0, 960px);
-  justify-content: start;
-  gap: clamp(28px, 3vw, 48px);
-  width: min(1380px, calc(100% - 48px));
-  margin: 0 auto;
-  padding: clamp(64px, 8vw, 118px) 0;
+  grid-template-columns: var(--learning-directory-width) minmax(0, 1fr);
+  gap: clamp(28px, 3vw, 56px);
+  width: 100%;
+  margin: 0;
+  padding: clamp(64px, 8vw, 118px) clamp(20px, 3vw, 48px) clamp(64px, 8vw, 118px) clamp(20px, 3vw, 44px);
 }
 
 .learning-page-frame .learning-content-frame.has-secondary-directory {
-  --learning-directory-width: 340px;
+  --learning-directory-width: 380px;
 }
 
 .learning-page-frame .learning-content-frame.directory-collapsed {
@@ -167,25 +199,82 @@
   gap: 24px;
 }
 
-.learning-page-frame .learning-directory-column { position: sticky; top: 84px; align-self: start; max-height: calc(100vh - 112px); overflow: auto; }
-.learning-page-frame .learning-directory-kicker { display: block; padding: 0 0 14px; border-bottom: 2px solid var(--learning-accent); color: var(--learning-muted); font-size: 10px; letter-spacing: .14em; }
-.learning-page-frame .learning-directory-group { border-bottom: 1px solid var(--learning-border); }
-.learning-page-frame .learning-directory-group > button { width: 100%; min-height: 58px; }
+.learning-page-frame .learning-directory-column { position: sticky; top: 84px; align-self: start; max-height: calc(100vh - 112px); overflow: auto; padding: 4px 0 24px; scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--learning-accent) 32%, transparent) transparent; }
+.learning-page-frame .learning-directory-group { border: 0; }
 .learning-page-frame .learning-directory-cascade {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  border: 1px solid var(--learning-border);
-  background: var(--learning-paper-raised);
+  border: 0;
+  background: transparent;
+}
+
+.learning-page-frame .learning-directory-cascade::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 1px;
+  background: color-mix(in srgb, var(--learning-accent) 24%, var(--learning-border));
 }
 
 .learning-page-frame .learning-directory-cascade.has-secondary {
-  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr);
 }
 
 .learning-page-frame .learning-directory-secondary {
+  position: relative;
   min-width: 0;
-  border-left: 1px solid var(--learning-border);
+  margin-left: 14px;
+  padding-left: 16px;
+  border: 0;
 }
+
+.learning-page-frame .learning-directory-secondary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: color-mix(in srgb, var(--learning-accent) 40%, var(--learning-border));
+}
+
+.learning-page-frame .learning-directory-list { display: grid; }
+.learning-page-frame .learning-directory-list > button {
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--learning-ink);
+  text-align: left;
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease;
+}
+.learning-page-frame .learning-directory-list > button:hover { transform: translateX(3px); background: color-mix(in srgb, var(--learning-accent) 6%, transparent); }
+.learning-page-frame .learning-directory-list > button.active { background: color-mix(in srgb, var(--learning-accent) 9%, transparent); }
+.learning-page-frame .learning-directory-list > button.active::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--learning-accent);
+  border-radius: 50%;
+  background: var(--learning-paper-raised);
+  transform: translateY(-50%);
+}
+.learning-page-frame .learning-directory-list > button > span { color: var(--learning-accent); font: italic 9px Georgia, serif; }
+.learning-page-frame .learning-directory-list > button > b { color: color-mix(in srgb, var(--learning-ink) 68%, transparent); font: 500 13px/1.25 "Songti SC", "SimSun", serif; }
+.learning-page-frame .learning-directory-list > button.active > b { color: var(--learning-ink); }
 
 .learning-page-frame .learning-directory-collapse {
   display: block;
@@ -197,7 +286,7 @@
   pointer-events: none;
 }
 
-.learning-page-frame .learning-reading-surface { min-width: 0; color: var(--learning-ink); }
+.learning-page-frame .learning-reading-surface { min-width: 0; width: min(var(--learning-reading-width, 960px), 100%); margin-inline: auto; color: var(--learning-ink); }
 .learning-page-frame .learning-reading-surface > [id] { scroll-margin-top: 96px; }
 .learning-page-frame .learning-directory-trigger, .learning-page-frame .learning-directory-close, .learning-page-frame .learning-directory-backdrop { display: none; }
 
@@ -242,7 +331,7 @@
   .learning-page-frame .learning-directory-secondary { border-left: 0; border-top: 1px solid var(--learning-border); }
   .learning-page-frame .learning-directory-column { position: fixed; z-index: 160; top: 0; left: 0; bottom: 0; width: min(86vw, 360px); max-height: none; padding: 90px 20px 20px; transform: translateX(-105%); transition: transform .24s ease; background: var(--learning-paper-raised); }
   .learning-page-frame .learning-directory-column.open { transform: translateX(0); }
-  .learning-page-frame .learning-directory-close { display: block; margin: 0 0 18px auto; border: 0; background: transparent; color: var(--learning-ink); }
+  .learning-page-frame .learning-directory-close { display: block; min-width: 40px; min-height: 40px; margin: 0 0 18px auto; border: 0; background: transparent; color: var(--learning-ink); }
   .learning-page-frame .learning-directory-backdrop { display: block; position: fixed; z-index: 150; inset: 0; border: 0; background: rgba(20, 22, 24, .32); }
   .learning-page-frame .learning-page-footer { grid-template-columns: 1fr; padding-inline: 20px; }
   .learning-page-frame .learning-page-footer > p { grid-column: auto; }

@@ -45,27 +45,23 @@
 }
 
 /* 左栏靠左，但宽度不压缩 */
-.framework-manual {
+.framework-content {
   grid-template-columns: 252px minmax(0,1fr);
   gap: clamp(30px,3.4vw,60px);
   padding-left: clamp(14px,2.2vw,34px);
   padding-right: clamp(28px,4.4vw,68px);
 }
-.framework-manual-sidebar { padding-left: 0; }
-.framework-sidebar-kicker { padding-left: 16px; }
-.framework-layer-nav button { padding-left: 16px; }
-.framework-sub-nav { margin-left: 16px; }
 
 /* 下一节入口：统一为轨道式章节印记，和全站“阅”的圆轨道语言保持一致 */
-.framework-manual .expression-next-link {
+.framework-content .expression-next-link {
   grid-template-columns: 190px 96px minmax(0,1fr) auto;
   align-items: center;
   gap: 22px;
   min-height: 132px;
   padding: 24px 30px;
 }
-.framework-manual .expression-next-link > span { align-self: center; }
-.framework-manual .expression-next-link b {
+.framework-content .expression-next-link > span { align-self: center; }
+.framework-content .expression-next-link b {
   font-size: clamp(28px,3vw,42px);
   line-height: 1.1;
 }
@@ -162,30 +158,30 @@
 }
 
 @media (max-width: 1020px) {
-  .framework-manual {
+  .framework-content {
     grid-template-columns: 220px minmax(0,1fr);
     gap: 24px;
     padding-left: 14px;
     padding-right: 22px;
   }
-  .framework-manual .expression-next-link {
+  .framework-content .expression-next-link {
     grid-template-columns: 150px 82px minmax(0,1fr) auto;
   }
 }
 
 @media (max-width: 820px) {
-  .framework-manual { padding: 0 0 82px; }
+  .framework-content { padding: 0 0 82px; }
   .expression-v2-prose { padding-inline: 0; }
   .expression-v2-prose p { font-size: 14px; line-height: 1.95; }
-  .framework-manual .expression-next-link {
+  .framework-content .expression-next-link {
     grid-template-columns: 1fr auto;
     grid-template-areas: "label mark" "title arrow";
     gap: 12px 16px;
     padding: 20px 22px;
   }
-  .framework-manual .expression-next-link > span { grid-area: label; }
-  .framework-manual .expression-next-link .expression-chapter-mark { grid-area: mark; width: 64px; height: 64px; }
-  .framework-manual .expression-next-link .expression-chapter-mark svg { width: 60px; height: 60px; }
-  .framework-manual .expression-next-link b { grid-area: title; font-size: 28px; }
-  .framework-manual .expression-next-link em { grid-area: arrow; }
+  .framework-content .expression-next-link > span { grid-area: label; }
+  .framework-content .expression-next-link .expression-chapter-mark { grid-area: mark; width: 64px; height: 64px; }
+  .framework-content .expression-next-link .expression-chapter-mark svg { width: 60px; height: 60px; }
+  .framework-content .expression-next-link b { grid-area: title; font-size: 28px; }
+  .framework-content .expression-next-link em { grid-area: arrow; }
 }

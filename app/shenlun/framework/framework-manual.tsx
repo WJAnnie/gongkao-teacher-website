@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useLearningChapterNavigation } from '../../learning-chapter-navigation';
+import { LearningContentFrame, LearningSecondaryDirectory, useLearningChapterNavigation } from '../../learning-chapter-navigation';
 import { FrameworkExpressionStepper } from './framework-expression-stepper';
 import { FrameworkTypeStepper, typeChapters } from './framework-type-stepper';
 import { FrameworkAbilities, coreAbilityChapters } from './framework-abilities';
@@ -40,14 +40,7 @@ function focusExpandedTip(id: string) {
 }
 
 export function FrameworkManual() {
-  const {
-    activeId,
-    activateChapter,
-    arrivingId,
-    closeDrawer,
-    drawerOpen,
-    openDrawer,
-  } = useLearningChapterNavigation();
+  const { activeId, activateChapter, closeDrawer } = useLearningChapterNavigation();
   const [activeExpression, setActiveExpression] = useState(0);
   const [activeType, setActiveType] = useState('summary');
   const [activeAbility, setActiveAbility] = useState<CoreAbilityId>(coreAbilityChapters[0].id);
@@ -55,10 +48,6 @@ export function FrameworkManual() {
   const activeLayer = layers.some((item) => item.key === activeId.replace('framework-', ''))
     ? activeId.replace('framework-', '') as LayerKey
     : 'expression';
-
-  const chooseLayer = (key: LayerKey, source: HTMLElement | null = null) => {
-    activateChapter(`framework-${key}`, source, 'directory');
-  };
 
   const chooseExpression = (index: number) => {
     if (activeLayer !== 'expression') activateChapter('framework-expression', null, 'directory');
@@ -93,111 +82,45 @@ export function FrameworkManual() {
     changeTip(id);
   };
 
-  const typeIndex = Math.max(0, typeChapters.findIndex((item) => item.slug === activeType));
-  const abilityIndex = Math.max(0, coreAbilityChapters.findIndex((item) => item.id === activeAbility));
-  const tipIndex = activeTip ? Math.max(0, tipArticles.findIndex((item) => item.id === activeTip)) : 0;
-  const mobileLabel = activeLayer === 'expression'
-    ? `${String(activeExpression + 1).padStart(2, '0')} / ${String(expressionChapters.length).padStart(2, '0')}`
-    : activeLayer === 'types'
-      ? `${String(typeIndex + 1).padStart(2, '0')} / ${String(typeChapters.length).padStart(2, '0')}`
-      : activeLayer === 'abilities'
-        ? `${String(abilityIndex + 1).padStart(2, '0')} / ${String(coreAbilityChapters.length).padStart(2, '0')}`
-        : activeLayer === 'tips' && activeTip
-          ? `${String(tipIndex + 1).padStart(2, '0')} / ${String(tipArticles.length).padStart(2, '0')}`
-          : layers.find((item) => item.key === activeLayer)?.label;
-  const progressHeight = activeLayer === 'expression'
-    ? `${((activeExpression + 1) / expressionChapters.length) * 100}%`
-    : activeLayer === 'types'
-      ? `${((typeIndex + 1) / typeChapters.length) * 100}%`
-      : activeLayer === 'abilities'
-        ? `${((abilityIndex + 1) / Math.max(1, coreAbilityChapters.length)) * 100}%`
-        : activeLayer === 'tips' && activeTip
-          ? `${((tipIndex + 1) / tipArticles.length) * 100}%`
-          : '100%';
-
   const renderSubNav = (key: LayerKey) => {
     if (key === 'expression') {
-      return (
-        <nav className="framework-sub-nav expression-sub-nav" aria-label="表达规则目录">
-          {expressionChapters.map((item, index) => (
-            <button key={item.id} className={activeExpression === index ? 'active' : ''} type="button" onClick={() => chooseExpression(index)}>
-              <span>{item.no}</span><b>{item.label}</b>
-            </button>
-          ))}
-        </nav>
-      );
+      return <LearningSecondaryDirectory
+        active={expressionChapters[activeExpression]?.id ?? ''}
+        items={expressionChapters.map((item) => ({ key: item.id, no: item.no, label: item.label }))}
+        label="表达规则细目"
+        onSelect={(id) => chooseExpression(expressionChapters.findIndex((item) => item.id === id))}
+      />;
     }
     if (key === 'types') {
-      return (
-        <nav className="framework-sub-nav type-sub-nav" aria-label="题型框架目录">
-          {typeChapters.map((item) => (
-            <button key={item.slug} className={activeType === item.slug ? 'active' : ''} type="button" onClick={() => chooseType(item.slug)}>
-              <span>{item.no}</span><b>{item.label}</b>
-            </button>
-          ))}
-        </nav>
-      );
+      return <LearningSecondaryDirectory
+        active={activeType}
+        items={typeChapters.map((item) => ({ key: item.slug, no: item.no, label: item.label }))}
+        label="题型框架细目"
+        onSelect={chooseType}
+      />;
     }
     if (key === 'abilities') {
-      return (
-        <nav className="framework-sub-nav ability-sub-nav" aria-label="核心能力目录">
-          {coreAbilityChapters.map((item) => (
-            <button key={item.id} className={activeAbility === item.id ? 'active' : ''} type="button" onClick={() => chooseAbility(item.id)}>
-              <span>{item.no}</span><b>{item.title}</b>
-            </button>
-          ))}
-        </nav>
-      );
+      return <LearningSecondaryDirectory
+        active={activeAbility}
+        items={coreAbilityChapters.map((item) => ({ key: item.id, no: item.no, label: item.title }))}
+        label="核心能力细目"
+        onSelect={(id) => chooseAbility(id as CoreAbilityId)}
+      />;
     }
-    return (
-      <nav className="framework-sub-nav tips-sub-nav" aria-label="实用技巧目录">
-        {tipArticles.map((item) => (
-          <button key={item.id} className={activeTip === item.id ? 'active' : ''} type="button" onClick={() => chooseTip(item.id)}>
-            <span>{item.no}</span><b>{item.title}</b>
-          </button>
-        ))}
-      </nav>
-    );
+    return <LearningSecondaryDirectory
+      active={activeTip ?? ''}
+      items={tipArticles.map((item) => ({ key: item.id, no: item.no, label: item.title }))}
+      label="实用技巧细目"
+      onSelect={chooseTip}
+    />;
   };
 
   return (
-    <div className="framework-manual learning-content-frame" id="framework-manual-top" data-learning-content-frame>
-      <button className="framework-mobile-index" type="button" onClick={(event) => openDrawer(event.currentTarget)}>
-        <span>本页目录</span>
-        <b>{mobileLabel}</b>
-        <em>☰</em>
-      </button>
-
-      <aside className={`framework-manual-sidebar learning-directory-column${drawerOpen ? ' open' : ''}`} aria-label="方法框架学习目录">
-        <button className="framework-drawer-close" data-learning-directory-initial-focus type="button" onClick={closeDrawer}>×</button>
-        <div className="framework-sidebar-kicker">申论方法</div>
-        <nav className="framework-layer-nav" aria-label="方法框架章节">
-          {layers.map((item) => {
-            const open = activeLayer === item.key;
-            const arriving = arrivingId === `framework-${item.key}`;
-            return (
-              <div className={`framework-layer-group learning-directory-group${open ? ' open active' : ''}${arriving ? ' arriving' : ''}`} key={item.key}>
-                <button
-                  className={`framework-layer-trigger${open ? ' active' : ''}`}
-                  data-framework-layer={item.key}
-                  data-learning-directory-id={`framework-${item.key}`}
-                  type="button"
-                  aria-expanded={open}
-                  onClick={(event) => chooseLayer(item.key, event.currentTarget)}
-                >
-                  <span>{item.no}</span><b>{item.label}</b><i aria-hidden="true">⌄</i>
-                </button>
-                {open && <div className="framework-layer-children">{renderSubNav(item.key)}</div>}
-              </div>
-            );
-          })}
-        </nav>
-
-        <div className="framework-sidebar-progress" aria-hidden="true"><i style={{ height: progressHeight }} /></div>
-      </aside>
-      {drawerOpen && <button className="framework-drawer-backdrop" aria-label="关闭目录" type="button" onClick={closeDrawer} />}
-
-      <article className="framework-manual-reading learning-reading-surface">
+    <div id="framework-manual-top">
+      <LearningContentFrame
+        details={Object.fromEntries(layers.map((item) => [`framework-${item.key}`, renderSubNav(item.key)]))}
+        label="方法框架学习目录"
+      >
         {activeLayer === 'expression' && (
           <section className="framework-manual-article framework-expression-layer" id="framework-expression">
             <header className="framework-article-intro">
@@ -241,7 +164,7 @@ export function FrameworkManual() {
             <FrameworkTipsArticles activeId={activeTip} onChange={changeTip} />
           </section>
         )}
-      </article>
+      </LearningContentFrame>
     </div>
   );
 }
