@@ -211,7 +211,7 @@ const caseRules: Array<{ match: RegExp; text: string; reason: string }> = [
   { match: /六尺巷/, text: '安徽桐城把“六尺巷”礼让文化融入基层调解，用熟人社会能够理解的文化语言促进矛盾协商。', reason: '文化资源只有转化为群众愿意接受的治理方式，才能从历史故事变成今天解决问题的现实工具。' },
   { match: /基层减负|形式主义/, text: '现实中曾出现同一数据反复填报、多个平台重复打卡、材料层层留痕等现象。', reason: '减负不是降低工作标准，而是减少无效消耗，把干部有限的时间和精力重新投向解决问题和服务群众。' },
   { match: /柔性执法|服务型执法|首违/, text: '不少地方对危害较轻、及时改正的轻微违法探索提醒纠正、首违不罚等方式。', reason: '柔性方式不是放松监管，而是在法律框架内根据行为危害、主观过错和整改情况选择更适当的治理手段。' },
-  { match: /智慧执法|非现场/, text: '交通、生态环境等领域 increasingly use video, sensing and online data for non-on-site supervision。', reason: '技术能够减少重复检查、提高发现问题效率，但算法识别之后仍需要规范复核和程序保障，不能把技术判断直接等同于执法结论。' },
+  { match: /智慧执法|非现场/, text: '交通、生态环境等领域逐步运用视频监控、智能感知和线上数据开展非现场监管，减少了对经营主体的重复打扰。', reason: '技术能够减少重复检查、提高发现问题效率，但算法识别之后仍需要规范复核和程序保障，不能把技术判断直接等同于执法结论。' },
   { match: /执法监督/, text: '行政执法公示、全过程记录、重大执法决定法制审核等制度，把执法权运行过程进一步置于可追溯监督之下。', reason: '监督越嵌入日常流程，越能减少事后纠错成本，也越有利于形成稳定统一的执法尺度。' },
   { match: /理想信念/, text: '焦裕禄在兰考工作时间并不长，却把治理风沙、改善群众生活当作自己的责任，留下跨越时间的精神坐标。', reason: '理想信念不是抽象口号，它最终表现为面对困难时选择做什么、为谁做、能坚持多久。' },
   { match: /无私奉献|教育家|教师/, text: '张桂梅多年扎根云南山区教育，把帮助更多女孩接受教育作为长期事业。', reason: '真正有力量的奉献往往不是一次性的壮举，而是在平凡岗位上持续投入，把个人选择转化为他人发展的机会。' },
@@ -263,8 +263,24 @@ function makeCandidate(text: string, label?: Mark, markedText?: string): { text:
   };
 }
 
+// 分类改为 11 个二级目录后，语料包仍按原来的八个主题维护。
+// 这张别名表把新分类映射到语义最接近的语料包，避免大多数分类
+// 因为找不到对应语料而共用同一个 era 包，反倒把重复集中起来。
+const voiceKeyAliases: Record<string, string> = {
+  economy: 'development',
+  innovation: 'era',
+  livelihood: 'people',
+  ecology: 'development',
+  civility: 'values',
+  cadre: 'values',
+  service: 'government',
+  enforcement: 'law',
+  rural: 'grassroots',
+};
+
 function createCandidates(article: HotspotArticle, category: HotspotCategory, index: number) {
-  const pack = voices[category.key] ?? voices.era;
+  const packKey = voiceKeyAliases[category.key] ?? category.key;
+  const pack = voices[packKey] ?? voices.era;
   const topic = article.tags[0] ?? article.title;
   const seed = hash(article.slug);
   const a = seed % pack.analysis.length;
@@ -278,18 +294,13 @@ function createCandidates(article: HotspotArticle, category: HotspotCategory, in
   const quote = interpolate(pack.quote[d], topic);
   const caseItem = pickCase(article);
 
-  const dialecticText = `需要特别辨明的是，${topic}不是越多越好、越快越好，也不是一遇到问题就收紧甚至停下，而要在目标、条件和边界之间找到恰当尺度。真正成熟的治理和发展，往往体现在能把看似冲突的要求转化为可以协同推进的关系。`;
-  const highEndText = `归根到底，${topic}的成色不写在概念里，而写在解决了多少真实问题、形成了多少长期能力、留下了多少可持续价值之中。`;
-  const sceneText = `把视线落到具体场景，会更容易理解${topic}：一项政策进入窗口、社区、企业或家庭之后，群众是否更方便、组织是否更高效、风险是否更可控，往往比宏观口号更能说明问题。`;
-
+  // 这三句原本是全库通用模板，会让不同文章读起来像同一个人写的，
+  // 其中辨析句一度逐字出现在 84 篇中的 60 篇里，因此不再作为补写素材。
   const candidates = [
     makeCandidate(analysis),
     makeCandidate(metaphor, '比喻', metaphor.split('。')[0] + '。'),
     makeCandidate(parallel, '排比', parallel),
     makeCandidate(quote, '名言', quote.includes('：“') ? quote.slice(quote.indexOf('“'), quote.indexOf('”') + 1) : quote.split('。')[0]),
-    makeCandidate(dialecticText, '对仗', '不是越多越好、越快越好，也不是一遇到问题就收紧甚至停下'),
-    makeCandidate(highEndText, '高端句', highEndText),
-    makeCandidate(sceneText),
   ];
 
   if (caseItem) {
@@ -343,6 +354,39 @@ function shrink(article: HotspotArticle) {
   }
 }
 
+const fallbacks: { text: (topic: string) => string; mark: string; label: Mark }[] = [
+  {
+    text: (topic) => `进一步说，${topic}不能靠一次行动、一项工程或一个平台完成。短期要解决最突出的现实问题，中期要形成稳定运行的制度机制，长期还要依靠人才、规则和社会共识持续迭代。`,
+    mark: '短期要解决最突出的现实问题，中期要形成稳定运行的制度机制',
+    label: '对仗',
+  },
+  {
+    text: (topic) => `还要看到，${topic}的推进从来不是单向发力。政府要把该管的管好，市场要把该活的活起来，社会要把该担的担起来。三方各就其位、彼此补位，工作才不会一头沉。`,
+    mark: '政府要把该管的管好，市场要把该活的活起来，社会要把该担的担起来',
+    label: '排比',
+  },
+  {
+    text: (topic) => `值得注意的是，衡量${topic}的标准不在材料的厚度，而在群众的感受。方案写得再周密，如果群众办事仍然不便、问题仍然反复，就说明落实还没有真正到位。`,
+    mark: '不在材料的厚度，而在群众的感受',
+    label: '对仗',
+  },
+  {
+    text: (topic) => `换个角度看，${topic}最怕两种倾向：一种是热度一起就一哄而上，另一种是遇到困难就束手不前。前者容易造成资源浪费，后者容易错失时机，都需要用理性判断加以纠正。`,
+    mark: '一种是热度一起就一哄而上，另一种是遇到困难就束手不前',
+    label: '对仗',
+  },
+  {
+    text: (topic) => `实践中还有一条经验值得记取：${topic}越是复杂，越要抓住主要矛盾。先把最影响全局、群众反映最集中的环节打通，其他问题往往会随之松动，而平均用力反倒容易处处见效不明显。`,
+    mark: '越是复杂，越要抓住主要矛盾',
+    label: '对仗',
+  },
+  {
+    text: (topic) => `与此同时，${topic}需要给基层留出因地制宜的空间。同一项要求在不同地方的条件千差万别，如果只下指标不给方法、只压责任不给权限，执行就容易走形。`,
+    mark: '只下指标不给方法、只压责任不给权限',
+    label: '对仗',
+  },
+];
+
 function refineArticle(source: HotspotArticle, category: HotspotCategory, index: number): HotspotArticle {
   const article: HotspotArticle = {
     ...source,
@@ -354,7 +398,9 @@ function refineArticle(source: HotspotArticle, category: HotspotCategory, index:
 
   const seed = hash(article.slug);
   const style = seed % slotOrders.length;
-  const target = 1060 + (seed % 121);
+  // 只补到 1000 字这条硬底线，不再补到 1060-1180 的随机目标：
+  // 正文本身写够字数的文章因此完全不会被注入模板句。
+  const target = 1000;
   const candidates = createCandidates(article, category, index);
   const order = slotOrders[style];
 
@@ -371,9 +417,10 @@ function refineArticle(source: HotspotArticle, category: HotspotCategory, index:
 
   while (articleLength(article) < 1000) {
     const topic = article.tags[0] ?? article.title;
-    const fallback = `进一步说，${topic}不能靠一次行动、一项工程或一个平台完成。短期要解决最突出的现实问题，中期要形成稳定运行的制度机制，长期还要依靠人才、规则和社会共识持续迭代。只有把当下之“治”与长远之“制”连接起来，成效才不会随着热度消退。`;
+    // 兜底句提供多个变体并按 slug 取用，避免同一句话在几十篇文章里反复出现。
+    const pick = fallbacks[(seed + cursor) % fallbacks.length];
     const slot: Slot = (cursor % 3) as 0 | 1 | 2;
-    append(article, { slot, text: fallback, marks: [{ text: '把当下之“治”与长远之“制”连接起来', label: '对仗' }] });
+    append(article, { slot, text: pick.text(topic), marks: [{ text: pick.mark, label: pick.label }] });
     cursor += 1;
     if (cursor > 12) break;
   }

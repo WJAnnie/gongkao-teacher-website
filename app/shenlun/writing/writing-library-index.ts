@@ -1,5 +1,7 @@
+import type { HotspotCategoryKey } from './writing-hotspot-taxonomy.ts';
+
 export type HotspotIndexItem = {
-  key: 'development' | 'culture' | 'people' | 'government' | 'grassroots' | 'law' | 'values' | 'era';
+  key: HotspotCategoryKey;
   no: string;
   label: string;
   en: string;
@@ -18,14 +20,17 @@ export type CaseIndexItem = {
 // 这里只放“目录级元数据”，不导入任何长文章或案例正文。
 // 写作积累首页因此可以保持很轻；正文在学生真正进入某一类后再加载。
 export const hotspotIndex: HotspotIndexItem[] = [
-  { key: 'development', no: '01', label: '发展与现代化', en: 'DEVELOPMENT', desc: '高质量发展、科技创新、新质生产力、现代化产业体系与新赛道。', count: 10 },
-  { key: 'culture', no: '02', label: '文化与文明', en: 'CULTURE', desc: '文化自信、传统文化、守正创新、文旅融合与公共文化。', count: 10 },
-  { key: 'people', no: '03', label: '民生与人的发展', en: 'PEOPLE', desc: '就业、人才、教育、养老、社会保障与投资于人。', count: 10 },
-  { key: 'government', no: '04', label: '政府治理与公共服务', en: 'GOVERNMENT', desc: '政务改革、公共服务、数字政府、调查研究与营商环境。', count: 10 },
-  { key: 'grassroots', no: '05', label: '基层与城乡治理', en: 'GRASSROOTS', desc: '乡村振兴、基层治理、社区治理、城市治理与基层工作方法。', count: 13 },
-  { key: 'law', no: '06', label: '法治与行政执法', en: 'LAW', desc: '全面依法治国、执法理念、执法方式、执法监督与执法队伍。', count: 11 },
-  { key: 'values', no: '07', label: '价值观念与干部作风', en: 'VALUES', desc: '理想信念、责任担当、奋斗实干、政绩观与干部作风。', count: 10 },
-  { key: 'era', no: '08', label: '时代新议题', en: 'ERA', desc: '人工智能、新业态、新职业、新媒体、数据与平台治理等时代议题。', count: 10 },
+  { key: 'economy', no: '01', label: '经济发展', en: 'ECONOMY', desc: '高质量发展、新质生产力、现代化产业体系、扩大内需与统一大市场。', count: 10 },
+  { key: 'innovation', no: '02', label: '时代创新', en: 'INNOVATION', desc: '人工智能、数据要素、平台经济、新就业形态与算法治理。', count: 10 },
+  { key: 'livelihood', no: '03', label: '社会民生', en: 'LIVELIHOOD', desc: '就业、教育、医疗、养老、生育支持与社会保障。', count: 10 },
+  { key: 'ecology', no: '04', label: '生态环保', en: 'ECOLOGY', desc: '绿色转型、双碳目标、美丽中国、生态保护与环境治理。', count: 10 },
+  { key: 'culture', no: '05', label: '文化勃兴', en: 'CULTURE', desc: '文化自信、传统文化、非遗传承、文旅融合与文化产业。', count: 10 },
+  { key: 'civility', no: '06', label: '精神文明', en: 'CIVILITY', desc: '核心价值观、公民道德、诚信建设、移风易俗与志愿服务。', count: 10 },
+  { key: 'cadre', no: '07', label: '干部观念', en: 'CADRE', desc: '责任担当、政绩观、调查研究、群众路线与干部能力建设。', count: 10 },
+  { key: 'service', no: '08', label: '公共服务', en: 'SERVICE', desc: '政务服务、数字政府、简政放权、营商环境与政务公开。', count: 10 },
+  { key: 'grassroots', no: '09', label: '基层治理', en: 'GRASSROOTS', desc: '基层治理、社区治理、城市治理、矛盾化解与基层减负。', count: 10 },
+  { key: 'enforcement', no: '10', label: '行政执法', en: 'ENFORCEMENT', desc: '依法治国、严格执法、柔性执法、执法监督与执法队伍。', count: 11 },
+  { key: 'rural', no: '11', label: '乡村振兴', en: 'RURAL', desc: '乡村振兴、千万工程、粮食安全、和美乡村与农村人居环境。', count: 10 },
 ];
 
 export const caseIndex: CaseIndexItem[] = [
