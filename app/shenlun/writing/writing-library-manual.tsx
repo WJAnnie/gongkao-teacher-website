@@ -31,8 +31,8 @@ const writingLayers = [
 const foundationIndex = {
   terms: [['problems', '问题表现'], ['causes', '原因分析'], ['measures', '措施表达'], ['outcomes', '成效概括'], ['government-verbs', '工作动词']],
   parallel: [['coordinate', '并列协同'], ['progressive', '递进深化'], ['contrastive-turn', '转折破题'], ['comparison', '正反对照'], ['three-part-subpoints', '三段分论点']],
-  sentences: [['development', '发展'], ['governance', '治理'], ['livelihood', '民生'], ['culture', '文化'], ['ecology', '生态']],
-  quotes: [['action-responsibility', '实干与担当'], ['learning-growth', '学习与成长'], ['people-centered', '人民立场'], ['innovation-reform', '创新与改革'], ['culture-inheritance', '文化与传承']],
+  sentences: [['development', '发展'], ['livelihood', '民生'], ['ecology', '生态'], ['culture', '文化'], ['governance', '治理']],
+  quotes: [['people-centered', '人民立场'], ['action-responsibility', '实干与担当'], ['learning-growth', '学习与成长'], ['innovation-reform', '创新与改革'], ['culture-inheritance', '文化与传承']],
   essay: [['title', '标题'], ['opening', '开头'], ['thesis', '总论点'], ['subpoints', '分论点'], ['evidence', '论据'], ['conclusion', '结尾']],
 } as const;
 
@@ -40,7 +40,7 @@ const defaultSelections: Record<FoundationModuleKey, GenericSelection> = {
   terms: { category: 'problems', leaf: '' },
   parallel: { category: 'coordinate', leaf: '' },
   sentences: { category: 'development', leaf: '' },
-  quotes: { category: 'action-responsibility', leaf: '' },
+  quotes: { category: 'people-centered', leaf: '' },
   essay: { category: 'title', leaf: '' },
 };
 

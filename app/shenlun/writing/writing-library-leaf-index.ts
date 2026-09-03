@@ -739,56 +739,212 @@ export const caseLeafIndex = {
       "title": "北京口袋公园：城市品质也藏在家门口的“小空间”"
     }
   ],
-  "reform": [
+  "rural": [
     {
-      "slug": "zhejiang-most-one-trip",
+      "slug": "yucun-two-mountains",
       "no": "01",
-      "title": "浙江“最多跑一次”：让群众少跑腿，让部门多协同"
+      "title": "浙江余村：从“卖石头”到“卖风景”"
     },
     {
-      "slug": "beijing-call-response",
+      "slug": "xiadang-rural",
       "no": "02",
-      "title": "北京“接诉即办”：从解决一件事到治理一类事"
+      "title": "福建下党乡：越是基础薄弱，越要从小事做起"
     },
     {
-      "slug": "shanghai-one-network",
+      "slug": "shibadong-village",
       "no": "03",
-      "title": "上海“一网通办”：数字化先改流程，再改入口"
+      "title": "十八洞村：精准帮扶先从“这个村真正缺什么”问起"
     },
     {
-      "slug": "cross-province-services",
+      "slug": "shouguang-vegetables",
       "no": "04",
-      "title": "“跨省通办”：让群众流动，服务也跟着流动"
+      "title": "寿光蔬菜：一棵菜背后是技术、市场和物流体系"
     },
     {
-      "slug": "one-license-one-industry",
+      "slug": "anji-white-tea",
       "no": "05",
-      "title": "“一业一证”：把多张许可从部门视角重新组合"
+      "title": "安吉白茶：“一片叶子”如何连接生态和富民产业"
     },
     {
-      "slug": "certificate-free-services",
+      "slug": "liuzhou-luosifen",
       "no": "06",
-      "title": "“免证办”：让数据多跑路，群众少找证明"
+      "title": "柳州螺蛳粉：地方小吃也能带动一条产业链"
     },
     {
-      "slug": "comprehensive-inspection-once",
+      "slug": "shaxian-snacks",
       "no": "07",
-      "title": "“综合查一次”：监管不能让企业反复迎检"
+      "title": "沙县小吃：小餐饮背后的创业服务网络"
     },
     {
-      "slug": "policy-direct-access",
+      "slug": "caoxian-ecommerce",
       "no": "08",
-      "title": "政策“直达快享”：好政策不能卡在“不会找、不知道”"
+      "title": "曹县电商：数字平台怎样连接县域制造和全国市场"
     },
     {
-      "slug": "government-service-rating",
+      "slug": "xiajiang-village",
       "no": "09",
-      "title": "政务服务“好差评”：把评价权交给办事群众"
+      "title": "浙江下姜村：从单村发展走向片区共同发展"
     },
     {
-      "slug": "birth-one-thing",
+      "slug": "gutian-edible-fungi",
       "no": "10",
-      "title": "“出生一件事”：围绕人生节点重组公共服务"
+      "title": "古田食用菌：特色农业也要靠科技和标准升级"
+    }
+  ],
+  "livelihood": [
+    {
+      "slug": "community-canteen",
+      "no": "01",
+      "title": "社区食堂：一顿饭里的公共服务温度"
+    },
+    {
+      "slug": "courier-friendly-community",
+      "no": "02",
+      "title": "骑手友好社区：让公共服务跟着新职业变化"
+    },
+    {
+      "slug": "youth-night-school",
+      "no": "03",
+      "title": "青年夜校：公共文化也要跟上年轻人的作息"
+    },
+    {
+      "slug": "family-doctor-contract",
+      "no": "04",
+      "title": "家庭医生：把健康服务从医院延伸到日常"
+    },
+    {
+      "slug": "long-term-care-insurance",
+      "no": "05",
+      "title": "长期护理保险：给失能家庭多一层照护支撑"
+    },
+    {
+      "slug": "home-care-bed",
+      "no": "06",
+      "title": "家庭养老床位：把专业照护服务送进家门"
+    },
+    {
+      "slug": "inclusive-childcare",
+      "no": "07",
+      "title": "普惠托育：把年轻家庭最缺的时间补回来"
+    },
+    {
+      "slug": "urban-study-room",
+      "no": "08",
+      "title": "城市书房：公共文化服务也可以“小而近”"
+    },
+    {
+      "slug": "barrier-free-renovation",
+      "no": "09",
+      "title": "无障碍改造：一段坡道体现一座城市的文明尺度"
+    },
+    {
+      "slug": "youth-station",
+      "no": "10",
+      "title": "青年驿站：给求职青年一段低成本“落脚期”"
+    }
+  ],
+  "culture": [
+    {
+      "slug": "palace-museum-cultural",
+      "no": "01",
+      "title": "故宫文创：传统文化怎样走进日常"
+    },
+    {
+      "slug": "quanzhou-living-heritage",
+      "no": "02",
+      "title": "泉州古城：遗产保护不是把城市冻住"
+    },
+    {
+      "slug": "liangzhu-heritage",
+      "no": "03",
+      "title": "良渚古城遗址：让考古成果成为理解文明的入口"
+    },
+    {
+      "slug": "beijing-central-axis",
+      "no": "04",
+      "title": "北京中轴线：保护的是建筑序列，也是城市历史秩序"
+    },
+    {
+      "slug": "only-green-dance",
+      "no": "05",
+      "title": "《只此青绿》：传统审美如何转化成当代表达"
+    },
+    {
+      "slug": "china-festival-series",
+      "no": "06",
+      "title": "“中国节日”节目：让传统节日进入年轻人的屏幕"
+    },
+    {
+      "slug": "intangible-heritage-workshops",
+      "no": "07",
+      "title": "非遗工坊：让传承技艺也能创造就业和收入"
+    },
+    {
+      "slug": "yin-ruins-museum",
+      "no": "08",
+      "title": "殷墟博物馆：把考古知识从“专业现场”带到公众面前"
+    },
+    {
+      "slug": "xian-city-wall",
+      "no": "09",
+      "title": "西安城墙：历史遗产也可以成为日常公共文化空间"
+    },
+    {
+      "slug": "ancient-books-digitization",
+      "no": "10",
+      "title": "古籍数字化：让珍贵典籍少翻一页，也能多被看见一次"
+    }
+  ],
+  "ecology": [
+    {
+      "slug": "saihanba",
+      "no": "01",
+      "title": "塞罕坝：把荒原一代代种成林海"
+    },
+    {
+      "slug": "yangtze-fishing-ban",
+      "no": "02",
+      "title": "长江十年禁渔：一条禁令背后的系统治理"
+    },
+    {
+      "slug": "kubuqi-desert-control",
+      "no": "03",
+      "title": "库布其治沙：生态治理是一场跨越很多年的接力"
+    },
+    {
+      "slug": "sanjiangyuan-national-park",
+      "no": "04",
+      "title": "三江源国家公园：保护完整生态系统，而不是只保护几个景点"
+    },
+    {
+      "slug": "shenzhen-mangrove",
+      "no": "05",
+      "title": "深圳红树林：城市越密集，越需要给自然留下空间"
+    },
+    {
+      "slug": "erhai-lake-governance",
+      "no": "06",
+      "title": "洱海保护：治湖先治岸，治水也要治生产生活方式"
+    },
+    {
+      "slug": "qinling-protection",
+      "no": "07",
+      "title": "秦岭生态保护：生态红线必须成为真正的硬约束"
+    },
+    {
+      "slug": "yellow-river-delta-wetland",
+      "no": "08",
+      "title": "黄河三角洲湿地：生态修复要给候鸟和自然过程留空间"
+    },
+    {
+      "slug": "ningxia-straw-checkerboard",
+      "no": "09",
+      "title": "麦草方格治沙：小办法背后是对自然规律的理解"
+    },
+    {
+      "slug": "chishui-river-protection",
+      "no": "10",
+      "title": "赤水河保护：一条河需要上下游一起守"
     }
   ],
   "technology": [
@@ -843,56 +999,108 @@ export const caseLeafIndex = {
       "title": "“东数西算”：算力布局也要算资源账和协同账"
     }
   ],
-  "livelihood": [
+  "enterprise": [
     {
-      "slug": "community-canteen",
+      "slug": "haier-industrial-internet",
       "no": "01",
-      "title": "社区食堂：一顿饭里的公共服务温度"
+      "title": "海尔工业互联网：传统制造也能长出新动能"
     },
     {
-      "slug": "courier-friendly-community",
+      "slug": "catl-innovation",
       "no": "02",
-      "title": "骑手友好社区：让公共服务跟着新职业变化"
+      "title": "宁德时代：越是热门赛道，越要靠研发站稳"
     },
     {
-      "slug": "youth-night-school",
+      "slug": "huawei-longterm-rd",
       "no": "03",
-      "title": "青年夜校：公共文化也要跟上年轻人的作息"
+      "title": "华为研发投入：企业创新不能只算眼前利润账"
     },
     {
-      "slug": "family-doctor-contract",
+      "slug": "byd-new-energy",
       "no": "04",
-      "title": "家庭医生：把健康服务从医院延伸到日常"
+      "title": "比亚迪新能源转型：技术路线要靠长期研发和市场检验"
     },
     {
-      "slug": "long-term-care-insurance",
+      "slug": "dji-drones",
       "no": "05",
-      "title": "长期护理保险：给失能家庭多一层照护支撑"
+      "title": "大疆无人机：把核心技术做深，再把场景做宽"
     },
     {
-      "slug": "home-care-bed",
+      "slug": "midea-smart-manufacturing",
       "no": "06",
-      "title": "家庭养老床位：把专业照护服务送进家门"
+      "title": "美的智能制造：传统制造也能长出“数字新能力”"
     },
     {
-      "slug": "inclusive-childcare",
+      "slug": "fuyao-glass",
       "no": "07",
-      "title": "普惠托育：把年轻家庭最缺的时间补回来"
+      "title": "福耀玻璃：在一个细分行业把质量和技术做深"
     },
     {
-      "slug": "urban-study-room",
+      "slug": "geely-rd",
       "no": "08",
-      "title": "城市书房：公共文化服务也可以“小而近”"
+      "title": "吉利汽车：从制造产品走向积累研发平台能力"
     },
     {
-      "slug": "barrier-free-renovation",
+      "slug": "sany-smart-factory",
       "no": "09",
-      "title": "无障碍改造：一段坡道体现一座城市的文明尺度"
+      "title": "三一重工智能工厂：工程机械也要从“制造”走向“智造”"
     },
     {
-      "slug": "youth-station",
+      "slug": "longi-photovoltaic",
       "no": "10",
-      "title": "青年驿站：给求职青年一段低成本“落脚期”"
+      "title": "隆基绿能：光伏产业竞争最终要回到技术和成本"
+    }
+  ],
+  "reform": [
+    {
+      "slug": "zhejiang-most-one-trip",
+      "no": "01",
+      "title": "浙江“最多跑一次”：让群众少跑腿，让部门多协同"
+    },
+    {
+      "slug": "beijing-call-response",
+      "no": "02",
+      "title": "北京“接诉即办”：从解决一件事到治理一类事"
+    },
+    {
+      "slug": "shanghai-one-network",
+      "no": "03",
+      "title": "上海“一网通办”：数字化先改流程，再改入口"
+    },
+    {
+      "slug": "cross-province-services",
+      "no": "04",
+      "title": "“跨省通办”：让群众流动，服务也跟着流动"
+    },
+    {
+      "slug": "one-license-one-industry",
+      "no": "05",
+      "title": "“一业一证”：把多张许可从部门视角重新组合"
+    },
+    {
+      "slug": "certificate-free-services",
+      "no": "06",
+      "title": "“免证办”：让数据多跑路，群众少找证明"
+    },
+    {
+      "slug": "comprehensive-inspection-once",
+      "no": "07",
+      "title": "“综合查一次”：监管不能让企业反复迎检"
+    },
+    {
+      "slug": "policy-direct-access",
+      "no": "08",
+      "title": "政策“直达快享”：好政策不能卡在“不会找、不知道”"
+    },
+    {
+      "slug": "government-service-rating",
+      "no": "09",
+      "title": "政务服务“好差评”：把评价权交给办事群众"
+    },
+    {
+      "slug": "birth-one-thing",
+      "no": "10",
+      "title": "“出生一件事”：围绕人生节点重组公共服务"
     }
   ],
   "law": [
@@ -997,214 +1205,6 @@ export const caseLeafIndex = {
       "slug": "meeting-document-formalism",
       "no": "10",
       "title": "以会议落实会议：忙碌为什么可能没有产出"
-    }
-  ],
-  "culture": [
-    {
-      "slug": "palace-museum-cultural",
-      "no": "01",
-      "title": "故宫文创：传统文化怎样走进日常"
-    },
-    {
-      "slug": "quanzhou-living-heritage",
-      "no": "02",
-      "title": "泉州古城：遗产保护不是把城市冻住"
-    },
-    {
-      "slug": "liangzhu-heritage",
-      "no": "03",
-      "title": "良渚古城遗址：让考古成果成为理解文明的入口"
-    },
-    {
-      "slug": "beijing-central-axis",
-      "no": "04",
-      "title": "北京中轴线：保护的是建筑序列，也是城市历史秩序"
-    },
-    {
-      "slug": "only-green-dance",
-      "no": "05",
-      "title": "《只此青绿》：传统审美如何转化成当代表达"
-    },
-    {
-      "slug": "china-festival-series",
-      "no": "06",
-      "title": "“中国节日”节目：让传统节日进入年轻人的屏幕"
-    },
-    {
-      "slug": "intangible-heritage-workshops",
-      "no": "07",
-      "title": "非遗工坊：让传承技艺也能创造就业和收入"
-    },
-    {
-      "slug": "yin-ruins-museum",
-      "no": "08",
-      "title": "殷墟博物馆：把考古知识从“专业现场”带到公众面前"
-    },
-    {
-      "slug": "xian-city-wall",
-      "no": "09",
-      "title": "西安城墙：历史遗产也可以成为日常公共文化空间"
-    },
-    {
-      "slug": "ancient-books-digitization",
-      "no": "10",
-      "title": "古籍数字化：让珍贵典籍少翻一页，也能多被看见一次"
-    }
-  ],
-  "rural": [
-    {
-      "slug": "yucun-two-mountains",
-      "no": "01",
-      "title": "浙江余村：从“卖石头”到“卖风景”"
-    },
-    {
-      "slug": "xiadang-rural",
-      "no": "02",
-      "title": "福建下党乡：越是基础薄弱，越要从小事做起"
-    },
-    {
-      "slug": "shibadong-village",
-      "no": "03",
-      "title": "十八洞村：精准帮扶先从“这个村真正缺什么”问起"
-    },
-    {
-      "slug": "shouguang-vegetables",
-      "no": "04",
-      "title": "寿光蔬菜：一棵菜背后是技术、市场和物流体系"
-    },
-    {
-      "slug": "anji-white-tea",
-      "no": "05",
-      "title": "安吉白茶：“一片叶子”如何连接生态和富民产业"
-    },
-    {
-      "slug": "liuzhou-luosifen",
-      "no": "06",
-      "title": "柳州螺蛳粉：地方小吃也能带动一条产业链"
-    },
-    {
-      "slug": "shaxian-snacks",
-      "no": "07",
-      "title": "沙县小吃：小餐饮背后的创业服务网络"
-    },
-    {
-      "slug": "caoxian-ecommerce",
-      "no": "08",
-      "title": "曹县电商：数字平台怎样连接县域制造和全国市场"
-    },
-    {
-      "slug": "xiajiang-village",
-      "no": "09",
-      "title": "浙江下姜村：从单村发展走向片区共同发展"
-    },
-    {
-      "slug": "gutian-edible-fungi",
-      "no": "10",
-      "title": "古田食用菌：特色农业也要靠科技和标准升级"
-    }
-  ],
-  "ecology": [
-    {
-      "slug": "saihanba",
-      "no": "01",
-      "title": "塞罕坝：把荒原一代代种成林海"
-    },
-    {
-      "slug": "yangtze-fishing-ban",
-      "no": "02",
-      "title": "长江十年禁渔：一条禁令背后的系统治理"
-    },
-    {
-      "slug": "kubuqi-desert-control",
-      "no": "03",
-      "title": "库布其治沙：生态治理是一场跨越很多年的接力"
-    },
-    {
-      "slug": "sanjiangyuan-national-park",
-      "no": "04",
-      "title": "三江源国家公园：保护完整生态系统，而不是只保护几个景点"
-    },
-    {
-      "slug": "shenzhen-mangrove",
-      "no": "05",
-      "title": "深圳红树林：城市越密集，越需要给自然留下空间"
-    },
-    {
-      "slug": "erhai-lake-governance",
-      "no": "06",
-      "title": "洱海保护：治湖先治岸，治水也要治生产生活方式"
-    },
-    {
-      "slug": "qinling-protection",
-      "no": "07",
-      "title": "秦岭生态保护：生态红线必须成为真正的硬约束"
-    },
-    {
-      "slug": "yellow-river-delta-wetland",
-      "no": "08",
-      "title": "黄河三角洲湿地：生态修复要给候鸟和自然过程留空间"
-    },
-    {
-      "slug": "ningxia-straw-checkerboard",
-      "no": "09",
-      "title": "麦草方格治沙：小办法背后是对自然规律的理解"
-    },
-    {
-      "slug": "chishui-river-protection",
-      "no": "10",
-      "title": "赤水河保护：一条河需要上下游一起守"
-    }
-  ],
-  "enterprise": [
-    {
-      "slug": "haier-industrial-internet",
-      "no": "01",
-      "title": "海尔工业互联网：传统制造也能长出新动能"
-    },
-    {
-      "slug": "catl-innovation",
-      "no": "02",
-      "title": "宁德时代：越是热门赛道，越要靠研发站稳"
-    },
-    {
-      "slug": "huawei-longterm-rd",
-      "no": "03",
-      "title": "华为研发投入：企业创新不能只算眼前利润账"
-    },
-    {
-      "slug": "byd-new-energy",
-      "no": "04",
-      "title": "比亚迪新能源转型：技术路线要靠长期研发和市场检验"
-    },
-    {
-      "slug": "dji-drones",
-      "no": "05",
-      "title": "大疆无人机：把核心技术做深，再把场景做宽"
-    },
-    {
-      "slug": "midea-smart-manufacturing",
-      "no": "06",
-      "title": "美的智能制造：传统制造也能长出“数字新能力”"
-    },
-    {
-      "slug": "fuyao-glass",
-      "no": "07",
-      "title": "福耀玻璃：在一个细分行业把质量和技术做深"
-    },
-    {
-      "slug": "geely-rd",
-      "no": "08",
-      "title": "吉利汽车：从制造产品走向积累研发平台能力"
-    },
-    {
-      "slug": "sany-smart-factory",
-      "no": "09",
-      "title": "三一重工智能工厂：工程机械也要从“制造”走向“智造”"
-    },
-    {
-      "slug": "longi-photovoltaic",
-      "no": "10",
-      "title": "隆基绿能：光伏产业竞争最终要回到技术和成本"
     }
   ]
 } as const satisfies Record<string, readonly WritingLeafIndexItem[]>;
