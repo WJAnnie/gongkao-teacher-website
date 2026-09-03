@@ -13,6 +13,7 @@ const transitionSets: Record<string, string[]> = {
 
 const existingTransitions = /^(因此|所以|为此|由此可见|由此|基于此|正因如此|归根到底|说到底|面向未来|基于这样的认识|基于这样的现实|基于这样的变化)[，,]/;
 const sentenceEnd = /[。！？]$/;
+const incompleteSectionTitleEnd = /[，,、：:；;]$/;
 
 function hash(input: string) {
   let value = 0;
@@ -34,6 +35,22 @@ function tidyText(text: string) {
 function ensureEnd(text: string) {
   const value = tidyText(text);
   return sentenceEnd.test(value) ? value : `${value}。`;
+}
+
+function requireNonEmpty(value: string, field: string, slug: string) {
+  if (!value.trim()) throw new Error('Hotspot ' + field + ' is empty: ' + slug);
+}
+
+function auditSectionTitle(title: string, slug: string) {
+  requireNonEmpty(title, 'section title', slug);
+  const value = ensureEnd(title);
+  if (incompleteSectionTitleEnd.test(value.slice(0, -1))) {
+    throw new Error('Hotspot section title is not a complete point: ' + slug + ' = ' + title);
+  }
+  if (/[。！？]/.test(value.slice(0, -1))) {
+    throw new Error('Hotspot section title contains more than one sentence: ' + slug + ' = ' + title);
+  }
+  return value;
 }
 
 function thesisWithTransition(article: HotspotArticle, categoryKey: string) {
@@ -58,22 +75,42 @@ function articleLength(article: HotspotArticle) {
 
 function auditHighlights(article: HotspotArticle, highlights: HotspotHighlight[]) {
   const body = articleText(article);
-  return highlights.filter((item) => {
-    if (!body.includes(item.text)) return false;
+  const ranges = highlights.map((item) => {
+    if (!item.text.trim() || !body.includes(item.text)) {
+      throw new Error('Hotspot highlight is missing from article: ' + article.slug + ' = ' + item.text);
+    }
     if (item.label === '案例' && item.text.replace(/\s/g, '').length > 72) {
       throw new Error(`Hotspot case highlight is too long: ${article.slug} = ${item.text.length}`);
     }
-    return true;
+    const start = body.indexOf(item.text);
+    return { item, start, end: start + item.text.length };
   });
+  ranges.sort((a, b) => a.start - b.start || b.end - a.end);
+  for (let index = 1; index < ranges.length; index += 1) {
+    const previous = ranges[index - 1];
+    const current = ranges[index];
+    if (current.start < previous.end) {
+      throw new Error('Hotspot highlights overlap: ' + article.slug + ' = ' + previous.item.text + ' / ' + current.item.text);
+    }
+  }
+  return highlights;
 }
 
 function auditArticle(source: HotspotArticle, categoryKey: string): HotspotArticle {
+  requireNonEmpty(source.title, 'title', source.slug);
+  requireNonEmpty(source.intro, 'intro', source.slug);
+  requireNonEmpty(source.thesis, 'thesis', source.slug);
+  requireNonEmpty(source.conclusion, 'conclusion', source.slug);
+  if (!source.sections.length) throw new Error('Hotspot sections are empty: ' + source.slug);
+  source.sections.forEach((section) => requireNonEmpty(section.body, 'section body', source.slug));
+
   const article: HotspotArticle = {
     ...source,
+    title: source.title.trim(),
     intro: ensureEnd(source.intro),
     thesis: thesisWithTransition(source, categoryKey),
     sections: source.sections.map((section) => ({
-      title: ensureEnd(section.title),
+      title: auditSectionTitle(section.title, source.slug),
       body: tidyText(section.body),
     })),
     conclusion: ensureEnd(source.conclusion),

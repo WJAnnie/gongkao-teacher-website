@@ -377,8 +377,8 @@ export function WritingLibraryManual() {
           {hotspotState === 'loading' ? <LoadingBlock label="热点文章" /> : null}
           {hotspotState === 'error' ? <ErrorBlock label="热点文章" retry={() => { hotspotCache.delete(hotspotKey); setHotspotReload((value) => value + 1); }} /> : null}
           {hotspotState === 'ready' && article ? <article className="writing-editorial-paper">
-            <header><span>{currentLayer.icon}</span><div><p>{hotspotMeta.label}</p><h2>{article.title}</h2><em>{article.tags.join(' · ')}</em></div></header>
-            <p className="writing-paper-intro">{annotate(article.intro, article.highlights)}<strong>{annotate(article.thesis, article.highlights)}</strong></p>
+            <header><h2>{article.title}</h2></header>
+            <p className="writing-paper-intro">{annotate(article.intro, article.highlights)}<strong className="writing-paper-inline-thesis">{annotate(article.thesis, article.highlights)}</strong></p>
             {article.sections.map((section) => <section key={section.title}><h3>{annotate(section.title, article.highlights)}</h3><p>{annotate(section.body, article.highlights)}</p></section>)}
             <p>{annotate(article.conclusion, article.highlights)}</p>
           </article> : null}

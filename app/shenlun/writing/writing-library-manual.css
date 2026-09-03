@@ -146,10 +146,12 @@
 .writing-inline-disclosure-body { margin: 0 0 10px; padding: 4px 20px 26px; border-left: 2px solid color-mix(in srgb, var(--module-accent) 65%, transparent); }
 
 .writing-editorial-paper { padding: clamp(24px, 4vw, 44px); border: 0; background: transparent; box-shadow: none; }
-.writing-editorial-paper p { max-width: 74ch; margin: 0 0 1.45em; font: 16px/2 "Songti SC", serif; }
+.writing-editorial-paper p { max-width: 74ch; margin: 0 0 1.45em; font: 16px/2 "Songti SC", serif; text-indent: 2em; }
 .writing-editorial-paper h3 { margin: 2em 0 .65em; color: var(--module-accent); font: 600 19px/1.5 "Songti SC", serif; }
 .writing-editorial-paper .writing-paper-intro { font-size: 18px; }
-.writing-editorial-paper .writing-paper-intro > strong { display: block; margin-top: 1.4em; padding-left: 18px; border-left: 3px solid var(--module-accent); }
+.writing-editorial-paper .writing-paper-inline-thesis { font-weight: 600; color: var(--module-accent); }
+.writing-editorial-paper > header { margin-bottom: 1.6em; }
+.writing-editorial-paper > header h2 { margin: 0; font: 600 clamp(22px, 2.6vw, 28px)/1.45 "Songti SC", serif; }
 
 .writing-term-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: stretch; }
 .writing-term-compare article { min-height: 180px; padding: 28px; border: 1px solid var(--learning-border); background: var(--learning-paper-raised); }
