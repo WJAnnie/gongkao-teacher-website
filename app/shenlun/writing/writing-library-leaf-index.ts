@@ -3,7 +3,7 @@
 export type WritingLeafIndexItem = { slug: string; no: string; title: string };
 
 export const hotspotLeafIndex = {
-  "development": [
+  "economy": [
     {
       "slug": "high-quality-development",
       "no": "01",
@@ -40,19 +40,175 @@ export const hotspotLeafIndex = {
       "title": "建设全国统一大市场，统一的是规则，激活的是活力"
     },
     {
-      "slug": "green-low-carbon-transition",
-      "no": "08",
-      "title": "绿色转型，不是发展的“减速键”而是增长方式的“换挡键”"
-    },
-    {
       "slug": "regional-coordinated-development",
-      "no": "09",
+      "no": "08",
       "title": "区域协调发展，不是“齐步走”而是“各展所长、彼此成就”"
     },
     {
       "slug": "private-economy-confidence",
-      "no": "10",
+      "no": "09",
       "title": "支持民营经济发展，既要政策有力度更要预期有稳定度"
+    },
+    {
+      "slug": "effective-market-proactive-government",
+      "no": "10",
+      "title": "有效市场和有为政府，不是谁替代谁，而是谁把自己的事做好"
+    }
+  ],
+  "innovation": [
+    {
+      "slug": "artificial-intelligence",
+      "no": "01",
+      "title": "人工智能越强大，越要回答“为谁所用、如何善用”"
+    },
+    {
+      "slug": "generative-ai",
+      "no": "02",
+      "title": "生成式AI改变的是工具，更考验人的判断"
+    },
+    {
+      "slug": "robots",
+      "no": "03",
+      "title": "机器人从“炫技”到“干活”，场景才是真正赛场"
+    },
+    {
+      "slug": "platform-economy",
+      "no": "04",
+      "title": "平台经济要有创新活力，也要有规则边界"
+    },
+    {
+      "slug": "new-employment",
+      "no": "05",
+      "title": "让“从新者”安心，让新就业既灵活也有保障"
+    },
+    {
+      "slug": "new-media",
+      "no": "06",
+      "title": "新媒体时代，传播可以更快但不能失真"
+    },
+    {
+      "slug": "digital-culture",
+      "no": "07",
+      "title": "数字文化，让传统“触网”更要让价值“入心”"
+    },
+    {
+      "slug": "smart-society",
+      "no": "08",
+      "title": "迈向智慧社会，技术越聪明越要让生活更简单"
+    },
+    {
+      "slug": "data-elements",
+      "no": "09",
+      "title": "激活数据要素，关键不是“数据越多越好”而是“流得动、用得好、守得住”"
+    },
+    {
+      "slug": "algorithm-governance",
+      "no": "10",
+      "title": "算法越深入生活，越要让规则“看得见、说得清、改得了”"
+    }
+  ],
+  "livelihood": [
+    {
+      "slug": "employment",
+      "no": "01",
+      "title": "稳就业，不只要有岗位，更要有质量"
+    },
+    {
+      "slug": "talent",
+      "no": "02",
+      "title": "人才工作，不能止于“抢人”更要善于“成就人”"
+    },
+    {
+      "slug": "education",
+      "no": "03",
+      "title": "办好人民满意的教育，既要公平也要优质"
+    },
+    {
+      "slug": "health",
+      "no": "04",
+      "title": "健康中国，要从“治已病”走向“护全程”"
+    },
+    {
+      "slug": "elderly-care",
+      "no": "05",
+      "title": "养老服务，既要兜住基本也要回应品质"
+    },
+    {
+      "slug": "old-and-young",
+      "no": "06",
+      "title": "托稳“一老一小”，就是托稳万千家庭的日常"
+    },
+    {
+      "slug": "invest-in-people",
+      "no": "07",
+      "title": "“投资于人”，投的是当下民生，更是未来发展"
+    },
+    {
+      "slug": "birth-support-system",
+      "no": "08",
+      "title": "完善生育支持，不能只谈“愿不愿生”更要回应“养得起、带得好”"
+    },
+    {
+      "slug": "vocational-education",
+      "no": "09",
+      "title": "职业教育，不是“低一等的选择”而是成才的重要赛道"
+    },
+    {
+      "slug": "social-security-safety-net",
+      "no": "10",
+      "title": "织密社会保障网，既要兜住困难也要托起发展信心"
+    }
+  ],
+  "ecology": [
+    {
+      "slug": "sponge-city",
+      "no": "01",
+      "title": "建设海绵城市，让城市既会“呼吸”也能“应急”"
+    },
+    {
+      "slug": "green-low-carbon-transition",
+      "no": "02",
+      "title": "绿色转型，不是发展的“减速键”而是增长方式的“换挡键”"
+    },
+    {
+      "slug": "beautiful-china",
+      "no": "03",
+      "title": "建设美丽中国，既要天蓝水清也要百姓可感"
+    },
+    {
+      "slug": "carbon-peak-neutrality",
+      "no": "04",
+      "title": "实现“双碳”目标，急不得也等不得"
+    },
+    {
+      "slug": "eco-civilization-system",
+      "no": "05",
+      "title": "生态文明建设，靠一时用力更靠制度管长远"
+    },
+    {
+      "slug": "eco-product-value",
+      "no": "06",
+      "title": "绿水青山变成金山银山，要靠机制不能靠等待"
+    },
+    {
+      "slug": "biodiversity",
+      "no": "07",
+      "title": "保护生物多样性，守的是自然家底也是发展底线"
+    },
+    {
+      "slug": "pollution-control",
+      "no": "08",
+      "title": "打好污染防治攻坚战，越到后期越要盯住细处"
+    },
+    {
+      "slug": "waste-sorting-circular",
+      "no": "09",
+      "title": "垃圾分类难在坚持，贵在把废物变成资源"
+    },
+    {
+      "slug": "desertification-control",
+      "no": "10",
+      "title": "治沙造林，比种下去更难的是活下来"
     }
   ],
   "culture": [
@@ -107,59 +263,111 @@ export const hotspotLeafIndex = {
       "title": "非遗传承，传的不是一个“老物件”而是一门活的生活技艺"
     }
   ],
-  "people": [
+  "civility": [
     {
-      "slug": "employment",
+      "slug": "ideals-faith",
       "no": "01",
-      "title": "稳就业，不只要有岗位，更要有质量"
+      "title": "理想信念，是走远路时最稳的方向感"
     },
     {
-      "slug": "talent",
+      "slug": "dedication",
       "no": "02",
-      "title": "人才工作，不能止于“抢人”更要善于“成就人”"
+      "title": "无私奉献，不是没有个人选择而是心中装着更大价值"
     },
     {
-      "slug": "education",
+      "slug": "integrity-innovation",
       "no": "03",
-      "title": "办好人民满意的教育，既要公平也要优质"
+      "title": "守正创新，既不能丢掉根本也不能停在原地"
     },
     {
-      "slug": "health",
+      "slug": "core-socialist-values",
       "no": "04",
-      "title": "健康中国，要从“治已病”走向“护全程”"
+      "title": "培育核心价值观，重在日用而不觉"
     },
     {
-      "slug": "elderly-care",
+      "slug": "citizen-morality",
       "no": "05",
-      "title": "养老服务，既要兜住基本也要回应品质"
+      "title": "公民道德建设，从管好自己的言行做起"
     },
     {
-      "slug": "old-and-young",
+      "slug": "social-credit",
       "no": "06",
-      "title": "托稳“一老一小”，就是托稳万千家庭的日常"
+      "title": "建设诚信社会，让守信者通行让失信者受限"
     },
     {
-      "slug": "invest-in-people",
+      "slug": "changing-customs",
       "no": "07",
-      "title": "“投资于人”，投的是当下民生，更是未来发展"
+      "title": "移风易俗，要减负担更要顺人心"
     },
     {
-      "slug": "birth-support-system",
+      "slug": "volunteer-service",
       "no": "08",
-      "title": "完善生育支持，不能只谈“愿不愿生”更要回应“养得起、带得好”"
+      "title": "志愿服务，贵在专业更贵在持久"
     },
     {
-      "slug": "vocational-education",
+      "slug": "family-tradition",
       "no": "09",
-      "title": "职业教育，不是“低一等的选择”而是成才的重要赛道"
+      "title": "注重家风建设，家庭的底色决定社会的成色"
     },
     {
-      "slug": "social-security-safety-net",
+      "slug": "online-civility",
       "no": "10",
-      "title": "织密社会保障网，既要兜住困难也要托起发展信心"
+      "title": "网络文明，屏幕背后同样是真实的人"
     }
   ],
-  "government": [
+  "cadre": [
+    {
+      "slug": "investigation-research",
+      "no": "01",
+      "title": "调查研究，脚下沾泥才能心中有数"
+    },
+    {
+      "slug": "responsibility",
+      "no": "02",
+      "title": "责任担当，不是逞强蛮干而是该出手时能扛事"
+    },
+    {
+      "slug": "rooted-grassroots",
+      "no": "03",
+      "title": "扎根基层，不是“熬资历”而是在一线长本事"
+    },
+    {
+      "slug": "struggle-pragmatism",
+      "no": "04",
+      "title": "奋斗实干，既要肯干也要会干、干成"
+    },
+    {
+      "slug": "mass-line",
+      "no": "05",
+      "title": "群众路线，走的是脚步更是立场"
+    },
+    {
+      "slug": "correct-performance-view",
+      "no": "06",
+      "title": "正确政绩观，既看显绩更看潜绩，既看当下更看长远"
+    },
+    {
+      "slug": "learning-and-capability",
+      "no": "07",
+      "title": "善于学习，学的不是“知识库存”而是解决新问题的能力"
+    },
+    {
+      "slug": "long-termism-nailing-spirit",
+      "no": "08",
+      "title": "久久为功，难的不是“开始做”而是“一件接着一件做”"
+    },
+    {
+      "slug": "fault-tolerance-mechanism",
+      "no": "09",
+      "title": "为担当者担当，容错纠错要容得实也纠得准"
+    },
+    {
+      "slug": "young-cadre-growth",
+      "no": "10",
+      "title": "年轻干部成长，要在吃劲岗位上真正经事"
+    }
+  ],
+  "service": [
     {
       "slug": "streamline-government-services",
       "no": "01",
@@ -176,109 +384,94 @@ export const hotspotLeafIndex = {
       "title": "数字政府，不能只“上云”更要“入心”"
     },
     {
-      "slug": "investigation-research",
-      "no": "04",
-      "title": "调查研究，脚下沾泥才能心中有数"
-    },
-    {
       "slug": "tight-budget-government",
-      "no": "05",
+      "no": "04",
       "title": "政府过紧日子，为的是让百姓过好日子"
     },
     {
       "slug": "business-environment",
-      "no": "06",
+      "no": "05",
       "title": "优化营商环境，最好的政策是稳定的预期"
     },
     {
       "slug": "standardized-government-service",
-      "no": "07",
+      "no": "06",
       "title": "政务服务标准化规范化便利化，最终都要落到“好办事”"
     },
     {
       "slug": "open-government",
-      "no": "08",
+      "no": "07",
       "title": "建设阳光政府，让权力在公开中运行、在监督中规范"
     },
     {
       "slug": "policy-implementation-closed-loop",
-      "no": "09",
+      "no": "08",
       "title": "抓落实，不能只看“部署了没有”更要看“问题解决了没有”"
     },
     {
-      "slug": "effective-market-proactive-government",
+      "slug": "government-service-window",
+      "no": "09",
+      "title": "窗口服务的温度，藏在办事群众的表情里"
+    },
+    {
+      "slug": "inclusive-public-service",
       "no": "10",
-      "title": "有效市场和有为政府，不是谁替代谁，而是谁把自己的事做好"
+      "title": "公共服务均等化，重点在补上最短的那块板"
     }
   ],
   "grassroots": [
     {
-      "slug": "rural-revitalization",
-      "no": "01",
-      "title": "乡村振兴，振的是产业更是乡村整体活力"
-    },
-    {
       "slug": "grassroots-governance",
-      "no": "02",
+      "no": "01",
       "title": "基层治理，关键是把“最后一公里”走成“最暖一公里”"
     },
     {
-      "slug": "thousand-villages-project",
-      "no": "03",
-      "title": "读懂“千万工程”，不能只学环境整治的表面"
-    },
-    {
       "slug": "four-grassroots",
-      "no": "04",
+      "no": "02",
       "title": "“四下基层”，下的是基层，连的是民心"
     },
     {
       "slug": "fengqiao-experience",
-      "no": "05",
+      "no": "03",
       "title": "新时代“枫桥经验”，贵在矛盾不上交、服务不缺位"
     },
     {
       "slug": "liuchixiang-method",
-      "no": "06",
+      "no": "04",
       "title": "“六尺巷工作法”，让礼让有温度、调解有尺度"
     },
     {
       "slug": "four-governance",
-      "no": "07",
+      "no": "05",
       "title": "自治、法治、德治、智治，要各有其位更要协同发力"
     },
     {
       "slug": "grassroots-burden-reduction",
-      "no": "08",
+      "no": "06",
       "title": "基层减负，减的是无谓负担，增的是干事效能"
     },
     {
       "slug": "community-governance",
-      "no": "09",
+      "no": "07",
       "title": "社区治理，要在“家门口”把民生小事办好"
     },
     {
       "slug": "urban-governance",
-      "no": "10",
+      "no": "08",
       "title": "城市治理，要像绣花一样精细，也要像生命体一样协同"
     },
     {
       "slug": "smart-city",
-      "no": "11",
+      "no": "09",
       "title": "智慧城市，智慧不只在“屏”上更要在治理中"
     },
     {
       "slug": "refined-city-management",
-      "no": "12",
+      "no": "10",
       "title": "精细化治理，要从“差不多”走向“刚刚好”"
-    },
-    {
-      "slug": "sponge-city",
-      "no": "13",
-      "title": "建设海绵城市，让城市既会“呼吸”也能“应急”"
     }
   ],
-  "law": [
+  "enforcement": [
     {
       "slug": "rule-of-law",
       "no": "01",
@@ -335,108 +528,56 @@ export const hotspotLeafIndex = {
       "title": "高素质执法队伍，既要懂法律也要懂群众"
     }
   ],
-  "values": [
+  "rural": [
     {
-      "slug": "ideals-faith",
+      "slug": "rural-revitalization",
       "no": "01",
-      "title": "理想信念，是走远路时最稳的方向感"
+      "title": "乡村振兴，振的是产业更是乡村整体活力"
     },
     {
-      "slug": "responsibility",
+      "slug": "thousand-villages-project",
       "no": "02",
-      "title": "责任担当，不是逞强蛮干而是该出手时能扛事"
+      "title": "读懂“千万工程”，不能只学环境整治的表面"
     },
     {
-      "slug": "dedication",
+      "slug": "food-security",
       "no": "03",
-      "title": "无私奉献，不是没有个人选择而是心中装着更大价值"
+      "title": "粮食安全这根弦，丰年也不能松"
     },
     {
-      "slug": "rooted-grassroots",
+      "slug": "harmonious-villages",
       "no": "04",
-      "title": "扎根基层，不是“熬资历”而是在一线长本事"
+      "title": "建设和美乡村，既要村容整洁也要人心和顺"
     },
     {
-      "slug": "struggle-pragmatism",
+      "slug": "rural-living-environment",
       "no": "05",
-      "title": "奋斗实干，既要肯干也要会干、干成"
+      "title": "农村人居环境整治，难在长效不在一次动员"
     },
     {
-      "slug": "integrity-innovation",
+      "slug": "rural-industry-integration",
       "no": "06",
-      "title": "守正创新，既不能丢掉根本也不能停在原地"
+      "title": "发展乡村产业，要种得好也要卖得好"
     },
     {
-      "slug": "mass-line",
+      "slug": "rural-talent",
       "no": "07",
-      "title": "群众路线，走的是脚步更是立场"
+      "title": "乡村振兴的关键在人，难点也在人"
     },
     {
-      "slug": "correct-performance-view",
+      "slug": "rural-culture-revitalization",
       "no": "08",
-      "title": "正确政绩观，既看显绩更看潜绩，既看当下更看长远"
+      "title": "乡村文化振兴，要留住乡愁也要接上时代"
     },
     {
-      "slug": "learning-and-capability",
+      "slug": "consolidate-poverty-alleviation",
       "no": "09",
-      "title": "善于学习，学的不是“知识库存”而是解决新问题的能力"
+      "title": "巩固脱贫成果，防返贫比促增收更需要紧盯"
     },
     {
-      "slug": "long-termism-nailing-spirit",
+      "slug": "new-agricultural-entities",
       "no": "10",
-      "title": "久久为功，难的不是“开始做”而是“一件接着一件做”"
-    }
-  ],
-  "era": [
-    {
-      "slug": "artificial-intelligence",
-      "no": "01",
-      "title": "人工智能越强大，越要回答“为谁所用、如何善用”"
-    },
-    {
-      "slug": "generative-ai",
-      "no": "02",
-      "title": "生成式AI改变的是工具，更考验人的判断"
-    },
-    {
-      "slug": "robots",
-      "no": "03",
-      "title": "机器人从“炫技”到“干活”，场景才是真正赛场"
-    },
-    {
-      "slug": "platform-economy",
-      "no": "04",
-      "title": "平台经济要有创新活力，也要有规则边界"
-    },
-    {
-      "slug": "new-employment",
-      "no": "05",
-      "title": "让“从新者”安心，让新就业既灵活也有保障"
-    },
-    {
-      "slug": "new-media",
-      "no": "06",
-      "title": "新媒体时代，传播可以更快但不能失真"
-    },
-    {
-      "slug": "digital-culture",
-      "no": "07",
-      "title": "数字文化，让传统“触网”更要让价值“入心”"
-    },
-    {
-      "slug": "smart-society",
-      "no": "08",
-      "title": "迈向智慧社会，技术越聪明越要让生活更简单"
-    },
-    {
-      "slug": "data-elements",
-      "no": "09",
-      "title": "激活数据要素，关键不是“数据越多越好”而是“流得动、用得好、守得住”"
-    },
-    {
-      "slug": "algorithm-governance",
-      "no": "10",
-      "title": "算法越深入生活，越要让规则“看得见、说得清、改得了”"
+      "title": "培育新型农业经营主体，要把小农户带进现代农业"
     }
   ]
 } as const satisfies Record<string, readonly WritingLeafIndexItem[]>;

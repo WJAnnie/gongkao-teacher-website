@@ -103,6 +103,13 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'ideals-faith': 'civility',
   'dedication': 'civility',
   'integrity-innovation': 'civility',
+  'core-socialist-values': 'civility',
+  'citizen-morality': 'civility',
+  'social-credit': 'civility',
+  'changing-customs': 'civility',
+  'volunteer-service': 'civility',
+  'family-tradition': 'civility',
+  'online-civility': 'civility',
 
   // 07 干部观念
   'responsibility': 'cadre',
@@ -113,6 +120,8 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'learning-and-capability': 'cadre',
   'long-termism-nailing-spirit': 'cadre',
   'investigation-research': 'cadre',
+  'fault-tolerance-mechanism': 'cadre',
+  'young-cadre-growth': 'cadre',
 
   // 08 公共服务
   'streamline-government-services': 'service',
@@ -123,6 +132,8 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'standardized-government-service': 'service',
   'open-government': 'service',
   'policy-implementation-closed-loop': 'service',
+  'government-service-window': 'service',
+  'inclusive-public-service': 'service',
 
   // 09 基层治理
   'grassroots-governance': 'grassroots',
@@ -152,4 +163,12 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   // 11 乡村振兴
   'rural-revitalization': 'rural',
   'thousand-villages-project': 'rural',
+  'food-security': 'rural',
+  'harmonious-villages': 'rural',
+  'rural-living-environment': 'rural',
+  'rural-industry-integration': 'rural',
+  'rural-talent': 'rural',
+  'rural-culture-revitalization': 'rural',
+  'consolidate-poverty-alleviation': 'rural',
+  'new-agricultural-entities': 'rural',
 };

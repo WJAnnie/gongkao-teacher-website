@@ -56,7 +56,8 @@ test('every hotspot article satisfies the content quality contract', async () =>
     }
   }
 
-  assert.equal(articleCount, 84, '热点文章全库数量应与导航索引一致');
+  const expectedCount = hotspotIndex.reduce((sum, item) => sum + item.count, 0);
+  assert.equal(articleCount, expectedCount, '热点文章全库数量应与导航索引一致');
   for (const label of requiredLabels) assert.ok(seenLabels.has(label), `全库缺少${label}标注`);
 });
 

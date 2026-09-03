@@ -4,7 +4,7 @@
 import type { HotspotArticle } from './writing-hotspot-schema.ts';
 
 export async function loadAllHotspotArticles(): Promise<HotspotArticle[]> {
-  const [development, culture, people, government, grassroots, law, values, era, extras, expansion, additions, ecologyAdditions, ecologyMore] = await Promise.all([
+  const [development, culture, people, government, grassroots, law, values, era, extras, expansion, additions, ecologyAdditions, ecologyMore, ruralAdditions, civilityCadreService] = await Promise.all([
     import('./writing-hotspot-development.ts'),
     import('./writing-hotspot-culture.ts'),
     import('./writing-hotspot-people.ts'),
@@ -18,6 +18,8 @@ export async function loadAllHotspotArticles(): Promise<HotspotArticle[]> {
     import('./writing-hotspot-additions.ts'),
     import('./writing-hotspot-ecology-additions.ts'),
     import('./writing-hotspot-ecology-more.ts'),
+    import('./writing-hotspot-rural-additions.ts'),
+    import('./writing-hotspot-civility-cadre-service.ts'),
   ]);
 
   const collected: HotspotArticle[] = [
@@ -36,6 +38,10 @@ export async function loadAllHotspotArticles(): Promise<HotspotArticle[]> {
     ...ecologyAdditions.ecologyAdditionArticles,
     ...ecologyAdditions.ecologyBatchTwo,
     ...ecologyMore.ecologyMoreArticles,
+    ...ruralAdditions.ruralAdditionArticles,
+    ...civilityCadreService.civilityAdditionArticles,
+    ...civilityCadreService.cadreAdditionArticles,
+    ...civilityCadreService.serviceAdditionArticles,
   ];
 
   const bySlug = new Map<string, HotspotArticle>();

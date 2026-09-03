@@ -24,7 +24,6 @@ function hash(input: string) {
 function tidyText(text: string) {
   return text
     .trim()
-    .replace(/increasingly use video, sensing and online data for non-on-site supervision。/g, '逐步运用视频监控、智能感知和线上数据开展非现场监管。')
     .replace(/。。+/g, '。')
     .replace(/，，+/g, '，')
     .replace(/；。/g, '。')
