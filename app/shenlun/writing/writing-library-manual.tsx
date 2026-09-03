@@ -159,7 +159,7 @@ function SecondaryDirectory({ active, items, label, onSelect }: {
 export function WritingLibraryManual() {
   const { activeId, activateChapter } = useLearningChapterNavigation();
   const activeLayer = (activeId.replace('writing-', '') || 'hotspots') as WritingLayerKey;
-  const [hotspotKey, setHotspotKey] = useState<HotspotIndexItem['key']>('development');
+  const [hotspotKey, setHotspotKey] = useState<HotspotIndexItem['key']>('economy');
   const [hotspotCategory, setHotspotCategory] = useState<HotspotCategory | null>(null);
   const [hotspotState, setHotspotState] = useState<LoadState>('idle');
   const [hotspotReload, setHotspotReload] = useState(0);
