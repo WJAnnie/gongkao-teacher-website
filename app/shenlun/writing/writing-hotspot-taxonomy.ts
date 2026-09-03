@@ -79,6 +79,13 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'green-low-carbon-transition': 'ecology',
   'sponge-city': 'ecology',
   'beautiful-china': 'ecology',
+  'carbon-peak-neutrality': 'ecology',
+  'eco-civilization-system': 'ecology',
+  'eco-product-value': 'ecology',
+  'biodiversity': 'ecology',
+  'pollution-control': 'ecology',
+  'waste-sorting-circular': 'ecology',
+  'desertification-control': 'ecology',
 
   // 05 文化勃兴
   'cultural-confidence': 'culture',

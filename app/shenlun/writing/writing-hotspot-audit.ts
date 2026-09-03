@@ -53,10 +53,25 @@ function auditSectionTitle(title: string, slug: string) {
   return value;
 }
 
+// 与语料包同理：11 个新分类映射到原有的过渡词组，
+// 避免所有新分类共用同一组连接词。
+const transitionAliases: Record<string, string> = {
+  economy: 'development',
+  innovation: 'era',
+  livelihood: 'people',
+  ecology: 'development',
+  civility: 'values',
+  cadre: 'values',
+  service: 'government',
+  enforcement: 'law',
+  rural: 'grassroots',
+};
+
 function thesisWithTransition(article: HotspotArticle, categoryKey: string) {
   const thesis = ensureEnd(article.thesis);
   if (existingTransitions.test(thesis)) return thesis;
-  const choices = transitionSets[categoryKey] ?? transitionSets.era;
+  const packKey = transitionAliases[categoryKey] ?? categoryKey;
+  const choices = transitionSets[packKey] ?? transitionSets.era;
   return `${choices[hash(article.slug) % choices.length]}${thesis}`;
 }
 
