@@ -13,7 +13,7 @@ import {
 import { flushSync } from 'react-dom';
 import type { LearningMacroChapter } from './learning-routes';
 
-type ActivationOrigin = 'hero' | 'directory';
+type ActivationOrigin = 'hero' | 'directory' | 'restore';
 type ViewTransitionHandle = { finished: Promise<void> };
 type ViewTransitionDocument = Document & {
   startViewTransition?: (update: () => void) => ViewTransitionHandle;
@@ -174,10 +174,14 @@ export function LearningChapterProvider({
         return false;
       }
       flushSync(() => setArrivingId(id));
-      target.scrollIntoView({
-        behavior: reducedMotion || origin === 'hero' ? 'auto' : 'smooth',
-        block: 'start',
-      });
+      // origin === 'restore' 表示首次进入时按地址栏 hash 还原栏目，
+      // 此时不能滚动，否则会越过首屏直接落到正文。
+      if (origin !== 'restore') {
+        target.scrollIntoView({
+          behavior: reducedMotion || origin === 'hero' ? 'auto' : 'smooth',
+          block: 'start',
+        });
+      }
       if (mobile && origin === 'hero') window.setTimeout(() => directoryInitialFocus()?.focus(), 0);
       if (mobile && origin === 'directory') restoreDrawerFocus();
       return true;

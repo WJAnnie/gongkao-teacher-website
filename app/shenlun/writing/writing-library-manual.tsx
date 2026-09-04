@@ -255,7 +255,7 @@ export function WritingLibraryManual() {
     const stored = window.sessionStorage.getItem(`writing-library-last-${requestedLayer}`)?.split('/') ?? [];
     const parts = hashParts.length ? hashParts : stored;
     const timer = window.setTimeout(() => {
-      activateChapter(`writing-${requestedLayer}`, null, 'directory');
+      activateChapter(`writing-${requestedLayer}`, null, 'restore');
       if (requestedLayer === 'hotspots' && hotspotIndex.some((item) => item.key === parts[1])) openHotspot(parts[1] as HotspotIndexItem['key'], parts[2]);
       if (requestedLayer === 'cases' && caseIndex.some((item) => item.key === parts[1])) openCase(parts[1] as CaseIndexItem['key'], parts[2]);
       if (['terms', 'parallel', 'sentences', 'quotes', 'essay'].includes(requestedLayer) && parts[1]) {

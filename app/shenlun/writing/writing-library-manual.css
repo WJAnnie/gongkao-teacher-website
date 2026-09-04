@@ -56,10 +56,10 @@
 .writing-library-search {
   position: relative;
   z-index: 3;
-  margin-bottom: 16px;
-  padding: 14px;
-  border: 1px solid var(--learning-border);
-  background: color-mix(in srgb, var(--learning-paper-raised) 92%, white);
+  margin-bottom: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .writing-library-search > label {
@@ -145,53 +145,62 @@
 .writing-inline-disclosure-item > button small { display: block; overflow: hidden; color: var(--learning-muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .writing-inline-disclosure-body { margin: 0 0 10px; padding: 0 0 26px; }
 
-.writing-editorial-paper { padding: clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px) 0; border: 0; border-top: 2px solid var(--module-accent); background: transparent; box-shadow: none; }
+.writing-editorial-paper { padding: clamp(26px, 3.5vw, 40px) 0 clamp(28px, 4vw, 46px); border: 0; border-top: 2px solid var(--module-accent); background: transparent; box-shadow: none; }
 .writing-editorial-paper p { max-width: 74ch; margin: 0 0 1.45em; font: 16px/2 "Songti SC", serif; text-indent: 2em; }
 .writing-editorial-paper h3 { margin: 2em 0 .65em; color: var(--module-accent); font: 600 19px/1.5 "Songti SC", serif; }
 .writing-editorial-paper .writing-paper-intro { font-size: 18px; }
 .writing-editorial-paper .writing-paper-inline-thesis, .writing-editorial-paper .writing-paper-inline-point { font-weight: 600; color: var(--module-accent); }
 .writing-editorial-paper .writing-paper-point { padding-left: 1.1em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 32%, transparent); }
-.writing-editorial-paper > header { margin-bottom: 1.6em; padding-bottom: .8em; border-bottom: 1px solid var(--learning-border); }
-.writing-editorial-paper > header h2 { margin: 0; font: 600 clamp(22px, 2.6vw, 28px)/1.45 "Songti SC", serif; }
+.writing-editorial-paper > header { margin-bottom: 1.7em; padding-bottom: .9em; border-bottom: 1px solid var(--learning-border); text-align: center; }
+.writing-editorial-paper > header h2 { margin: 0; font: 600 clamp(24px, 3vw, 32px)/1.5 "Songti SC", serif; }
 
-.writing-term-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: stretch; }
-.writing-term-compare article { min-height: 180px; padding: 28px; border: 1px solid var(--learning-border); background: var(--learning-paper-raised); }
-.writing-term-compare article:last-child { border-color: var(--module-accent); background: color-mix(in srgb, var(--module-accent) 7%, var(--learning-paper-raised)); }
-.writing-term-compare span { color: var(--module-accent); font-size: 11px; }
-.writing-term-compare p { margin: 24px 0 0; font: 600 24px/1.5 "Songti SC", serif; }
+.writing-case-article > header { display: grid; justify-items: center; gap: 12px; }
+.writing-case-article > header > span { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--module-accent); border-radius: 50%; color: var(--module-accent); font: 500 20px/1 "Songti SC", serif; }
+.writing-case-article > header p { max-width: none; margin: 0 0 10px; color: var(--module-accent); font-size: 11px; letter-spacing: .12em; text-indent: 0; }
+.writing-case-article > header em { display: block; margin-top: 12px; color: var(--learning-muted); font: normal 11px/1.7 inherit; }
+
+.writing-placeholder-article { padding: 30px 0 6px; }
+.writing-placeholder-article > span { color: var(--module-accent); font-size: 11px; letter-spacing: .12em; }
+.writing-placeholder-article h2 { margin: 12px 0 10px; font: 500 22px/1.5 "Songti SC", serif; }
+.writing-placeholder-article p { margin: 0; max-width: 66ch; color: var(--learning-muted); font-size: 13px; line-height: 1.95; }
+.writing-library-back { margin-top: 18px; padding: 9px 16px; border: 1px solid var(--module-accent); background: transparent; color: var(--module-accent); font-size: 12px; cursor: pointer; }
+
+.writing-term-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 22px; align-items: start; }
+.writing-term-compare article { min-height: 0; padding: 0 0 0 1.1em; border: 0; border-left: 2px solid var(--learning-border); background: transparent; }
+.writing-term-compare article:last-child { border-left-color: color-mix(in srgb, var(--module-accent) 45%, transparent); }
+.writing-term-compare span { color: var(--learning-muted); font-size: 11px; letter-spacing: .1em; }
+.writing-term-compare article:last-child span { color: var(--module-accent); }
+.writing-term-compare p { margin: 12px 0 0; color: color-mix(in srgb, var(--learning-ink) 58%, transparent); font: 600 21px/1.6 "Songti SC", serif; }
+.writing-term-compare article:last-child p { color: var(--learning-ink); }
 .writing-term-compare > i { align-self: center; color: var(--module-accent); font-style: normal; }
-.writing-term-workbench > aside { margin-top: 18px; padding: 20px 24px; border-left: 4px solid var(--module-accent); background: color-mix(in srgb, var(--module-accent) 5%, transparent); }
-.writing-term-workbench > aside p { margin: 6px 0 0; line-height: 1.8; }
+.writing-term-workbench aside { margin-top: 26px; padding: 0 0 0 1.1em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 40%, transparent); background: transparent; }
+.writing-term-workbench aside b { color: var(--module-accent); font-size: 11px; letter-spacing: .1em; }
+.writing-term-workbench aside p { margin: 8px 0 0; color: var(--learning-muted); font-size: 13px; line-height: 1.95; }
 
-.writing-parallel-list { display: grid; gap: 12px; }
-.writing-parallel-list article { display: grid; grid-template-columns: 42px 1fr; border: 1px solid var(--learning-border); background: var(--learning-paper-raised); }
-.writing-parallel-list article > span { padding: 20px 10px; color: var(--module-accent); font: italic 11px Georgia, serif; text-align: center; }
-.writing-parallel-list article > div { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 20px; padding: 18px 22px; border-left: 1px solid var(--learning-border); }
-.writing-parallel-list p { margin: 0; font: 600 16px/1.6 "Songti SC", serif; }
-.writing-parallel-list i { background: var(--module-accent); opacity: .35; }
-.writing-parallel-list em { grid-column: 1 / -1; color: var(--learning-muted); font: normal 11px/1.6 inherit; }
+.writing-parallel-list { display: grid; gap: 0; }
+.writing-parallel-list article { display: grid; grid-template-columns: 42px minmax(0, 1fr); border: 0; border-top: 1px solid var(--learning-border); background: transparent; }
+.writing-parallel-list article > span { padding: 22px 10px 0 0; color: var(--module-accent); font: italic 11px Georgia, serif; text-align: left; }
+.writing-parallel-list article > div { display: grid; grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr); gap: 20px; padding: 20px 0 22px; border-left: 0; }
+.writing-parallel-list p { margin: 0; font: 600 16px/1.75 "Songti SC", serif; }
+.writing-parallel-list i { background: var(--module-accent); opacity: .3; }
+.writing-parallel-list em { grid-column: 1 / -1; color: var(--learning-muted); font: normal 11px/1.75 inherit; }
 
-.writing-sentence-notebook { padding: 0 34px 44px; background: repeating-linear-gradient(to bottom, transparent 0 37px, color-mix(in srgb, var(--module-accent) 18%, transparent) 38px), var(--learning-paper-raised); }
-.writing-sentence-notebook .writing-breadcrumb { padding-top: 24px; }
-.writing-sentence-notebook > header { background: var(--learning-paper-raised); }
-.writing-sentence-notebook blockquote { margin: 70px 5vw; color: var(--learning-ink); font: 500 clamp(24px, 4vw, 38px)/1.75 "Kaiti SC", "STKaiti", serif; }
-.writing-copy-practice { padding: 16px 20px; border-left: 3px solid var(--module-accent); background: color-mix(in srgb, var(--module-accent) 7%, var(--learning-paper-raised)); color: var(--learning-muted); line-height: 1.8; }
+.writing-sentence-notebook { padding: 0; background: transparent; }
+.writing-sentence-notebook blockquote { margin: 2px 0 22px; padding-left: 1.15em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 40%, transparent); color: var(--learning-ink); font: 500 clamp(21px, 2.8vw, 30px)/1.8 "Kaiti SC", "STKaiti", serif; }
+.writing-copy-practice { margin: 0; padding: 0; border: 0; background: transparent; color: var(--learning-muted); font-size: 13px; line-height: 1.95; }
 
-.writing-quote-card > blockquote { position: relative; margin: 0; padding: 52px clamp(30px, 6vw, 76px); border: 1px solid var(--module-accent); color: var(--module-accent); font: 500 clamp(26px, 4vw, 42px)/1.6 "Kaiti SC", "STKaiti", serif; text-align: center; }
-.writing-quote-card > blockquote::before { content: '“'; position: absolute; top: 12px; left: 20px; opacity: .25; font: 80px/1 Georgia, serif; }
-.writing-quote-card > div:last-child { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 18px; background: var(--learning-border); border: 1px solid var(--learning-border); }
-.writing-quote-card > div article { padding: 24px; background: var(--learning-paper-raised); }
-.writing-quote-card > div b { color: var(--module-accent); font-size: 12px; }
-.writing-quote-card > div p { margin: 10px 0 0; line-height: 1.8; }
+.writing-quote-card blockquote { margin: 2px 0 24px; padding-left: 1.15em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 40%, transparent); color: var(--module-accent); font: 500 clamp(21px, 2.8vw, 30px)/1.75 "Kaiti SC", "STKaiti", serif; }
+.writing-quote-card .writing-inline-disclosure-body > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 34px; margin: 0; border: 0; background: transparent; }
+.writing-quote-card .writing-inline-disclosure-body article { padding: 0; background: transparent; }
+.writing-quote-card .writing-inline-disclosure-body b { color: var(--module-accent); font-size: 11px; letter-spacing: .1em; }
+.writing-quote-card .writing-inline-disclosure-body p { margin: 9px 0 0; color: var(--learning-muted); font-size: 13px; line-height: 1.95; }
 
-.writing-blueprint-track { display: grid; grid-template-columns: repeat(6, 1fr); margin-bottom: 22px; border: 1px solid var(--learning-border); }
-.writing-blueprint-track > span { display: grid; gap: 6px; padding: 14px 8px; border-right: 1px solid var(--learning-border); color: var(--learning-muted); font: italic 10px Georgia, serif; text-align: center; }
-.writing-blueprint-track > span:last-child { border-right: 0; }
+.writing-blueprint-track { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin-bottom: 26px; border: 0; border-bottom: 1px solid var(--learning-border); }
+.writing-blueprint-track > span { display: grid; gap: 6px; margin-bottom: -1px; padding: 12px 6px 13px; border: 0; border-bottom: 2px solid transparent; color: var(--learning-muted); font: italic 10px Georgia, serif; text-align: center; }
 .writing-blueprint-track b { font: 500 11px/1.3 inherit; }
-.writing-blueprint-track > span.active { color: white; background: var(--module-accent); }
-.writing-essay-blueprint > article { min-height: 240px; padding: clamp(30px, 6vw, 62px); border: 1px solid var(--module-accent); background: linear-gradient(135deg, color-mix(in srgb, var(--module-accent) 7%, transparent), transparent 55%); }
-.writing-essay-blueprint > article span { color: var(--module-accent); font-size: 11px; letter-spacing: .12em; }
-.writing-essay-blueprint > article p { max-width: 700px; margin: 30px 0 0; font: 500 20px/1.9 "Songti SC", serif; }
+.writing-blueprint-track > span.active { border-bottom-color: var(--module-accent); background: transparent; color: var(--module-accent); }
+.writing-essay-blueprint .writing-editorial-paper > span { display: block; margin-bottom: 14px; color: var(--module-accent); font-size: 11px; letter-spacing: .12em; }
+.writing-essay-blueprint .writing-editorial-paper p { font-size: 17px; line-height: 2.05; }
 
 @keyframes writing-content-arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
@@ -223,11 +232,11 @@
   .learning-page-frame.writing .learning-chapter-strip > button { grid-template-columns: 24px minmax(0, 1fr); min-width: 0; padding-inline: 9px; }
   .learning-page-frame.writing .learning-chapter-strip > button > b { min-width: 0; white-space: nowrap; }
   .learning-page-frame.writing .learning-content-frame { width: min(100% - 28px, 720px); }
-  .writing-inline-disclosure > header { padding: 22px 20px 14px; }
-  .writing-inline-disclosure-item { margin: 0 20px; }
+  .writing-inline-disclosure > header { padding: 4px 0 14px; }
+  .writing-inline-disclosure-item { margin: 0; }
   .writing-inline-disclosure-item > button { padding: 14px 2px; }
-  .writing-inline-disclosure-body { padding: 4px 12px 22px; }
-  .writing-quote-card > div:last-child { grid-template-columns: 1fr; }
+  .writing-inline-disclosure-body { padding: 0 0 22px; }
+  .writing-quote-card .writing-inline-disclosure-body > div { grid-template-columns: 1fr; }
   .writing-term-compare { grid-template-columns: 1fr; }
   .writing-term-compare > i { transform: rotate(90deg); justify-self: center; }
   .writing-parallel-list article > div { grid-template-columns: 1fr; gap: 10px; }
