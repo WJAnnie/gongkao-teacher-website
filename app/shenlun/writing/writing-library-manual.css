@@ -145,8 +145,8 @@
 .writing-inline-disclosure-item > button small { display: block; overflow: hidden; color: var(--learning-muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .writing-inline-disclosure-body { margin: 0 0 10px; padding: 0 0 26px; }
 
-.writing-editorial-paper { padding: clamp(26px, 3.5vw, 40px) 0 clamp(28px, 4vw, 46px); border: 0; border-top: 2px solid var(--module-accent); background: transparent; box-shadow: none; }
-.writing-editorial-paper p { max-width: 74ch; margin: 0 0 1.45em; font: 16px/2 "Songti SC", serif; text-indent: 2em; }
+.writing-editorial-paper { max-width: 46em; margin-inline: auto; padding: clamp(26px, 3.5vw, 40px) 0 clamp(28px, 4vw, 46px); border: 0; border-top: 2px solid var(--module-accent); background: transparent; box-shadow: none; }
+.writing-editorial-paper p { margin: 0 0 1.45em; font: 16px/2 "Songti SC", serif; text-indent: 2em; text-align: justify; text-justify: inter-ideograph; }
 .writing-editorial-paper h3 { margin: 2em 0 .65em; color: var(--module-accent); font: 600 19px/1.5 "Songti SC", serif; }
 .writing-editorial-paper .writing-paper-intro { font-size: 18px; }
 .writing-editorial-paper .writing-paper-inline-thesis, .writing-editorial-paper .writing-paper-inline-point { font-weight: 600; color: var(--module-accent); }
