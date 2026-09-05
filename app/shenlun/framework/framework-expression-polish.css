@@ -1,10 +1,4 @@
-/* 最终阅读版：目录更靠左、更窄，正文获得更多宽度 */
-.framework-content {
-  grid-template-columns: 188px minmax(0,1fr);
-  gap: clamp(22px,2.6vw,42px);
-  padding-left: clamp(12px,1.8vw,28px);
-  padding-right: clamp(28px,4.5vw,70px);
-}
+/* 目录与页边距由共享的 learning-page-frame 统一控制 */
 .framework-content .learning-reading-surface { max-width: 1180px; width: 100%; }
 
 /* 文章总标题不再抢正文 */

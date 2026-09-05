@@ -187,7 +187,17 @@
   gap: clamp(28px, 3vw, 56px);
   width: 100%;
   margin: 0;
-  padding: clamp(64px, 8vw, 118px) clamp(20px, 3vw, 48px) clamp(64px, 8vw, 118px) clamp(20px, 3vw, 44px);
+  padding: clamp(64px, 8vw, 118px) var(--learning-x) clamp(64px, 8vw, 118px) var(--learning-x);
+}
+
+/* 内容区横跨整页：目录贴左侧并与首屏文字共用页边距，正文在剩余空间居中成栏 */
+@media (min-width: 821px) {
+  .learning-page-frame .shenlun-content,
+  .learning-page-frame .interview-content {
+    width: 100%;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
 }
 
 .learning-page-frame .learning-content-frame.has-secondary-directory {

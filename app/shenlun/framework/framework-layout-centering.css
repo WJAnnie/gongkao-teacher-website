@@ -1,5 +1,11 @@
-/* 方法框架：正文比其他学习页更宽，因为里面是分步器和能力面板，
-   不是单栏文章。目录位置与栅格由共享的 learning-page-frame.css 统一控制。 */
+/* 方法框架版面：表达规则是长文章，收窄成居中文章栏；
+   其余层（题型框架、核心能力、实用技巧）保持宽版面板，
+   目录位置与页边距由共享的 learning-page-frame.css 统一控制。 */
+.framework-content .framework-expression-layer {
+  max-width: 940px;
+  margin-inline: auto;
+}
+
 @media (min-width: 1021px) {
   .framework-content .learning-content-frame {
     --learning-reading-width: 1220px;
