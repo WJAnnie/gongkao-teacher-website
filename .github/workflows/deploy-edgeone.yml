@@ -46,5 +46,11 @@ jobs:
       - name: Verify same-origin audio asset
         run: test -s site/audio/xiang-an.mp3
 
+      # 不用 npx：在含 package-lock.json 的目录里 npx 会把包嫁接进项目树，
+      # runner 的 npm 会触发 Arborist 的 edgesOut 空指针（2026-09 起稳定复现）。
+      # 全局安装走独立树，绕开该 bug。
+      - name: Install EdgeOne CLI
+        run: npm install --global edgeone@1.6.28
+
       - name: Deploy to EdgeOne
-        run: npx --yes edgeone@1.6.28 makers deploy site --name gongkao-teacher-website --env production --area global --token "$EDGEONE_PAGES_API_TOKEN" --json
+        run: edgeone makers deploy site --name gongkao-teacher-website --env production --area global --token "$EDGEONE_PAGES_API_TOKEN" --json

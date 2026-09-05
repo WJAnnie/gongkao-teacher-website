@@ -47,5 +47,9 @@ jobs:
       - name: Verify same-origin audio asset
         run: test -s site/audio/xiang-an.mp3
 
+      # 同 deploy-edgeone.yml：npx 在项目目录触发 npm edgesOut bug，改用全局安装。
+      - name: Install EdgeOne CLI
+        run: npm install --global edgeone@1.6.28
+
       - name: Deploy preview to EdgeOne
-        run: npx --yes edgeone@1.6.28 makers deploy site --name gongkao-teacher-website-preview --env production --area global --token "$EDGEONE_PAGES_API_TOKEN" --json
+        run: edgeone makers deploy site --name gongkao-teacher-website-preview --env production --area global --token "$EDGEONE_PAGES_API_TOKEN" --json
