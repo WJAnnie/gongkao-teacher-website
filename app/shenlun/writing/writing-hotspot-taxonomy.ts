@@ -182,6 +182,16 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'investigation-research': 'cadre',
   'fault-tolerance-mechanism': 'cadre',
   'young-cadre-growth': 'cadre',
+  'clean-self-discipline': 'cadre',
+  'cadre-assessment': 'cadre',
+  'duty-sinking': 'cadre',
+  'lying-flat-rectification': 'cadre',
+  'governance-capability': 'cadre',
+  'strictness-kindness': 'cadre',
+  'style-construction': 'cadre',
+  'grassroots-incentive': 'cadre',
+  'cadre-exchange': 'cadre',
+  'media-response': 'cadre',
 
   // 08 公共服务
   'streamline-government-services': 'service',
@@ -194,6 +204,16 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'policy-implementation-closed-loop': 'service',
   'government-service-window': 'service',
   'inclusive-public-service': 'service',
+  'enterprise-service': 'service',
+  'policy-reach': 'service',
+  'hotline-efficiency': 'service',
+  'public-data': 'service',
+  'approval-reform': 'service',
+  'fair-competition': 'service',
+  'credit-regulation': 'service',
+  'tax-service': 'service',
+  'government-purchase': 'service',
+  'accessible-service': 'service',
 
   // 09 基层治理
   'grassroots-governance': 'grassroots',

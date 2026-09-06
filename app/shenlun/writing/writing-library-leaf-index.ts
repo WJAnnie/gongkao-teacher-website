@@ -665,6 +665,56 @@ export const hotspotLeafIndex = {
       "slug": "young-cadre-growth",
       "no": "10",
       "title": "年轻干部成长，要在吃劲岗位上真正经事"
+    },
+    {
+      "slug": "clean-self-discipline",
+      "no": "11",
+      "title": "廉洁自律，从政的第一粒扣子"
+    },
+    {
+      "slug": "cadre-assessment",
+      "no": "12",
+      "title": "干部考核，指挥棒决定着方向"
+    },
+    {
+      "slug": "duty-sinking",
+      "no": "13",
+      "title": "干部下沉，沉下去更要融进去"
+    },
+    {
+      "slug": "lying-flat-rectification",
+      "no": "14",
+      "title": "整治躺平式干部，让实干者不吃亏"
+    },
+    {
+      "slug": "governance-capability",
+      "no": "15",
+      "title": "治理能力，干部的必修课与常修课"
+    },
+    {
+      "slug": "strictness-kindness",
+      "no": "16",
+      "title": "严管厚爱，一体两面的组织温度"
+    },
+    {
+      "slug": "style-construction",
+      "no": "17",
+      "title": "作风建设，永远在路上没有休止符"
+    },
+    {
+      "slug": "grassroots-incentive",
+      "no": "18",
+      "title": "基层干部，既要压担子也要搭台子"
+    },
+    {
+      "slug": "cadre-exchange",
+      "no": "19",
+      "title": "干部交流，在多岗位历练中长本事"
+    },
+    {
+      "slug": "media-response",
+      "no": "20",
+      "title": "舆情素养，干部的新时代基本功"
     }
   ],
   "service": [
@@ -717,6 +767,56 @@ export const hotspotLeafIndex = {
       "slug": "inclusive-public-service",
       "no": "10",
       "title": "公共服务均等化，重点在补上最短的那块板"
+    },
+    {
+      "slug": "enterprise-service",
+      "no": "11",
+      "title": "企业服务专员，把服务送进车间里"
+    },
+    {
+      "slug": "policy-reach",
+      "no": "12",
+      "title": "政策直达快享，让红利免申即享"
+    },
+    {
+      "slug": "hotline-efficiency",
+      "no": "13",
+      "title": "接诉即办，热线电话里的治理考卷"
+    },
+    {
+      "slug": "public-data",
+      "no": "14",
+      "title": "公共数据授权运营，唤醒沉睡的资源"
+    },
+    {
+      "slug": "approval-reform",
+      "no": "15",
+      "title": "极简审批，把方便留给办事人"
+    },
+    {
+      "slug": "fair-competition",
+      "no": "16",
+      "title": "公平竞争审查，给市场立好规矩"
+    },
+    {
+      "slug": "credit-regulation",
+      "no": "17",
+      "title": "信用监管，让守信者一路绿灯"
+    },
+    {
+      "slug": "tax-service",
+      "no": "18",
+      "title": "便民办税，把申报表变薄把服务变厚"
+    },
+    {
+      "slug": "government-purchase",
+      "no": "19",
+      "title": "政府购买服务，专业的事交给专业的人"
+    },
+    {
+      "slug": "accessible-service",
+      "no": "20",
+      "title": "政务适老化，不让一位群众掉队"
     }
   ],
   "grassroots": [
