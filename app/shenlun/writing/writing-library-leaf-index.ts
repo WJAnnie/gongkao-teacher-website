@@ -600,38 +600,88 @@ export const caseLeafIndex = {
       "title": "樊锦诗：把一生交给敦煌"
     },
     {
-      "slug": "yuan-longping",
+      "slug": "jiao-yulu",
       "no": "04",
+      "title": "焦裕禄：在风沙地里找办法而不是找理由"
+    },
+    {
+      "slug": "kong-fansen",
+      "no": "05",
+      "title": "孔繁森：两次进藏，把脚印留在最偏远的地方"
+    },
+    {
+      "slug": "wang-jinxi",
+      "no": "06",
+      "title": "王进喜：“铁人”的底气来自吃过的苦"
+    },
+    {
+      "slug": "yang-shanzhou",
+      "no": "07",
+      "title": "杨善洲：退休后的二十二年在山上"
+    },
+    {
+      "slug": "wang-jicai",
+      "no": "08",
+      "title": "王继才：开山岛上的三十二年"
+    },
+    {
+      "slug": "li-baoguo",
+      "no": "09",
+      "title": "李保国：太行山上的“新愚公”"
+    },
+    {
+      "slug": "zhang-fuqing",
+      "no": "10",
+      "title": "张富清：把功名锁进箱底六十多年"
+    },
+    {
+      "slug": "shen-hao",
+      "no": "11",
+      "title": "沈浩：小岗村里两次被按下的红手印"
+    },
+    {
+      "slug": "du-fuguo",
+      "no": "12",
+      "title": "杜富国：“你退后，让我来”"
+    },
+    {
+      "slug": "laqini-bayika",
+      "no": "13",
+      "title": "拉齐尼·巴依卡：帕米尔高原上的三代护边"
+    },
+    {
+      "slug": "yuan-longping",
+      "no": "14",
       "title": "袁隆平：把论文写在稻田里"
     },
     {
       "slug": "tu-youyou",
-      "no": "05",
+      "no": "15",
       "title": "屠呦呦：从传统典籍中找到现代科学线索"
     },
     {
       "slug": "nan-rendong",
-      "no": "06",
+      "no": "16",
       "title": "南仁东：为“中国天眼”守住二十多年的目标"
     },
     {
       "slug": "huang-danian",
-      "no": "07",
+      "no": "17",
       "title": "黄大年：把个人选择放进国家需要"
     },
     {
       "slug": "zhong-yang",
-      "no": "08",
+      "no": "18",
       "title": "钟扬：把种子和知识留给未来"
     },
     {
       "slug": "qian-qihu",
-      "no": "09",
+      "no": "19",
       "title": "钱七虎：把一生研究放在国家安全底座上"
     },
     {
       "slug": "deng-qingming",
-      "no": "10",
+      "no": "20",
       "title": "邓清明：二十余年备份，不把“没有上场”当作放弃理由"
     }
   ],
@@ -652,38 +702,88 @@ export const caseLeafIndex = {
       "title": "“六尺巷工作法”：让传统礼让进入基层治理"
     },
     {
-      "slug": "pujiang-experience",
+      "slug": "huikyou-huitian",
       "no": "04",
+      "title": "北京“回天有我”：超大型社区唤醒沉睡的居民"
+    },
+    {
+      "slug": "shanghai-yiwangtongguan-shequ",
+      "no": "05",
+      "title": "上海“一网统管”：把城市当成一台机器来照看"
+    },
+    {
+      "slug": "beijing-xiaoxiangguanjia",
+      "no": "06",
+      "title": "北京“小巷管家”：把背街小巷交给走得到的人"
+    },
+    {
+      "slug": "chongqing-laoma-studio",
+      "no": "07",
+      "title": "重庆“老马工作室”：调解是一门可以传授的手艺"
+    },
+    {
+      "slug": "pudong-homefront-service",
+      "no": "08",
+      "title": "上海浦东“家门口”服务体系：把服务站开到楼组门口"
+    },
+    {
+      "slug": "hangzhou-minhu-wo-wei",
+      "no": "09",
+      "title": "杭州“民呼我为”：把民意数据变成任务清单"
+    },
+    {
+      "slug": "shenzhen-minsheng-weishishi",
+      "no": "10",
+      "title": "深圳福田“民生微实事”：小额资金快速办身边事"
+    },
+    {
+      "slug": "hubei-gongtong-dizao",
+      "no": "11",
+      "title": "“共同缔造”：从“要我干”到“一起干”的方法论"
+    },
+    {
+      "slug": "chengdu-xintuo-wuye",
+      "no": "12",
+      "title": "成都“信托制物业”：把物业费花在阳光下"
+    },
+    {
+      "slug": "jinjiang-experience",
+      "no": "13",
+      "title": "“晋江经验”：实体经济是熬出来的"
+    },
+    {
+      "slug": "pujiang-experience",
+      "no": "14",
       "title": "“浦江经验”：领导干部下访，把矛盾解决在一线"
     },
     {
       "slug": "courtyard-council",
-      "no": "05",
+      "no": "15",
       "title": "“小院议事厅”：居民的事让居民坐下来商量"
     },
     {
       "slug": "whistle-report-departments",
-      "no": "06",
+      "no": "16",
       "title": "“街乡吹哨、部门报到”：基层发现问题，专业力量协同解决"
     },
     {
       "slug": "villager-discussion",
-      "no": "07",
+      "no": "17",
       "title": "“村民说事”：把乡村公共事务摆到桌面上"
     },
     {
       "slug": "points-based-governance",
-      "no": "08",
+      "no": "18",
       "title": "积分制治理：把文明乡风从口号变成日常行动"
     },
     {
       "slug": "five-social-linkage",
-      "no": "09",
+      "no": "19",
       "title": "“五社联动”：社区不再只靠社区干部单打独斗"
     },
     {
       "slug": "micro-grid-governance",
-      "no": "10",
+      "no": "20",
       "title": "微网格治理：把治理触角延伸到楼栋和村组"
     }
   ],
@@ -704,38 +804,88 @@ export const caseLeafIndex = {
       "title": "成都公园城市：把生态空间嵌入城市生活"
     },
     {
-      "slug": "hangzhou-city-brain",
+      "slug": "beijing-shougang-park",
       "no": "04",
+      "title": "北京首钢园：百年钢厂的长冬与长红"
+    },
+    {
+      "slug": "shanghai-yangpu-riverside",
+      "no": "05",
+      "title": "上海杨浦滨江：从“工业锈带”到“生活秀带”"
+    },
+    {
+      "slug": "zibo-barbecue",
+      "no": "06",
+      "title": "淄博烧烤：一座城市接住流量的全流程"
+    },
+    {
+      "slug": "harbin-ice-snow",
+      "no": "07",
+      "title": "哈尔滨冰雪季：把“尔滨”式宠客变成服务标准"
+    },
+    {
+      "slug": "hangzhou-crosswalk-yield",
+      "no": "08",
+      "title": "杭州“礼让斑马线”：一条线上的城市文明刻度"
+    },
+    {
+      "slug": "wuhan-riverside-park",
+      "no": "09",
+      "title": "武汉江滩：把生产岸线还给市民"
+    },
+    {
+      "slug": "xian-datang-city",
+      "no": "10",
+      "title": "西安大唐不夜城：文化IP如何撑起一条街"
+    },
+    {
+      "slug": "xiongan-digital-twin",
+      "no": "11",
+      "title": "雄安新区：先把数字城市与物理城市一起建"
+    },
+    {
+      "slug": "nanjing-xiaoxihu",
+      "no": "12",
+      "title": "南京小西湖：老街区改造先问“去与留”"
+    },
+    {
+      "slug": "shanghai-buildings-readable",
+      "no": "13",
+      "title": "上海“建筑可阅读”：给老房子一块会说故事的牌子"
+    },
+    {
+      "slug": "hangzhou-city-brain",
+      "no": "14",
       "title": "杭州“城市大脑”：技术要进入真实城市问题"
     },
     {
       "slug": "suzhou-old-city-renewal",
-      "no": "05",
+      "no": "15",
       "title": "苏州古城保护：更新城市，也保留生活的纹理"
     },
     {
       "slug": "guangzhou-yongqingfang",
-      "no": "06",
+      "no": "16",
       "title": "广州永庆坊：老街区用“微改造”连接新生活"
     },
     {
       "slug": "chongqing-mountain-trails",
-      "no": "07",
+      "no": "17",
       "title": "重庆山城步道：把“边角空间”变成公共生活空间"
     },
     {
       "slug": "shenzhen-child-friendly",
-      "no": "08",
+      "no": "18",
       "title": "深圳儿童友好城市：用“一米高度”重新看城市"
     },
     {
       "slug": "fuzhou-water-system",
-      "no": "09",
+      "no": "19",
       "title": "福州水系治理：治一条河，也要治一座城的系统"
     },
     {
       "slug": "beijing-pocket-parks",
-      "no": "10",
+      "no": "20",
       "title": "北京口袋公园：城市品质也藏在家门口的“小空间”"
     }
   ],
@@ -751,43 +901,93 @@ export const caseLeafIndex = {
       "title": "福建下党乡：越是基础薄弱，越要从小事做起"
     },
     {
-      "slug": "shibadong-village",
+      "slug": "yuanjiacun",
       "no": "03",
+      "title": "袁家村：一个村集体的“合伙人制度”"
+    },
+    {
+      "slug": "zhanqi-village",
+      "no": "04",
+      "title": "成都战旗村：改革政策攒出的“土地账”"
+    },
+    {
+      "slug": "rongjiang-village-super-league",
+      "no": "05",
+      "title": "贵州“村超”：土味足球如何踢出县域流量"
+    },
+    {
+      "slug": "taipan-village-basketball",
+      "no": "06",
+      "title": "贵州“村BA”：一个篮球场带热一座苗岭小城"
+    },
+    {
+      "slug": "wuyuan-huangling",
+      "no": "07",
+      "title": "婺源篁岭：把整村“搬”下山的旅游实验"
+    },
+    {
+      "slug": "dailan-village-linyi",
+      "no": "08",
+      "title": "兰陵代村：一个负债村蹚出的共富路"
+    },
+    {
+      "slug": "minning-town",
+      "no": "09",
+      "title": "闽宁镇：东西部协作写进大地的移民史"
+    },
+    {
+      "slug": "deqing-digital-village",
+      "no": "10",
+      "title": "德清数字乡村：县域先把数据底座铺进村"
+    },
+    {
+      "slug": "lianzhang-village",
+      "no": "11",
+      "title": "连樟村：破解“班子弱、产业散”两道题"
+    },
+    {
+      "slug": "hani-terrace",
+      "no": "12",
+      "title": "哈尼梯田：种了千年的“活态遗产”如何分红"
+    },
+    {
+      "slug": "shibadong-village",
+      "no": "13",
       "title": "十八洞村：精准帮扶先从“这个村真正缺什么”问起"
     },
     {
       "slug": "shouguang-vegetables",
-      "no": "04",
+      "no": "14",
       "title": "寿光蔬菜：一棵菜背后是技术、市场和物流体系"
     },
     {
       "slug": "anji-white-tea",
-      "no": "05",
+      "no": "15",
       "title": "安吉白茶：“一片叶子”如何连接生态和富民产业"
     },
     {
       "slug": "liuzhou-luosifen",
-      "no": "06",
+      "no": "16",
       "title": "柳州螺蛳粉：地方小吃也能带动一条产业链"
     },
     {
       "slug": "shaxian-snacks",
-      "no": "07",
+      "no": "17",
       "title": "沙县小吃：小餐饮背后的创业服务网络"
     },
     {
       "slug": "caoxian-ecommerce",
-      "no": "08",
+      "no": "18",
       "title": "曹县电商：数字平台怎样连接县域制造和全国市场"
     },
     {
       "slug": "xiajiang-village",
-      "no": "09",
+      "no": "19",
       "title": "浙江下姜村：从单村发展走向片区共同发展"
     },
     {
       "slug": "gutian-edible-fungi",
-      "no": "10",
+      "no": "20",
       "title": "古田食用菌：特色农业也要靠科技和标准升级"
     }
   ],
@@ -808,38 +1008,88 @@ export const caseLeafIndex = {
       "title": "青年夜校：公共文化也要跟上年轻人的作息"
     },
     {
-      "slug": "family-doctor-contract",
+      "slug": "after-school-430",
       "no": "04",
+      "title": "“四点半课堂”：放学后的两小时交给谁"
+    },
+    {
+      "slug": "workers-rest-station",
+      "no": "05",
+      "title": "工会驿站：给户外劳动者一个落脚点"
+    },
+    {
+      "slug": "elevator-installation",
+      "no": "06",
+      "title": "老楼加装电梯：三分之二同意之外的功夫"
+    },
+    {
+      "slug": "shared-parking-offpeak",
+      "no": "07",
+      "title": "错峰共享停车：让白天的车位等晚上的人"
+    },
+    {
+      "slug": "city-custom-insurance",
+      "no": "08",
+      "title": "“惠民保”：一年百元级保费如何兜住大病"
+    },
+    {
+      "slug": "time-bank-eldercare",
+      "no": "09",
+      "title": "“时间银行”：把今天的照护存给明天"
+    },
+    {
+      "slug": "summer-holiday-care",
+      "no": "10",
+      "title": "职工子女暑托班：假期看护不是一家一户的事"
+    },
+    {
+      "slug": "night-outpatient-clinic",
+      "no": "11",
+      "title": "夜间门诊：让上班族的病看得上、孩子少请假"
+    },
+    {
+      "slug": "breakfast-project",
+      "no": "12",
+      "title": "“早餐工程”：一份热豆浆背后的城市烟火"
+    },
+    {
+      "slug": "community-fitness-corner",
+      "no": "13",
+      "title": "健身步道与运动角：把“十五分钟”还给身体"
+    },
+    {
+      "slug": "family-doctor-contract",
+      "no": "14",
       "title": "家庭医生：把健康服务从医院延伸到日常"
     },
     {
       "slug": "long-term-care-insurance",
-      "no": "05",
+      "no": "15",
       "title": "长期护理保险：给失能家庭多一层照护支撑"
     },
     {
       "slug": "home-care-bed",
-      "no": "06",
+      "no": "16",
       "title": "家庭养老床位：把专业照护服务送进家门"
     },
     {
       "slug": "inclusive-childcare",
-      "no": "07",
+      "no": "17",
       "title": "普惠托育：把年轻家庭最缺的时间补回来"
     },
     {
       "slug": "urban-study-room",
-      "no": "08",
+      "no": "18",
       "title": "城市书房：公共文化服务也可以“小而近”"
     },
     {
       "slug": "barrier-free-renovation",
-      "no": "09",
+      "no": "19",
       "title": "无障碍改造：一段坡道体现一座城市的文明尺度"
     },
     {
       "slug": "youth-station",
-      "no": "10",
+      "no": "20",
       "title": "青年驿站：给求职青年一段低成本“落脚期”"
     }
   ],
@@ -855,43 +1105,93 @@ export const caseLeafIndex = {
       "title": "泉州古城：遗产保护不是把城市冻住"
     },
     {
-      "slug": "liangzhu-heritage",
+      "slug": "juexing-niandai",
       "no": "03",
+      "title": "《觉醒年代》：主旋律如何成为青年的“电子榨菜”"
+    },
+    {
+      "slug": "sanxingdui-new-museum",
+      "no": "04",
+      "title": "三星堆新馆：考古如何变成全民追更"
+    },
+    {
+      "slug": "chang-an-sanwanli",
+      "no": "05",
+      "title": "《长安三万里》：课本里的诗人第一次让大人落泪"
+    },
+    {
+      "slug": "digital-dunhuang",
+      "no": "06",
+      "title": "“数字敦煌”：让千年壁画被参观也少被打扰"
+    },
+    {
+      "slug": "black-myth-wukong",
+      "no": "07",
+      "title": "《黑神话：悟空》：一只猴子闯出的文化出海新路"
+    },
+    {
+      "slug": "new-chinese-style",
+      "no": "08",
+      "title": "“新中式”马面裙：从衣柜里的选择看文化认同"
+    },
+    {
+      "slug": "xunpu-zanhua",
+      "no": "09",
+      "title": "蟳埔簪花围：一朵花盘活一个渔村"
+    },
+    {
+      "slug": "village-gala",
+      "no": "10",
+      "title": "“村晚”：农民自办的晚会凭什么好看"
+    },
+    {
+      "slug": "grand-canal-museum",
+      "no": "11",
+      "title": "扬州中国大运河博物馆：一条河的全体面世"
+    },
+    {
+      "slug": "dianji-li-de-zhongguo",
+      "no": "12",
+      "title": "《典籍里的中国》：让古书主角走出故纸堆"
+    },
+    {
+      "slug": "liangzhu-heritage",
+      "no": "13",
       "title": "良渚古城遗址：让考古成果成为理解文明的入口"
     },
     {
       "slug": "beijing-central-axis",
-      "no": "04",
+      "no": "14",
       "title": "北京中轴线：保护的是建筑序列，也是城市历史秩序"
     },
     {
       "slug": "only-green-dance",
-      "no": "05",
+      "no": "15",
       "title": "《只此青绿》：传统审美如何转化成当代表达"
     },
     {
       "slug": "china-festival-series",
-      "no": "06",
+      "no": "16",
       "title": "“中国节日”节目：让传统节日进入年轻人的屏幕"
     },
     {
       "slug": "intangible-heritage-workshops",
-      "no": "07",
+      "no": "17",
       "title": "非遗工坊：让传承技艺也能创造就业和收入"
     },
     {
       "slug": "yin-ruins-museum",
-      "no": "08",
+      "no": "18",
       "title": "殷墟博物馆：把考古知识从“专业现场”带到公众面前"
     },
     {
       "slug": "xian-city-wall",
-      "no": "09",
+      "no": "19",
       "title": "西安城墙：历史遗产也可以成为日常公共文化空间"
     },
     {
       "slug": "ancient-books-digitization",
-      "no": "10",
+      "no": "20",
       "title": "古籍数字化：让珍贵典籍少翻一页，也能多被看见一次"
     }
   ],
@@ -907,43 +1207,93 @@ export const caseLeafIndex = {
       "title": "长江十年禁渔：一条禁令背后的系统治理"
     },
     {
-      "slug": "kubuqi-desert-control",
+      "slug": "muwusu-desert",
       "no": "03",
+      "title": "毛乌素沙地：从“沙进人退”到“绿进沙退”"
+    },
+    {
+      "slug": "babusha-six-elders",
+      "no": "04",
+      "title": "八步沙“六老汉”：一份按了手印的治沙约定"
+    },
+    {
+      "slug": "changting-soil-erosion",
+      "no": "05",
+      "title": "长汀水土流失治理：从“火焰山”到“花果山”"
+    },
+    {
+      "slug": "baiyangdian-recovery",
+      "no": "06",
+      "title": "白洋淀：水质回升背后的补水与控源"
+    },
+    {
+      "slug": "kekexili-tibetan-antelope",
+      "no": "07",
+      "title": "可可西里藏羚羊：从盗猎枪声到迁徙产房"
+    },
+    {
+      "slug": "chongming-eco-island",
+      "no": "08",
+      "title": "崇明世界级生态岛：把“留白”作为战略"
+    },
+    {
+      "slug": "tarim-populus",
+      "no": "09",
+      "title": "塔里木河生态输水：给胡杨林续上的一次次水"
+    },
+    {
+      "slug": "xinan-river-compensation",
+      "no": "10",
+      "title": "新安江生态补偿：皖浙两省的“对赌”账本"
+    },
+    {
+      "slug": "guangyang-island",
+      "no": "11",
+      "title": "重庆广阳岛：一个“半拉子开发”的生态转身"
+    },
+    {
+      "slug": "taihu-governance",
+      "no": "12",
+      "title": "太湖治理：一场打了二十年的持久战"
+    },
+    {
+      "slug": "kubuqi-desert-control",
+      "no": "13",
       "title": "库布其治沙：生态治理是一场跨越很多年的接力"
     },
     {
       "slug": "sanjiangyuan-national-park",
-      "no": "04",
+      "no": "14",
       "title": "三江源国家公园：保护完整生态系统，而不是只保护几个景点"
     },
     {
       "slug": "shenzhen-mangrove",
-      "no": "05",
+      "no": "15",
       "title": "深圳红树林：城市越密集，越需要给自然留下空间"
     },
     {
       "slug": "erhai-lake-governance",
-      "no": "06",
+      "no": "16",
       "title": "洱海保护：治湖先治岸，治水也要治生产生活方式"
     },
     {
       "slug": "qinling-protection",
-      "no": "07",
+      "no": "17",
       "title": "秦岭生态保护：生态红线必须成为真正的硬约束"
     },
     {
       "slug": "yellow-river-delta-wetland",
-      "no": "08",
+      "no": "18",
       "title": "黄河三角洲湿地：生态修复要给候鸟和自然过程留空间"
     },
     {
       "slug": "ningxia-straw-checkerboard",
-      "no": "09",
+      "no": "19",
       "title": "麦草方格治沙：小办法背后是对自然规律的理解"
     },
     {
       "slug": "chishui-river-protection",
-      "no": "10",
+      "no": "20",
       "title": "赤水河保护：一条河需要上下游一起守"
     }
   ],
@@ -964,38 +1314,88 @@ export const caseLeafIndex = {
       "title": "C919：一架大飞机背后的系统创新"
     },
     {
-      "slug": "change-lunar-project",
+      "slug": "micius-satellite",
       "no": "04",
+      "title": "“墨子号”：量子通信从纸面到星地"
+    },
+    {
+      "slug": "jiuzhang-quantum",
+      "no": "05",
+      "title": "“九章”：中国光量子计算的原型验证"
+    },
+    {
+      "slug": "baihetan-hydropower",
+      "no": "06",
+      "title": "白鹤滩水电站：世界级工程的“中国精度”"
+    },
+    {
+      "slug": "hzm-bridge",
+      "no": "07",
+      "title": "港珠澳大桥：五十五公里背后的每一毫米"
+    },
+    {
+      "slug": "shenzhong-link",
+      "no": "08",
+      "title": "深中通道：伶仃洋上再下一城"
+    },
+    {
+      "slug": "aida-cruise",
+      "no": "09",
+      "title": "“爱达·魔都号”：国产大型邮轮的下水课"
+    },
+    {
+      "slug": "hualong-prime",
+      "no": "10",
+      "title": "“华龙一号”：给中国核电装上自己的脑子"
+    },
+    {
+      "slug": "deep-sea-number-one",
+      "no": "11",
+      "title": "“深海一号”：把油气工厂搬到千米海底"
+    },
+    {
+      "slug": "sunway-taihulight",
+      "no": "12",
+      "title": "神威·太湖之光：超算登顶之后的冷静"
+    },
+    {
+      "slug": "domestic-llm-open-source",
+      "no": "13",
+      "title": "国产开源大模型：低成本路线的弯道突围"
+    },
+    {
+      "slug": "change-lunar-project",
+      "no": "14",
       "title": "嫦娥探月：重大科技工程是一场系统接力"
     },
     {
       "slug": "tianwen-mars",
-      "no": "05",
+      "no": "15",
       "title": "“天问一号”：把探索未知变成可执行的工程任务"
     },
     {
       "slug": "china-space-station",
-      "no": "06",
+      "no": "16",
       "title": "中国空间站：把重大工程变成开放的科研平台"
     },
     {
       "slug": "fuxing-highspeed",
-      "no": "07",
+      "no": "17",
       "title": "复兴号高铁：自主创新也来自庞大系统的协同升级"
     },
     {
       "slug": "fendouzhe-deepsea",
-      "no": "08",
+      "no": "18",
       "title": "“奋斗者”号：向深海要答案，先把关键技术做扎实"
     },
     {
       "slug": "5g-scale-application",
-      "no": "09",
+      "no": "19",
       "title": "5G规模应用：新技术要进入工厂、港口和真实生活"
     },
     {
       "slug": "east-data-west-computing",
-      "no": "10",
+      "no": "20",
       "title": "“东数西算”：算力布局也要算资源账和协同账"
     }
   ],
@@ -1011,43 +1411,93 @@ export const caseLeafIndex = {
       "title": "宁德时代：越是热门赛道，越要靠研发站稳"
     },
     {
-      "slug": "huawei-longterm-rd",
+      "slug": "boe-counter-cyclical",
       "no": "03",
+      "title": "京东方：逆周期下注面板的“冷板凳”"
+    },
+    {
+      "slug": "transsion-africa",
+      "no": "04",
+      "title": "传音控股：把“下沉市场”做到另一个大洲"
+    },
+    {
+      "slug": "anta-rd-ma",
+      "no": "05",
+      "title": "安踏：从代工到收购与自研并进"
+    },
+    {
+      "slug": "weichai-efficiency",
+      "no": "06",
+      "title": "潍柴动力：把发动机热效率提高一个点"
+    },
+    {
+      "slug": "xcmg-hanyun",
+      "no": "07",
+      "title": "徐工集团：工程机械的“数字外挂”"
+    },
+    {
+      "slug": "beigene-brukinsa",
+      "no": "08",
+      "title": "百济神州：一粒药出海的漫长审批路"
+    },
+    {
+      "slug": "ymtc-memory",
+      "no": "09",
+      "title": "长江存储：存储芯片的“后来者”身位"
+    },
+    {
+      "slug": "mixue-supply-chain",
+      "no": "10",
+      "title": "蜜雪冰城：把一杯柠檬水做成了供应链生意"
+    },
+    {
+      "slug": "pop-mart-ip",
+      "no": "11",
+      "title": "泡泡玛特：情绪价值的全球化生意"
+    },
+    {
+      "slug": "jakarta-hsr",
+      "no": "12",
+      "title": "雅万高铁：中国高铁的第一次整体出海"
+    },
+    {
+      "slug": "huawei-longterm-rd",
+      "no": "13",
       "title": "华为研发投入：企业创新不能只算眼前利润账"
     },
     {
       "slug": "byd-new-energy",
-      "no": "04",
+      "no": "14",
       "title": "比亚迪新能源转型：技术路线要靠长期研发和市场检验"
     },
     {
       "slug": "dji-drones",
-      "no": "05",
+      "no": "15",
       "title": "大疆无人机：把核心技术做深，再把场景做宽"
     },
     {
       "slug": "midea-smart-manufacturing",
-      "no": "06",
+      "no": "16",
       "title": "美的智能制造：传统制造也能长出“数字新能力”"
     },
     {
       "slug": "fuyao-glass",
-      "no": "07",
+      "no": "17",
       "title": "福耀玻璃：在一个细分行业把质量和技术做深"
     },
     {
       "slug": "geely-rd",
-      "no": "08",
+      "no": "18",
       "title": "吉利汽车：从制造产品走向积累研发平台能力"
     },
     {
       "slug": "sany-smart-factory",
-      "no": "09",
+      "no": "19",
       "title": "三一重工智能工厂：工程机械也要从“制造”走向“智造”"
     },
     {
       "slug": "longi-photovoltaic",
-      "no": "10",
+      "no": "20",
       "title": "隆基绿能：光伏产业竞争最终要回到技术和成本"
     }
   ],
@@ -1068,38 +1518,88 @@ export const caseLeafIndex = {
       "title": "上海“一网通办”：数字化先改流程，再改入口"
     },
     {
-      "slug": "cross-province-services",
+      "slug": "certificate-license-separation",
       "no": "04",
+      "title": "“证照分离”：先照后证改了什么"
+    },
+    {
+      "slug": "double-random-check",
+      "no": "05",
+      "title": "“双随机、一公开”：让检查不再看人下菜"
+    },
+    {
+      "slug": "efficient-one-thing",
+      "no": "06",
+      "title": "“高效办成一件事”：国务院文件里的“一件事”"
+    },
+    {
+      "slug": "business-env-pilot-cities",
+      "no": "07",
+      "title": "营商环境创新试点：六城市的授权实验"
+    },
+    {
+      "slug": "no-application-benefits",
+      "no": "08",
+      "title": "“免申即享”：让政策主动找到企业"
+    },
+    {
+      "slug": "construction-approval-reform",
+      "no": "09",
+      "title": "工程审批改革：从两百天到几十天"
+    },
+    {
+      "slug": "power-access-three-zero",
+      "no": "10",
+      "title": "“三零”服务：小微企业办电不花一分冤枉钱"
+    },
+    {
+      "slug": "contactless-tax",
+      "no": "11",
+      "title": "“非接触式”办税：留抵退税直达账上"
+    },
+    {
+      "slug": "no-certificate-province",
+      "no": "12",
+      "title": "山东“无证明之省”：让证明的去证明"
+    },
+    {
+      "slug": "hotline-12345-integration",
+      "no": "13",
+      "title": "12345热线整合：让“找不到门”变成“一号响应”"
+    },
+    {
+      "slug": "cross-province-services",
+      "no": "14",
       "title": "“跨省通办”：让群众流动，服务也跟着流动"
     },
     {
       "slug": "one-license-one-industry",
-      "no": "05",
+      "no": "15",
       "title": "“一业一证”：把多张许可从部门视角重新组合"
     },
     {
       "slug": "certificate-free-services",
-      "no": "06",
+      "no": "16",
       "title": "“免证办”：让数据多跑路，群众少找证明"
     },
     {
       "slug": "comprehensive-inspection-once",
-      "no": "07",
+      "no": "17",
       "title": "“综合查一次”：监管不能让企业反复迎检"
     },
     {
       "slug": "policy-direct-access",
-      "no": "08",
+      "no": "18",
       "title": "政策“直达快享”：好政策不能卡在“不会找、不知道”"
     },
     {
       "slug": "government-service-rating",
-      "no": "09",
+      "no": "19",
       "title": "政务服务“好差评”：把评价权交给办事群众"
     },
     {
       "slug": "birth-one-thing",
-      "no": "10",
+      "no": "20",
       "title": "“出生一件事”：围绕人生节点重组公共服务"
     }
   ],
@@ -1120,38 +1620,88 @@ export const caseLeafIndex = {
       "title": "说理式执法：把法理讲清，也把整改路径讲明"
     },
     {
-      "slug": "administrative-discretion-benchmark",
+      "slug": "civil-code-enactment",
       "no": "04",
+      "title": "民法典：社会生活的百科全书落地"
+    },
+    {
+      "slug": "who-enforces-who-popularizes",
+      "no": "05",
+      "title": "“谁执法谁普法”：普法从普法办的事变成大家的事"
+    },
+    {
+      "slug": "administrative-reconsideration-reform",
+      "no": "06",
+      "title": "行政复议体制改革：化解“官民”纠纷的主渠道"
+    },
+    {
+      "slug": "yangtze-river-protection-law",
+      "no": "07",
+      "title": "长江保护法：为一条河立一部法"
+    },
+    {
+      "slug": "personal-information-law",
+      "no": "08",
+      "title": "个人信息保护法：数字时代的“守门法条”"
+    },
+    {
+      "slug": "anti-food-waste-law",
+      "no": "09",
+      "title": "反食品浪费法：把“光盘”写进法条"
+    },
+    {
+      "slug": "iron-fist-action",
+      "no": "10",
+      "title": "“铁拳”行动：民生领域执法的年度清单"
+    },
+    {
+      "slug": "barrier-free-law",
+      "no": "11",
+      "title": "无障碍环境建设法：一部法律拓宽的通行空间"
+    },
+    {
+      "slug": "daily-penalty-epi",
+      "no": "12",
+      "title": "按日计罚：环保法长出的“牙齿”"
+    },
+    {
+      "slug": "sunken-plate-village",
+      "no": "13",
+      "title": "“公开听证”：让争议案件晒在阳光下裁断"
+    },
+    {
+      "slug": "administrative-discretion-benchmark",
+      "no": "14",
       "title": "行政裁量基准：让“同案不同罚”少一点"
     },
     {
       "slug": "full-process-enforcement-recording",
-      "no": "05",
+      "no": "15",
       "title": "执法全过程记录：让权力运行留下必要轨迹"
     },
     {
       "slug": "major-enforcement-legal-review",
-      "no": "06",
+      "no": "16",
       "title": "重大执法决定法制审核：重要决定先过一道“法治闸门”"
     },
     {
       "slug": "enforcement-publicity",
-      "no": "07",
+      "no": "17",
       "title": "行政执法公示：让检查和处罚先把规则讲明白"
     },
     {
       "slug": "compliance-guidance",
-      "no": "08",
+      "no": "18",
       "title": "合规指导：把执法从“发现问题”延伸到“帮助改好”"
     },
     {
       "slug": "public-legal-service",
-      "no": "09",
+      "no": "19",
       "title": "公共法律服务：让群众遇事有地方问法、用法"
     },
     {
       "slug": "public-interest-litigation",
-      "no": "10",
+      "no": "20",
       "title": "公益诉讼：为分散的公共利益增加一道法治守护"
     }
   ],
@@ -1172,38 +1722,88 @@ export const caseLeafIndex = {
       "title": "“指尖上的形式主义”：工具为什么反而成了负担"
     },
     {
-      "slug": "vanity-project-warning",
+      "slug": "small-horse-big-cart",
       "no": "04",
+      "title": "“小马拉大车”：基层权责失衡的典型症候"
+    },
+    {
+      "slug": "check-in-sinking",
+      "no": "05",
+      "title": "“打卡式”下沉：干部下去了，问题没上来"
+    },
+    {
+      "slug": "bonsai-investigation",
+      "no": "06",
+      "title": "“盆景式”调研：被布置好的真实"
+    },
+    {
+      "slug": "zombie-government-accounts",
+      "no": "07",
+      "title": "政务新媒体“僵尸号”：开了不更、更了不答"
+    },
+    {
+      "slug": "price-assassin-passive-regulation",
+      "no": "08",
+      "title": "“价格刺客”事件：为什么总要等舆情来执法"
+    },
+    {
+      "slug": "whitewashed-walls",
+      "no": "09",
+      "title": "“刷白墙”：把民生工程刷成了“面子工程”"
+    },
+    {
+      "slug": "emergency-greening",
+      "no": "10",
+      "title": "突击复绿：应付督察的“连夜施工”"
+    },
+    {
+      "slug": "inspection-driven-cleanup",
+      "no": "11",
+      "title": "“迎检式”整治：检查一走，问题回潮"
+    },
+    {
+      "slug": "report-material-achievements",
+      "no": "12",
+      "title": "“材料政绩”：PPT里的乡村振兴"
+    },
+    {
+      "slug": "responsibility-dumping",
+      "no": "13",
+      "title": "属地管理变“责任甩锅”：板子总打在最基层"
+    },
+    {
+      "slug": "vanity-project-warning",
+      "no": "14",
       "title": "形象工程：看起来“有政绩”，为什么可能留下真负担"
     },
     {
       "slug": "repeated-enterprise-inspections",
-      "no": "05",
+      "no": "15",
       "title": "多头重复检查：监管为什么会变成企业负担"
     },
     {
       "slug": "excessive-landscaping",
-      "no": "06",
+      "no": "16",
       "title": "过度景观化：乡村建设不能把生活空间做成“样板间”"
     },
     {
       "slug": "campaign-style-closure",
-      "no": "07",
+      "no": "17",
       "title": "运动式“一关了之”：治理不能把复杂问题只剩一个按钮"
     },
     {
       "slug": "data-beautification",
-      "no": "08",
+      "no": "18",
       "title": "数据“美颜”：数字好看不等于工作真的变好"
     },
     {
       "slug": "layered-additional-requirements",
-      "no": "09",
+      "no": "19",
       "title": "层层加码：为什么越到基层任务反而越“变形”"
     },
     {
       "slug": "meeting-document-formalism",
-      "no": "10",
+      "no": "20",
       "title": "以会议落实会议：忙碌为什么可能没有产出"
     }
   ]

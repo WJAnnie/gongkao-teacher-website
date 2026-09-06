@@ -15,8 +15,8 @@ function collect(source: Record<string, WritingCase[]>, key: CaseIndexItem['key'
 }
 
 function validate(category: WritingCaseCategory) {
-  if (category.cases.length !== 10) {
-    throw new Error(`Writing case category must contain exactly 10 cases: ${category.key} = ${category.cases.length}`);
+  if (category.cases.length < 20) {
+    throw new Error(`Writing case category must contain at least 20 cases: ${category.key} = ${category.cases.length}`);
   }
   const seen = new Set<string>();
   category.cases.forEach((item) => {

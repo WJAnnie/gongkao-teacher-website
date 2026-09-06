@@ -261,6 +261,13 @@ test('writing foundation modules meet the minimum useful first-edition volume', 
   assert.ok(data.quoteCategories.every((category) => category.entries.every((entry) => entry.group && entry.text && entry.author && entry.source && entry.context && entry.boundary)));
   assert.equal(data.essayStages.length, 6);
   assert.ok(data.essayStages.every((stage) => stage.method && stage.counterexample && stage.example));
+  const caseLoader = await import('../app/shenlun/writing/writing-case-loader.ts');
+  const caseIndexList = (await import('../app/shenlun/writing/writing-library-index.ts')).caseIndex;
+  for (const item of caseIndexList) {
+    const caseCategory = await caseLoader.loadCaseCategory(item.key);
+    assert.ok(caseCategory.cases.length >= 20, `case category volume: ${item.key}`);
+    assert.ok(new Set(caseCategory.cases.map((entry) => entry.slug)).size === caseCategory.cases.length, `case slug unique: ${item.key}`);
+  }
   for (const collection of [data.termCategories, data.patternCategories, data.sentenceCategories, data.quoteCategories, data.essayStages]) {
     collection.forEach((item) => assert.match(writingManualSource, new RegExp(`['"]${item.key}['"]`), `missing directory key: ${item.key}`));
   }
