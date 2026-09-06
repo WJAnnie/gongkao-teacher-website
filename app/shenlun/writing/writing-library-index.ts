@@ -20,8 +20,8 @@ export type CaseIndexItem = {
 // 这里只放“目录级元数据”，不导入任何长文章或案例正文。
 // 写作积累首页因此可以保持很轻；正文在学生真正进入某一类后再加载。
 export const hotspotIndex: HotspotIndexItem[] = [
-  { key: 'economy', no: '01', label: '经济发展', en: 'ECONOMY', desc: '高质量发展、新质生产力、现代化产业体系、扩大内需与统一大市场。', count: 10 },
-  { key: 'innovation', no: '02', label: '时代创新', en: 'INNOVATION', desc: '人工智能、数据要素、平台经济、新就业形态与算法治理。', count: 10 },
+  { key: 'economy', no: '01', label: '经济发展', en: 'ECONOMY', desc: '高质量发展、新质生产力、现代化产业体系、扩大内需与统一大市场。', count: 20 },
+  { key: 'innovation', no: '02', label: '时代创新', en: 'INNOVATION', desc: '人工智能、数据要素、平台经济、新就业形态与算法治理。', count: 20 },
   { key: 'livelihood', no: '03', label: '社会民生', en: 'LIVELIHOOD', desc: '就业、教育、医疗、养老、生育支持与社会保障。', count: 10 },
   { key: 'ecology', no: '04', label: '生态环保', en: 'ECOLOGY', desc: '绿色转型、双碳目标、美丽中国、生态保护与环境治理。', count: 10 },
   { key: 'culture', no: '05', label: '文化勃兴', en: 'CULTURE', desc: '文化自信、传统文化、非遗传承、文旅融合与文化产业。', count: 10 },
@@ -34,16 +34,16 @@ export const hotspotIndex: HotspotIndexItem[] = [
 ];
 
 export const caseIndex: CaseIndexItem[] = [
-  { key: 'people', no: '01', label: '人物案例', desc: '人物只保留最能说明品质、选择与方法的关键行动。', count: 10 },
-  { key: 'practice', no: '02', label: '地方做法', desc: '重点积累一个地方“怎么做”，再把治理经验提炼成可迁移的方法。', count: 10 },
-  { key: 'city', no: '03', label: '城市案例', desc: '用城市空间、文化、规划和治理实践说明城市发展理念。', count: 10 },
-  { key: 'rural', no: '04', label: '乡村案例', desc: '覆盖产业、人才、文化、生态、组织和治理等乡村振兴场景。', count: 10 },
-  { key: 'livelihood', no: '05', label: '民生小事', desc: '从群众身边的小切口写公共服务，让文章更具体、更有烟火气。', count: 10 },
-  { key: 'culture', no: '06', label: '文化案例', desc: '积累传统文化、非遗、文博、城市文脉和文化创新的鲜活例子。', count: 10 },
-  { key: 'ecology', no: '07', label: '生态案例', desc: '从生态保护、绿色转型和系统治理中提炼发展与保护的关系。', count: 10 },
-  { key: 'technology', no: '08', label: '科技产业', desc: '看技术怎样进入真实场景，再分析产业价值、创新机制与治理边界。', count: 10 },
-  { key: 'enterprise', no: '09', label: '企业创新', desc: '用企业转型、技术攻关和组织创新说明产业升级与创新能力。', count: 10 },
-  { key: 'reform', no: '10', label: '政务改革', desc: '从办事体验、流程再造和部门协同中提炼政府改革方法。', count: 10 },
-  { key: 'law', no: '11', label: '执法法治', desc: '从力度与温度、效率与程序、技术与权利等关系中积累执法论据。', count: 10 },
-  { key: 'negative', no: '12', label: '反面案例', desc: '不追求猎奇，重点从问题表现反推治理理念和制度短板。', count: 10 },
+  { key: 'people', no: '01', label: '人物案例', desc: '人物只保留最能说明品质、选择与方法的关键行动。', count: 20 },
+  { key: 'practice', no: '02', label: '地方做法', desc: '重点积累一个地方“怎么做”，再把治理经验提炼成可迁移的方法。', count: 20 },
+  { key: 'city', no: '03', label: '城市案例', desc: '用城市空间、文化、规划和治理实践说明城市发展理念。', count: 20 },
+  { key: 'rural', no: '04', label: '乡村案例', desc: '覆盖产业、人才、文化、生态、组织和治理等乡村振兴场景。', count: 20 },
+  { key: 'livelihood', no: '05', label: '民生小事', desc: '从群众身边的小切口写公共服务，让文章更具体、更有烟火气。', count: 20 },
+  { key: 'culture', no: '06', label: '文化案例', desc: '积累传统文化、非遗、文博、城市文脉和文化创新的鲜活例子。', count: 20 },
+  { key: 'ecology', no: '07', label: '生态案例', desc: '从生态保护、绿色转型和系统治理中提炼发展与保护的关系。', count: 20 },
+  { key: 'technology', no: '08', label: '科技产业', desc: '看技术怎样进入真实场景，再分析产业价值、创新机制与治理边界。', count: 20 },
+  { key: 'enterprise', no: '09', label: '企业创新', desc: '用企业转型、技术攻关和组织创新说明产业升级与创新能力。', count: 20 },
+  { key: 'reform', no: '10', label: '政务改革', desc: '从办事体验、流程再造和部门协同中提炼政府改革方法。', count: 20 },
+  { key: 'law', no: '11', label: '执法法治', desc: '从力度与温度、效率与程序、技术与权利等关系中积累执法论据。', count: 20 },
+  { key: 'negative', no: '12', label: '反面案例', desc: '不追求猎奇，重点从问题表现反推治理理念和制度短板。', count: 20 },
 ];

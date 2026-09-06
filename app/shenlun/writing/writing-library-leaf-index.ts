@@ -53,6 +53,56 @@ export const hotspotLeafIndex = {
       "slug": "effective-market-proactive-government",
       "no": "10",
       "title": "有效市场和有为政府，不是谁替代谁，而是谁把自己的事做好"
+    },
+    {
+      "slug": "manufacturing-digitalization",
+      "no": "11",
+      "title": "智改数转，制造业要的不是热闹而是实效"
+    },
+    {
+      "slug": "county-economy",
+      "no": "12",
+      "title": "县域经济，拼的是特色不是雷同"
+    },
+    {
+      "slug": "industrial-chain-security",
+      "no": "13",
+      "title": "产业链安全，靠的是补短板不是喊口号"
+    },
+    {
+      "slug": "service-manufacturing-fusion",
+      "no": "14",
+      "title": "先进制造与现代服务业，谁也离不开谁"
+    },
+    {
+      "slug": "foreign-trade-new-three",
+      "no": "15",
+      "title": "外贸新动能，藏在结构的升级里"
+    },
+    {
+      "slug": "future-industry",
+      "no": "16",
+      "title": "未来产业，今天就要开始播种"
+    },
+    {
+      "slug": "ice-snow-economy",
+      "no": "17",
+      "title": "冰雪经济，别让热度融化在春天里"
+    },
+    {
+      "slug": "silver-economy",
+      "no": "18",
+      "title": "银发经济，既要事业温度也要产业眼光"
+    },
+    {
+      "slug": "ocean-economy",
+      "no": "19",
+      "title": "经略海洋，向蓝色国土要发展空间"
+    },
+    {
+      "slug": "brand-power",
+      "no": "20",
+      "title": "品牌建设，中国制造的成人礼"
     }
   ],
   "innovation": [
@@ -105,6 +155,56 @@ export const hotspotLeafIndex = {
       "slug": "algorithm-governance",
       "no": "10",
       "title": "算法越深入生活，越要让规则“看得见、说得清、改得了”"
+    },
+    {
+      "slug": "chip-self-reliance",
+      "no": "11",
+      "title": "芯片攻坚，没有捷径只有长跑"
+    },
+    {
+      "slug": "basic-research",
+      "no": "12",
+      "title": "基础研究，是一切创新的源头活水"
+    },
+    {
+      "slug": "talent-ecosystem",
+      "no": "13",
+      "title": "人才竞争，比拼的是生态不是口号"
+    },
+    {
+      "slug": "sci-tech-finance",
+      "no": "14",
+      "title": "科技金融，敢投早投小才有未来"
+    },
+    {
+      "slug": "university-industry",
+      "no": "15",
+      "title": "产学研融合，堵点在机制不在意愿"
+    },
+    {
+      "slug": "new-rd-institutions",
+      "no": "16",
+      "title": "新型研发机构，科研与产业之间的摆渡人"
+    },
+    {
+      "slug": "quantum-tech",
+      "no": "17",
+      "title": "量子科技，抢占未来的制高点"
+    },
+    {
+      "slug": "commercial-space",
+      "no": "18",
+      "title": "商业航天，从国家任务到市场赛道"
+    },
+    {
+      "slug": "biomedicine",
+      "no": "19",
+      "title": "创新药出海，中国医药的换挡时刻"
+    },
+    {
+      "slug": "sme-digitalization",
+      "no": "20",
+      "title": "专精特新，中小企业的冠军之路"
     }
   ],
   "livelihood": [

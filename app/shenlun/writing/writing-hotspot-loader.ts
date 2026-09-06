@@ -23,7 +23,8 @@ export async function loadHotspotCategory(key: HotspotCategoryKey): Promise<Hots
     .map((article, index) => ({ ...article, no: String(index + 1).padStart(2, '0') }));
 
   const category = audit.auditCategory(refinement.refineCategory({ ...meta, articles }));
-  if (category.articles.length < 10 || category.articles.length > 15) {
+  // 扩容过渡期：十一类热点时评正分批扩至二十篇，全部到位后下限应收紧到 20。
+  if (category.articles.length < 10 || category.articles.length > 30) {
     throw new Error(`Hotspot category size out of range: ${category.key} = ${category.articles.length}`);
   }
   return category;

@@ -50,6 +50,16 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'regional-coordinated-development': 'economy',
   'private-economy-confidence': 'economy',
   'effective-market-proactive-government': 'economy',
+  'manufacturing-digitalization': 'economy',
+  'county-economy': 'economy',
+  'industrial-chain-security': 'economy',
+  'service-manufacturing-fusion': 'economy',
+  'foreign-trade-new-three': 'economy',
+  'future-industry': 'economy',
+  'ice-snow-economy': 'economy',
+  'silver-economy': 'economy',
+  'ocean-economy': 'economy',
+  'brand-power': 'economy',
 
   // 02 时代创新
   'artificial-intelligence': 'innovation',
@@ -62,6 +72,16 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'smart-society': 'innovation',
   'data-elements': 'innovation',
   'algorithm-governance': 'innovation',
+  'chip-self-reliance': 'innovation',
+  'basic-research': 'innovation',
+  'talent-ecosystem': 'innovation',
+  'sci-tech-finance': 'innovation',
+  'university-industry': 'innovation',
+  'new-rd-institutions': 'innovation',
+  'quantum-tech': 'innovation',
+  'commercial-space': 'innovation',
+  'biomedicine': 'innovation',
+  'sme-digitalization': 'innovation',
 
   // 03 社会民生
   'employment': 'livelihood',
