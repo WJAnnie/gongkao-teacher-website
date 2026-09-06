@@ -1,4 +1,5 @@
 import { patternLibrary } from './writing-pattern-library.ts';
+import { quoteLibrary } from './writing-quote-library.ts';
 import { sentenceLibrary } from './writing-sentence-library.ts';
 export type TermEntry = {
   before: string;
@@ -45,6 +46,7 @@ export type QuoteEntry = {
   source: string;
   context: string;
   boundary: string;
+  group?: string;
 };
 
 export type QuoteCategory = {
@@ -182,83 +184,7 @@ export const patternCategories: PatternCategory[] = patternLibrary;
 
 export const sentenceCategories: SentenceCategory[] = sentenceLibrary;
 
-export const quoteCategories: QuoteCategory[] = [
-  {
-    key: 'people-centered',
-    label: '人民立场',
-    desc: '用于论证民本、民生、听取民意和共享成果。',
-    entries: [
-      { text: '民惟邦本，本固邦宁。', author: '《尚书》', source: '《尚书·五子之歌》', context: '适合说明人民安定、民生稳固是国家治理的重要基础。', boundary: '属于古代民本思想，不能直接等同于现代政治制度概念。' },
-      { text: '民为贵，社稷次之，君为轻。', author: '孟子', source: '《孟子·尽心下》', context: '适合强调治国理政要重视人民利益。', boundary: '引用时宜说明其民本价值，不宜脱离历史语境作制度类推。' },
-      { text: '政之所兴，在顺民心；政之所废，在逆民心。', author: '《管子》', source: '《管子·牧民》', context: '适合说明政策要回应民意、增进民利。', boundary: '顺民心不等于迎合一时情绪，仍需依法科学决策。' },
-      { text: '治国有常，而利民为本。', author: '《淮南子》', source: '《淮南子·氾论训》', context: '适合把增进民生福祉作为治理落点。', boundary: '“利民”不能只写短期福利，还要考虑公平与可持续。' },
-      { text: '圣人无常心，以百姓心为心。', author: '老子', source: '《道德经》第四十九章', context: '适合说明治理者要体察百姓处境与需求。', boundary: '不能理解为没有原则、没有专业判断地跟随所有意见。' },
-      { text: '乐民之乐者，民亦乐其乐；忧民之忧者，民亦忧其忧。', author: '孟子', source: '《孟子·梁惠王下》', context: '适合说明治理者与人民共享发展成果、共担民生忧患。', boundary: '不要只作情感渲染，应接具体民生行动。' },
-      { text: '天视自我民视，天听自我民听。', author: '《尚书》', source: '《尚书·泰誓中》', context: '适合强调评价治理成效要重视人民感受和意见。', boundary: '这是古代政治伦理表达，不宜解释成现代调查方法本身。' },
-      { text: '大道之行也，天下为公。', author: '《礼记》', source: '《礼记·礼运》', context: '适合论证公共利益、社会责任和共同理想。', boundary: '原文描绘理想秩序，不能代替对现实问题的具体分析。' },
-    ],
-  },
-  {
-    key: 'action-responsibility',
-    label: '实干与担当',
-    desc: '用于论证行动、积累、责任与久久为功。',
-    entries: [
-      { text: '纸上得来终觉浅，绝知此事要躬行。', author: '陆游', source: '《冬夜读书示子聿》', context: '适合说明知识需要经过实践检验，或干部要深入一线。', boundary: '不能据此否定理论学习；原诗写读书体会，不宜硬说成专论基层治理。' },
-      { text: '道虽迩，不行不至；事虽小，不为不成。', author: '荀子', source: '《荀子·修身》', context: '适合说明目标再近也要行动，小事也要从动手做起。', boundary: '重点是行动，不足以单独证明方法正确或结果必然成功。' },
-      { text: '功崇惟志，业广惟勤。', author: '《尚书》', source: '《尚书·周官》', context: '适合论证成就事业需要志向与勤勉。', boundary: '不要只谈个人意志而忽略制度、条件和协作。' },
-      { text: '千里之行，始于足下。', author: '老子', source: '《道德经》第六十四章', context: '适合用于开局起步、从小处落实、积少成多。', boundary: '不能把“起步”写成可以没有规划地盲目行动。' },
-      { text: '锲而不舍，金石可镂。', author: '荀子', source: '《荀子·劝学》', context: '适合论证持续投入和长期坚持的重要性。', boundary: '坚持的方向必须合理，不适合为错误做法辩护。' },
-      { text: '不积跬步，无以至千里；不积小流，无以成江海。', author: '荀子', source: '《荀子·劝学》', context: '适合论证日常积累、基层基础和渐进改进。', boundary: '不能用来回避需要及时突破的紧迫问题。' },
-      { text: '天下难事，必作于易；天下大事，必作于细。', author: '老子', source: '《道德经》第六十三章', context: '适合强调复杂任务要从可行处入手，大事要落到细节。', boundary: '重视细节不等于只见局部、不作整体谋划。' },
-      { text: '合抱之木，生于毫末；九层之台，起于累土。', author: '老子', source: '《道德经》第六十四章', context: '适合说明基础建设和长期积累对成事的重要性。', boundary: '不宜与“千里之行”连续堆叠，二者含义相近。' },
-    ],
-  },
-  {
-    key: 'learning-growth',
-    label: '学习与成长',
-    desc: '用于论证学习、思考、求教与能力养成。',
-    entries: [
-      { text: '学而不思则罔，思而不学则殆。', author: '孔子', source: '《论语·为政》', context: '适合说明学习与独立思考需要相互结合。', boundary: '不要把“思”解释成脱离事实的主观猜测。' },
-      { text: '三人行，必有我师焉。', author: '孔子', source: '《论语·述而》', context: '适合说明保持谦逊、善于从他人经验中学习。', boundary: '原章还讲择善而从、见不善而改，不能理解成无条件模仿任何人。' },
-      { text: '温故而知新，可以为师矣。', author: '孔子', source: '《论语·为政》', context: '适合论证回顾经验与获得新认识之间的联系。', boundary: '“温故”不是守旧，重点在由旧知生发新知。' },
-      { text: '知之者不如好之者，好之者不如乐之者。', author: '孔子', source: '《论语·雍也》', context: '适合说明兴趣与内在动力能推动持续学习。', boundary: '不能据此否定纪律训练和基础苦功。' },
-      { text: '博学之，审问之，慎思之，明辨之，笃行之。', author: '《礼记》', source: '《礼记·中庸》', context: '适合概括从学习、提问、思辨到实践的完整过程。', boundary: '引用后应落到具体学习或决策环节，避免只作排比装饰。' },
-      { text: '玉不琢，不成器；人不学，不知道。', author: '《礼记》', source: '《礼记·学记》', context: '适合说明教育、训练对人成长的重要作用。', boundary: '不能据此把教育理解为单向塑造，忽略人的主体性。' },
-      { text: '君子生非异也，善假于物也。', author: '荀子', source: '《荀子·劝学》', context: '适合说明善用工具、平台和他人经验能够提升能力。', boundary: '“假于物”不是依赖工具替代自身判断。' },
-      { text: '青，取之于蓝，而青于蓝。', author: '荀子', source: '《荀子·劝学》', context: '适合说明后学可以在继承基础上取得新的进步。', boundary: '不要脱离学习与积累语境，泛化成任何后来者必然胜过前人。' },
-    ],
-  },
-  {
-    key: 'innovation-reform',
-    label: '创新与改革',
-    desc: '用于论证因时而变、守正创新和制度适配。',
-    entries: [
-      { text: '苟日新，日日新，又日新。', author: '《礼记》', source: '《礼记·大学》引汤之盘铭', context: '适合说明持续更新、不断改进的重要性。', boundary: '“新”不等于追逐形式，创新仍要解决实际问题。' },
-      { text: '穷则变，变则通，通则久。', author: '《周易》', source: '《周易·系辞下》', context: '适合说明环境和矛盾变化时需要主动调整。', boundary: '变革不是目的，不能据此否定必要的稳定与传承。' },
-      { text: '周虽旧邦，其命维新。', author: '《诗经》', source: '《诗经·大雅·文王》', context: '适合说明深厚传统与自我更新可以并存。', boundary: '不要把“维新”简单解释为现代技术创新。' },
-      { text: '苟利于民，不必法古；苟周于事，不必循俗。', author: '《淮南子》', source: '《淮南子·氾论训》', context: '适合论证改革应以利民、合事为尺度，不机械照搬旧法。', boundary: '不循俗不等于无视法律、规律和历史经验。' },
-      { text: '世异则事异，事异则备变。', author: '韩非', source: '《韩非子·五蠹》', context: '适合说明形势变化会带来任务和治理方式的变化。', boundary: '不能把适应变化写成朝令夕改。' },
-      { text: '法与时转则治，治与世宜则有功。', author: '韩非', source: '《韩非子·心度》', context: '适合论证制度规则需要回应现实条件变化。', boundary: '制度调整要遵循法定程序，不是为个别需要随意变通。' },
-      { text: '不慕古，不留今，与时变，与俗化。', author: '《管子》', source: '《管子·正世》', context: '适合说明既不迷信古法，也不固守现状，要顺应时代变化。', boundary: '顺应时代不等于迎合所有风潮，更不能抛弃原则。' },
-      { text: '惟进取也故日新。', author: '梁启超', source: '《少年中国说》', context: '适合论证进取精神与社会更新之间的关系。', boundary: '原文有特定时代语境，引用时不宜截取为盲目求快的依据。' },
-    ],
-  },
-  {
-    key: 'culture-inheritance',
-    label: '文化与传承',
-    desc: '用于论证文化根脉、时代转化、创作与交流。',
-    entries: [
-      { text: '观乎人文，以化成天下。', author: '《周易》', source: '《周易·贲卦·彖传》', context: '适合说明文化对社会教化、价值涵养的作用。', boundary: '不能把文化作用夸大为解决所有社会问题的唯一手段。' },
-      { text: '求木之长者，必固其根本；欲流之远者，必浚其泉源。', author: '魏征', source: '《谏太宗十思疏》', context: '适合说明文化发展要守住根脉，也可用于基础建设。', boundary: '原文主旨是劝谏君主居安思危，文化主题使用时要说明是借喻。' },
-      { text: '文变染乎世情，兴废系乎时序。', author: '刘勰', source: '《文心雕龙·时序》', context: '适合说明文艺表达会受到时代生活影响。', boundary: '不能据此把文艺完全简化为时代的被动反映。' },
-      { text: '文章合为时而著，歌诗合为事而作。', author: '白居易', source: '《与元九书》', context: '适合论证文艺创作应关注时代与现实生活。', boundary: '不能据此否定审美价值、个人表达和题材多样性。' },
-      { text: '问渠那得清如许？为有源头活水来。', author: '朱熹', source: '《观书有感·其一》', context: '适合借喻文化创新需要持续学习、吸收生活养分。', boundary: '原诗写读书体会，用于文化时应明确是借喻，不要伪称原意。' },
-      { text: '江山代有才人出，各领风骚数百年。', author: '赵翼', source: '《论诗五首·其二》', context: '适合说明文化创造代有新声，不必迷信前人。', boundary: '尊重新创造不等于贬低经典或割裂传承。' },
-      { text: '君子和而不同，小人同而不和。', author: '孔子', source: '《论语·子路》', context: '适合论证文化交流可以尊重差异、求同存异。', boundary: '不要把任何原则冲突都淡化为差异，也不宜脱离伦理语境随意贴标签。' },
-      { text: '君子以文会友，以友辅仁。', author: '曾子', source: '《论语·颜渊》', context: '适合说明文化交流能够连接彼此、相互砥砺。', boundary: '“文”在原章不只指文艺作品，不宜窄化为文化产业宣传。' },
-    ],
-  },
-];
+export const quoteCategories: QuoteCategory[] = quoteLibrary;
 
 export const essayStages: EssayStage[] = [
   {

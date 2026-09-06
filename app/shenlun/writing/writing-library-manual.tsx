@@ -32,7 +32,7 @@ const foundationIndex = {
   terms: [['problems', '问题表现'], ['causes', '原因分析'], ['measures', '措施表达'], ['outcomes', '成效概括'], ['government-verbs', '工作动词']],
   patterns: [['evolution', '演进变迁'], ['contrast', '对照反差'], ['progression', '递进深化'], ['necessity', '条件必需'], ['metaphor', '比喻定位'], ['appeal', '铺陈呼吁'], ['imagery', '意象造境']],
   sentences: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴']],
-  quotes: [['people-centered', '人民立场'], ['action-responsibility', '实干与担当'], ['learning-growth', '学习与成长'], ['innovation-reform', '创新与改革'], ['culture-inheritance', '文化与传承']],
+  quotes: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴']],
   essay: [['title', '标题'], ['opening', '开头'], ['thesis', '总论点'], ['subpoints', '分论点'], ['evidence', '论据'], ['conclusion', '结尾']],
 } as const;
 
@@ -40,7 +40,7 @@ const defaultSelections: Record<FoundationModuleKey, GenericSelection> = {
   terms: { category: 'problems', leaf: '' },
   patterns: { category: 'evolution', leaf: '' },
   sentences: { category: 'economy', leaf: '' },
-  quotes: { category: 'people-centered', leaf: '' },
+  quotes: { category: 'economy', leaf: '' },
   essay: { category: 'title', leaf: '' },
 };
 
@@ -455,7 +455,7 @@ export function WritingLibraryManual() {
     if (activeLayer === 'quotes') {
       const category = foundationCategory(foundation.quoteCategories, 'quotes');
       return <section className="writing-module-view writing-quote-card" data-writing-module="quotes"><Breadcrumb items={['写作积累', '名人箴言', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>连同出处和边界一起记</h2><em>{category.desc}</em></div></header>
-        <WritingInlineDisclosure activeId={selections.quotes.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: `${entry.author}｜${entry.text}` }))} label={`${category.label}名人箴言`} onToggle={(leaf) => toggleGenericLeaf('quotes', leaf)}>
+        <WritingInlineDisclosure activeId={selections.quotes.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: `${entry.author}｜${entry.text}`, meta: entry.source, group: entry.group }))} label={`${category.label}名人箴言`} onToggle={(leaf) => toggleGenericLeaf('quotes', leaf)}>
           {(() => { const entry = category.entries[Number(selections.quotes.leaf)]; return entry ? <><blockquote>{entry.text}</blockquote><div><article><b>适用语境</b><p>{entry.context}</p></article><article><b>使用边界</b><p>{entry.boundary}</p></article></div></> : null; })()}
         </WritingInlineDisclosure>
       </section>;
