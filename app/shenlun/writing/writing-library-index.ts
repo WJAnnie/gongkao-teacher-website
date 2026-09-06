@@ -28,9 +28,9 @@ export const hotspotIndex: HotspotIndexItem[] = [
   { key: 'civility', no: '06', label: '精神文明', en: 'CIVILITY', desc: '核心价值观、公民道德、诚信建设、移风易俗与志愿服务。', count: 20 },
   { key: 'cadre', no: '07', label: '干部观念', en: 'CADRE', desc: '责任担当、政绩观、调查研究、群众路线与干部能力建设。', count: 20 },
   { key: 'service', no: '08', label: '公共服务', en: 'SERVICE', desc: '政务服务、数字政府、简政放权、营商环境与政务公开。', count: 20 },
-  { key: 'grassroots', no: '09', label: '基层治理', en: 'GRASSROOTS', desc: '基层治理、社区治理、城市治理、矛盾化解与基层减负。', count: 10 },
-  { key: 'enforcement', no: '10', label: '行政执法', en: 'ENFORCEMENT', desc: '依法治国、严格执法、柔性执法、执法监督与执法队伍。', count: 11 },
-  { key: 'rural', no: '11', label: '乡村振兴', en: 'RURAL', desc: '乡村振兴、千万工程、粮食安全、和美乡村与农村人居环境。', count: 10 },
+  { key: 'grassroots', no: '09', label: '基层治理', en: 'GRASSROOTS', desc: '基层治理、社区治理、城市治理、矛盾化解与基层减负。', count: 20 },
+  { key: 'enforcement', no: '10', label: '行政执法', en: 'ENFORCEMENT', desc: '依法治国、严格执法、柔性执法、执法监督与执法队伍。', count: 20 },
+  { key: 'rural', no: '11', label: '乡村振兴', en: 'RURAL', desc: '乡村振兴、千万工程、粮食安全、和美乡村与农村人居环境。', count: 20 },
 ];
 
 export const caseIndex: CaseIndexItem[] = [

@@ -869,6 +869,56 @@ export const hotspotLeafIndex = {
       "slug": "refined-city-management",
       "no": "10",
       "title": "精细化治理，要从“差不多”走向“刚刚好”"
+    },
+    {
+      "slug": "community-workers",
+      "no": "11",
+      "title": "社区工作者，小巷总理的职业春天"
+    },
+    {
+      "slug": "property-governance",
+      "no": "12",
+      "title": "物业治理，小区里的民生大学问"
+    },
+    {
+      "slug": "grid-governance",
+      "no": "13",
+      "title": "多网合一，网格里的治理绣花功"
+    },
+    {
+      "slug": "emergency-grassroots",
+      "no": "14",
+      "title": "基层应急，把防线筑在第一线"
+    },
+    {
+      "slug": "old-community-renewal",
+      "no": "15",
+      "title": "老旧小区改造，把民生工程改到心坎上"
+    },
+    {
+      "slug": "dispute-mediation",
+      "no": "16",
+      "title": "多元解纷，把矛盾化解在诉前"
+    },
+    {
+      "slug": "community-business",
+      "no": "17",
+      "title": "一刻钟生活圈，把便利画在步行可达处"
+    },
+    {
+      "slug": "new-citizens",
+      "no": "18",
+      "title": "新市民融入，让此心安处是吾乡"
+    },
+    {
+      "slug": "smart-community",
+      "no": "19",
+      "title": "智慧社区，数字赋能不添负担"
+    },
+    {
+      "slug": "electric-bike-governance",
+      "no": "20",
+      "title": "电动自行车治理，堵与疏的平衡术"
     }
   ],
   "enforcement": [
@@ -926,6 +976,51 @@ export const hotspotLeafIndex = {
       "slug": "enforcement-team",
       "no": "11",
       "title": "高素质执法队伍，既要懂法律也要懂群众"
+    },
+    {
+      "slug": "administrative-punishment-law",
+      "no": "12",
+      "title": "行政处罚，过罚相当方能服人"
+    },
+    {
+      "slug": "comprehensive-law-enforcement",
+      "no": "13",
+      "title": "综合行政执法，一支队伍管到底"
+    },
+    {
+      "slug": "cross-domain-enforcement",
+      "no": "14",
+      "title": "跨部门联合执法，进一次门查多项事"
+    },
+    {
+      "slug": "enforcement-standard",
+      "no": "15",
+      "title": "执法规范化，把权力关进制度的笼子"
+    },
+    {
+      "slug": "administrative-reconsideration",
+      "no": "16",
+      "title": "行政复议，化解民告官的主渠道"
+    },
+    {
+      "slug": "public-interest-litigation",
+      "no": "17",
+      "title": "公益诉讼，为公共利益撑腰"
+    },
+    {
+      "slug": "law-popularization",
+      "no": "18",
+      "title": "全民普法，让法治成为全民信仰"
+    },
+    {
+      "slug": "business-law-protection",
+      "no": "19",
+      "title": "规范涉企执法，为企业撑起法治晴空"
+    },
+    {
+      "slug": "administrative-litigation",
+      "no": "20",
+      "title": "负责人出庭，官司桌前见真章"
     }
   ],
   "rural": [
@@ -978,6 +1073,56 @@ export const hotspotLeafIndex = {
       "slug": "new-agricultural-entities",
       "no": "10",
       "title": "培育新型农业经营主体，要把小农户带进现代农业"
+    },
+    {
+      "slug": "seed-industry",
+      "no": "11",
+      "title": "种业振兴，把中国饭碗端得更牢"
+    },
+    {
+      "slug": "arable-land",
+      "no": "12",
+      "title": "耕地保护，红线之下寸土必珍"
+    },
+    {
+      "slug": "county-rural-integration",
+      "no": "13",
+      "title": "城乡融合，让要素双向流动起来"
+    },
+    {
+      "slug": "digital-countryside",
+      "no": "14",
+      "title": "数字乡村，一根网线连起山内外"
+    },
+    {
+      "slug": "rural-infrastructure",
+      "no": "15",
+      "title": "四好农村路，铺就乡村振兴的康庄道"
+    },
+    {
+      "slug": "collective-economy",
+      "no": "16",
+      "title": "集体经济，村集体要有活钱办事"
+    },
+    {
+      "slug": "rural-finance",
+      "no": "17",
+      "title": "农村金融，活水浇灌希望的田野"
+    },
+    {
+      "slug": "rural-elderly",
+      "no": "18",
+      "title": "农村养老，互助幸福院里的夕阳红"
+    },
+    {
+      "slug": "rural-medical",
+      "no": "19",
+      "title": "县域医共体，看病不再翻山越岭"
+    },
+    {
+      "slug": "big-food-concept",
+      "no": "20",
+      "title": "大食物观，饭碗里的多元交响"
     }
   ]
 } as const satisfies Record<string, readonly WritingLeafIndexItem[]>;
