@@ -461,6 +461,56 @@ export const hotspotLeafIndex = {
       "slug": "intangible-cultural-heritage",
       "no": "10",
       "title": "非遗传承，传的不是一个“老物件”而是一门活的生活技艺"
+    },
+    {
+      "slug": "cultural-relics-protection",
+      "no": "11",
+      "title": "文物保护，功在当代利在千秋"
+    },
+    {
+      "slug": "guochao-guofeng",
+      "no": "12",
+      "title": "国风国潮，文化自信的年轻表达"
+    },
+    {
+      "slug": "online-literature",
+      "no": "13",
+      "title": "网络文学，从野蛮生长到精品化远航"
+    },
+    {
+      "slug": "red-culture",
+      "no": "14",
+      "title": "红色文化，把信仰的火种传下去"
+    },
+    {
+      "slug": "reading-for-all",
+      "no": "15",
+      "title": "全民阅读，书香社会之基"
+    },
+    {
+      "slug": "canal-culture",
+      "no": "16",
+      "title": "大运河，流动的文化带"
+    },
+    {
+      "slug": "cultural-talent",
+      "no": "17",
+      "title": "文化人才，传承发展的第一资源"
+    },
+    {
+      "slug": "cultural-consumption",
+      "no": "18",
+      "title": "文化消费新场景，沉浸其中的吸引力"
+    },
+    {
+      "slug": "art-education",
+      "no": "19",
+      "title": "美育，不是兴趣班而是必修课"
+    },
+    {
+      "slug": "festival-culture",
+      "no": "20",
+      "title": "传统节日，刻在时间里的文化基因"
     }
   ],
   "civility": [
@@ -513,6 +563,56 @@ export const hotspotLeafIndex = {
       "slug": "online-civility",
       "no": "10",
       "title": "网络文明，屏幕背后同样是真实的人"
+    },
+    {
+      "slug": "national-honor",
+      "no": "11",
+      "title": "功勋荣誉表彰，让英雄成为最亮的星"
+    },
+    {
+      "slug": "craftsman-spirit",
+      "no": "12",
+      "title": "大国工匠，毫厘之间见真章"
+    },
+    {
+      "slug": "honest-business",
+      "no": "13",
+      "title": "诚信经营，最好的营销是把事做真"
+    },
+    {
+      "slug": "charity-development",
+      "no": "14",
+      "title": "慈善事业，善意需要制度的护航"
+    },
+    {
+      "slug": "minors-internet",
+      "no": "15",
+      "title": "未成年人网络保护，为数字原住民护航"
+    },
+    {
+      "slug": "patriotism-education",
+      "no": "16",
+      "title": "爱国主义教育，凝心聚力的精神工程"
+    },
+    {
+      "slug": "civilized-tourism",
+      "no": "17",
+      "title": "文明旅游，你即风景"
+    },
+    {
+      "slug": "professional-ethics",
+      "no": "18",
+      "title": "职业道德，每个行业的隐形契约"
+    },
+    {
+      "slug": "anti-waste",
+      "no": "19",
+      "title": "厉行节约，反对浪费永远在路上"
+    },
+    {
+      "slug": "mutual-aid",
+      "no": "20",
+      "title": "凡人善举，社会最动人的底色"
     }
   ],
   "cadre": [

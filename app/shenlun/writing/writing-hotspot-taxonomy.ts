@@ -138,6 +138,16 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'cultural-subjectivity': 'culture',
   'museum-fever': 'culture',
   'intangible-cultural-heritage': 'culture',
+  'cultural-relics-protection': 'culture',
+  'guochao-guofeng': 'culture',
+  'online-literature': 'culture',
+  'red-culture': 'culture',
+  'reading-for-all': 'culture',
+  'canal-culture': 'culture',
+  'cultural-talent': 'culture',
+  'cultural-consumption': 'culture',
+  'art-education': 'culture',
+  'festival-culture': 'culture',
 
   // 06 精神文明
   'ideals-faith': 'civility',
@@ -150,6 +160,16 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'volunteer-service': 'civility',
   'family-tradition': 'civility',
   'online-civility': 'civility',
+  'national-honor': 'civility',
+  'craftsman-spirit': 'civility',
+  'honest-business': 'civility',
+  'charity-development': 'civility',
+  'minors-internet': 'civility',
+  'patriotism-education': 'civility',
+  'civilized-tourism': 'civility',
+  'professional-ethics': 'civility',
+  'anti-waste': 'civility',
+  'mutual-aid': 'civility',
 
   // 07 干部观念
   'responsibility': 'cadre',
