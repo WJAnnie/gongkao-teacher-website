@@ -240,6 +240,9 @@ test('hotspots and cases use the restrained article surface', () => {
 
 test('writing foundation modules meet the minimum useful first-edition volume', async () => {
   const data = await import('../app/shenlun/writing/writing-foundation-data.ts');
+  const metaphorModule = await import('../app/shenlun/writing/writing-metaphor-data.ts');
+  assert.ok(metaphorModule.metaphorEntries.length >= 500);
+  assert.ok(metaphorModule.metaphorEntries.every((entry) => entry.term && entry.meaning && entry.use));
   assert.equal(data.termCategories.length, 5);
   assert.ok(data.termCategories.every((category) => category.entries.length >= 15));
   assert.equal(data.patternCategories.length, 7);
