@@ -243,7 +243,7 @@ test('writing foundation modules meet the minimum useful first-edition volume', 
   assert.equal(data.termCategories.length, 5);
   assert.ok(data.termCategories.every((category) => category.entries.length >= 15));
   assert.equal(data.patternCategories.length, 7);
-  assert.ok(data.patternCategories.every((category) => category.entries.length >= 11));
+  assert.ok(data.patternCategories.every((category) => category.entries.length >= 20));
   assert.ok(data.patternCategories.every((category) => category.entries.every((entry) => entry.frame && entry.usage && entry.examples.length >= 2)));
   assert.equal(data.sentenceCategories.length, 11);
   assert.ok(data.sentenceCategories.every((category) => category.entries.length >= 60));
