@@ -11,10 +11,10 @@ import { WritingMetaphorLibrary } from './writing-metaphor-library';
 
 type FoundationLibrary = typeof import('./writing-foundation-data');
 type LearningHighlight = HotspotHighlight | CaseHighlight;
-type WritingLayerKey = 'hotspots' | 'cases' | 'terms' | 'metaphors' | 'parallel' | 'sentences' | 'quotes' | 'essay';
+type WritingLayerKey = 'hotspots' | 'cases' | 'terms' | 'metaphors' | 'patterns' | 'sentences' | 'quotes' | 'essay';
 type LoadState = 'idle' | 'loading' | 'ready' | 'error';
 type GenericSelection = { category: string; leaf: string };
-type FoundationModuleKey = 'terms' | 'parallel' | 'sentences' | 'quotes' | 'essay';
+type FoundationModuleKey = 'terms' | 'patterns' | 'sentences' | 'quotes' | 'essay';
 type SearchResult = { module: WritingLayerKey; category: string; leaf: string; label: string; meta: string; searchText: string };
 
 const writingLayers = [
@@ -22,7 +22,7 @@ const writingLayers = [
   { key: 'cases', no: '02', label: '案例素材', icon: '例', desc: '先看懂事实，再把案例压缩成能服务观点的论据。' },
   { key: 'terms', no: '03', label: '规范用词', icon: '词', desc: '把口语化、零散的材料表达改得准确而简洁。' },
   { key: 'metaphors', no: '04', label: '比喻词库', icon: '喻', desc: '通过检索理解比喻关系，不按主题硬背。' },
-  { key: 'parallel', no: '05', label: '对仗句库', icon: '对', desc: '从句间关系入手，积累有逻辑的成组表达。' },
+  { key: 'patterns', no: '05', label: '常用句式', icon: '式', desc: '按表达功能积累句式骨架，看例句仿写，拿到就能用。' },
   { key: 'sentences', no: '06', label: '主题佳句', icon: '句', desc: '按用途积累判断句、过渡句和收束句。' },
   { key: 'quotes', no: '07', label: '名人箴言', icon: '言', desc: '连同出处、语境和适用边界一起记。' },
   { key: 'essay', no: '08', label: '作文框架', icon: '文', desc: '沿着六个写作环节搭起一篇文章的骨架。' },
@@ -30,7 +30,7 @@ const writingLayers = [
 
 const foundationIndex = {
   terms: [['problems', '问题表现'], ['causes', '原因分析'], ['measures', '措施表达'], ['outcomes', '成效概括'], ['government-verbs', '工作动词']],
-  parallel: [['coordinate', '并列协同'], ['progressive', '递进深化'], ['contrastive-turn', '转折破题'], ['comparison', '正反对照'], ['three-part-subpoints', '三段分论点']],
+  patterns: [['evolution', '演进变迁'], ['contrast', '对照反差'], ['progression', '递进深化'], ['necessity', '条件必需'], ['metaphor', '比喻定位'], ['appeal', '铺陈呼吁']],
   sentences: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴']],
   quotes: [['people-centered', '人民立场'], ['action-responsibility', '实干与担当'], ['learning-growth', '学习与成长'], ['innovation-reform', '创新与改革'], ['culture-inheritance', '文化与传承']],
   essay: [['title', '标题'], ['opening', '开头'], ['thesis', '总论点'], ['subpoints', '分论点'], ['evidence', '论据'], ['conclusion', '结尾']],
@@ -38,7 +38,7 @@ const foundationIndex = {
 
 const defaultSelections: Record<FoundationModuleKey, GenericSelection> = {
   terms: { category: 'problems', leaf: '' },
-  parallel: { category: 'coordinate', leaf: '' },
+  patterns: { category: 'evolution', leaf: '' },
   sentences: { category: 'economy', leaf: '' },
   quotes: { category: 'people-centered', leaf: '' },
   essay: { category: 'title', leaf: '' },
@@ -116,7 +116,7 @@ async function buildSearchIndex() {
     hotspots.forEach((category) => category.articles.forEach((entry) => results.push({ module: 'hotspots', category: category.key, leaf: entry.slug, label: entry.title, meta: `热点时评 · ${category.label}`, searchText: `${entry.title}${entry.intro}${entry.thesis}${entry.tags.join('')}` })));
     cases.forEach((category) => category.cases.forEach((entry) => results.push({ module: 'cases', category: category.key, leaf: entry.slug, label: entry.title, meta: `案例素材 · ${category.label}`, searchText: `${entry.title}${entry.summary}${entry.tags.join('')}` })));
     foundation.termCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'terms', category: category.key, leaf: String(index), label: entry.after, meta: `规范用词 · ${category.label}`, searchText: `${entry.before}${entry.after}${entry.note}` })));
-    foundation.parallelCategories.forEach((category) => results.push({ module: 'parallel', category: category.key, leaf: '', label: category.label, meta: '对仗句库', searchText: category.entries.map((entry) => `${entry.first}${entry.second}${entry.note}`).join('') }));
+    foundation.patternCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'patterns', category: category.key, leaf: '', label: entry.frame, meta: `常用句式 · ${category.label}`, searchText: `${entry.frame}${entry.usage}${entry.examples.join('')}` })));
     foundation.sentenceCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'sentences', category: category.key, leaf: String(index), label: entry.text, meta: `主题佳句 · ${category.label}`, searchText: `${entry.purpose}${entry.text}` })));
     foundation.quoteCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'quotes', category: category.key, leaf: String(index), label: entry.text, meta: `名人箴言 · ${category.label}`, searchText: `${entry.text}${entry.author}${entry.source}${entry.context}${entry.boundary}` })));
     const facetLabels = { method: '写法', counterexample: '常见问题', example: '迁移示例' } as const;
@@ -220,22 +220,22 @@ export function WritingLibraryManual() {
   }, [activeLayer, activeCase, caseKey, caseReload]);
 
   useEffect(() => {
-    if (!['terms', 'parallel', 'sentences', 'quotes', 'essay'].includes(activeLayer) || foundation) return;
+    if (!['terms', 'patterns', 'sentences', 'quotes', 'essay'].includes(activeLayer) || foundation) return;
     let cancelled = false;
     void loadFoundation().then((library) => {
       if (cancelled) return;
       setFoundation(library);
       setSelections((current) => {
-        const parallel = library.parallelCategories.some((item) => item.key === current.parallel.category)
-          ? current.parallel
-          : { category: library.parallelCategories[0].key, leaf: '' };
+        const pattern = library.patternCategories.some((item) => item.key === current.patterns.category)
+          ? current.patterns
+          : { category: library.patternCategories[0].key, leaf: '' };
         const essayStage = library.essayStages.some((item) => item.key === current.essay.category)
           ? current.essay.category
           : library.essayStages[0].key;
         const essayLeaf = ['method', 'counterexample', 'example'].includes(current.essay.leaf) ? current.essay.leaf : '';
         return {
           terms: normalizeIndexedSelection(current.terms, library.termCategories),
-          parallel,
+          patterns: pattern,
           sentences: normalizeIndexedSelection(current.sentences, library.sentenceCategories),
           quotes: normalizeIndexedSelection(current.quotes, library.quoteCategories),
           essay: { category: essayStage, leaf: essayLeaf },
@@ -258,7 +258,7 @@ export function WritingLibraryManual() {
       activateChapter(`writing-${requestedLayer}`, null, 'restore');
       if (requestedLayer === 'hotspots' && hotspotIndex.some((item) => item.key === parts[1])) openHotspot(parts[1] as HotspotIndexItem['key'], parts[2]);
       if (requestedLayer === 'cases' && caseIndex.some((item) => item.key === parts[1])) openCase(parts[1] as CaseIndexItem['key'], parts[2]);
-      if (['terms', 'parallel', 'sentences', 'quotes', 'essay'].includes(requestedLayer) && parts[1]) {
+      if (['terms', 'patterns', 'sentences', 'quotes', 'essay'].includes(requestedLayer) && parts[1]) {
         setSelections((current) => ({ ...current, [requestedLayer]: { category: parts[1], leaf: parts[2] ?? '' } }));
       }
       if (requestedLayer === 'metaphors' && parts[1]) setMetaphorQuery(parts[1]);
@@ -328,7 +328,7 @@ export function WritingLibraryManual() {
     setQuery('');
   };
 
-  function foundationCategory<T extends { key: string }>(items: readonly T[], module: 'terms' | 'parallel' | 'sentences' | 'quotes') {
+  function foundationCategory<T extends { key: string }>(items: readonly T[], module: 'terms' | 'sentences' | 'quotes') {
     return items.find((item) => item.key === selections[module].category) ?? items[0];
   }
 
@@ -337,7 +337,7 @@ export function WritingLibraryManual() {
     'writing-cases': <SecondaryDirectory active={caseKey} items={caseIndex.map((item) => [item.key, item.label] as const)} label="案例素材细目" onSelect={(key) => openCase(key as CaseIndexItem['key'])} />,
     'writing-terms': <SecondaryDirectory active={selections.terms.category} items={foundationIndex.terms} label="规范用词细目" onSelect={(key) => selectGeneric('terms', key)} />,
     'writing-metaphors': <SecondaryDirectory active="library" items={[['library', '检索词库']]} label="比喻词库细目" onSelect={() => undefined} />,
-    'writing-parallel': <SecondaryDirectory active={selections.parallel.category} items={foundationIndex.parallel} label="对仗句库细目" onSelect={(key) => selectGeneric('parallel', key)} />,
+    'writing-patterns': <SecondaryDirectory active={selections.patterns.category} items={foundationIndex.patterns} label="常用句式细目" onSelect={(key) => selectGeneric('patterns', key)} />,
     'writing-sentences': <SecondaryDirectory active={selections.sentences.category} items={foundationIndex.sentences} label="主题佳句细目" onSelect={(key) => selectGeneric('sentences', key)} />,
     'writing-quotes': <SecondaryDirectory active={selections.quotes.category} items={foundationIndex.quotes} label="名人箴言细目" onSelect={(key) => selectGeneric('quotes', key)} />,
     'writing-essay': <SecondaryDirectory active={selections.essay.category} items={foundationIndex.essay} label="作文框架细目" onSelect={(key) => selectGeneric('essay', key)} />,
@@ -413,14 +413,25 @@ export function WritingLibraryManual() {
         </WritingInlineDisclosure>
       </section>;
     }
-    if (activeLayer === 'parallel') {
-      const category = foundationCategory(foundation.parallelCategories, 'parallel');
-      return <section className="writing-module-view writing-parallel-board" data-writing-module="parallel"><Breadcrumb items={['写作积累', '对仗句库', category.label]} /><header><span>{currentLayer.icon}</span><div><p>句间关系</p><h2>{category.label}</h2><em>{category.desc}</em></div></header><div className="writing-parallel-list">{category.entries.map((entry, index) => <article key={`${entry.first}-${index}`}><span>{String(index + 1).padStart(2, '0')}</span><div><p>{entry.first}</p><i aria-hidden="true" /><p>{entry.second}</p><em>{entry.note}</em></div></article>)}</div></section>;
+    if (activeLayer === 'patterns') {
+      const category = foundation.patternCategories.find((item) => item.key === selections.patterns.category) ?? foundation.patternCategories[0];
+      return <section className="writing-module-view writing-pattern-board" data-writing-module="patterns"><Breadcrumb items={['写作积累', '常用句式', category.label]} /><header><span>{currentLayer.icon}</span><div><p>表达功能</p><h2>{category.label}</h2><em>{category.desc}</em></div></header>
+        <div className="writing-pattern-list">
+          {category.entries.map((entry, index) => <article key={`${entry.frame}-${index}`}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{entry.frame}</h3>
+              <p className="writing-pattern-usage">{entry.usage}</p>
+              {entry.examples.map((example) => <p className="writing-pattern-example" key={example}>{example}</p>)}
+            </div>
+          </article>)}
+        </div>
+      </section>;
     }
     if (activeLayer === 'sentences') {
       const category = foundationCategory(foundation.sentenceCategories, 'sentences');
-      return <section className="writing-module-view writing-sentence-notebook" data-writing-module="sentences"><Breadcrumb items={['写作积累', '主题佳句', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>按用途积累表达</h2><em>{category.desc}</em></div></header>
-        <WritingInlineDisclosure activeId={selections.sentences.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: entry.purpose, meta: entry.text }))} label={`${category.label}主题佳句`} onToggle={(leaf) => toggleGenericLeaf('sentences', leaf)}>
+      return <section className="writing-module-view writing-sentence-notebook" data-writing-module="sentences"><Breadcrumb items={['写作积累', '主题佳句', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>按写作环节积累表达</h2><em>{category.desc}</em></div></header>
+        <WritingInlineDisclosure activeId={selections.sentences.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: entry.purpose, meta: entry.text, group: entry.group }))} label={`${category.label}主题佳句`} onToggle={(leaf) => toggleGenericLeaf('sentences', leaf)}>
           {(() => { const entry = category.entries[Number(selections.sentences.leaf)]; return entry ? <><blockquote>{entry.text}</blockquote><p className="writing-copy-practice">先判断这句话承担什么作用，再替换其中的主题词。不要脱离段落逻辑单独套用。</p></> : null; })()}
         </WritingInlineDisclosure>
       </section>;

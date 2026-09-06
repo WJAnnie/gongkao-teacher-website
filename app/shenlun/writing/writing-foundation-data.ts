@@ -1,3 +1,4 @@
+import { patternLibrary } from './writing-pattern-library.ts';
 import { sentenceLibrary } from './writing-sentence-library.ts';
 export type TermEntry = {
   before: string;
@@ -12,22 +13,23 @@ export type TermCategory = {
   entries: TermEntry[];
 };
 
-export type ParallelExpression = {
-  first: string;
-  second: string;
-  note: string;
+export type PatternEntry = {
+  frame: string;
+  usage: string;
+  examples: string[];
 };
 
-export type ParallelCategory = {
+export type PatternCategory = {
   key: string;
   label: string;
   desc: string;
-  entries: ParallelExpression[];
+  entries: PatternEntry[];
 };
 
 export type SentenceEntry = {
   text: string;
   purpose: string;
+  group?: string;
 };
 
 export type SentenceCategory = {
@@ -176,93 +178,7 @@ export const termCategories: TermCategory[] = [
   },
 ];
 
-export const parallelCategories: ParallelCategory[] = [
-  {
-    key: 'coordinate',
-    label: '并列式',
-    desc: '两句从不同侧面共同支撑一个观点，位置可以互换，分量应大体相当。',
-    entries: [
-      { first: '政策供给要回应群众所盼。', second: '公共服务要贴近基层所需。', note: '用于民生服务的两个并列落点。' },
-      { first: '以发展积蓄前行动能。', second: '以安全守住稳定底线。', note: '用于统筹发展和安全。' },
-      { first: '既要补齐设施硬短板。', second: '也要提升服务软实力。', note: '适合公共服务、乡村建设等主题。' },
-      { first: '在守正中延续文化根脉。', second: '在创新中打开表达空间。', note: '用于文化传承与创新。' },
-      { first: '政府要把规则立起来。', second: '社会要把活力激发出来。', note: '用于多元共治，不能借此弱化政府职责。' },
-      { first: '既要关注项目推进的数量。', second: '更要检验群众受益的质量。', note: '用于反对唯数量、重实效。' },
-      { first: '让数字技术提高服务效率。', second: '让人文关怀守住服务温度。', note: '用于数字治理和适老化服务。' },
-      { first: '城市更新要改善生活品质。', second: '乡村建设要留住地域特色。', note: '用于城乡建设的差异化目标。' },
-      { first: '以制度保障群众合法权益。', second: '以规则明确各方责任边界。', note: '适用于法治治理。' },
-      { first: '解决当下急难愁盼。', second: '夯实长远发展基础。', note: '用于短期纾困与长期建设并重。' },
-    ],
-  },
-  {
-    key: 'progressive',
-    label: '递进式',
-    desc: '后一句比前一句更深一层，从解决现象推进到完善机制或提升能力。',
-    entries: [
-      { first: '既要及时解决已经发生的问题。', second: '更要从制度上减少同类问题再次发生。', note: '从个案处置递进到源头治理。' },
-      { first: '不仅要让公共服务看得见、够得着。', second: '更要让公共服务用得好、可持续。', note: '从服务覆盖递进到服务质量。' },
-      { first: '不仅要听见群众的意见。', second: '更要把合理诉求转化为治理行动。', note: '从意见收集递进到回应落实。' },
-      { first: '不仅要把技术工具接入治理场景。', second: '更要用制度规范技术运行边界。', note: '从技术应用递进到技术治理。' },
-      { first: '不仅要保存文化遗产的物质形态。', second: '更要让其中的价值融入当代生活。', note: '从静态保护递进到活态传承。' },
-      { first: '不仅要帮助群众增加眼前收入。', second: '更要增强群众稳定增收的能力。', note: '从短期收益递进到内生发展。' },
-      { first: '不仅要让制度条文立得住。', second: '更要让公平正义成为共同信念。', note: '用于法治建设由规则到认同。' },
-      { first: '不仅要在课堂上讲清方法。', second: '更要在实践中练成解决问题的本领。', note: '用于干部教育或人才培养。' },
-      { first: '不仅要修复受损的生态环境。', second: '更要提升生态系统自我恢复能力。', note: '从末端修复递进到系统韧性。' },
-      { first: '不仅要以流程再造提升办事便利度。', second: '更要以公开透明增进政府公信力。', note: '从服务体验递进到治理信任。' },
-    ],
-  },
-  {
-    key: 'contrastive-turn',
-    label: '转折式',
-    desc: '先承认已有条件或表面成绩，再指出真正需要解决的关键问题。',
-    entries: [
-      { first: '平台建起来只是第一步。', second: '让数据真正服务决策才是关键。', note: '用于纠正重建设轻应用。' },
-      { first: '政策方向已经明确。', second: '落实成效仍取决于基层细节。', note: '用于部署与执行之间的转折。' },
-      { first: '发展速度固然重要。', second: '发展质量更决定未来空间。', note: '用于从速度转向质量。' },
-      { first: '流量可以带来一时关注。', second: '品质才能换来长久口碑。', note: '适合文旅、品牌和乡村产业。' },
-      { first: '技术能够缩短服务距离。', second: '技术却不能替代对具体人的理解。', note: '用于提醒数字治理保留人本视角。' },
-      { first: '一次活动可以凝聚短期人气。', second: '稳定机制才能形成持久参与。', note: '用于社区治理和文化活动。' },
-      { first: '增加投入能够改善基础条件。', second: '精细管理才能持续释放投入效益。', note: '用于项目建设与后续管护。' },
-      { first: '典型经验值得学习。', second: '照搬做法却可能水土不服。', note: '用于强调因地制宜。' },
-      { first: '严格执法是维护秩序的必要手段。', second: '规范文明执法同样是法治的应有之义。', note: '用于执法力度与温度。' },
-      { first: '阶段性成绩值得肯定。', second: '基础薄弱的现实仍需正视。', note: '用于客观评价，避免一味唱高调。' },
-    ],
-  },
-  {
-    key: 'comparison',
-    label: '对照式',
-    desc: '把两种做法或两种结果放在一起，通过差异凸显判断。',
-    entries: [
-      { first: '坐在办公室里只能看到报表的整齐。', second: '走到群众身边才能听见生活的回声。', note: '用于强调调查研究。' },
-      { first: '单向命令容易换来表面服从。', second: '充分协商才能形成治理共识。', note: '用于基层协商治理。' },
-      { first: '头痛医头只能换来暂时平静。', second: '系统治理才能铲除问题根源。', note: '用于由末端处置转向源头治理。' },
-      { first: '机械套用看似省事。', second: '精准施策才真正对症。', note: '用于反对“一刀切”。' },
-      { first: '封闭保护会让传统渐渐远离生活。', second: '开放转化能让文化重新进入日常。', note: '用于活态传承，不主张无底线商业化。' },
-      { first: '临事应对往往顾此失彼。', second: '平时准备才能遇事从容。', note: '用于风险治理和应急管理。' },
-      { first: '单个部门用力容易留下治理缝隙。', second: '多方协同发力才能形成完整闭环。', note: '用于跨部门复杂事项。' },
-      { first: '只看数字容易忽略真实感受。', second: '倾听评价才能检验政策温度。', note: '用于绩效评价和群众满意度。' },
-      { first: '竭泽而渔只能透支一时资源。', second: '涵养生态才能积累长久财富。', note: '用于生态保护与绿色发展。' },
-      { first: '简单输血能够缓解一时困难。', second: '增强造血能力才能实现稳定发展。', note: '用于产业帮扶，避免否定必要救助。' },
-    ],
-  },
-  {
-    key: 'three-part-subpoints',
-    label: '三段式分论点',
-    desc: '每组两句各自包含三个并列落点，可直接拆成文章的三段分论点。',
-    entries: [
-      { first: '以走访察民情，以协商聚民意，以服务解民忧。', second: '让问题发现在一线，让矛盾化解在一线，让信任凝聚在一线。', note: '用于基层治理文章。' },
-      { first: '以产业稳住增收根基，以人才激活乡村潜能，以文化涵养文明乡风。', second: '让农业更有奔头，让农村更有看头，让农民更有盼头。', note: '用于乡村全面振兴。' },
-      { first: '补齐服务设施，优化服务流程，提升服务能力。', second: '推动资源向基层下沉、服务向群众靠近、保障向弱者倾斜。', note: '用于基本公共服务。' },
-      { first: '严守生态底线，推进污染治理，培育绿色产业。', second: '以更少消耗支撑发展，以更优环境改善生活，以更绿产业赢得未来。', note: '用于生态文明建设。' },
-      { first: '保护文化遗产，讲好当代故事，丰富公共文化服务。', second: '让传统留下来，让表达活起来，让成果惠及更多人。', note: '用于文化传承发展。' },
-      { first: '打通数据壁垒，优化办事流程，守牢安全边界。', second: '让数据多跑路，让群众少跑腿，让治理更精准。', note: '用于数字政府建设。' },
-      { first: '在学习中更新知识，在实践中磨炼本领，在担当中检验作风。', second: '面对难题敢上前，面对矛盾善化解，面对责任不回避。', note: '用于干部能力与作风建设。' },
-      { first: '夯实基础研究，畅通成果转化，营造创新生态。', second: '让创新源头活水涌流，让创新成果加快落地，让创新人才竞相成长。', note: '用于科技创新。' },
-      { first: '科学立规矩，严格抓执行，常态受监督。', second: '用法治明确权利边界，用法治规范权力运行，用法治维护公平正义。', note: '用于法治政府或基层法治。' },
-      { first: '把理想立在时代需要处，把本领练在实践一线，把担当写在具体行动中。', second: '在困难中增长才干，在服务中理解人民，在奋斗中实现价值。', note: '用于青年成长与担当。' },
-    ],
-  },
-];
+export const patternCategories: PatternCategory[] = patternLibrary;
 
 export const sentenceCategories: SentenceCategory[] = sentenceLibrary;
 

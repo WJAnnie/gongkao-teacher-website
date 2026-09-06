@@ -158,7 +158,7 @@ test('Shenlun chapter metadata has a body target on every core route', () => {
   for (const targetId of ['shenlun-video-course', 'shenlun-video-classroom', 'shenlun-video-worklog', 'shenlun-video-notes']) {
     assert.match(videosPageSource, new RegExp(targetId), targetId);
   }
-  for (const targetId of ['writing-hotspots', 'writing-cases', 'writing-terms', 'writing-metaphors', 'writing-parallel', 'writing-sentences', 'writing-quotes', 'writing-essay']) {
+  for (const targetId of ['writing-hotspots', 'writing-cases', 'writing-terms', 'writing-metaphors', 'writing-patterns', 'writing-sentences', 'writing-quotes', 'writing-essay']) {
     assert.match(writingManualSource, new RegExp(targetId), targetId);
   }
 });
@@ -225,11 +225,11 @@ test('writing keeps third-level choices in the reading surface', () => {
   assert.doesNotMatch(writingManualSource, /details\[chapter\.id\]/);
 });
 
-test('metaphor and parallel libraries remain two-level modules', () => {
+test('metaphor and pattern libraries remain two-level modules', () => {
   assert.match(writingManualSource, /activeLayer === 'metaphors'/);
-  assert.match(writingManualSource, /activeLayer === 'parallel'/);
+  assert.match(writingManualSource, /activeLayer === 'patterns'/);
   assert.doesNotMatch(writingManualSource, /WritingInlineDisclosure[^;]+metaphors/s);
-  assert.doesNotMatch(writingManualSource, /WritingInlineDisclosure[^;]+parallel/s);
+  assert.doesNotMatch(writingManualSource, /WritingInlineDisclosure[^;]+patterns/s);
 });
 
 test('hotspots and cases use the restrained article surface', () => {
@@ -242,15 +242,17 @@ test('writing foundation modules meet the minimum useful first-edition volume', 
   const data = await import('../app/shenlun/writing/writing-foundation-data.ts');
   assert.equal(data.termCategories.length, 5);
   assert.ok(data.termCategories.every((category) => category.entries.length >= 15));
-  assert.equal(data.parallelCategories.length, 5);
-  assert.ok(data.parallelCategories.every((category) => category.entries.length >= 10));
+  assert.equal(data.patternCategories.length, 6);
+  assert.ok(data.patternCategories.every((category) => category.entries.length >= 9));
+  assert.ok(data.patternCategories.every((category) => category.entries.every((entry) => entry.frame && entry.usage && entry.examples.length >= 2)));
   assert.equal(data.sentenceCategories.length, 11);
-  assert.ok(data.sentenceCategories.every((category) => category.entries.length === 50));
+  assert.ok(data.sentenceCategories.every((category) => category.entries.length >= 60));
+  assert.ok(data.sentenceCategories.every((category) => category.entries.every((entry) => entry.group)));
   assert.equal(data.quoteCategories.length, 5);
   assert.ok(data.quoteCategories.every((category) => category.entries.length >= 8));
   assert.equal(data.essayStages.length, 6);
   assert.ok(data.essayStages.every((stage) => stage.method && stage.counterexample && stage.example));
-  for (const collection of [data.termCategories, data.parallelCategories, data.sentenceCategories, data.quoteCategories, data.essayStages]) {
+  for (const collection of [data.termCategories, data.patternCategories, data.sentenceCategories, data.quoteCategories, data.essayStages]) {
     collection.forEach((item) => assert.match(writingManualSource, new RegExp(`['"]${item.key}['"]`), `missing directory key: ${item.key}`));
   }
   assert.doesNotMatch(writingFoundationSource, /下一轮|继续建设|静态页面|一次加载|扩容|脚本异常/);

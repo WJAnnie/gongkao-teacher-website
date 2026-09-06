@@ -138,6 +138,9 @@
 .writing-inline-disclosure > header h2 { margin: 0; font: 600 22px/1.35 "Songti SC", serif; }
 .writing-inline-disclosure > header span { color: var(--learning-muted); font-size: 11px; }
 .writing-inline-disclosure-item { margin: 0; border-top: 1px solid var(--learning-border); }
+.writing-inline-group { display: flex; align-items: baseline; justify-content: space-between; margin: 30px 0 0; padding: 0 2px 10px; border-bottom: 1px solid color-mix(in srgb, var(--module-accent) 38%, transparent); color: var(--module-accent); font: 600 14px/1.4 "Songti SC", serif; letter-spacing: .1em; }
+.writing-inline-group > span { color: var(--learning-muted); font: normal 10px/1.4 inherit; letter-spacing: .04em; }
+.writing-inline-disclosure-item.group-first { border-top: 0; margin-top: 12px; }
 .writing-inline-disclosure-item > button { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; padding: 16px 2px; border: 0; background: transparent; color: var(--learning-ink); text-align: left; cursor: pointer; }
 .writing-inline-disclosure-item > button:hover b, .writing-inline-disclosure-item > button:focus-visible b { color: var(--module-accent); }
 .writing-inline-disclosure-item > button strong, .writing-inline-disclosure-item > button i { color: var(--module-accent); font-style: normal; font-size: 12px; }
@@ -176,13 +179,12 @@
 .writing-term-workbench aside b { color: var(--module-accent); font-size: 11px; letter-spacing: .1em; }
 .writing-term-workbench aside p { margin: 8px 0 0; color: var(--learning-muted); font-size: 13px; line-height: 1.95; }
 
-.writing-parallel-list { display: grid; gap: 0; }
-.writing-parallel-list article { display: grid; grid-template-columns: 42px minmax(0, 1fr); border: 0; border-top: 1px solid var(--learning-border); background: transparent; }
-.writing-parallel-list article > span { padding: 22px 10px 0 0; color: var(--module-accent); font: italic 11px Georgia, serif; text-align: left; }
-.writing-parallel-list article > div { display: grid; grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr); gap: 20px; padding: 20px 0 22px; border-left: 0; }
-.writing-parallel-list p { margin: 0; font: 600 16px/1.75 "Songti SC", serif; }
-.writing-parallel-list i { background: var(--module-accent); opacity: .3; }
-.writing-parallel-list em { grid-column: 1 / -1; color: var(--learning-muted); font: normal 11px/1.75 inherit; }
+.writing-pattern-list { display: grid; }
+.writing-pattern-list article { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; padding: 22px 0 24px; border-top: 1px solid var(--learning-border); }
+.writing-pattern-list article > span { color: var(--module-accent); font: italic 11px Georgia, serif; }
+.writing-pattern-list h3 { margin: 2px 0 8px; color: var(--module-accent); font: 600 clamp(17px, 2vw, 21px)/1.5 "Songti SC", serif; letter-spacing: .02em; }
+.writing-pattern-usage { margin: 0 0 10px; color: var(--learning-muted); font-size: 12px; line-height: 1.9; }
+.writing-pattern-example { margin: 6px 0 0; padding-left: 1.1em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 32%, transparent); color: var(--learning-ink); font: 15px/1.95 "Songti SC", serif; }
 
 .writing-sentence-notebook { padding: 0; background: transparent; }
 .writing-sentence-notebook blockquote { margin: 2px 0 22px; padding-left: 1.15em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 40%, transparent); color: var(--learning-ink); font: 500 clamp(21px, 2.8vw, 30px)/1.8 "Kaiti SC", "STKaiti", serif; }
@@ -238,8 +240,7 @@
   .writing-quote-card .writing-inline-disclosure-body > div { grid-template-columns: 1fr; }
   .writing-term-compare { grid-template-columns: 1fr; }
   .writing-term-compare > i { transform: rotate(90deg); justify-self: center; }
-  .writing-parallel-list article > div { grid-template-columns: 1fr; gap: 10px; }
-  .writing-parallel-list article > div i { height: 1px; }
+  .writing-pattern-list article { grid-template-columns: 32px minmax(0, 1fr); gap: 10px; }
   .writing-blueprint-track { grid-template-columns: repeat(3, 1fr); }
 }
 
