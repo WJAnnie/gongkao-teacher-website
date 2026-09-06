@@ -52,7 +52,7 @@ export const learningPageChapters = {
     { id: 'writing-cases', no: '02', label: '案例素材', targetId: 'writing-cases' },
     { id: 'writing-terms', no: '03', label: '规范用词', targetId: 'writing-terms' },
     { id: 'writing-metaphors', no: '04', label: '比喻词库', targetId: 'writing-metaphors' },
-    { id: 'writing-parallel', no: '05', label: '对仗句库', targetId: 'writing-parallel' },
+    { id: 'writing-patterns', no: '05', label: '常用句式', targetId: 'writing-patterns' },
     { id: 'writing-sentences', no: '06', label: '主题佳句', targetId: 'writing-sentences' },
     { id: 'writing-quotes', no: '07', label: '名人箴言', targetId: 'writing-quotes' },
     { id: 'writing-essay', no: '08', label: '作文框架', targetId: 'writing-essay' },
