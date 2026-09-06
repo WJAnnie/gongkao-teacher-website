@@ -249,7 +249,12 @@ test('writing foundation modules meet the minimum useful first-edition volume', 
   assert.ok(data.patternCategories.every((category) => category.entries.length >= 20));
   assert.ok(data.patternCategories.every((category) => category.entries.every((entry) => entry.frame && entry.usage && entry.examples.length >= 2)));
   assert.equal(data.sentenceCategories.length, 11);
-  assert.ok(data.sentenceCategories.every((category) => category.entries.length >= 60));
+  assert.ok(data.sentenceCategories.every((category) => category.entries.length >= 160));
+  assert.ok(data.sentenceCategories.every((category) => {
+    const counts = new Map();
+    for (const entry of category.entries) counts.set(entry.group, (counts.get(entry.group) ?? 0) + 1);
+    return [...counts.values()].every((count) => count >= 20);
+  }));
   assert.ok(data.sentenceCategories.every((category) => category.entries.every((entry) => entry.group)));
   assert.equal(data.quoteCategories.length, 12);
   assert.ok(data.quoteCategories.every((category) => category.entries.length >= 20));
