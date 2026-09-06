@@ -193,11 +193,14 @@
 .writing-sentence-group span { align-self: start; padding-top: 3px; color: var(--module-accent); font-size: 11px; letter-spacing: .06em; }
 .writing-sentence-group p { margin: 0; color: var(--learning-ink); font: 500 16px/1.95 "Songti SC", serif; }
 
-.writing-quote-card blockquote { margin: 2px 0 24px; padding-left: 1.15em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 40%, transparent); color: var(--module-accent); font: 500 clamp(21px, 2.8vw, 30px)/1.75 "Kaiti SC", "STKaiti", serif; }
-.writing-quote-card .writing-inline-disclosure-body > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 34px; margin: 0; border: 0; background: transparent; }
-.writing-quote-card .writing-inline-disclosure-body article { padding: 0; background: transparent; }
-.writing-quote-card .writing-inline-disclosure-body b { color: var(--module-accent); font-size: 11px; letter-spacing: .1em; }
-.writing-quote-card .writing-inline-disclosure-body p { margin: 9px 0 0; color: var(--learning-muted); font-size: 13px; line-height: 1.95; }
+.writing-quote-group { display: grid; margin: 0; padding: 6px 0 22px; }
+.writing-quote-group li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px; padding: 17px 2px 19px; border-top: 1px solid color-mix(in srgb, var(--learning-border) 55%, transparent); list-style: none; }
+.writing-quote-group li:first-child { border-top: 0; }
+.writing-quote-group li > span { align-self: start; padding-top: 4px; color: var(--module-accent); font-size: 11px; letter-spacing: .06em; }
+.writing-quote-group blockquote { margin: 0; padding: 0; border: 0; color: var(--module-accent); font: 500 17px/1.85 "Kaiti SC", "STKaiti", serif; }
+.writing-quote-source { margin: 7px 0 0; color: var(--learning-muted); font-size: 12px; letter-spacing: .02em; }
+.writing-quote-note { margin: 10px 0 0; color: var(--learning-muted); font-size: 12.5px; line-height: 1.9; }
+.writing-quote-note b { display: inline-block; margin-right: 8px; padding: 1px 8px; border: 1px solid color-mix(in srgb, var(--module-accent) 34%, transparent); border-radius: 999px; color: var(--module-accent); font-size: 10px; font-weight: 500; letter-spacing: .1em; vertical-align: 1px; }
 
 .writing-blueprint-track { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin-bottom: 26px; border: 0; border-bottom: 1px solid var(--learning-border); }
 .writing-blueprint-track > span { display: grid; gap: 6px; margin-bottom: -1px; padding: 12px 6px 13px; border: 0; border-bottom: 2px solid transparent; color: var(--learning-muted); font: italic 10px Georgia, serif; text-align: center; }
@@ -240,7 +243,8 @@
   .writing-inline-disclosure-item { margin: 0; }
   .writing-inline-disclosure-item > button { padding: 14px 2px; }
   .writing-inline-disclosure-body { padding: 0 0 22px; }
-  .writing-quote-card .writing-inline-disclosure-body > div { grid-template-columns: 1fr; }
+  .writing-quote-group li { grid-template-columns: 1fr; gap: 8px; padding: 15px 0 17px; }
+  .writing-quote-group li > span { padding-top: 0; }
   .writing-term-compare { grid-template-columns: 1fr; }
   .writing-term-compare > i { transform: rotate(90deg); justify-self: center; }
   .writing-pattern-list article { grid-template-columns: 32px minmax(0, 1fr); gap: 10px; }

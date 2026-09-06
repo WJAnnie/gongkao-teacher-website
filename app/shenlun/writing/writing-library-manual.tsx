@@ -32,7 +32,7 @@ const foundationIndex = {
   terms: [['problems', '问题表现'], ['causes', '原因分析'], ['measures', '措施表达'], ['outcomes', '成效概括'], ['government-verbs', '工作动词']],
   patterns: [['evolution', '演进变迁'], ['contrast', '对照反差'], ['progression', '递进深化'], ['necessity', '条件必需'], ['metaphor', '比喻定位'], ['appeal', '铺陈呼吁'], ['imagery', '意象造境']],
   sentences: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴']],
-  quotes: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴']],
+  quotes: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴'], ['wisdom', '通用哲理']],
   essay: [['title', '标题'], ['opening', '开头'], ['thesis', '总论点'], ['subpoints', '分论点'], ['evidence', '论据'], ['conclusion', '结尾']],
 } as const;
 
@@ -125,7 +125,7 @@ async function buildSearchIndex() {
     foundation.termCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'terms', category: category.key, leaf: String(index), label: entry.after, meta: `规范用词 · ${category.label}`, searchText: `${entry.before}${entry.after}${entry.note}` })));
     foundation.patternCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'patterns', category: category.key, leaf: '', label: entry.frame, meta: `常用句式 · ${category.label}`, searchText: `${entry.frame}${entry.usage}${entry.examples.join('')}` })));
     foundation.sentenceCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'sentences', category: category.key, leaf: entry.group ?? '', label: entry.text, meta: `主题佳句 · ${category.label}`, searchText: `${entry.purpose}${entry.text}` })));
-    foundation.quoteCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'quotes', category: category.key, leaf: String(index), label: entry.text, meta: `名人箴言 · ${category.label}`, searchText: `${entry.text}${entry.author}${entry.source}${entry.context}${entry.boundary}` })));
+    foundation.quoteCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'quotes', category: category.key, leaf: entry.group ?? '', label: entry.text, meta: `名人箴言 · ${category.label}`, searchText: `${entry.text}${entry.author}${entry.source}${entry.context}${entry.boundary}` })));
     const facetLabels = { method: '写法', counterexample: '常见问题', example: '迁移示例' } as const;
     foundation.essayStages.forEach((stage) => Object.entries(facetLabels).forEach(([leaf, label]) => results.push({ module: 'essay', category: stage.key, leaf, label: `${stage.label} · ${label}`, meta: '作文框架', searchText: `${stage.label}${stage.method}${stage.counterexample}${stage.example}` })));
     metaphorModule.metaphorEntries.forEach((entry) => results.push({ module: 'metaphors', category: 'library', leaf: entry.term, label: entry.term, meta: '比喻词库', searchText: `${entry.term}${entry.meaning}${entry.use}` }));
@@ -244,7 +244,7 @@ export function WritingLibraryManual() {
           terms: normalizeIndexedSelection(current.terms, library.termCategories),
           patterns: pattern,
           sentences: normalizeGroupedSelection(current.sentences, library.sentenceCategories),
-          quotes: normalizeIndexedSelection(current.quotes, library.quoteCategories),
+          quotes: normalizeGroupedSelection(current.quotes, library.quoteCategories),
           essay: { category: essayStage, leaf: essayLeaf },
         };
       });
@@ -454,9 +454,26 @@ export function WritingLibraryManual() {
     }
     if (activeLayer === 'quotes') {
       const category = foundationCategory(foundation.quoteCategories, 'quotes');
+      const groups: { label: string; count: number }[] = [];
+      for (const entry of category.entries) {
+        const last = groups[groups.length - 1];
+        if (!last || last.label !== entry.group) groups.push({ label: entry.group ?? '', count: 1 });
+        else last.count += 1;
+      }
+      const openQuotes = selections.quotes.leaf ? category.entries.filter((entry) => entry.group === selections.quotes.leaf) : [];
       return <section className="writing-module-view writing-quote-card" data-writing-module="quotes"><Breadcrumb items={['写作积累', '名人箴言', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>连同出处和边界一起记</h2><em>{category.desc}</em></div></header>
-        <WritingInlineDisclosure activeId={selections.quotes.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: `${entry.author}｜${entry.text}`, meta: entry.source, group: entry.group }))} label={`${category.label}名人箴言`} onToggle={(leaf) => toggleGenericLeaf('quotes', leaf)}>
-          {(() => { const entry = category.entries[Number(selections.quotes.leaf)]; return entry ? <><blockquote>{entry.text}</blockquote><div><article><b>适用语境</b><p>{entry.context}</p></article><article><b>使用边界</b><p>{entry.boundary}</p></article></div></> : null; })()}
+        <WritingInlineDisclosure activeId={selections.quotes.leaf} items={groups.map((group, index) => ({ id: group.label, no: String(index + 1).padStart(2, '0'), title: group.label, meta: `${group.count} 条` }))} label={`${category.label}名人箴言`} onToggle={(leaf) => toggleGenericLeaf('quotes', leaf)} unit="组">
+          {openQuotes.length ? <ul className="writing-quote-group">
+            {openQuotes.map((entry) => <li key={`${entry.author}-${entry.text}`}>
+              <span>{entry.author}</span>
+              <div>
+                <blockquote>{entry.text}</blockquote>
+                <p className="writing-quote-source">{entry.source}</p>
+                <p className="writing-quote-note"><b>适用语境</b>{entry.context}</p>
+                <p className="writing-quote-note"><b>使用边界</b>{entry.boundary}</p>
+              </div>
+            </li>)}
+          </ul> : null}
         </WritingInlineDisclosure>
       </section>;
     }
