@@ -30,7 +30,7 @@ const writingLayers = [
 
 const foundationIndex = {
   terms: [['problems', '问题表现'], ['causes', '原因分析'], ['measures', '措施表达'], ['outcomes', '成效概括'], ['government-verbs', '工作动词']],
-  patterns: [['evolution', '演进变迁'], ['contrast', '对照反差'], ['progression', '递进深化'], ['necessity', '条件必需'], ['metaphor', '比喻定位'], ['appeal', '铺陈呼吁']],
+  patterns: [['evolution', '演进变迁'], ['contrast', '对照反差'], ['progression', '递进深化'], ['necessity', '条件必需'], ['metaphor', '比喻定位'], ['appeal', '铺陈呼吁'], ['imagery', '意象造境']],
   sentences: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴']],
   quotes: [['people-centered', '人民立场'], ['action-responsibility', '实干与担当'], ['learning-growth', '学习与成长'], ['innovation-reform', '创新与改革'], ['culture-inheritance', '文化与传承']],
   essay: [['title', '标题'], ['opening', '开头'], ['thesis', '总论点'], ['subpoints', '分论点'], ['evidence', '论据'], ['conclusion', '结尾']],
@@ -48,6 +48,13 @@ function normalizeIndexedSelection(selection: GenericSelection, categories: read
   const category = categories.find((item) => item.key === selection.category) ?? categories[0];
   const leafIndex = Number(selection.leaf);
   const leaf = Number.isInteger(leafIndex) && leafIndex >= 0 && leafIndex < category.entries.length ? String(leafIndex) : '';
+  return { category: category.key, leaf };
+}
+
+function normalizeGroupedSelection(selection: GenericSelection, categories: readonly { key: string; entries: readonly { group?: string }[] }[]) {
+  const category = categories.find((item) => item.key === selection.category) ?? categories[0];
+  const groups = Array.from(new Set(category.entries.map((entry) => entry.group)));
+  const leaf = groups.includes(selection.leaf) ? selection.leaf : '';
   return { category: category.key, leaf };
 }
 
@@ -117,7 +124,7 @@ async function buildSearchIndex() {
     cases.forEach((category) => category.cases.forEach((entry) => results.push({ module: 'cases', category: category.key, leaf: entry.slug, label: entry.title, meta: `案例素材 · ${category.label}`, searchText: `${entry.title}${entry.summary}${entry.tags.join('')}` })));
     foundation.termCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'terms', category: category.key, leaf: String(index), label: entry.after, meta: `规范用词 · ${category.label}`, searchText: `${entry.before}${entry.after}${entry.note}` })));
     foundation.patternCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'patterns', category: category.key, leaf: '', label: entry.frame, meta: `常用句式 · ${category.label}`, searchText: `${entry.frame}${entry.usage}${entry.examples.join('')}` })));
-    foundation.sentenceCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'sentences', category: category.key, leaf: String(index), label: entry.text, meta: `主题佳句 · ${category.label}`, searchText: `${entry.purpose}${entry.text}` })));
+    foundation.sentenceCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'sentences', category: category.key, leaf: entry.group ?? '', label: entry.text, meta: `主题佳句 · ${category.label}`, searchText: `${entry.purpose}${entry.text}` })));
     foundation.quoteCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'quotes', category: category.key, leaf: String(index), label: entry.text, meta: `名人箴言 · ${category.label}`, searchText: `${entry.text}${entry.author}${entry.source}${entry.context}${entry.boundary}` })));
     const facetLabels = { method: '写法', counterexample: '常见问题', example: '迁移示例' } as const;
     foundation.essayStages.forEach((stage) => Object.entries(facetLabels).forEach(([leaf, label]) => results.push({ module: 'essay', category: stage.key, leaf, label: `${stage.label} · ${label}`, meta: '作文框架', searchText: `${stage.label}${stage.method}${stage.counterexample}${stage.example}` })));
@@ -236,7 +243,7 @@ export function WritingLibraryManual() {
         return {
           terms: normalizeIndexedSelection(current.terms, library.termCategories),
           patterns: pattern,
-          sentences: normalizeIndexedSelection(current.sentences, library.sentenceCategories),
+          sentences: normalizeGroupedSelection(current.sentences, library.sentenceCategories),
           quotes: normalizeIndexedSelection(current.quotes, library.quoteCategories),
           essay: { category: essayStage, leaf: essayLeaf },
         };
@@ -430,9 +437,18 @@ export function WritingLibraryManual() {
     }
     if (activeLayer === 'sentences') {
       const category = foundationCategory(foundation.sentenceCategories, 'sentences');
+      const groups: { label: string; count: number }[] = [];
+      for (const entry of category.entries) {
+        const last = groups[groups.length - 1];
+        if (!last || last.label !== entry.group) groups.push({ label: entry.group ?? '', count: 1 });
+        else last.count += 1;
+      }
+      const openSentences = selections.sentences.leaf ? category.entries.filter((entry) => entry.group === selections.sentences.leaf) : [];
       return <section className="writing-module-view writing-sentence-notebook" data-writing-module="sentences"><Breadcrumb items={['写作积累', '主题佳句', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>按写作环节积累表达</h2><em>{category.desc}</em></div></header>
-        <WritingInlineDisclosure activeId={selections.sentences.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: entry.purpose, meta: entry.text, group: entry.group }))} label={`${category.label}主题佳句`} onToggle={(leaf) => toggleGenericLeaf('sentences', leaf)}>
-          {(() => { const entry = category.entries[Number(selections.sentences.leaf)]; return entry ? <><blockquote>{entry.text}</blockquote><p className="writing-copy-practice">先判断这句话承担什么作用，再替换其中的主题词。不要脱离段落逻辑单独套用。</p></> : null; })()}
+        <WritingInlineDisclosure activeId={selections.sentences.leaf} items={groups.map((group, index) => ({ id: group.label, no: String(index + 1).padStart(2, '0'), title: group.label, meta: `${group.count} 句` }))} label={`${category.label}主题佳句`} onToggle={(leaf) => toggleGenericLeaf('sentences', leaf)} unit="组">
+          {openSentences.length ? <ul className="writing-sentence-group">
+            {openSentences.map((entry) => <li key={entry.text}><span>{entry.purpose}</span><p>{entry.text}</p></li>)}
+          </ul> : null}
         </WritingInlineDisclosure>
       </section>;
     }

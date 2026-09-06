@@ -187,8 +187,11 @@
 .writing-pattern-example { margin: 6px 0 0; padding-left: 1.1em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 32%, transparent); color: var(--learning-ink); font: 15px/1.95 "Songti SC", serif; }
 
 .writing-sentence-notebook { padding: 0; background: transparent; }
-.writing-sentence-notebook blockquote { margin: 2px 0 22px; padding-left: 1.15em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 40%, transparent); color: var(--learning-ink); font: 500 clamp(21px, 2.8vw, 30px)/1.8 "Kaiti SC", "STKaiti", serif; }
-.writing-copy-practice { margin: 0; padding: 0; border: 0; background: transparent; color: var(--learning-muted); font-size: 13px; line-height: 1.95; }
+.writing-sentence-group { display: grid; margin: 0; padding: 6px 0 22px; }
+.writing-sentence-group li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px; padding: 15px 2px; border-top: 1px solid color-mix(in srgb, var(--learning-border) 55%, transparent); list-style: none; }
+.writing-sentence-group li:first-child { border-top: 0; }
+.writing-sentence-group span { align-self: start; padding-top: 3px; color: var(--module-accent); font-size: 11px; letter-spacing: .06em; }
+.writing-sentence-group p { margin: 0; color: var(--learning-ink); font: 500 16px/1.95 "Songti SC", serif; }
 
 .writing-quote-card blockquote { margin: 2px 0 24px; padding-left: 1.15em; border-left: 2px solid color-mix(in srgb, var(--module-accent) 40%, transparent); color: var(--module-accent); font: 500 clamp(21px, 2.8vw, 30px)/1.75 "Kaiti SC", "STKaiti", serif; }
 .writing-quote-card .writing-inline-disclosure-body > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 34px; margin: 0; border: 0; background: transparent; }

@@ -14,19 +14,21 @@ export function WritingInlineDisclosure({
   items,
   label,
   onToggle,
+  unit = '项',
 }: {
   activeId: string;
   children: ReactNode;
   items: readonly WritingDisclosureItem[];
   label: string;
   onToggle: (id: string) => void;
+  unit?: string;
 }) {
   const groupCounts = new Map<string, number>();
   for (const item of items) {
     if (item.group) groupCounts.set(item.group, (groupCounts.get(item.group) ?? 0) + 1);
   }
   return <section className="writing-inline-disclosure" aria-label={label}>
-    <header><h2>{label}</h2><span>共 {items.length} 项 · 点击标题展开</span></header>
+    <header><h2>{label}</h2><span>共 {items.length} {unit} · 点击标题展开</span></header>
     {items.map((item, index) => {
       const open = item.id === activeId;
       const bodyId = `writing-leaf-${item.id.replace(/[^a-zA-Z0-9_-]/g, '-')}`;
