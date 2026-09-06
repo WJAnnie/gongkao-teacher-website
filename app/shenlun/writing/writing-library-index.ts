@@ -22,8 +22,8 @@ export type CaseIndexItem = {
 export const hotspotIndex: HotspotIndexItem[] = [
   { key: 'economy', no: '01', label: '经济发展', en: 'ECONOMY', desc: '高质量发展、新质生产力、现代化产业体系、扩大内需与统一大市场。', count: 20 },
   { key: 'innovation', no: '02', label: '时代创新', en: 'INNOVATION', desc: '人工智能、数据要素、平台经济、新就业形态与算法治理。', count: 20 },
-  { key: 'livelihood', no: '03', label: '社会民生', en: 'LIVELIHOOD', desc: '就业、教育、医疗、养老、生育支持与社会保障。', count: 10 },
-  { key: 'ecology', no: '04', label: '生态环保', en: 'ECOLOGY', desc: '绿色转型、双碳目标、美丽中国、生态保护与环境治理。', count: 10 },
+  { key: 'livelihood', no: '03', label: '社会民生', en: 'LIVELIHOOD', desc: '就业、教育、医疗、养老、生育支持与社会保障。', count: 20 },
+  { key: 'ecology', no: '04', label: '生态环保', en: 'ECOLOGY', desc: '绿色转型、双碳目标、美丽中国、生态保护与环境治理。', count: 20 },
   { key: 'culture', no: '05', label: '文化勃兴', en: 'CULTURE', desc: '文化自信、传统文化、非遗传承、文旅融合与文化产业。', count: 10 },
   { key: 'civility', no: '06', label: '精神文明', en: 'CIVILITY', desc: '核心价值观、公民道德、诚信建设、移风易俗与志愿服务。', count: 10 },
   { key: 'cadre', no: '07', label: '干部观念', en: 'CADRE', desc: '责任担当、政绩观、调查研究、群众路线与干部能力建设。', count: 10 },

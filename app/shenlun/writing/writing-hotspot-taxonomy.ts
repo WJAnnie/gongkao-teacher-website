@@ -94,6 +94,16 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'birth-support-system': 'livelihood',
   'vocational-education': 'livelihood',
   'social-security-safety-net': 'livelihood',
+  'housing-security': 'livelihood',
+  'food-safety': 'livelihood',
+  'mental-health': 'livelihood',
+  'barrier-free': 'livelihood',
+  'insurance-reform': 'livelihood',
+  'gradual-retirement': 'livelihood',
+  'labor-rights': 'livelihood',
+  'youth-employment': 'livelihood',
+  'migrants-education': 'livelihood',
+  'long-term-care': 'livelihood',
 
   // 04 生态环保
   'green-low-carbon-transition': 'ecology',
@@ -106,6 +116,16 @@ export const hotspotArticleCategory: Record<string, HotspotCategoryKey> = {
   'pollution-control': 'ecology',
   'waste-sorting-circular': 'ecology',
   'desertification-control': 'ecology',
+  'yangtze-river-protection': 'ecology',
+  'yellow-river-basin': 'ecology',
+  'new-energy-system': 'ecology',
+  'green-lifestyle': 'ecology',
+  'eco-compensation': 'ecology',
+  'carbon-dual-control': 'ecology',
+  'new-pollutants': 'ecology',
+  'urban-green-space': 'ecology',
+  'central-eco-inspection': 'ecology',
+  'wetland-protection': 'ecology',
 
   // 05 文化勃兴
   'cultural-confidence': 'culture',

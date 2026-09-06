@@ -257,6 +257,56 @@ export const hotspotLeafIndex = {
       "slug": "social-security-safety-net",
       "no": "10",
       "title": "织密社会保障网，既要兜住困难也要托起发展信心"
+    },
+    {
+      "slug": "housing-security",
+      "no": "11",
+      "title": "住有所居，年轻人不该为一间房耗尽力气"
+    },
+    {
+      "slug": "food-safety",
+      "no": "12",
+      "title": "食品安全，守住舌尖上的信任"
+    },
+    {
+      "slug": "mental-health",
+      "no": "13",
+      "title": "心理健康，是健康不可或缺的一半"
+    },
+    {
+      "slug": "barrier-free",
+      "no": "14",
+      "title": "无障碍环境，丈量城市的良心"
+    },
+    {
+      "slug": "insurance-reform",
+      "no": "15",
+      "title": "药品集采，把不该花的钱还给患者"
+    },
+    {
+      "slug": "gradual-retirement",
+      "no": "16",
+      "title": "延迟退休，渐进之中见稳妥"
+    },
+    {
+      "slug": "labor-rights",
+      "no": "17",
+      "title": "劳动者权益，不能在效率的名义下打折"
+    },
+    {
+      "slug": "youth-employment",
+      "no": "18",
+      "title": "青年就业，一头连着家庭一头连着未来"
+    },
+    {
+      "slug": "migrants-education",
+      "no": "19",
+      "title": "随迁子女教育，流动的中国不能让孩子掉队"
+    },
+    {
+      "slug": "long-term-care",
+      "no": "20",
+      "title": "长期护理保险，为失能老人撑起一片天"
     }
   ],
   "ecology": [
@@ -309,6 +359,56 @@ export const hotspotLeafIndex = {
       "slug": "desertification-control",
       "no": "10",
       "title": "治沙造林，比种下去更难的是活下来"
+    },
+    {
+      "slug": "yangtze-river-protection",
+      "no": "11",
+      "title": "长江大保护，共抓才能见效"
+    },
+    {
+      "slug": "yellow-river-basin",
+      "no": "12",
+      "title": "黄河安澜，重在治水更在治沙"
+    },
+    {
+      "slug": "new-energy-system",
+      "no": "13",
+      "title": "新型能源体系，既要建得快又要稳得住"
+    },
+    {
+      "slug": "green-lifestyle",
+      "no": "14",
+      "title": "绿色生活，人人都是行动者"
+    },
+    {
+      "slug": "eco-compensation",
+      "no": "15",
+      "title": "生态补偿，让保护者不再吃亏"
+    },
+    {
+      "slug": "carbon-dual-control",
+      "no": "16",
+      "title": "碳排放双控，指挥棒转向之后"
+    },
+    {
+      "slug": "new-pollutants",
+      "no": "17",
+      "title": "新污染物治理，看不见的风险更要盯住"
+    },
+    {
+      "slug": "urban-green-space",
+      "no": "18",
+      "title": "推窗见绿，城市最普惠的民生"
+    },
+    {
+      "slug": "central-eco-inspection",
+      "no": "19",
+      "title": "中央生态环保督察，利剑高悬常鸣"
+    },
+    {
+      "slug": "wetland-protection",
+      "no": "20",
+      "title": "湿地保护，给自然留一片缓冲的家园"
     }
   ],
   "culture": [
