@@ -243,8 +243,10 @@ test('writing foundation modules meet the minimum useful first-edition volume', 
   const metaphorModule = await import('../app/shenlun/writing/writing-metaphor-data.ts');
   assert.ok(metaphorModule.metaphorEntries.length >= 500);
   assert.ok(metaphorModule.metaphorEntries.every((entry) => entry.term && entry.meaning && entry.use));
-  assert.equal(data.termCategories.length, 5);
-  assert.ok(data.termCategories.every((category) => category.entries.length >= 15));
+  const termModule = await import('../app/shenlun/writing/writing-term-data.ts');
+  assert.equal(termModule.termLibrary.length, 11);
+  assert.ok(termModule.termLibrary.every((category) => category.entries.length >= 20));
+  assert.ok(termModule.termLibrary.every((category) => category.entries.every((entry) => entry.before && entry.after && entry.note)));
   assert.equal(data.patternCategories.length, 7);
   assert.ok(data.patternCategories.every((category) => category.entries.length >= 20));
   assert.ok(data.patternCategories.every((category) => category.entries.every((entry) => entry.frame && entry.usage && entry.examples.length >= 2)));
@@ -268,7 +270,7 @@ test('writing foundation modules meet the minimum useful first-edition volume', 
     assert.ok(caseCategory.cases.length >= 20, `case category volume: ${item.key}`);
     assert.ok(new Set(caseCategory.cases.map((entry) => entry.slug)).size === caseCategory.cases.length, `case slug unique: ${item.key}`);
   }
-  for (const collection of [data.termCategories, data.patternCategories, data.sentenceCategories, data.quoteCategories, data.essayStages]) {
+  for (const collection of [termModule.termLibrary, data.patternCategories, data.sentenceCategories, data.quoteCategories, data.essayStages]) {
     collection.forEach((item) => assert.match(writingManualSource, new RegExp(`['"]${item.key}['"]`), `missing directory key: ${item.key}`));
   }
   assert.doesNotMatch(writingFoundationSource, /下一轮|继续建设|静态页面|一次加载|扩容|脚本异常/);

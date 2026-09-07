@@ -6,6 +6,7 @@ import type { CaseHighlight, WritingCaseCategory } from './writing-case-data';
 import type { HotspotCategory, HotspotHighlight } from './writing-hotspot-schema';
 import { hotspotLeafIndex, caseLeafIndex } from './writing-library-leaf-index';
 import { caseIndex, hotspotIndex, type CaseIndexItem, type HotspotIndexItem } from './writing-library-index';
+import { termLibrary } from './writing-term-data';
 import { WritingInlineDisclosure } from './writing-inline-disclosure';
 import { WritingMetaphorLibrary } from './writing-metaphor-library';
 
@@ -29,7 +30,7 @@ const writingLayers = [
 ] as const;
 
 const foundationIndex = {
-  terms: [['problems', '问题表现'], ['causes', '原因分析'], ['measures', '措施表达'], ['outcomes', '成效概括'], ['government-verbs', '工作动词']],
+  terms: termLibrary.map((item) => [item.key, item.label] as [string, string]),
   patterns: [['evolution', '演进变迁'], ['contrast', '对照反差'], ['progression', '递进深化'], ['necessity', '条件必需'], ['metaphor', '比喻定位'], ['appeal', '铺陈呼吁'], ['imagery', '意象造境']],
   sentences: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴']],
   quotes: [['economy', '经济发展'], ['innovation', '时代创新'], ['livelihood', '社会民生'], ['ecology', '生态环保'], ['culture', '文化勃兴'], ['civility', '精神文明'], ['cadre', '干部观念'], ['service', '公共服务'], ['grassroots', '基层治理'], ['enforcement', '行政执法'], ['rural', '乡村振兴'], ['wisdom', '通用哲理']],
@@ -37,19 +38,12 @@ const foundationIndex = {
 } as const;
 
 const defaultSelections: Record<FoundationModuleKey, GenericSelection> = {
-  terms: { category: 'problems', leaf: '' },
+  terms: { category: 'economy', leaf: '' },
   patterns: { category: 'evolution', leaf: '' },
   sentences: { category: 'economy', leaf: '' },
   quotes: { category: 'economy', leaf: '' },
   essay: { category: 'title', leaf: '' },
 };
-
-function normalizeIndexedSelection(selection: GenericSelection, categories: readonly { key: string; entries: readonly unknown[] }[]) {
-  const category = categories.find((item) => item.key === selection.category) ?? categories[0];
-  const leafIndex = Number(selection.leaf);
-  const leaf = Number.isInteger(leafIndex) && leafIndex >= 0 && leafIndex < category.entries.length ? String(leafIndex) : '';
-  return { category: category.key, leaf };
-}
 
 function normalizeGroupedSelection(selection: GenericSelection, categories: readonly { key: string; entries: readonly { group?: string }[] }[]) {
   const category = categories.find((item) => item.key === selection.category) ?? categories[0];
@@ -122,7 +116,7 @@ async function buildSearchIndex() {
     const results: SearchResult[] = [];
     hotspots.forEach((category) => category.articles.forEach((entry) => results.push({ module: 'hotspots', category: category.key, leaf: entry.slug, label: entry.title, meta: `热点时评 · ${category.label}`, searchText: `${entry.title}${entry.intro}${entry.thesis}${entry.tags.join('')}` })));
     cases.forEach((category) => category.cases.forEach((entry) => results.push({ module: 'cases', category: category.key, leaf: entry.slug, label: entry.title, meta: `案例素材 · ${category.label}`, searchText: `${entry.title}${entry.summary}${entry.tags.join('')}` })));
-    foundation.termCategories.forEach((category) => category.entries.forEach((entry, index) => results.push({ module: 'terms', category: category.key, leaf: String(index), label: entry.after, meta: `规范用词 · ${category.label}`, searchText: `${entry.before}${entry.after}${entry.note}` })));
+    termLibrary.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'terms', category: category.key, leaf: '', label: entry.after, meta: `规范用词 · ${category.label}`, searchText: `${entry.before}${entry.after}${entry.note}` })));
     foundation.patternCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'patterns', category: category.key, leaf: '', label: entry.frame, meta: `常用句式 · ${category.label}`, searchText: `${entry.frame}${entry.usage}${entry.examples.join('')}` })));
     foundation.sentenceCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'sentences', category: category.key, leaf: entry.group ?? '', label: entry.text, meta: `主题佳句 · ${category.label}`, searchText: `${entry.purpose}${entry.text}` })));
     foundation.quoteCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'quotes', category: category.key, leaf: entry.group ?? '', label: entry.text, meta: `名人箴言 · ${category.label}`, searchText: `${entry.text}${entry.author}${entry.source}${entry.context}${entry.boundary}` })));
@@ -241,7 +235,7 @@ export function WritingLibraryManual() {
           : library.essayStages[0].key;
         const essayLeaf = ['method', 'counterexample', 'example'].includes(current.essay.leaf) ? current.essay.leaf : '';
         return {
-          terms: normalizeIndexedSelection(current.terms, library.termCategories),
+          terms: { category: termLibrary.some((item) => item.key === current.terms.category) ? current.terms.category : termLibrary[0].key, leaf: '' },
           patterns: pattern,
           sentences: normalizeGroupedSelection(current.sentences, library.sentenceCategories),
           quotes: normalizeGroupedSelection(current.quotes, library.quoteCategories),
@@ -335,7 +329,7 @@ export function WritingLibraryManual() {
     setQuery('');
   };
 
-  function foundationCategory<T extends { key: string }>(items: readonly T[], module: 'terms' | 'sentences' | 'quotes') {
+  function foundationCategory<T extends { key: string }>(items: readonly T[], module: 'sentences' | 'quotes') {
     return items.find((item) => item.key === selections[module].category) ?? items[0];
   }
 
@@ -413,11 +407,19 @@ export function WritingLibraryManual() {
     if (foundationState === 'error') return <ErrorBlock label={currentLayer.label} retry={() => { foundationPromise = null; setFoundationState('idle'); void loadFoundation().then((library) => { setFoundation(library); setFoundationState('ready'); }); }} />;
 
     if (activeLayer === 'terms') {
-      const category = foundationCategory(foundation.termCategories, 'terms');
+      const category = termLibrary.find((item) => item.key === selections.terms.category) ?? termLibrary[0];
       return <section className="writing-module-view writing-term-workbench" data-writing-module="terms"><Breadcrumb items={['写作积累', '规范用词', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>把意思说准，再把句子写短</h2><em>{category.desc}</em></div></header>
-        <WritingInlineDisclosure activeId={selections.terms.leaf} items={category.entries.map((entry, index) => ({ id: String(index), no: String(index + 1).padStart(2, '0'), title: entry.after, meta: entry.before }))} label={`${category.label}规范用词`} onToggle={(leaf) => toggleGenericLeaf('terms', leaf)}>
-          {(() => { const entry = category.entries[Number(selections.terms.leaf)]; return entry ? <><div className="writing-term-compare"><article><span>材料里常见</span><p>{entry.before}</p></article><i aria-hidden="true">→</i><article><span>规范表达</span><p>{entry.after}</p></article></div><aside><b>怎么用</b><p>{entry.note}</p></aside></> : null; })()}
-        </WritingInlineDisclosure>
+        <div className="writing-term-list">
+          {category.entries.map((entry, index) => <article key={`${entry.after}-${index}`}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div className="writing-term-compare">
+              <div className="writing-term-before"><span>材料里常见</span><p>{entry.before}</p></div>
+              <i aria-hidden="true">→</i>
+              <div className="writing-term-after"><span>规范表达</span><p>{entry.after}</p></div>
+            </div>
+            <p className="writing-term-note">{entry.note}</p>
+          </article>)}
+        </div>
       </section>;
     }
     if (activeLayer === 'patterns') {
