@@ -409,13 +409,14 @@ export function WritingLibraryManual() {
     if (activeLayer === 'terms') {
       const category = termLibrary.find((item) => item.key === selections.terms.category) ?? termLibrary[0];
       return <section className="writing-module-view writing-term-workbench" data-writing-module="terms"><Breadcrumb items={['写作积累', '规范用词', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>把意思说准，再把句子写短</h2><em>{category.desc}</em></div></header>
+        <div className="writing-term-header" aria-hidden="true"><span>材料里常见</span><i>→</i><span>规范表达</span></div>
         <div className="writing-term-list">
           {category.entries.map((entry, index) => <article key={`${entry.after}-${index}`}>
             <span>{String(index + 1).padStart(2, '0')}</span>
             <div className="writing-term-compare">
-              <div className="writing-term-before"><span>材料里常见</span><p>{entry.before}</p></div>
+              <p className="writing-term-before">{entry.before}</p>
               <i aria-hidden="true">→</i>
-              <div className="writing-term-after"><span>规范表达</span><p>{entry.after}</p></div>
+              <p className="writing-term-after">{entry.after}</p>
             </div>
             <p className="writing-term-note">{entry.note}</p>
           </article>)}
