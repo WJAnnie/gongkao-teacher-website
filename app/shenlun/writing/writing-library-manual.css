@@ -171,14 +171,13 @@
 .writing-term-header span { color: var(--module-accent); font-size: 11px; letter-spacing: .14em; }
 .writing-term-header i { font-style: normal; }
 .writing-term-list { display: grid; }
-.writing-term-list article { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; padding: 15px 0 16px; border-top: 1px solid color-mix(in srgb, var(--learning-border) 55%, transparent); }
+.writing-term-list article { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; padding: 10px 0; border-top: 1px solid color-mix(in srgb, var(--learning-border) 55%, transparent); }
 .writing-term-list article:first-child { border-top: 0; }
 .writing-term-list article > span { color: var(--module-accent); font: italic 11px Georgia, serif; }
 .writing-term-compare { display: grid; grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1.15fr); gap: 16px; align-items: baseline; }
 .writing-term-before { margin: 0; color: color-mix(in srgb, var(--learning-ink) 55%, transparent); font: 15px/1.8 "Songti SC", serif; }
 .writing-term-after { margin: 0; color: var(--learning-ink); font: 600 16px/1.8 "Songti SC", serif; }
 .writing-term-compare > i { color: var(--module-accent); font-style: normal; }
-.writing-term-note { margin: 6px 0 0; color: var(--learning-muted); font-size: 12px; line-height: 1.8; }
 
 .writing-pattern-list { display: grid; }
 .writing-pattern-list article { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; padding: 22px 0 24px; border-top: 1px solid var(--learning-border); }

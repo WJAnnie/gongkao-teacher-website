@@ -246,7 +246,7 @@ test('writing foundation modules meet the minimum useful first-edition volume', 
   const termModule = await import('../app/shenlun/writing/writing-term-data.ts');
   assert.equal(termModule.termLibrary.length, 11);
   assert.ok(termModule.termLibrary.every((category) => category.entries.length >= 50));
-  assert.ok(termModule.termLibrary.every((category) => category.entries.every((entry) => entry.before && entry.after && entry.note)));
+  assert.ok(termModule.termLibrary.every((category) => category.entries.every((entry) => entry.before && entry.after)));
   assert.equal(data.patternCategories.length, 7);
   assert.ok(data.patternCategories.every((category) => category.entries.length >= 20));
   assert.ok(data.patternCategories.every((category) => category.entries.every((entry) => entry.frame && entry.usage && entry.examples.length >= 2)));

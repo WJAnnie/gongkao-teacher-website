@@ -116,7 +116,7 @@ async function buildSearchIndex() {
     const results: SearchResult[] = [];
     hotspots.forEach((category) => category.articles.forEach((entry) => results.push({ module: 'hotspots', category: category.key, leaf: entry.slug, label: entry.title, meta: `热点时评 · ${category.label}`, searchText: `${entry.title}${entry.intro}${entry.thesis}${entry.tags.join('')}` })));
     cases.forEach((category) => category.cases.forEach((entry) => results.push({ module: 'cases', category: category.key, leaf: entry.slug, label: entry.title, meta: `案例素材 · ${category.label}`, searchText: `${entry.title}${entry.summary}${entry.tags.join('')}` })));
-    termLibrary.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'terms', category: category.key, leaf: '', label: entry.after, meta: `规范用词 · ${category.label}`, searchText: `${entry.before}${entry.after}${entry.note}` })));
+    termLibrary.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'terms', category: category.key, leaf: '', label: entry.after, meta: `规范用词 · ${category.label}`, searchText: `${entry.before}${entry.after}` })));
     foundation.patternCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'patterns', category: category.key, leaf: '', label: entry.frame, meta: `常用句式 · ${category.label}`, searchText: `${entry.frame}${entry.usage}${entry.examples.join('')}` })));
     foundation.sentenceCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'sentences', category: category.key, leaf: entry.group ?? '', label: entry.text, meta: `主题佳句 · ${category.label}`, searchText: `${entry.purpose}${entry.text}` })));
     foundation.quoteCategories.forEach((category) => category.entries.forEach((entry) => results.push({ module: 'quotes', category: category.key, leaf: entry.group ?? '', label: entry.text, meta: `名人箴言 · ${category.label}`, searchText: `${entry.text}${entry.author}${entry.source}${entry.context}${entry.boundary}` })));
@@ -418,7 +418,6 @@ export function WritingLibraryManual() {
               <i aria-hidden="true">→</i>
               <p className="writing-term-after">{entry.after}</p>
             </div>
-            <p className="writing-term-note">{entry.note}</p>
           </article>)}
         </div>
       </section>;
