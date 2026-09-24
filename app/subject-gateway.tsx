@@ -3,29 +3,29 @@
 import { useState } from 'react';
 import { LearningEntryLink } from './learning-entry-link';
 import { interviewRoutes, shenlunRoutes, type LearningRouteKey } from './learning-routes';
+import { learningRouteNotes } from './learning-route-notes';
 
 type Track = '申论' | '面试';
 
 type ModulePresentation = {
   no: string;
   en: string;
-  desc: string;
   classTone: 'framework' | 'questions' | 'writing' | 'videos';
 };
 
 const modulePresentation = {
-  'shenlun-framework': { no: '01', en: '方法框架', desc: '题型 · 能力 · 规则 · 技巧', classTone: 'framework' },
-  'shenlun-questions': { no: '02', en: '真题精练', desc: '国考 · 联考 · 地方真题', classTone: 'questions' },
-  'shenlun-writing': { no: '03', en: '写作积累', desc: '热点 · 案例 · 用词 · 作文', classTone: 'writing' },
-  'shenlun-videos': { no: '04', en: '课程现场', desc: '精讲 · 实录 · 日常 · 分享', classTone: 'videos' },
-  'interview-methods': { no: '01', en: '题型方法', desc: '分析 · 组织 · 应急 · 模拟', classTone: 'framework' },
-  'interview-questions': { no: '02', en: '真题实战', desc: '国考 · 省考 · 回忆真题', classTone: 'questions' },
-  'interview-expression': { no: '03', en: '表达训练', desc: '观点 · 结构 · 例证 · 表达', classTone: 'writing' },
-  'interview-videos': { no: '04', en: '课程现场', desc: '精讲 · 实录 · 日常 · 分享', classTone: 'videos' },
+  'shenlun-framework': { no: '01', en: '方法框架', classTone: 'framework' },
+  'shenlun-questions': { no: '02', en: '真题精练', classTone: 'questions' },
+  'shenlun-writing': { no: '03', en: '写作积累', classTone: 'writing' },
+  'shenlun-videos': { no: '04', en: '课程现场', classTone: 'videos' },
+  'interview-methods': { no: '01', en: '题型方法', classTone: 'framework' },
+  'interview-questions': { no: '02', en: '真题实战', classTone: 'questions' },
+  'interview-expression': { no: '03', en: '表达训练', classTone: 'writing' },
+  'interview-videos': { no: '04', en: '课程现场', classTone: 'videos' },
 } as const satisfies Record<LearningRouteKey, ModulePresentation>;
 
-const shenlunModules = shenlunRoutes.map((route) => ({ route, ...modulePresentation[route.key] }));
-const interviewModules = interviewRoutes.map((route) => ({ route, ...modulePresentation[route.key] }));
+const shenlunModules = shenlunRoutes.map((route) => ({ route, ...modulePresentation[route.key], desc: learningRouteNotes[route.key] }));
+const interviewModules = interviewRoutes.map((route) => ({ route, ...modulePresentation[route.key], desc: learningRouteNotes[route.key] }));
 
 const tracks = [
   { key: '申论' as const, code: 'A', en: '申论路径', note: '材料 · 题型 · 写作', modules: shenlunModules },
