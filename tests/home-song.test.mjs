@@ -4,8 +4,9 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { HOME_SONG, getAudioPreload, getHomeSongSource, getLyricIndex } from '../app/home-song-data.ts';
 
-const [player, vendorScript, audioAsset, localLauncher, pagesWorkflow, edgeWorkflow, previewWorkflow, lyricsWorkflow] = await Promise.all([
+const [player, playerCss, vendorScript, audioAsset, localLauncher, pagesWorkflow, edgeWorkflow, previewWorkflow, lyricsWorkflow] = await Promise.all([
   readFile(new URL('../app/home-song-player.tsx', import.meta.url), 'utf8'),
+  readFile(new URL('../app/home-song-player.css', import.meta.url), 'utf8'),
   readFile(new URL('../scripts/vendor-home-audio.mjs', import.meta.url), 'utf8').catch(() => ''),
   readFile(new URL('../public/audio/xiang-an.mp3', import.meta.url)).catch(() => null),
   readFile(new URL('../scripts/start-local.ps1', import.meta.url), 'utf8'),
@@ -102,4 +103,17 @@ test('local and hosted builds verify audio before starting or building', () => {
   ]) {
     assert.match(lyricsWorkflow, new RegExp(`- '${path.replaceAll('.', '\\.').replaceAll('/', '\\/')}'`));
   }
+});
+
+test('player sits inline in the page instead of floating over content', () => {
+  assert.match(player, /role="group" aria-label="向岸音乐播放器"/);
+  assert.doesNotMatch(player, /sessionStorage|playerVisible|getElementById\('about'\)|closePlayer|reopenPlayer/);
+  assert.doesNotMatch(player, /home-song-(close|reopen)/);
+  assert.doesNotMatch(playerCss, /position:\s*fixed/);
+  assert.doesNotMatch(playerCss, /home-song-(close|reopen)|gradient/);
+});
+
+test('idle player previews the chorus instead of a placeholder', () => {
+  assert.match(player, /CHORUS_INDEX = Math\.max\(0, HOME_SONG\.lyrics\.findIndex/);
+  assert.doesNotMatch(player, /前奏 · 向岸/);
 });

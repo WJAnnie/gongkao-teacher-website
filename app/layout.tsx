@@ -21,7 +21,6 @@ import './home-refresh.css';
 import './learning-page-guide-polish.css';
 import './hero-content-index.css';
 import './home-song-player.css';
-import './home-song-placement.css';
 import './mobile-home-learning-nav.css';
 import './interaction-semantics.css';
 import './learning-page-frame.css';
