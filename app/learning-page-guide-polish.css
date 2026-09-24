@@ -1,3 +1,36 @@
+/* 方法框架：五大题型在同一二级页内切换（原在 home-refresh.css） */
+.question-type-switcher { margin-top: 42px; scroll-margin-top: 120px; }
+.question-type-switcher-tabs {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  border-top: 1px solid rgba(37,37,31,.18);
+  border-left: 1px solid rgba(37,37,31,.18);
+}
+.question-type-switcher-tabs button {
+  min-height: 82px;
+  padding: 14px;
+  border: 0;
+  border-right: 1px solid rgba(37,37,31,.18);
+  border-bottom: 1px solid rgba(37,37,31,.18);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+.question-type-switcher-tabs button span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--shenlun-accent);
+  font: italic 9px Georgia,serif;
+}
+.question-type-switcher-tabs button b { font: 500 18px/1.2 "Songti SC","SimSun",Georgia,serif; }
+.question-type-switcher-tabs button.active { background: color-mix(in srgb, var(--shenlun-soft) 74%, var(--paper)); }
+.question-type-switcher-tabs button:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--shenlun-soft) 42%, transparent); }
+@media (max-width: 760px) {
+  .question-type-switcher-tabs { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .question-type-switcher-tabs button { min-height: 64px; }
+}
+
 /* 二级页导览、标题位置与方法框架内容顺序 */
 .page-guide-items button,
 .page-guide-float button { position: relative; }
