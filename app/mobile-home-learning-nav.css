@@ -1,7 +1,26 @@
 /* 手机端首页与学习页顶部导航统一：复用 LearningTopNav，修正旧 details/summary 样式残留。 */
 
+.home-mobile-learning-nav {
+  display: none;
+}
+
 @media (max-width: 760px) {
   /* 首页手机端直接使用与二级学习页一致的顶部导航，桌面首页仍保留原 nav-shell。 */
+  .home-mobile-learning-nav {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    display: block;
+  }
+
+  .home-mobile-learning-nav .learning-topnav {
+    position: relative;
+    top: auto;
+  }
+
+  .home-mobile-learning-nav + .nav-shell {
+    display: none !important;
+  }
 
   /* 当前组件是 div + button，不再沿用旧版 details / summary 的移动端选择器。 */
   .learning-topnav-mobile .learning-mobile-group {
@@ -65,6 +84,13 @@
   }
 
   /* 首页状态给返回首页按钮一个轻微当前态，但不抢学习入口的视觉层级。 */
+  .home-mobile-learning-nav .learning-topnav-home {
+    background: color-mix(in srgb, var(--acid) 34%, var(--paper));
+    border-color: rgba(37,37,31,.22);
+  }
 
   /* 首页原本为悬浮 nav-shell 预留了更多顶部空白，换成正常流顶部导航后适当收紧。 */
+  .home-mobile-learning-nav ~ .hero-scroll .hero {
+    padding-top: 72px;
+  }
 }
