@@ -1,76 +1,74 @@
-import Image from 'next/image';
-import { MotionLayer } from './motion-layer';
-import { SubjectGateway } from './subject-gateway';
-import { HomeLearningRepeat } from './home-learning-repeat';
-import { HomeSongPlayer } from './home-song-player';
-import { LearningTopNav } from './learning-nav';
+import { interviewRoutes, shenlunRoutes } from './learning-routes';
+import { buildFrontTerms, loadFrontHotspots } from './home-front/front-data';
+import { FrontHotspots, FrontTerms } from './home-front/front-daily';
+import { getBeijingDate } from './home-front/front-date';
+import { FrontMasthead } from './home-front/front-masthead';
+import { FrontModuleColumn } from './home-front/front-modules';
+import { FrontSong } from './home-front/front-song';
 
-export default function Home() {
+const editorNotes = [
+  { title: '我在教什么。', text: '申论与结构化面试。从审题、找依据、搭结构，到写下来、说出来，重点放在作答过程和做完后的复盘。' },
+  { title: '为什么做这个站。', text: '一节课结束以后，有价值的方法应该还能被重新找到、重新练习。这里是我的长期整理本。' },
+  { title: '这里有什么。', text: '申论五大题型、国考真题索引、写作素材、面试题型方法与表达训练，以及陆续整理的课程片段。' },
+  { title: '怎么使用。', text: '先理解方法框架，再用真题检验；做完回看审题、要点、结构和表达，把一次练习变成下次能用的经验。' },
+] as const;
+
+export default async function Home() {
+  // 构建当天的北京日期；访客打开时由客户端组件换成当天。
+  const buildDate = getBeijingDate(new Date());
+  const hotspots = await loadFrontHotspots();
+  const terms = buildFrontTerms();
+
   return (
-    <main>
-      <MotionLayer />
+    <main className="front-page" id="top">
+      <FrontMasthead initialDate={buildDate} />
 
-      <div className="home-mobile-learning-nav" aria-label="首页移动端学习导航">
-        <LearningTopNav />
-      </div>
-
-      <nav className="nav-shell" aria-label="主导航">
-        <a className="brand" href="#top" aria-label="答卷之外首页"><span className="brand-mark">答</span><span>答卷之外</span></a>
-        <div className="nav-links"><a href="#study">学习入口</a><a href="#about">关于我</a></div>
-        <a className="nav-cta" href="#contact">获取资料 <span>↗</span></a>
-      </nav>
-
-      <div className="hero-scroll">
-        <section className="hero" id="top">
-          <div className="pointer-glow hero-pointer-glow" aria-hidden="true" />
-          <div className="hero-grid" aria-hidden="true" />
-          <div className="hero-orbit" aria-hidden="true"><span /><div className="hero-orbit-review"><b>阅</b><small>审题 · 找点<br />表达 · 复盘</small></div></div>
-          <p className="eyebrow"><span>01</span> 专注申论与结构化面试的长期学习站</p>
-          <h1>把公考题做懂<br /><span className="title-outline">把话说清</span></h1>
-          <div className="hero-bottom"><p className="hero-lead"><span>真题</span>、<span>方法</span>、<span>积累</span>，<br className="desktop-break" />还有课堂里反复讲过的那些细节。</p></div>
-          <div className="hero-directory-slot" id="study"><SubjectGateway /></div>
-          <div className="hero-note"><span className="note-line" /><p>申论 · 面试 · 方法 · 真题 · 积累 · 课堂</p></div>
-        </section>
-      </div>
-
-      <section className="about about-merged" id="about">
-        <Image className="about-visual-art" src="/about-study-art.svg" alt="" aria-hidden="true" width={900} height={1100} />
-        <HomeSongPlayer />
-        <div className="about-copy">
-          <p className="section-index">02 — 云帆老师与答卷之外</p>
-          <div className="about-merged-grid">
-            <div className="about-profile about-profile-expanded">
-              <div className="about-identity-line"><span>云帆老师</span><b>公考教师 · 申论 · 结构化面试</b></div>
-              <h2>把题目看明白，<br />把自己的答案<span>说清楚</span>。</h2>
-              <div className="about-intro-lead">
-                <p>我是云帆老师，目前从事公考教学。课堂之外，我一直想有一个地方，把申论、结构化面试里真正需要反复练的东西整理下来。</p>
-                <p>所以有了「答卷之外」。这里会留下我的方法框架、真题拆解、写作积累、表达训练和课堂观察，也会记录一些在课上来不及展开、但值得反复琢磨的细节。</p>
-              </div>
-              <div className="about-detail-grid">
-                <article><span>01 / 我在教什么</span><h3>申论与结构化面试</h3><p>从审题、找依据、搭结构，到写下来、说出来。重点放在具体的作答过程，以及做完以后怎么复盘。</p></article>
-                <article><span>02 / 为什么做这个站</span><h3>把课堂内容留下来</h3><p>一节课结束以后，真正有价值的方法应该还能被重新找到、重新练习、重新验证。这个网站就是我的长期整理本。</p></article>
-                <article><span>03 / 这里有什么</span><h3>方法 · 真题 · 积累 · 课堂</h3><p>申论五大题型、国考真题索引、写作素材、面试题型方法、表达训练，以及之后陆续整理的课程片段和学习工具。</p></article>
-                <article><span>04 / 怎么使用</span><h3>学方法，做题，再复盘</h3><p>先理解方法框架，再用真题检验；做完回看审题、要点、结构和表达，把一次练习变成下一次能继续使用的经验。</p></article>
-              </div>
-              <div className="about-tags"><span>申论方法</span><span>结构化面试</span><span>真题训练</span><span>写作积累</span><span>表达训练</span><span>课堂复盘</span></div>
-            </div>
-          </div>
+      <section className="front-lead" aria-label="写在前面">
+        <h2 className="front-slogan">把公考题做懂，<br />把话<em>说清</em>。</h2>
+        <div className="front-note">
+          <h3>写在前面</h3>
+          <p>课堂之外，我一直想有一个地方，把申论、结构化面试里真正需要反复练的东西整理下来。这里留下方法框架、真题拆解、写作积累和课堂观察。</p>
+          <p className="front-sign">—— 云帆老师</p>
         </div>
       </section>
 
-      <HomeLearningRepeat />
+      <div className="front-cols" id="study">
+        <FrontModuleColumn title="申论版" note="材料 · 题型 · 写作" routes={shenlunRoutes} />
+        <FrontModuleColumn title="面试版" note="审题 · 观点 · 表达" routes={interviewRoutes} />
+        <FrontHotspots initialDate={buildDate} hotspots={hotspots} />
+      </div>
 
-      <section className="bottom-materials" id="contact" aria-label="获取资料">
-        <aside className="about-contact-card">
-          <div className="about-contact-head"><span>资料入口</span><b>资料 · 内容 · 日常</b></div>
-          <div className="about-contact-body">
-            <div className="qr-placeholder" aria-label="二维码区域"><div className="qr-pattern" aria-hidden="true" /><span>扫码</span></div>
-            <div className="contact-info"><span>答卷之外 · 云帆老师</span><h3>获取资料</h3><p>申论方法 · 结构化面试 · 真题训练 · 课堂内容</p></div>
+      <div className="front-bottom">
+        <FrontTerms initialDate={buildDate} terms={terms} />
+        <FrontSong />
+        <section className="front-col front-contact" id="contact" aria-label="获取资料">
+          <div className="front-kicker">
+            <h2>获取资料</h2>
+            <span>扫码</span>
           </div>
-        </aside>
+          <div className="front-qr-row">
+            <div className="front-qr" role="img" aria-label="二维码（占位）" />
+            <p>申论方法 · 结构化面试<br />真题训练 · 课堂内容</p>
+          </div>
+        </section>
+      </div>
+
+      <section className="front-editorial" id="about" aria-label="编者按">
+        <div className="front-editorial-head">
+          <h2>编者按</h2>
+          <span>云帆老师与答卷之外</span>
+        </div>
+        <div className="front-editorial-grid">
+          {editorNotes.map((note) => (
+            <p key={note.title}><b>{note.title}</b>{note.text}</p>
+          ))}
+        </div>
       </section>
 
-      <footer className="footer"><span>答卷之外 · 云帆老师 · 申论 × 结构化面试</span><a href="#top">返回顶部 ↑</a></footer>
+      <footer className="front-foot">
+        <span>答卷之外 · 云帆老师 · 申论 × 结构化面试</span>
+        <a href="#top">返回顶部 ↑</a>
+      </footer>
     </main>
   );
 }

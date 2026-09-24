@@ -25,6 +25,7 @@ import './mobile-home-learning-nav.css';
 import './interaction-semantics.css';
 import './learning-page-frame.css';
 import './learning-scene-transition.css';
+import './home-front/home-front.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
