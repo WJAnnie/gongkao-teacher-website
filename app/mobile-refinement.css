@@ -32,82 +32,10 @@
   .nav-cta span { margin-left: 0; font-size: 13px; }
 
   /* 首页首屏：手机上停止桌面端的 sticky 位移，给目录留真实空间 */
-  .hero-scroll {
-    height: auto;
-    min-height: 940px;
-  }
-
-  .hero {
-    position: relative;
-    top: auto;
-    height: auto;
-    min-height: 940px;
-    padding: 118px 18px 48px;
-    overflow: hidden;
-  }
-
-  .hero-scroll .hero h1,
-  .hero-scroll .hero .eyebrow,
-  .hero-scroll .hero-bottom,
-  .hero-scroll .hero-orbit {
-    transform: none;
-    opacity: 1;
-  }
-
-  .hero .eyebrow {
-    max-width: 62%;
-    margin-bottom: 18px;
-    font-size: 9px;
-    line-height: 1.65;
-    letter-spacing: .1em;
-  }
-  .hero .eyebrow span { margin-right: 10px; }
-
-  .hero h1 {
-    max-width: 100%;
-    font-size: clamp(58px, 18vw, 82px);
-    line-height: .94;
-    letter-spacing: -.075em;
-  }
-  .title-outline { margin-left: 0; -webkit-text-stroke-width: 1.2px; }
-
-  .hero-bottom {
-    display: block;
-    max-width: 66%;
-    margin: 30px 0 0;
-  }
-  .hero-lead { font-size: 13px; line-height: 1.75; }
-  .desktop-break { display: none; }
-
-  .pointer-glow {
-    width: 330px;
-    height: 330px;
-    top: -165px;
-    left: -165px;
-    opacity: .52;
-  }
 
   /* 右上阅卷轨道 */
-  .hero-orbit {
-    right: 18px;
-    top: 96px;
-    width: 104px;
-    opacity: .8;
-  }
-  .hero-orbit-review { inset: 13%; gap: 3px; transform: rotate(-7deg); }
-  .hero-orbit-review::before { inset: 12%; }
-  .hero-orbit-review b { font-size: 29px; opacity: .86; }
-  .hero-orbit-review small { display: none; }
-  .hero-orbit > span { width: 13px; height: 13px; left: -7px; }
 
   /* 首页学习目录 */
-  .hero-directory-slot {
-    left: 18px;
-    right: 18px;
-    top: auto;
-    bottom: 54px;
-    width: auto;
-  }
 
   .subject-gateway-kicker {
     gap: 9px;
@@ -141,43 +69,16 @@
   .subject-module-card p { padding-right: 14px; font-size: 8px; line-height: 1.45; }
   .subject-module-top span { font-size: 8px; }
   .subject-module-top i { font-size: 6px; }
-  .hero-note { display: none; }
 
   /* 关于我 + 联系 */
-  .about {
-    margin: 0 18px;
-    padding: 62px 0 70px;
-    gap: 28px;
-  }
   .about-stamp {
     width: 112px;
     justify-self: start;
     font-size: 24px;
   }
   .about-stamp b { font-size: 15px; }
-  .about-copy .section-index { margin-bottom: 18px; }
-  .about-copy h2,
-  .about-merged .about-profile h2 {
-    margin-bottom: 28px;
-    font-size: clamp(36px, 11.5vw, 48px);
-    line-height: 1.18;
-  }
   .about-columns { gap: 14px; }
   .about-columns p { font-size: 12px; line-height: 1.85; }
-  .about-tags { margin-top: 28px; gap: 7px; }
-  .about-tags span { padding: 7px 10px; font-size: 9px; }
-
-  .about-merged-grid { gap: 34px; }
-  .about-contact-card { padding: 16px; }
-  .about-contact-body {
-    grid-template-columns: 96px minmax(0,1fr);
-    gap: 14px;
-    margin-top: 24px;
-  }
-  .about-contact-card .qr-placeholder { width: 96px; height: 96px; }
-  .about-contact-card .contact-info { min-height: 96px; }
-  .about-contact-card .contact-info h3 { margin: 10px 0 8px; font-size: 24px; }
-  .about-contact-card .contact-info p { font-size: 9px; }
 
   .footer {
     margin-inline: 18px;
@@ -393,13 +294,6 @@
 }
 
 @media (max-width: 420px) {
-  .hero-scroll,
-  .hero { min-height: 970px; }
-  .hero h1 { font-size: clamp(54px, 18.5vw, 72px); }
-  .hero .eyebrow { max-width: 66%; }
-  .hero-bottom { max-width: 72%; }
-  .hero-orbit { width: 92px; top: 94px; }
-  .hero-orbit-review b { font-size: 25px; }
 
   .subject-track-title strong { font-size: 20px; }
   .subject-track-title i { display: none; }
@@ -413,14 +307,6 @@
   .interview-site-hero { padding-inline: 16px; }
   .shenlun-hero h1,
   .interview-site-hero h1 { font-size: clamp(44px, 14.5vw, 58px); }
-
-  .about-contact-body {
-    grid-template-columns: 86px minmax(0,1fr);
-    gap: 12px;
-  }
-  .about-contact-card .qr-placeholder { width: 86px; height: 86px; }
-  .about-contact-card .contact-info { min-height: 86px; }
-  .about-contact-card .contact-info h3 { font-size: 21px; }
 }
 
 /* 触屏设备不依赖 hover 才能看到反馈 */
@@ -462,8 +348,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-orbit-review,
-  .hero-orbit-review::before,
   .subject-track-arrow,
   .subject-module-card,
   .shenlun-route-strip > a,

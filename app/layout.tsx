@@ -12,20 +12,16 @@ import './learning-page-refinement.css';
 import './learning-route-themes.css';
 import './exam-review.css';
 import './exam-question-details.css';
-import './hero-review-orbit.css';
-import './home-about.css';
 import './mobile-refinement.css';
-import './home-learning-repeat.css';
 import './learning-page-upgrade.css';
-import './home-refresh.css';
 import './learning-page-guide-polish.css';
 import './hero-content-index.css';
 import './home-song-player.css';
-import './home-song-placement.css';
 import './mobile-home-learning-nav.css';
 import './interaction-semantics.css';
 import './learning-page-frame.css';
 import './learning-scene-transition.css';
+import './home-front/home-front.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),
