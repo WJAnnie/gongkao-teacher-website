@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { LearningPageEffects } from './learning-page-effects';
 import { LearningTopNav } from './learning-nav';
 import {
   LearningChapterProvider,
@@ -41,7 +40,6 @@ export function LearningPageFrame({
 
   return <LearningChapterProvider chapters={chapters}>
     <main className={`${legacyClassName} learning-page-frame`} data-learning-subject={subject}>
-      <LearningPageEffects />
       <LearningTopNav active={active} />
       <header className="learning-page-hero">
         <div className="learning-hero-topline"><span>{subjectLabel}</span><span>答卷之外 · {subjectName}</span></div>

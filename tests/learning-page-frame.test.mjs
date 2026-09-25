@@ -122,7 +122,6 @@ const writingFoundationSource = await readFile(new URL('../app/shenlun/writing/w
 const interviewShellSource = await readFile(new URL('../app/interview/interview-shell.tsx', import.meta.url), 'utf8');
 const interviewContentSource = await readFile(new URL('../app/interview/interview-learning-content.tsx', import.meta.url), 'utf8').catch(() => '');
 const interviewPagePaths = ['methods', 'questions', 'expression', 'videos'];
-const effectsSource = await readFile(new URL('../app/learning-page-effects.tsx', import.meta.url), 'utf8');
 const layoutSource = await readFile(new URL('../app/layout.tsx', import.meta.url), 'utf8');
 const writingLayoutSource = await readFile(new URL('../app/shenlun/writing/layout.tsx', import.meta.url), 'utf8');
 const questionTypeSwitcherSource = await readFile(new URL('../app/shenlun/framework/question-type-switcher.tsx', import.meta.url), 'utf8');
@@ -299,7 +298,6 @@ test('interview content adapter renders every route-owned item', () => {
 });
 
 test('superseded Hero menus and independent PageGuide are gone', () => {
-  assert.doesNotMatch(effectsSource, /export function PageGuide|IntersectionObserver/);
   assert.doesNotMatch(layoutSource, /learning-hero-standard\.css/);
   assert.doesNotMatch(writingLayoutSource, /writing-hero-menu\.css/);
   assert.doesNotMatch(questionTypeSwitcherSource, /page-guide-select/);

@@ -67,7 +67,7 @@
 .note-summary-main > span { display: block; max-width: 900px; margin-top: 12px; color: rgba(37,37,31,.58); font-size: 12px; line-height: 1.85; }
 .note-item summary > b { font-size: 25px; font-weight: 300; transition: transform .25s ease; }
 .note-item[open] summary > b { transform: rotate(45deg); }
-.note-item[open] summary { background: linear-gradient(90deg, rgba(214,223,160,.18), transparent 72%); }
+.note-item[open] summary { background: rgba(214,223,160,.16); }
 .note-detail {
   display: grid;
   grid-template-columns: 1.15fr .85fr;

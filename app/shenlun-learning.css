@@ -59,7 +59,7 @@
   justify-content: flex-end;
   border-bottom: 1px solid rgba(37, 37, 31, .24);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--shenlun-soft) 78%, var(--paper)) 0%, var(--paper) 72%);
+    var(--paper);
 }
 
 .shenlun-hero::before {

@@ -87,7 +87,7 @@
   inset: 5px 0;
   z-index: -1;
   opacity: 0;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--track-accent) 12%, transparent), transparent 72%);
+  background: color-mix(in srgb, var(--track-accent) 8%, transparent);
   transition: opacity .2s ease;
 }
 
@@ -244,7 +244,7 @@
   inset: 0;
   z-index: 0;
   opacity: 0;
-  background: linear-gradient(100deg, color-mix(in srgb, var(--module-wash) 48%, transparent), transparent 74%);
+  background: color-mix(in srgb, var(--module-wash) 24%, transparent);
   transition: opacity .18s ease;
 }
 

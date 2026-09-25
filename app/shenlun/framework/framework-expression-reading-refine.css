@@ -78,8 +78,8 @@
   position: absolute;
   inset: 8px;
   border-radius: 50%;
-  background: radial-gradient(circle at 65% 30%, color-mix(in srgb,var(--shenlun-accent) 12%,transparent), transparent 56%);
-  filter: blur(1px);
+  background: color-mix(in srgb,var(--shenlun-accent) 7%,transparent);
+
 }
 .expression-chapter-mark svg {
   position: relative;
@@ -144,7 +144,7 @@
   margin-top: 68px;
   padding: 26px 28px;
   border-left: 3px solid var(--shenlun-accent);
-  background: linear-gradient(90deg,color-mix(in srgb,var(--shenlun-accent) 10%,var(--paper)),color-mix(in srgb,var(--shenlun-accent) 3%,var(--paper)) 70%,transparent);
+  background: transparent;
 }
 
 .expression-v2-three p,

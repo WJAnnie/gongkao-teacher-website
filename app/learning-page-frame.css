@@ -21,7 +21,6 @@
   height: 740px;
   overflow: hidden;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--learning-accent) 5%, transparent), transparent 34%),
     var(--learning-paper);
 }
 
@@ -158,7 +157,7 @@
 
 .learning-page-frame .learning-directory-group.active > button {
   color: var(--learning-ink);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--learning-accent) 11%, transparent), transparent);
+  background: color-mix(in srgb, var(--learning-accent) 9%, transparent);
 }
 
 .learning-page-frame .learning-chapter-strip > button:focus-visible,

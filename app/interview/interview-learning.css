@@ -51,7 +51,7 @@
   padding: clamp(80px, 13vh, 150px) clamp(20px, 6vw, 92px) 42px;
   border-bottom: 1px solid rgba(37,37,31,.25);
   background:
-    linear-gradient(130deg, color-mix(in srgb, var(--interview-accent) 88%, var(--paper)), var(--paper) 72%);
+    var(--paper);
 }
 
 .interview-tone-methods .interview-site-hero { --interview-accent: #dce4f3; }

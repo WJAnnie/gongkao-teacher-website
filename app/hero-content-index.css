@@ -106,19 +106,13 @@
   border: 0;
   border-bottom: 1px solid color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 28%, rgba(37,37,31,.12));
   background:
-    linear-gradient(110deg,
-      color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 12%, var(--shenlun-soft, var(--interview-soft, var(--paper)))) 0%,
-      color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 6%, var(--shenlun-soft, var(--interview-soft, var(--paper)))) 56%,
-      color-mix(in srgb, var(--shenlun-soft, var(--interview-soft, var(--paper))) 76%, var(--paper)) 100%);
+    transparent;
 }
 
 .interview-site .hero-page-guide .page-guide-items {
   border-bottom-color: color-mix(in srgb, var(--interview-color) 28%, rgba(37,37,31,.12));
   background:
-    linear-gradient(110deg,
-      color-mix(in srgb, var(--interview-color) 12%, var(--interview-soft)) 0%,
-      color-mix(in srgb, var(--interview-color) 6%, var(--interview-soft)) 56%,
-      color-mix(in srgb, var(--interview-soft) 76%, var(--paper)) 100%);
+    transparent;
 }
 
 .hero-page-guide .page-guide-items::before { display: none !important; }
@@ -161,14 +155,12 @@
   inset: 0;
   z-index: -1;
   opacity: 0;
-  background: linear-gradient(110deg,
-    color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 16%, transparent),
-    transparent 72%);
+  background: color-mix(in srgb, var(--shenlun-accent, var(--interview-color)) 8%, transparent);
   transition: opacity .22s ease;
 }
 
 .interview-site .hero-page-guide .page-guide-items button::after {
-  background: linear-gradient(110deg, color-mix(in srgb, var(--interview-color) 16%, transparent), transparent 72%);
+  background: color-mix(in srgb, var(--interview-color) 8%, transparent);
 }
 
 .hero-page-guide .page-guide-items button > span {

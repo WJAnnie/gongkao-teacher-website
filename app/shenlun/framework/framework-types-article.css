@@ -3,14 +3,14 @@
 .type-v2-note { margin-bottom:60px; }
 
 .type-v2-map { display:grid; grid-template-columns:repeat(5,1fr); margin:0 0 42px; border:1px solid var(--v2-line); }
-.type-v2-map article { min-height:150px; padding:22px 20px; background:linear-gradient(180deg,color-mix(in srgb,var(--shenlun-accent) 5%,transparent),transparent 72%); }
+.type-v2-map article { min-height:150px; padding:22px 20px; background:transparent; }
 .type-v2-map article + article { border-left:1px solid var(--v2-line); }
 .type-v2-map span { color:var(--shenlun-accent); font:italic 10px Georgia,serif; }
 .type-v2-map b { display:block; margin:18px 0 8px; font:500 22px/1.25 "Songti SC","SimSun",serif; }
 .type-v2-map p { margin:0; color:rgba(37,37,31,.52); font-size:11px; line-height:1.7; }
 
 .type-v2-answer-shape { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); margin:26px 0 34px; border:1px solid var(--v2-line); }
-.type-v2-answer-shape > article { min-height:190px; padding:28px 30px; background:linear-gradient(145deg,color-mix(in srgb,var(--shenlun-accent) 5%,transparent),transparent 72%); }
+.type-v2-answer-shape > article { min-height:190px; padding:28px 30px; background:transparent; }
 .type-v2-answer-shape > article + article { border-left:1px solid var(--v2-line); }
 .type-v2-answer-shape > article:nth-child(3) { border-left:1px solid var(--v2-line); }
 .type-v2-answer-shape span { color:var(--shenlun-accent); font:700 9px system-ui,sans-serif; letter-spacing:.14em; }
@@ -27,7 +27,7 @@
 .type-v2-analysis-grid b { display:block; margin-bottom:10px; color:rgba(37,37,31,.72); font-size:12px; }
 .type-v2-rule-grid p, .type-v2-analysis-grid p { margin:0; color:rgba(37,37,31,.56); font-size:12px; line-height:1.9; }
 
-.type-v2-case { margin:28px 0 42px; padding:28px 30px; border-left:3px solid var(--shenlun-accent); background:linear-gradient(90deg,color-mix(in srgb,var(--shenlun-accent) 7%,transparent),transparent 80%); }
+.type-v2-case { margin:28px 0 42px; padding:28px 30px; border-left:3px solid var(--shenlun-accent); background:transparent; }
 .type-v2-case > span { color:var(--shenlun-accent); font-size:10px; letter-spacing:.1em; }
 .type-v2-case p { margin:14px 0 0; color:rgba(37,37,31,.66); font-size:13px; line-height:1.9; }
 
@@ -42,7 +42,7 @@
 .type-v2-source-flow b { display:block; margin:16px 0 10px; font:500 21px/1.35 "Songti SC","SimSun",serif; }
 .type-v2-source-flow p { margin:0; color:rgba(37,37,31,.52); font-size:11px; line-height:1.85; }
 
-.type-v2-mini-flow { display:grid; grid-template-columns:auto auto auto auto minmax(220px,1fr); align-items:center; gap:16px; margin:26px 0 42px; padding:24px 26px; border:1px solid var(--v2-line); background:linear-gradient(90deg,color-mix(in srgb,var(--shenlun-accent) 5%,transparent),transparent 75%); }
+.type-v2-mini-flow { display:grid; grid-template-columns:auto auto auto auto minmax(220px,1fr); align-items:center; gap:16px; margin:26px 0 42px; padding:24px 26px; border:1px solid var(--v2-line); background:transparent; }
 .type-v2-mini-flow span { font-size:13px; color:rgba(37,37,31,.62); }
 .type-v2-mini-flow i { color:var(--shenlun-accent); font-style:normal; }
 .type-v2-mini-flow b { font:500 20px/1.45 "Songti SC","SimSun",serif; }

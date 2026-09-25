@@ -77,12 +77,12 @@
   padding: 20px 24px;
   border-top: 1px solid color-mix(in srgb, var(--shenlun-accent) 34%, rgba(37,37,31,.14));
   border-bottom: 1px solid rgba(37,37,31,.14);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--shenlun-accent) 8%, transparent), transparent 72%);
+  background: transparent;
   transition: background .2s ease, padding-left .2s ease;
 }
 .expression-next-link:hover {
   padding-left: 32px;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--shenlun-accent) 15%, transparent), transparent 78%);
+  background: color-mix(in srgb, var(--shenlun-accent) 7%, transparent);
 }
 .expression-next-link span {
   color: var(--shenlun-accent);

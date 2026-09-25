@@ -274,10 +274,6 @@
   scroll-margin-top: 118px;
 }
 
-.learning-theme-glow {
-  filter: blur(9px);
-  opacity: .2;
-}
 
 @media (max-width: 1180px) {
   .page-guide-float {

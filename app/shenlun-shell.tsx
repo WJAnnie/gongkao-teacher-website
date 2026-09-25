@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { LearningPageFrame } from './learning-page-frame';
 import { LearningTopNav } from './learning-nav';
-import { LearningPageEffects } from './learning-page-effects';
 import { interviewRoutes, learningPageChapters, shenlunRoutes } from './learning-routes';
 
 type ShenlunTone = 'framework' | 'questions' | 'writing' | 'videos' | 'home';
@@ -33,7 +32,6 @@ function ShenlunHomeShell({ eyebrow, title, desc, children }: { eyebrow: string;
   const active: string | undefined = undefined;
   return (
     <main className={`shenlun-page ${tone} shenlun-tone-${tone}`}>
-      <LearningPageEffects />
       <LearningTopNav active={active} />
       <header className="shenlun-hero">
         <div className="shenlun-hero-topline"><span>申论</span><span>答卷之外 · 申论学习</span></div>

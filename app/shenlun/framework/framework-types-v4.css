@@ -4,7 +4,7 @@
   min-height:34px;
   padding:8px 14px 8px 15px;
   border-left:3px solid var(--shenlun-accent);
-  background:linear-gradient(90deg,color-mix(in srgb,var(--shenlun-accent) 13%,transparent),color-mix(in srgb,var(--shenlun-accent) 4%,transparent));
+  background:color-mix(in srgb,var(--shenlun-accent) 8%,transparent);
   box-shadow:0 8px 24px color-mix(in srgb,var(--shenlun-accent) 8%,transparent);
   color:var(--shenlun-accent);
   font:700 13px/1.15 system-ui,-apple-system,"PingFang SC",sans-serif;
@@ -36,7 +36,7 @@
   grid-template-columns:minmax(0,1.65fr) minmax(250px,.7fr);
   margin:0 0 22px;
   border:1px solid var(--v2-line);
-  background:linear-gradient(135deg,rgba(255,255,255,.46),color-mix(in srgb,var(--shenlun-accent) 3%,transparent));
+  background:transparent;
 }
 .type-v4-analysis-case .case-copy { padding:32px 36px; }
 .type-v4-analysis-case .case-copy > span {
@@ -60,7 +60,7 @@
   grid-template-columns:minmax(0,1.7fr) minmax(260px,.72fr);
   margin-top:26px;
   border:1px solid var(--v2-line);
-  background:linear-gradient(135deg,rgba(255,255,255,.46),color-mix(in srgb,var(--shenlun-accent) 3%,transparent));
+  background:transparent;
 }
 .type-v4-outline-example .outline-copy { padding:36px 40px; }
 .type-v4-outline-example .outline-copy > span {

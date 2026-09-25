@@ -85,8 +85,7 @@
   inset: 0;
   opacity: 0;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--shenlun-accent) 12%, transparent), transparent 42%),
-    linear-gradient(180deg, color-mix(in srgb, var(--shenlun-soft) 46%, transparent), transparent 78%);
+    color-mix(in srgb, var(--shenlun-accent) 7%, transparent);
   transition: opacity .22s ease;
 }
 
