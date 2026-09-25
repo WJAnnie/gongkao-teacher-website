@@ -1,11 +1,3 @@
-.hero-directory-slot {
-  position: absolute;
-  z-index: 14;
-  right: clamp(28px, 5.6vw, 86px);
-  top: 50%;
-  width: min(480px, 35vw);
-}
-
 .subject-gateway {
   position: relative;
   width: 100%;
@@ -309,11 +301,6 @@
 }
 
 @media (max-width: 1080px) {
-  .hero-directory-slot {
-    width: min(430px, 39vw);
-    right: clamp(24px, 4vw, 56px);
-    top: 52%;
-  }
   .subject-track-button {
     grid-template-columns: 24px 1fr 22px;
   }
@@ -321,13 +308,6 @@
 }
 
 @media (max-width: 760px) {
-  .hero-directory-slot {
-    left: 22px;
-    right: 22px;
-    top: auto;
-    bottom: 66px;
-    width: auto;
-  }
   .subject-gateway-kicker { padding-bottom: 7px; }
   .subject-track-button {
     min-height: 56px;
