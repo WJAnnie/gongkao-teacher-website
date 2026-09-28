@@ -332,7 +332,10 @@
   .learning-page-frame .learning-hero-bottom { height: auto; margin-top: 52px; }
   .learning-page-frame .learning-hero-bottom > p, .learning-page-frame .learning-chapter-strip { position: static; width: 100%; }
   .learning-page-frame .learning-chapter-strip { margin-top: 28px; }
-  .learning-page-frame .learning-content-frame { display: block; width: min(100% - 32px, 720px); padding: 56px 0; }
+  /* 页边距只由正文框提供，外层不再叠加内边距 */
+  .learning-page-frame .shenlun-content,
+  .learning-page-frame .interview-content { padding-inline: 0; }
+  .learning-page-frame .learning-content-frame { display: block; width: min(100% - 32px, 720px); margin-inline: auto; padding: 56px 0; }
   .learning-page-frame .learning-directory-trigger { display: grid; grid-template-columns: auto 1fr auto; width: 100%; margin-bottom: 18px; padding: 12px; border: 1px solid var(--learning-border); background: var(--learning-paper-raised); color: var(--learning-ink); text-align: left; }
   .learning-page-frame .learning-directory-collapse { display: none; }
   .learning-page-frame .learning-directory-content { visibility: visible; pointer-events: auto; }

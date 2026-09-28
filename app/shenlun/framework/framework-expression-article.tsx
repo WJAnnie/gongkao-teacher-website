@@ -19,7 +19,7 @@ function Example({ label, title, children, note }: { label: string; title: strin
 function AnswerSheetFigure() {
   return (
     <figure className="framework-voice-answer-sheet">
-      <svg viewBox="0 0 920 610" role="img" aria-label="申论答题卡结构示意">
+      <div className="framework-voice-answer-scroll" tabIndex={0} role="region" aria-label="答题卡示意图"><svg viewBox="0 0 920 610" role="img" aria-label="申论答题卡结构示意">
         <defs>
           <pattern id="voiceGrid" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="20" height="20" fill="#fffdf8"/><path d="M20 0H0V20" fill="none" stroke="#e89292" strokeWidth="1"/></pattern>
         </defs>
@@ -35,7 +35,7 @@ function AnswerSheetFigure() {
         <text x="482" y="284" fontSize="10" fill="#222">第（三）大题</text><rect x="482" y="296" width="394" height="118" fill="url(#voiceGrid)" stroke="#e89292"/>
         <text x="482" y="442" fontSize="10" fill="#222">文章写作区 / 后续答题区</text><rect x="482" y="454" width="394" height="92" fill="url(#voiceGrid)" stroke="#e89292"/>
         <text x="455" y="578" textAnchor="middle" fontSize="9" fill="#c95e5e">格子、题号和区域边界会直接影响你如何控制字数与层级</text>
-      </svg>
+      </svg></div>
       <figcaption>这张图只帮助你建立“答题卡意识”。具体题号、区域、页数和格数，以你参加考试当年的实际答题卡为准。</figcaption>
     </figure>
   );

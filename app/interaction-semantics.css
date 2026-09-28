@@ -412,8 +412,8 @@
 @media (max-width: 760px) {
   .shenlun-route-strip::before,
   .interview-route-strip::before {
-    top: -20px;
-    font-size: 7px;
+    top: -18px;
+    font-size: 11px;
   }
 
   .subject-track-arrow {

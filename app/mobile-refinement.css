@@ -5,6 +5,10 @@
   body { -webkit-text-size-adjust: 100%; }
   a, button { touch-action: manipulation; }
 
+  /* 首屏在窄屏上变高，百分比定位的装饰圆会压到标题，手机端不显示 */
+  .shenlun-hero::before,
+  .shenlun-hero::after { display: none; }
+
   /* 首页顶部 */
   .nav-shell {
     inset: 8px 10px auto;
@@ -135,14 +139,14 @@
   .interview-hero-topline {
     display: flex;
     gap: 12px;
-    font-size: 7px;
+    font-size: 11px;
     letter-spacing: .08em;
   }
   .shenlun-hero-topline span:last-child,
   .interview-hero-topline span:last-child { text-align: right; }
 
   .shenlun-hero-eyebrow,
-  .interview-hero-eyebrow { margin-top: 10px; font-size: 8px; }
+  .interview-hero-eyebrow { margin-top: 10px; font-size: 11px; }
 
   .shenlun-hero h1,
   .interview-site-hero h1 {
@@ -152,8 +156,9 @@
     letter-spacing: -.045em;
   }
 
+  /* 印章放在顶行分隔线下方，不压顶行文字 */
   .exam-review-stamp {
-    top: 72px;
+    top: 124px;
     right: 17px;
     width: 46px;
     font-size: 21px;
@@ -178,7 +183,7 @@
     margin-top: 8px;
   }
   .shenlun-hero-bottom > p,
-  .interview-hero-bottom > p { font-size: 11px; line-height: 1.75; }
+  .interview-hero-bottom > p { font-size: 13px; line-height: 1.75; }
 
   .shenlun-route-strip,
   .interview-route-strip { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -189,7 +194,7 @@
     gap: 6px;
   }
   .shenlun-route-strip > a > b,
-  .interview-route-strip > a > b { font-size: 10px; }
+  .interview-route-strip > a > b { font-size: 12px; }
 
   /* 内容区：减少空白，卡片改为更适合拇指阅读的纵向节奏 */
   .shenlun-content,
@@ -291,6 +296,29 @@
   }
   .shenlun-footer > p,
   .interview-footer > p { grid-column: 1; white-space: normal; }
+
+  /* 手机端小字下限：可点击文字 12px，编号与标注 10–11px */
+  :root .learning-topnav-mobile .learning-mobile-group-trigger { font-size: 12px; }
+  :root .shenlun-route-strip > a > span,
+  :root .interview-route-strip > a > span { font-size: 10px; }
+  :root .shenlun-section-head > span { font-size: 11px; }
+  :root .shenlun-footer > div > span,
+  :root .interview-footer > div > span,
+  :root .learning-page-frame .learning-page-footer > div > span { font-size: 11px; }
+  :root .shenlun-footer a,
+  :root .interview-footer a { font-size: 12px; }
+  :root .learning-page-frame .learning-chapter-strip > button > span,
+  :root .learning-page-frame .learning-chapter-strip > button > i { font-size: 11px; }
+  :root .learning-page-frame .learning-directory-list > button > span { font-size: 10px; }
+  :root .framework-article-intro > span,
+  :root .framework-content .expression-next-link span,
+  :root .expression-chapter-mark small { font-size: 11px; }
+
+  /* 答题卡示意图按 1.25 倍显示，图中最小的 8px 字放大到 10px；只让图横向滑动，图上方提示可滑动，图注留在原位 */
+  :root .framework-voice-answer-sheet { padding: 14px; }
+  :root .framework-voice-answer-sheet::before { content: "左右滑动查看完整答题卡"; display: block; margin-bottom: 8px; color: rgba(41, 41, 37, .56); font-size: 12px; }
+  :root .framework-voice-answer-scroll { overflow-x: auto; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
+  :root .framework-voice-answer-sheet svg { width: 1150px; max-width: none; }
 }
 
 @media (max-width: 420px) {
