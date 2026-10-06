@@ -22,6 +22,15 @@ test('prefixes root-relative links for Pages only', () => {
   assert.equal(rewriteHtml(html, '/repo'), '<a href="/repo/shenlun/"><img src="/repo/og.jpg"></a>');
 });
 
+test('rejects streamed metadata before rewriting changes Flight text byte lengths', () => {
+  // Vinext streams metadata HTML as a byte-counted Flight text record.
+  // Replacing localhost URLs in its body invalidates that count and breaks hydration.
+  const html = String.raw`<script>bootstrap.rsc.push("0:{\"__vinext_streaming_metadata_body:route:/category\":\"$L1\"}\n")</script>`;
+  for (const basePath of ['', '/repo']) {
+    assert.throws(() => rewriteHtml(html, basePath), /流式元数据/);
+  }
+});
+
 test('prefixes responsive images and serialized link props', () => {
   const html = '<img srcSet="/a.png 1x, /b.png 2x"><script>{\\"href\\":\\"/shenlun/\\"}</script>';
   assert.equal(

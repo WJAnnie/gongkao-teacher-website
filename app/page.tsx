@@ -35,12 +35,14 @@ export default async function Home() {
       <div className="front-cols" id="study">
         <FrontModuleColumn title="申论版" note="材料 · 题型 · 写作" routes={shenlunRoutes} />
         <FrontModuleColumn title="面试版" note="审题 · 观点 · 表达" routes={interviewRoutes} />
+      </div>
+
+      <div className="front-daily-reading" aria-label="每日积累">
         <FrontHotspots initialDate={buildDate} hotspots={hotspots} />
+        <FrontTerms initialDate={buildDate} terms={terms} />
       </div>
 
       <div className="front-bottom">
-        <FrontTerms initialDate={buildDate} terms={terms} />
-        <FrontSong />
         <section className="front-col front-contact" id="contact" aria-label="获取资料">
           <div className="front-kicker">
             <h2>获取资料</h2>
@@ -69,6 +71,7 @@ export default async function Home() {
         <span>答卷之外 · 云帆老师 · 申论 × 结构化面试</span>
         <a href="#top">返回顶部 ↑</a>
       </footer>
+      <FrontSong />
     </main>
   );
 }

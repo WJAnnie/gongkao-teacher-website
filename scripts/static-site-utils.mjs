@@ -24,6 +24,11 @@ export function normalizeBasePath(value) {
 }
 
 export function rewriteHtml(html, basePathValue) {
+  // Streamed metadata contains byte-counted Flight text. URL rewriting would
+  // change its byte length and leave the browser with an unreadable payload.
+  if (/__vinext_streaming_metadata_(?:body|outlet):route:/.test(html)) {
+    throw new Error('静态导出不支持流式元数据；请以 HTML-limited User-Agent 获取完整页面后再改写路径。');
+  }
   const basePath = normalizeBasePath(basePathValue);
   let rewritten = html.replaceAll('http://localhost:3000/', `${basePath}/`);
   if (!basePath) return rewritten;

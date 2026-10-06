@@ -32,7 +32,7 @@ function reviewNote(type: string) {
 export default function ShenlunQuestionsPage() {
   const shenlunQuestions = questions.filter((item) => item.subject === '申论' && item.year !== '专项');
   return (
-    <ShenlunShell tone="questions" eyebrow="真题精练" title="真题精练" desc="先从 2020—2025 国考地市级开始。按年份做整卷，按题型做专项，再用复盘把方法留下来。">
+    <ShenlunShell tone="questions" eyebrow="真题精练" title="真题精练" desc="从 2020—2025 国考地市级真题开始，按年份练整卷，按题型补短板，复盘时回到材料找依据。">
       <LearningContentFrame label="真题精练学习目录">
         <div className="shenlun-map-grid">
           {archiveCards.map(([no, title, meta, desc, chapterId]) => (

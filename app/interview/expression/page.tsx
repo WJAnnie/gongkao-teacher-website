@@ -30,7 +30,7 @@ const boards = [
 
 export default function InterviewExpressionPage() {
   return (
-    <InterviewShell tone="expression" eyebrow="表达训练" title="表达训练" desc="面试表达靠长期练习。观点、结构、例子和语气分开练，最后再合到一遍完整作答里。">
+    <InterviewShell tone="expression" eyebrow="表达训练" title="表达训练" desc="把观点、结构、例子和语气拆开练，再合成一遍完整作答，减少卡顿、重复和空话。">
       <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-expression-flow" label="表达训练学习目录" mapId="interview-expression-map" /></section>
     </InterviewShell>
   );

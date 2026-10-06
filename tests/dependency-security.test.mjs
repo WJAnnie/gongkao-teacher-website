@@ -8,18 +8,18 @@ const [manifest, lockfile] = await Promise.all([
 ]);
 
 const patchedVersions = {
-  next: '16.3.3',
+  next: '16.3.8',
   react: '19.2.8',
   'react-dom': '19.2.8',
-  'eslint-config-next': '16.3.3',
+  'eslint-config-next': '16.3.8',
   'react-server-dom-webpack': '19.2.8',
   vinext: '1.0.0-beta.8',
   vite: '8.2.2',
   '@vitejs/plugin-rsc': '0.5.34',
   '@vitejs/plugin-react': '6.1.1',
-  '@cloudflare/vite-plugin': '1.54.2',
-  '@cloudflare/workers-types': '5.20260831.1',
-  wrangler: '4.127.1',
+  '@cloudflare/vite-plugin': '1.62.5',
+  '@cloudflare/workers-types': '5.20261006.1',
+  wrangler: '4.147.0',
 };
 
 test('security-sensitive framework packages stay on the audited patch baseline', () => {

@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useMemo } from 'react';
+import { resolveLegacyWritingTarget } from './writing-legacy-target';
 
 export function WritingLegacyEntry({ target, title }: { target: string; title: string }) {
-  const href = useMemo(() => `/shenlun/writing/#${target}`, [target]);
+  const resolvedTarget = useMemo(() => resolveLegacyWritingTarget(target), [target]);
+  const href = useMemo(() => `/shenlun/writing/#${resolvedTarget}`, [resolvedTarget]);
 
   useEffect(() => {
     const marker = '/shenlun/writing/';
@@ -11,10 +13,7 @@ export function WritingLegacyEntry({ target, title }: { target: string; title: s
     const canonicalPath = markerIndex >= 0
       ? `${window.location.pathname.slice(0, markerIndex)}${marker}`
       : '/shenlun/writing/';
-    const previousLeaf = decodeURIComponent(window.location.hash.replace(/^#\/?/, '')).trim();
-    const nextTarget = previousLeaf && previousLeaf !== target && !target.endsWith(previousLeaf)
-      ? `${target}/${previousLeaf}`
-      : target;
+    const nextTarget = resolveLegacyWritingTarget(target, window.location.hash);
     window.location.replace(`${canonicalPath}#${nextTarget}`);
   }, [target]);
 

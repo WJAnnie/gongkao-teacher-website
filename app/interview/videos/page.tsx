@@ -30,7 +30,7 @@ const boards = [
 
 export default function InterviewVideosPage() {
   return (
-    <InterviewShell tone="videos" eyebrow="课程现场" title="课程现场" desc="课程、课堂、真题讲评和教学日常都放在这里。看完一段，最好自己再开口答一次。">
+    <InterviewShell tone="videos" eyebrow="课程现场" title="课程现场" desc="看题型精讲、课堂实录和真题讲评时，重点记住审题提醒、修改过程和可以马上重答的一句话。">
       <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-videos-flow" label="面试课程现场目录" mapId="interview-videos-map" /></section>
     </InterviewShell>
   );

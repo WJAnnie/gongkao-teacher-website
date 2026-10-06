@@ -60,7 +60,7 @@ test('daily columns import only types from the server data module', () => {
   assert.doesNotMatch(daily, /writing-hotspot|writing-term-data/);
 });
 
-test('song column wraps the inline player', () => {
+test('song is a floating control without an editorial column', () => {
   assert.match(song, /<HomeSongPlayer \/>/);
-  assert.match(song, /副刊 · 向岸/);
+  assert.doesNotMatch(song, /front-col|front-kicker|<section/);
 });

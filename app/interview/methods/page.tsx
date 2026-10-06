@@ -30,7 +30,7 @@ const boards = [
 
 export default function InterviewMethodsPage() {
   return (
-    <InterviewShell tone="methods" eyebrow="题型方法" title="题型方法" desc="结构化面试常见题型都有稳定的思考抓手。先看任务，再搭结构，最后把内容说顺。">
+    <InterviewShell tone="methods" eyebrow="题型方法" title="题型方法" desc="按综合分析、计划组织、应急应变等题型练审题和搭框架，先把任务想清楚，再把答案说顺。">
       <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-methods-flow" label="题型方法学习目录" mapId="interview-methods-map" /></section>
     </InterviewShell>
   );

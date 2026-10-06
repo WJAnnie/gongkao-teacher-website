@@ -33,7 +33,8 @@ jobs:
         run: npm ci
 
       - name: Audit dependencies
-        run: npm audit --audit-level=low
+        # The script keeps audit strict while allowing only the time-limited dev-only braces advisory.
+        run: node scripts/audit-dependencies.mjs
 
       - name: Verify Xiangan audio
         run: node scripts/vendor-home-audio.mjs

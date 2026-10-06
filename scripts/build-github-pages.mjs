@@ -35,7 +35,11 @@ try {
   await cp(join(root, 'public'), outputDir, { recursive: true, force: true });
 
   for (const route of staticRoutes) {
-    const response = await fetch(`http://127.0.0.1:${port}${basePath}${route}`);
+    // Request complete metadata in the head. Streaming metadata carries Flight
+    // byte lengths that would be invalidated by the static URL rewrite below.
+    const response = await fetch(`http://127.0.0.1:${port}${basePath}${route}`, {
+      headers: { 'User-Agent': 'Twitterbot' },
+    });
     if (!response.ok) {
       const body = await response.text();
       throw new Error(`Production page ${route} returned HTTP ${response.status}.\n${body.slice(0, 4000)}\n\nServer logs:\n${logs}`);

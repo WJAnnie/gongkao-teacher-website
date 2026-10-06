@@ -1,4 +1,4 @@
-/* 首页「报刊头版」：纸色底、墨色字、朱红唯一强调色；只保留悬停与聚焦状态。 */
+/* 首页「报刊头版」：主学习入口与每日积累分层，动效只服务阅读顺序。 */
 .front-page {
   --front-paper: #f4f0e7;
   --front-ink: #25251f;
@@ -8,7 +8,7 @@
   --front-soft-rule: #cfc8b6;
   --front-serif: "Songti SC", "SimSun", Georgia, serif;
   width: 100%;
-  padding: 28px max(32px, calc((100% - 1200px) / 2)) 24px;
+  padding: 28px max(32px, calc((100% - 1200px) / 2)) 180px;
   background: var(--front-paper);
   color: var(--front-ink);
 }
@@ -90,10 +90,15 @@
 .front-sign { margin-top: 4px; font-size: 12px; color: var(--front-muted); }
 
 /* 栏目网格 */
-.front-cols { display: grid; grid-template-columns: 1fr 1fr 1.15fr; }
+.front-cols { display: grid; grid-template-columns: 1fr 1fr; }
+.front-daily-reading {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  border-top: 3px double var(--front-ink);
+}
 .front-bottom {
   display: grid;
-  grid-template-columns: 1.25fr 1fr .8fr;
+  grid-template-columns: 1fr;
   border-top: 3px double var(--front-ink);
 }
 .front-col { min-width: 0; padding: 14px 22px 18px; }
@@ -132,6 +137,11 @@
 .front-module-arrow { color: var(--front-muted); }
 .front-module:hover b,
 .front-module:hover .front-module-arrow { color: var(--front-seal); }
+.front-module b, .front-module-arrow, .front-hot-link b, .front-dateline nav a {
+  transition: color .18s ease, transform .22s ease;
+}
+.front-module:hover .front-module-arrow, .front-module:focus-visible .front-module-arrow { transform: translate(3px, -3px); }
+.front-hot-link:hover b, .front-hot-link:focus-visible b { transform: translateX(4px); }
 
 /* 今日热点 */
 .front-hot-link { display: block; padding: 9px 0; border-bottom: 1px dotted var(--front-dot); }
@@ -193,8 +203,18 @@
 }
 .front-foot a:hover { color: var(--front-seal); }
 
+@keyframes front-arrive {
+  from { opacity: .4; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.front-masthead { animation: front-arrive .45s ease both; }
+.front-lead { animation: front-arrive .55s .06s ease both; }
+.front-cols { animation: front-arrive .55s .12s ease both; }
+.front-daily-reading { animation: front-arrive .55s .18s ease both; }
+[id="study"], [id="about"], [id="contact"] { scroll-margin-top: 24px; }
+
 @media (max-width: 760px) {
-  .front-page { padding: 16px 16px 20px; }
+  .front-page { padding: 16px 16px 180px; }
   .front-mast-title h1 { font-size: 38px; letter-spacing: .12em; }
   .front-seal { width: 34px; height: 34px; font-size: 12px; }
   .front-dateline-motto { display: none; }
@@ -202,6 +222,7 @@
   .front-slogan { font-size: 34px; }
   .front-note { padding: 10px 0 0; border-left: 0; border-top: 1px solid var(--front-ink); font-size: 13px; }
   .front-cols,
+  .front-daily-reading,
   .front-bottom,
   .front-editorial-grid { grid-template-columns: 1fr; }
   .front-col { padding: 12px 0; }
@@ -210,4 +231,11 @@
   .front-module small { display: none; }
   .front-editorial-grid p { padding: 6px 0; }
   .front-editorial-grid p + p { border-left: 0; border-top: 1px dotted var(--front-dot); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .front-page *, .front-page *::before, .front-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

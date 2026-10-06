@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function FrameworkPage() {
   return (
-    <ShenlunShell tone="framework" eyebrow="方法框架" title="方法框架" desc="表达规则、题型框架、核心能力和实用技巧放在同一套学习手册里。左侧目录始终跟着你，正文按栏目阅读。">
+    <ShenlunShell tone="framework" eyebrow="方法框架" title="方法框架" desc="从审题、读材料、定结构学起，再把五类题型、表达规则和常用技巧放到具体题目里练。">
       <section className="shenlun-content framework-content">
         <FrameworkManual />
       </section>

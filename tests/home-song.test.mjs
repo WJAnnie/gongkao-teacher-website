@@ -87,7 +87,7 @@ test('local and hosted builds verify audio before starting or building', () => {
   for (const workflow of [pagesWorkflow, edgeWorkflow, previewWorkflow]) {
     const vendorIndex = workflow.indexOf(vendorCommand);
     const buildIndex = workflow.indexOf('npm run build:static');
-    const auditIndex = workflow.indexOf('npm audit --audit-level=low');
+    const auditIndex = workflow.indexOf('node scripts/audit-dependencies.mjs');
     assert.ok(vendorIndex >= 0 && vendorIndex < buildIndex);
     assert.ok(auditIndex >= 0 && auditIndex < buildIndex);
     assert.match(workflow, /name: Verify Xiangan audio/);
@@ -105,12 +105,17 @@ test('local and hosted builds verify audio before starting or building', () => {
   }
 });
 
-test('player sits inline in the page instead of floating over content', () => {
+test('floating player starts compact and keeps audio mounted when collapsed', () => {
   assert.match(player, /role="group" aria-label="向岸音乐播放器"/);
-  assert.doesNotMatch(player, /sessionStorage|playerVisible|getElementById\('about'\)|closePlayer|reopenPlayer/);
-  assert.doesNotMatch(player, /home-song-(close|reopen)/);
-  assert.doesNotMatch(playerCss, /position:\s*fixed/);
-  assert.doesNotMatch(playerCss, /home-song-(close|reopen)|gradient/);
+  assert.match(player, /useState\(false\)/);
+  assert.match(player, /aria-expanded=\{expanded\}/);
+  assert.match(player, /aria-controls="home-song-panel"/);
+  assert.match(player, /id="home-song-panel" hidden=\{!expanded\}/);
+  assert.match(player, /event\.key === 'Escape'/);
+  assert.match(playerCss, /position:\s*fixed/);
+  assert.match(playerCss, /env\(safe-area-inset-bottom/);
+  assert.doesNotMatch(player, /expanded && \(?\s*<audio/);
+  assert.doesNotMatch(playerCss, /gradient/);
 });
 
 test('idle player previews the chorus instead of a placeholder', () => {

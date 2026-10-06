@@ -14,13 +14,15 @@ type NavigatorWithSaveData = Navigator & {
   connection?: { saveData?: boolean };
 };
 
-// 未播放时展示副歌两行，作为「副刊」栏的歌词节选。
+// 未播放时展示副歌两行。
 const CHORUS_INDEX = Math.max(0, HOME_SONG.lyrics.findIndex((line) => line.text === '一道题，一页纸，一段时光'));
 
 export function HomeSongPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const sourceLinkRef = useRef<HTMLAnchorElement>(null);
   const lyricsPanelRef = useRef<HTMLDivElement>(null);
+  const expandButtonRef = useRef<HTMLButtonElement>(null);
+  const [expanded, setExpanded] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState<number>(HOME_SONG.fallbackDuration);
@@ -85,7 +87,7 @@ export function HomeSongPlayer() {
     const row = panel?.querySelector<HTMLElement>(`[data-lyric-index="${activeIndex}"]`);
     if (!panel || !row) return;
     const target = row.offsetTop - panel.clientHeight / 2 + row.clientHeight / 2;
-    panel.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+    panel.scrollTo({ top: Math.max(0, target), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }, [activeIndex, lyricsOpen]);
 
   const togglePlay = async () => {
@@ -112,8 +114,13 @@ export function HomeSongPlayer() {
   const seek = (value: number) => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.currentTime = value;
-    syncFromAudio();
+    try {
+      ensureAudioSource(audio);
+      audio.currentTime = value;
+      syncFromAudio();
+    } catch {
+      setAudioError(true);
+    }
   };
 
   const reloadAudio = () => {
@@ -135,8 +142,15 @@ export function HomeSongPlayer() {
 
   return (
     <div
-      className={`home-song-player${playing ? ' is-playing' : ''}${lyricsOpen ? ' lyrics-open' : ''}`}
+      className={`home-song-player${playing ? ' is-playing' : ''}${expanded ? ' is-expanded' : ''}${lyricsOpen ? ' lyrics-open' : ''}`}
       role="group" aria-label="向岸音乐播放器"
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') {
+          setExpanded(false);
+          setLyricsOpen(false);
+          expandButtonRef.current?.focus();
+        }
+      }}
     >
       <a ref={sourceLinkRef} href={HOME_SONG.src} hidden aria-hidden="true" tabIndex={-1}>向岸音频</a>
       <audio
@@ -171,6 +185,17 @@ export function HomeSongPlayer() {
         }}
       />
 
+      <div className="home-song-summary">
+        <button className="home-song-compact-play" type="button" onClick={togglePlay} aria-label={playing ? '暂停向岸' : '播放向岸'}>
+          {playing ? 'Ⅱ' : '▶'}
+        </button>
+        <button className="home-song-expand" ref={expandButtonRef} type="button" aria-expanded={expanded} aria-controls="home-song-panel" onClick={() => setExpanded((value) => !value)}>
+          <b>向岸</b><span>{audioError ? '点击展开，重新加载音频' : currentLyric}</span><i aria-hidden="true">{expanded ? '⌄' : '⌃'}</i>
+          <span className="sr-only">{expanded ? '收起播放器' : '展开播放器'}</span>
+        </button>
+      </div>
+
+      <div id="home-song-panel" hidden={!expanded}>
       <div className="home-song-live" aria-live="polite">
         {audioError ? (
           <div className="home-song-error" role="status">
@@ -214,17 +239,19 @@ export function HomeSongPlayer() {
       {lyricsOpen && (
         <div className="home-song-lyrics-list" ref={lyricsPanelRef} aria-label="向岸完整歌词">
           {HOME_SONG.lyrics.map((line, index) => (
-            <p
+            <button
+              type="button"
               key={`${line.at}-${line.text}`}
               data-lyric-index={index}
               className={`${index === activeIndex ? 'active' : ''}${index % 4 === 0 ? ' group-start' : ''}`}
               onClick={() => seek(line.at)}
             >
               <span>{formatTime(line.at)}</span>{line.text}
-            </p>
+            </button>
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

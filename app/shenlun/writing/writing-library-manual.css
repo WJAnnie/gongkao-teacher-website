@@ -194,6 +194,11 @@
 .writing-sentence-group p { margin: 0; color: var(--learning-ink); font: 500 16px/1.95 "Songti SC", serif; }
 
 .writing-quote-group { display: grid; margin: 0; padding: 6px 0 22px; }
+.writing-quote-section { scroll-margin-top: 90px; }
+.writing-quote-section > h3 { display: flex; align-items: baseline; gap: 16px; margin: 24px 0 0; padding-bottom: 12px; border-bottom: 1px solid var(--learning-border); color: var(--module-accent); font: 600 21px/1.5 "Songti SC", serif; }
+.writing-quote-section > h3 small { color: var(--learning-muted); font: 400 12px/1.5 sans-serif; }
+.writing-quote-source a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.writing-quote-source a:hover { color: var(--module-accent); }
 .writing-quote-group li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px; padding: 17px 2px 19px; border-top: 1px solid color-mix(in srgb, var(--learning-border) 55%, transparent); list-style: none; }
 .writing-quote-group li:first-child { border-top: 0; }
 .writing-quote-group li > span { align-self: start; padding-top: 4px; color: var(--module-accent); font-size: 11px; letter-spacing: .06em; }

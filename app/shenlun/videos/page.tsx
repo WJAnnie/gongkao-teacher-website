@@ -26,7 +26,7 @@ const shenlunFlowStyle = { '--interview-color': 'var(--shenlun-accent)' } as CSS
 
 export default function ShenlunVideosPage() {
   return (
-    <ShenlunShell tone="videos" eyebrow="课程现场" title="课程现场" desc="课程、课堂和工作日常放在同一个地方。看一段，记一个点，再回到真题里练一遍。">
+    <ShenlunShell tone="videos" eyebrow="课程现场" title="课程现场" desc="看申论精讲、课堂实录和批改片段时，重点留一个审题、阅读或表达上的提醒，再放回真题里练。">
       <LearningContentFrame label="申论课程现场目录">
         <div className="video-grid">
           {videoSections.map(([no, title, desc, note, chapterId]) => (

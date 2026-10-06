@@ -13,7 +13,7 @@ export default function ShenlunWritingPage() {
       tone="writing"
       eyebrow="申论写作积累"
       title="写作积累"
-      desc="按当前写作需要进入相应模块，在阅读、摘录和迁移练习之间来回切换。"
+      desc="从热点、案例、规范用词和作文框架里选材料，练习把积累写进分论点和论证段。"
     >
       <section className="shenlun-content framework-content writing-content">
         <WritingLibraryManual />

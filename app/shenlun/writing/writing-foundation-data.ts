@@ -31,6 +31,8 @@ export type QuoteEntry = {
   text: string;
   author: string;
   source: string;
+  sourceUrl?: string;
+  sourceNote?: string;
   context: string;
   boundary: string;
   group?: string;

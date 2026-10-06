@@ -178,6 +178,7 @@ export function WritingLibraryManual() {
   const hotspotRequest = useRef(0);
   const caseRequest = useRef(0);
   const restoredOnce = useRef(false);
+  const requestedQuoteGroup = useRef('');
   const currentLayer = writingLayers.find((item) => item.key === activeLayer) ?? writingLayers[0];
 
   const openHotspot = useCallback((key: HotspotIndexItem['key'], slug = '') => {
@@ -260,6 +261,7 @@ export function WritingLibraryManual() {
       if (requestedLayer === 'hotspots' && hotspotIndex.some((item) => item.key === parts[1])) openHotspot(parts[1] as HotspotIndexItem['key'], parts[2]);
       if (requestedLayer === 'cases' && caseIndex.some((item) => item.key === parts[1])) openCase(parts[1] as CaseIndexItem['key'], parts[2]);
       if (['terms', 'patterns', 'sentences', 'quotes', 'essay'].includes(requestedLayer) && parts[1]) {
+        if (requestedLayer === 'quotes') requestedQuoteGroup.current = parts[2] ?? '';
         setSelections((current) => ({ ...current, [requestedLayer]: { category: parts[1], leaf: parts[2] ?? '' } }));
       }
       if (requestedLayer === 'metaphors' && parts[1]) setMetaphorQuery(parts[1]);
@@ -282,6 +284,20 @@ export function WritingLibraryManual() {
     setHash(currentPath);
     window.sessionStorage.setItem(`writing-library-last-${activeLayer}`, currentPath.join('/'));
   }, [activeLayer, currentPath]);
+
+  useEffect(() => {
+    if (activeLayer !== 'quotes' || foundationState !== 'ready' || !requestedQuoteGroup.current) return;
+    const frame = window.requestAnimationFrame(() => {
+      const group = Array.from(document.querySelectorAll<HTMLElement>('.writing-quote-section'))
+        .find((element) => element.dataset.quoteGroup === requestedQuoteGroup.current)
+        ?? document.querySelector<HTMLElement>('.writing-quote-section');
+      if (!group) return;
+      requestedQuoteGroup.current = '';
+      group.scrollIntoView({ block: 'start', behavior: 'instant' });
+      group.focus({ preventScroll: true });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeLayer, foundationState, selections.quotes.category, selections.quotes.leaf]);
 
   useEffect(() => {
     const keyword = query.trim().toLowerCase();
@@ -321,6 +337,7 @@ export function WritingLibraryManual() {
   };
 
   const selectSearchResult = (result: SearchResult) => {
+    if (result.module === 'quotes') requestedQuoteGroup.current = result.leaf;
     activateChapter(`writing-${result.module}`, null, 'directory');
     if (result.module === 'hotspots') openHotspot(result.category as HotspotIndexItem['key'], result.leaf);
     else if (result.module === 'cases') openCase(result.category as CaseIndexItem['key'], result.leaf);
@@ -462,21 +479,22 @@ export function WritingLibraryManual() {
         if (!last || last.label !== entry.group) groups.push({ label: entry.group ?? '', count: 1 });
         else last.count += 1;
       }
-      const openQuotes = selections.quotes.leaf ? category.entries.filter((entry) => entry.group === selections.quotes.leaf) : [];
-      return <section className="writing-module-view writing-quote-card" data-writing-module="quotes"><Breadcrumb items={['写作积累', '名人箴言', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>连同出处和边界一起记</h2><em>{category.desc}</em></div></header>
-        <WritingInlineDisclosure activeId={selections.quotes.leaf} items={groups.map((group, index) => ({ id: group.label, no: String(index + 1).padStart(2, '0'), title: group.label, meta: `${group.count} 条` }))} label={`${category.label}名人箴言`} onToggle={(leaf) => toggleGenericLeaf('quotes', leaf)} unit="组">
-          {openQuotes.length ? <ul className="writing-quote-group">
-            {openQuotes.map((entry) => <li key={`${entry.author}-${entry.text}`}>
+      return <section className="writing-module-view writing-quote-card" data-writing-module="quotes"><Breadcrumb items={['写作积累', '名人箴言', category.label]} /><header><span>{currentLayer.icon}</span><div><p>{category.label}</p><h2>{category.label}常用引语</h2><em>{category.desc}</em></div></header>
+        {groups.map((group, index) => <section className="writing-quote-section" id={`quote-group-${index}`} key={group.label} data-quote-group={group.label} tabIndex={-1} data-selected={selections.quotes.leaf === group.label || undefined} aria-label={group.label}>
+          <h3>{group.label}<small>{group.count} 条</small></h3>
+          <ul className="writing-quote-group">
+            {category.entries.filter((entry) => entry.group === group.label).map((entry) => <li key={`${entry.author}-${entry.text}`}>
               <span>{entry.author}</span>
               <div>
                 <blockquote>{entry.text}</blockquote>
-                <p className="writing-quote-source">{entry.source}</p>
+                <p className="writing-quote-source">{entry.sourceUrl ? <a href={entry.sourceUrl} target="_blank" rel="noopener noreferrer">{entry.source} ↗</a> : entry.source}</p>
+                {entry.sourceNote && <p className="writing-quote-note">{entry.sourceNote}</p>}
                 <p className="writing-quote-note"><b>适用语境</b>{entry.context}</p>
                 <p className="writing-quote-note"><b>使用边界</b>{entry.boundary}</p>
               </div>
             </li>)}
-          </ul> : null}
-        </WritingInlineDisclosure>
+          </ul>
+        </section>)}
       </section>;
     }
     const stage = foundation.essayStages.find((item) => item.key === selections.essay.category) ?? foundation.essayStages[0];

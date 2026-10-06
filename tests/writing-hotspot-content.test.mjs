@@ -30,6 +30,7 @@ test('every hotspot article satisfies the content quality contract', async () =>
   const categories = await Promise.all(hotspotIndex.map(({ key }) => loadHotspotCategory(key)));
   const seenLabels = new Set();
   let articleCount = 0;
+  const paragraphs = new Map();
 
   for (const category of categories) {
     for (const article of category.articles) {
@@ -39,6 +40,15 @@ test('every hotspot article satisfies the content quality contract', async () =>
         assert.ok(article[field].trim(), `${article.slug}: ${field} 不能为空`);
       }
       assert.ok(article.sections.length, `${article.slug}: sections 不能为空`);
+      assert.ok(article.sections.length >= 3 && article.sections.length <= 4, `${article.slug}: 应有3至4个分论点`);
+      const length = articleText(article).replace(/\s/g, '').length;
+      assert.ok(length >= 1000 && length <= 1300, `${article.slug}: 正文长度超出1000至1300字`);
+      for (const paragraph of [article.intro, ...article.sections.map((section) => section.body), article.conclusion]) {
+        const normalized = paragraph.replace(/\s/g, '');
+        if (normalized.length < 80) continue;
+        assert.ok(!paragraphs.has(normalized), `${article.slug}: 与${paragraphs.get(normalized)}共用长段落`);
+        paragraphs.set(normalized, article.slug);
+      }
       assert.match(article.thesis, transitionPattern, `${article.slug}: thesis 缺少自然连接`);
       for (const section of article.sections) {
         assert.ok(section.title.trim(), `${article.slug}: section title 不能为空`);

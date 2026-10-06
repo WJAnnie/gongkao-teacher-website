@@ -30,7 +30,7 @@ const boards = [
 
 export default function InterviewQuestionsPage() {
   return (
-    <InterviewShell tone="questions" eyebrow="真题实战" title="真题实战" desc="真题按系统、地区、年份和题型整理。做题时把提纲、作答、修改放在同一条记录里，更容易看见自己的变化。">
+    <InterviewShell tone="questions" eyebrow="真题实战" title="真题实战" desc="用国考和省考回忆真题练限时提纲、开口作答和答后复盘，慢慢摸清不同题型的问法。">
       <section className="interview-content"><InterviewLearningContent boards={boards} cards={cards} flow={flow} flowId="interview-questions-flow" label="真题实战学习目录" mapId="interview-questions-map" /></section>
     </InterviewShell>
   );

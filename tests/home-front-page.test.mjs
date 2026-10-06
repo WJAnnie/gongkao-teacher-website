@@ -40,13 +40,27 @@ test('homepage data is computed at build time on the server', () => {
   assert.match(page, /buildFrontTerms\(\)/);
 });
 
-test('homepage styles stay quiet: no motion, gradients or text under 12px', () => {
+test('homepage restores restrained motion with a reduced-motion fallback', () => {
   assert.match(layout, /import '\.\/home-front\/home-front\.css';/);
-  assert.doesNotMatch(css, /@keyframes|animation\s*:|position\s*:\s*fixed|radial-gradient|(?<!repeating-)linear-gradient/);
+  assert.match(css, /@keyframes front-arrive/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(css, /animation: none/);
+  assert.doesNotMatch(css, /radial-gradient|(?<!repeating-)linear-gradient/);
   assert.match(css, /text-wrap:\s*balance/);
   assert.match(css, /@media \(max-width: 760px\)/);
   assert.match(css, /\.front-module small \{ display: none; \}/);
   const sizes = [...css.matchAll(/font(?:-size)?\s*:[^;{}]*?(\d+(?:\.\d+)?)px/g)].map((match) => Number(match[1]));
   assert.ok(sizes.length > 10, '没有读到字号声明');
   for (const size of sizes) assert.ok(size >= 12, `发现 ${size}px 的文字`);
+});
+
+test('daily reading sits below the two primary subject columns', () => {
+  const study = page.match(/<div className="front-cols" id="study">([\s\S]*?)<\/div>/)?.[1];
+  assert.ok(study);
+  assert.equal((study.match(/<FrontModuleColumn/g) ?? []).length, 2);
+  assert.doesNotMatch(study, /FrontHotspots|FrontTerms|FrontSong/);
+  const daily = page.match(/<div className="front-daily-reading"[^>]*>([\s\S]*?)<\/div>/)?.[1];
+  assert.match(daily ?? '', /<FrontHotspots/);
+  assert.match(daily ?? '', /<FrontTerms/);
+  assert.doesNotMatch(daily ?? '', /FrontSong/);
 });

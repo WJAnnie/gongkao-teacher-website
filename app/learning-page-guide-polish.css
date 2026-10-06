@@ -59,7 +59,8 @@
 .interview-site-hero h1 {
   width: min(900px, 64vw);
   max-width: 900px;
-  font-size: clamp(58px, 8vw, 120px) !important;
+  /* 首屏导语固定在 top: 400px（hero-content-index.css），三行标题超过 100px 就会压到导语 */
+  font-size: clamp(58px, 8vw, 100px) !important;
   line-height: .9 !important;
   letter-spacing: -.055em !important;
 }

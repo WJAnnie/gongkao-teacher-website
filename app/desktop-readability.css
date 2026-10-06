@@ -1,0 +1,76 @@
+/* Targeted readability corrections; preserve the existing paper/terracotta palette. */
+.tool-card.record-tool { background: #d99a82; color: #25251f; }
+.record-tool > p,
+.record-tool .tool-title span,
+.record-tool .record-list small,
+.record-tool .record-list span { opacity: 1; }
+.record-tool .record-rating button { border-color: rgba(37, 37, 31, .3); color: #25251f; opacity: 1; }
+.record-tool .record-rating button.active { border-color: #25251f; }
+.build-mock { background: #98452f; color: #fff9ef; border-color: #98452f; }
+.score-tool .advanced-note,
+.score-tool .score-dimensions small { color: #25251f; opacity: 1; }
+/* 奶白字配原 --blue 只有 4.12，同色相加深到 5.5；评分大字橙配酸绿 2.03，改用深赤陶 4.6 */
+.advanced-tool.daily-tool { background: #52649a; }
+.score-tool .score-total strong { color: #98452f; }
+
+@media (min-width: 1024px) {
+  .learning-page-frame .learning-page-hero { height: 620px; }
+
+  /* Annotation sizes are independent of the mobile overrides. */
+  .section-index,
+  .question-count, .question-meta span, .question-main p, .question-source,
+  .question-paper-time, .subject-track-arrow,
+  .material-card > p, .note-count, .note-summary-main > p,
+  .advanced-tool-label b, .daily-tool > small, .mock-list span,
+  .record-list span, .record-list small,
+  .shenlun-hero-topline, .interview-hero-topline,
+  .shenlun-hero-eyebrow, .interview-hero-eyebrow,
+  .shenlun-section-head > span, .learning-nav-group-label,
+  .interview-flow-step > span, .interview-practice-board span,
+  .framework-content .framework-article-intro > span,
+  .framework-content .framework-manual-prose-list > section > span,
+  .teacher-margin-note,
+  .shenlun-question-toolbar > span, .learning-page-frame .writing-breadcrumb,
+  .video-card small, .shenlun-question-row .meta,
+  .shenlun-footer > div > span, .interview-footer > div > span,
+  .shenlun-footer > p, .interview-footer > p,
+  .exam-meta-strip span, .hero-review-corner small,
+  .learning-page-frame .learning-page-footer > div > span { font-size: 11px; }
+
+  /* 框架页样式在本文件之后加载，同优先级会被覆盖，用 :root 提高一级 */
+  :root .expression-chapter-mark small,
+  :root .framework-content .expression-next-link span { font-size: 11px; }
+
+  .shenlun-route-strip > a > span, .interview-route-strip > a > span,
+  .learning-page-frame .learning-chapter-strip > button > span,
+  .learning-page-frame .learning-macro-directory button > span,
+  .learning-page-frame .learning-macro-directory button > i,
+  .learning-page-frame .learning-chapter-strip > button > i,
+  .shenlun-footer a, .interview-footer a, .learning-nav-items a,
+  .learning-mobile-group-trigger,
+  .learning-page-frame .learning-directory-list > button > span,
+  .shenlun-route-strip > a > b, .interview-route-strip > a > b,
+  .mock-switch button, .build-mock, .score-dimensions select { font-size: 12px; }
+
+  /* Existing guide rules use !important; keep the override scoped to these labels. */
+  .page-guide-float > span { font-size: 11px !important; }
+  .page-guide-float button b { font-size: 12px; }
+  .exam-review-stamp::after, .shenlun-question-row h3::after,
+  .shenlun-route-strip::before, .interview-route-strip::before { font-size: 11px; }
+
+  /* Keep figures and tables wide; narrow prose only (18px × 42 = 756px). */
+  .framework-content .framework-voice-prose,
+  .framework-content .expression-v2-prose { max-width: 756px; }
+  .framework-content .framework-voice-prose p,
+  .framework-content .framework-voice-head p,
+  .framework-content .expression-v2-prose p,
+  :root .framework-content .framework-voice-note p,
+  :root .framework-content .framework-deep-talk p,
+  :root .framework-content .framework-voice-list p { max-width: 42em; }
+
+  /* SVG user units shrink with the illustration: retain a readable minimum scale. */
+  .framework-voice-answer-scroll { overflow-x: auto; }
+  .framework-voice-answer-sheet svg { min-width: 910px; }
+  .framework-voice-answer-sheet text { font-size: 12px; }
+  .framework-voice-answer-sheet text[font-size="18"] { font-size: 18px; }
+}

@@ -23,6 +23,6 @@ test('embeds the selected base path in the Vinext build and export server', asyn
   ]);
   assert.match(nextConfig, /basePath:\s*process\.env\.SITE_BASE_PATH\s*\?\?\s*''/);
   assert.match(profile, /\[\.\.\.npmCommand\[1\], 'run', 'build'\], \{ SITE_BASE_PATH: basePath \}/);
-  assert.match(exporter, /fetch\(`http:\/\/127\.0\.0\.1:\$\{port\}\$\{basePath\}\$\{route\}`\)/);
+  assert.match(exporter, /fetch\(`http:\/\/127\.0\.0\.1:\$\{port\}\$\{basePath\}\$\{route\}`,/);
   assert.match(exporter, /basePath\s*\?\s*join\(root, 'dist', 'client', basePath\.slice\(1\), '_next'\)/);
 });
