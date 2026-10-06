@@ -6,6 +6,29 @@ import { quoteLibrary } from '../app/shenlun/writing/writing-quote-library.ts';
 const weakSourcePattern = /多次重要讲话|高频表述|评论员文章$|官方政策表述|通行目标|讲话常用|中央文件表述/;
 const urlPattern = /^https:\/\/[^\s]+$/;
 
+test('a concrete Zhouyi chapter is not replaced by the author book name', () => {
+  const entries = quoteLibrary.flatMap((category) => category.entries);
+  for (const [text, chapter] of [
+    ['观乎人文，以化成天下。', 'bi'],
+    ['积善之家，必有余庆。', 'kun'],
+    ['二人同心，其利断金。', 'xi-ci-shang'],
+  ]) {
+    const entry = entries.find((item) => item.text === text);
+    assert.ok(entry, text);
+    assert.equal(entry.sourceUrl, `https://ctext.org/book-of-changes/${chapter}/zh`, text);
+  }
+});
+
+test('popular sayings distinguish their wording from the original classical text', () => {
+  const entries = quoteLibrary.flatMap((category) => category.entries);
+  for (const text of ['艰难困苦，玉汝于成。', '千里之堤，溃于蚁穴。']) {
+    const entry = entries.find((item) => item.text === text);
+    assert.match(entry.author, /通行/);
+    assert.match(entry.sourceNote, /原文/);
+    assert.match(entry.sourceNote, /通行/);
+  }
+});
+
 test('each category keeps distinct quotes without conceptual attribution', () => {
   for (const category of quoteLibrary) {
     assert.equal(new Set(category.entries.map((entry) => entry.text)).size, category.entries.length, `${category.key} contains repeated quotes`);

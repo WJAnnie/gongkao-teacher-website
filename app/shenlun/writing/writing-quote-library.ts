@@ -313,7 +313,7 @@ const rawQuoteLibrary: QuoteCategory[] = [
     entries: [
       { text: '天下难事，必作于易；天下大事，必作于细。', author: '老子', source: '《道德经·第六十三章》', context: '细节与从小处着手的总纲，适合立论或开篇。', boundary: '总书记多次引用；与“千里之堤”搭配时注意一说道理、一说后果。', group: '细节功夫' },
       { text: '祸患常积于忽微，而智勇多困于所溺。', author: '欧阳修', source: '《新五代史·伶官传序》', context: '小疏忽酿成大祸患，适合风险防范话题。', boundary: '后半句“所溺”侧重沉溺之害，引用时可只取前半句。', group: '细节功夫' },
-      { text: '千里之堤，溃于蚁穴。', author: '《韩非子》', source: '《韩非子·喻老》', context: '小隐患毁掉大基业的形象表达，适合警示段。', boundary: '与“堤溃蚁孔”同源意象，一篇一次。', group: '细节功夫' },
+      { text: '千里之堤，溃于蚁穴。', author: '通行格言', source: '本于《韩非子·喻老》', sourceUrl: 'https://ctext.org/hanfeizi/yu-lao/zh', sourceNote: '这里保留通行表达。《喻老》原文为“千丈之堤，以蝼蚁之穴溃”，引用通行说法时不标作逐字古文。', context: '小隐患毁掉大基业的形象表达，适合警示段。', boundary: '与“堤溃蚁孔”同源意象，一篇一次。', group: '细节功夫' },
       { text: '不矜细行，终累大德。', author: '《尚书》', source: '《尚书·旅獒》', context: '小节与大德的关系，适合作风建设、个人操守。', boundary: '侧重个人品行；制度层面论述另有引语。', group: '细节功夫' },
       { text: '堤溃蚁孔，气泄针芒。', author: '《后汉书》', source: '《后汉书·陈忠传》', context: '细节失守的连锁后果，适合廉政、安全话题。', boundary: '总书记曾引用；与“千里之堤”意象重叠，同篇择一。', group: '细节功夫' },
       { text: '禁微则易，救末者难。', author: '《后汉书》', source: '《后汉书·丁鸿传》', context: '问题要早发现早处置，适合源头治理话题。', boundary: '重在“禁微”的时机意识，与事后处置话题区分。', group: '细节功夫' },
@@ -338,7 +338,7 @@ const rawQuoteLibrary: QuoteCategory[] = [
       { text: '锲而舍之，朽木不折；锲而不舍，金石可镂。', author: '荀子', source: '《荀子·劝学》', context: '坚持与否的对照，适合攻坚克难话题。', boundary: '取后半句亦可；与“驽马十驾”同出《劝学》，同篇注意变化。', group: '恒心毅力' },
       { text: '古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。', author: '苏轼', source: '《晁错论》', context: '成大事靠意志，适合改革攻坚、长期任务。', boundary: '重在“坚忍不拔之志”；引用后宜接实例支撑。', group: '恒心毅力' },
       { text: '千磨万击还坚劲，任尔东西南北风。', author: '郑燮', source: '《竹石》', context: '历经磨砺而不改其志的形象表达，适合基层坚守话题。', boundary: '咏物诗，引用时点明竹之意象更见功力。', group: '恒心毅力' },
-      { text: '艰难困苦，玉汝于成。', author: '张载', source: '《西铭》', context: '磨砺成才的确证古语，适合青年成长、基层历练话题。', boundary: '重在经受磨炼后的成就，不宜写成苦难崇拜。', group: '恒心毅力' },
+      { text: '艰难困苦，玉汝于成。', author: '通行格言', source: '本于张载《西铭》', sourceUrl: 'https://zh.wikisource.org/wiki/%E8%A5%BF%E9%8A%98', sourceNote: '这句话是通行的凝练表达。《西铭》原文为“贫贱忧戚，庸玉汝于成也”，不把通行版本作为张载逐字原话。', context: '说明磨砺与成长的关系，适合青年成长、基层历练话题。', boundary: '重在经受磨炼后的成长，不宜写成苦难崇拜。', group: '恒心毅力' },
       { text: "学而不思则罔，思而不学则殆。", author: "孔子", source: "《论语·为政》", sourceUrl: "https://zh.wikisource.org/wiki/論語/爲政第二", sourceNote: "公版原文：《论语·爲政第二》，引语保留原文用字，繁简转换。", context: "说明学习、思考和实践需要相互补充。", boundary: "引用时结合题目说明其含义，不把古代语境直接套作现代政策结论。", group: "恒心毅力" },
       { text: '长风破浪会有时，直挂云帆济沧海。', author: '李白', source: '《行路难·其一》', context: '历经波折仍坚信前路，适合结尾提振信心。', boundary: '抒情强，收尾段使用；论证段不用。', group: '恒心毅力' },
       { text: '生于忧患而死于安乐。', author: '孟子', source: '《孟子·告子下》', context: '忧患意识的第一引语，适合风险防范立论。', boundary: '总书记多次引用；重在“生于”的进取，勿只渲染危机。', group: '忧患意识' },

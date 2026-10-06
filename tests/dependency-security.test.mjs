@@ -22,6 +22,13 @@ const patchedVersions = {
   wrangler: '4.147.0',
 };
 
+test('sharp and every nested copy use the patched SVG dependency baseline', () => {
+  const copies = Object.entries(lockfile.packages).filter(([path]) => /(?:^|\/)node_modules\/sharp$/.test(path));
+  assert.ok(copies.length > 0);
+  assert.equal(manifest.overrides.sharp, '0.35.5');
+  for (const [path, entry] of copies) assert.equal(entry.version, '0.35.5', path);
+});
+
 test('security-sensitive framework packages stay on the audited patch baseline', () => {
   const declared = { ...manifest.dependencies, ...manifest.devDependencies };
   const locked = {

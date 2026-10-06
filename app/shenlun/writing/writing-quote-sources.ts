@@ -202,7 +202,9 @@ const publicDomainSources: Array<[RegExp, QuoteSourceInfo]> = ([
 
 export function resolveQuoteSource(entry: QuoteEntry): QuoteSourceInfo {
   const haystack = `${entry.text} ${entry.author} ${entry.source}`;
-  const match = [...officialSources, ...classicSources, ...publicDomainSources].find(([pattern]) => pattern.test(haystack));
+  const sources = [...officialSources, ...classicSources, ...publicDomainSources];
+  const match = sources.find(([pattern]) => pattern.test(entry.source))
+    ?? sources.find(([pattern]) => pattern.test(haystack));
   if (match) return { ...match[1], sourceNote: match[1].sourceNote.replace(/。。+/g, '。') };
 
   throw new Error(`名人箴言缺少具体出处：${entry.text}`);
