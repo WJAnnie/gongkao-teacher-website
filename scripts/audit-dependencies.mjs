@@ -161,17 +161,18 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, 'utf8'));
 }
 
-function npmCliCandidates() {
+function npmCliCandidates(nodeExecutable, npmExecutable) {
   const candidates = [];
-  if (process.env.npm_execpath?.endsWith('npm-cli.js')) candidates.push(process.env.npm_execpath);
-  const nodeDir = dirname(process.execPath);
+  if (npmExecutable?.endsWith('npm-cli.js')) candidates.push(npmExecutable);
+  const nodeDir = dirname(nodeExecutable);
   candidates.push(join(nodeDir, 'node_modules', 'npm', 'bin', 'npm-cli.js'));
   candidates.push(join(dirname(nodeDir), 'node_modules', 'npm', 'bin', 'npm-cli.js'));
+  candidates.push(join(dirname(nodeDir), 'lib', 'node_modules', 'npm', 'bin', 'npm-cli.js'));
   return candidates;
 }
 
-function findNpmCli() {
-  const npmCli = npmCliCandidates().find((candidate) => existsSync(candidate));
+export function findNpmCli({ nodeExecutable = process.execPath, npmExecutable = process.env.npm_execpath } = {}) {
+  const npmCli = npmCliCandidates(nodeExecutable, npmExecutable).find((candidate) => existsSync(candidate));
   if (!npmCli) {
     fail('找不到 npm-cli.js，拒绝直接 spawn npm.cmd。请确认 Node.js 安装包含 npm。');
   }

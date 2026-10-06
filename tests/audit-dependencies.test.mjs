@@ -1,5 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { findNpmCli } from '../scripts/audit-dependencies.mjs';
+import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join, relative, resolve } from 'node:path';
+
+test('finds npm in the POSIX Node distribution used by setup-node', async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), 'gongkao-npm-cli-test-'));
+  t.after(async () => {
+    const withinTemp = relative(resolve(tmpdir()), resolve(directory));
+    assert.ok(withinTemp.startsWith('gongkao-npm-cli-test-') && !withinTemp.includes('..'));
+    await rm(directory, { recursive: true, force: true });
+  });
+  const bin = join(directory, 'bin');
+  const npmBin = join(directory, 'lib', 'node_modules', 'npm', 'bin');
+  await mkdir(bin, { recursive: true });
+  await mkdir(npmBin, { recursive: true });
+  const npmCli = join(npmBin, 'npm-cli.js');
+  await writeFile(npmCli, '// fixture');
+  assert.equal(findNpmCli({ nodeExecutable: join(bin, 'node'), npmExecutable: '' }), npmCli);
+});
 import { AuditValidationError, parseNpmAuditProcessResult, validateAuditReport } from '../scripts/audit-dependencies.mjs';
 
 const advisory = {
