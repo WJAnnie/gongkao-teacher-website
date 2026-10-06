@@ -12,4 +12,6 @@ test('a quote category shows every group without per-group disclosure', async ()
   assert.match(quotes, /entry\.sourceUrl/);
   assert.match(source, /group\.scrollIntoView/);
   assert.match(source, /group\.focus\(\{ preventScroll: true \}\)/);
+  assert.match(source, /addEventListener\('hashchange', restoreLocation\)/);
+  assert.match(source, /removeEventListener\('hashchange', restoreLocation\)/);
 });

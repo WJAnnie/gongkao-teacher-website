@@ -249,25 +249,33 @@ export function WritingLibraryManual() {
   }, [activeLayer, foundation]);
 
   useEffect(() => {
-    if (restoredOnce.current) return;
-    restoredOnce.current = true;
-    const hashParts = decodeHash();
-    const requested = hashParts[0] as WritingLayerKey | undefined;
-    const requestedLayer = writingLayers.some((item) => item.key === requested) ? requested! : 'hotspots';
-    const stored = window.sessionStorage.getItem(`writing-library-last-${requestedLayer}`)?.split('/') ?? [];
-    const parts = hashParts.length ? hashParts : stored;
-    const timer = window.setTimeout(() => {
-      activateChapter(`writing-${requestedLayer}`, null, 'restore');
-      if (requestedLayer === 'hotspots' && hotspotIndex.some((item) => item.key === parts[1])) openHotspot(parts[1] as HotspotIndexItem['key'], parts[2]);
-      if (requestedLayer === 'cases' && caseIndex.some((item) => item.key === parts[1])) openCase(parts[1] as CaseIndexItem['key'], parts[2]);
-      if (['terms', 'patterns', 'sentences', 'quotes', 'essay'].includes(requestedLayer) && parts[1]) {
-        if (requestedLayer === 'quotes') requestedQuoteGroup.current = parts[2] ?? '';
-        setSelections((current) => ({ ...current, [requestedLayer]: { category: parts[1], leaf: parts[2] ?? '' } }));
-      }
-      if (requestedLayer === 'metaphors' && parts[1]) setMetaphorQuery(parts[1]);
-      setRestored(true);
-    }, 0);
-    return () => window.clearTimeout(timer);
+    let timer: number | undefined;
+    const restoreLocation = () => {
+      const hashParts = decodeHash();
+      const requested = hashParts[0] as WritingLayerKey | undefined;
+      const requestedLayer = writingLayers.some((item) => item.key === requested) ? requested! : 'hotspots';
+      const stored = window.sessionStorage.getItem(`writing-library-last-${requestedLayer}`)?.split('/') ?? [];
+      const parts = hashParts.length ? hashParts : stored;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        restoredOnce.current = true;
+        activateChapter(`writing-${requestedLayer}`, null, 'restore');
+        if (requestedLayer === 'hotspots' && hotspotIndex.some((item) => item.key === parts[1])) openHotspot(parts[1] as HotspotIndexItem['key'], parts[2]);
+        if (requestedLayer === 'cases' && caseIndex.some((item) => item.key === parts[1])) openCase(parts[1] as CaseIndexItem['key'], parts[2]);
+        if (['terms', 'patterns', 'sentences', 'quotes', 'essay'].includes(requestedLayer) && parts[1]) {
+          if (requestedLayer === 'quotes') requestedQuoteGroup.current = parts[2] ?? '';
+          setSelections((current) => ({ ...current, [requestedLayer]: { category: parts[1], leaf: parts[2] ?? '' } }));
+        }
+        if (requestedLayer === 'metaphors' && parts[1]) setMetaphorQuery(parts[1]);
+        setRestored(true);
+      }, 0);
+    };
+    if (!restoredOnce.current) restoreLocation();
+    window.addEventListener('hashchange', restoreLocation);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('hashchange', restoreLocation);
+    };
   }, [activateChapter, openCase, openHotspot]);
 
   const currentPath = useMemo(() => {
