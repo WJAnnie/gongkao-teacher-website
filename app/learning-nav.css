@@ -174,6 +174,15 @@ main.interview-site > header.learning-topnav {
 
 .learning-topnav-mobile { display: none; }
 
+/* 新标识提高规则优先级，防止旧版页面样式后加载时恢复胶囊。 */
+.learning-topnav[data-nav-style="editorial"] .learning-nav-cluster { border-radius: 0; }
+.learning-topnav[data-nav-style="editorial"] .learning-nav-cluster.current-group { background: transparent; }
+.learning-topnav[data-nav-style="editorial"] .learning-nav-items a { border-radius: 0; background: transparent; border: 0; border-bottom: 2px solid transparent; }
+.learning-topnav[data-nav-style="editorial"] .learning-nav-items a:hover { border-bottom-color: color-mix(in srgb, var(--nav-accent) 55%, var(--ink)); }
+.learning-topnav[data-nav-style="editorial"] .learning-nav-items a.active,
+.learning-topnav[data-nav-style="editorial"] .learning-nav-items a[aria-current="page"] { background: transparent; box-shadow: none; border-bottom-color: var(--nav-accent); font-weight: 700; }
+.learning-topnav[data-nav-style="editorial"] .learning-nav-items a.active::after { content: none; }
+
 @media (max-width: 1040px) {
   .learning-topnav { grid-template-columns: auto 1fr auto; }
   .learning-topnav-brand > span { width: 40px; height: 40px; }

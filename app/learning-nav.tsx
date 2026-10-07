@@ -23,7 +23,7 @@ export function LearningTopNav({ active }: { active?: LearningRouteKey }) {
   const [mobileOpen, setMobileOpen] = useState<string | null>(null);
 
   return (
-    <header className="learning-topnav">
+    <header className="learning-topnav" data-nav-style="editorial">
       <a className="learning-topnav-brand" href="/">
         <span>答</span>
         <b>答卷之外</b>

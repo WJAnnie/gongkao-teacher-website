@@ -4,6 +4,12 @@ import { readFile } from 'node:fs/promises';
 
 const css = await readFile(new URL('../app/learning-nav.css', import.meta.url), 'utf8');
 
+test('the current component marks editorial navigation for legacy stylesheet isolation', async () => {
+  const source = await readFile(new URL('../app/learning-nav.tsx', import.meta.url), 'utf8');
+  assert.match(source, /data-nav-style="editorial"/);
+  assert.match(css, /\[data-nav-style="editorial"\] \.learning-nav-items a\[aria-current="page"\]/);
+});
+
 test('learning navigation removes rounded pills and switches to sharp editorial corners', () => {
   // Cluster container and navigation items have sharp corners
   assert.match(css, /\.learning-nav-cluster\s*\{[^}]*border-radius:\s*0;/s);

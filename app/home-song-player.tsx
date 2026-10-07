@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { HOME_SONG, getAudioPreload, getLyricIndex } from './home-song-data';
+import { createSongSeekController } from './home-song-seek';
 
 function formatTime(value: number) {
   if (!Number.isFinite(value) || value < 0) return '0:00';
@@ -22,6 +23,13 @@ export function HomeSongPlayer() {
   const sourceLinkRef = useRef<HTMLAnchorElement>(null);
   const lyricsPanelRef = useRef<HTMLDivElement>(null);
   const expandButtonRef = useRef<HTMLButtonElement>(null);
+  const scrubbingRef = useRef(false);
+  const blobSourceRef = useRef<string | null>(null);
+  const cacheAttemptedRef = useRef(false);
+  const cacheAbortRef = useRef<AbortController | null>(null);
+  const mountedRef = useRef(true);
+  const seekController = useMemo(() => createSongSeekController(HOME_SONG.fallbackDuration), []);
+  const [scrubTime, setScrubTime] = useState<number | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -29,15 +37,27 @@ export function HomeSongPlayer() {
   const [lyricsOpen, setLyricsOpen] = useState(false);
   const [audioError, setAudioError] = useState(false);
   const [saveData, setSaveData] = useState(true);
+  const [seekPending, setSeekPending] = useState(false);
 
-  const syncFromAudio = () => {
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      cacheAbortRef.current?.abort();
+      if (blobSourceRef.current) URL.revokeObjectURL(blobSourceRef.current);
+    };
+  }, []);
+
+  const syncFromAudio = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    setCurrentTime(Number.isFinite(audio.currentTime) ? audio.currentTime : 0);
+    setSeekPending(seekController.pendingTime !== null);
+    if (!scrubbingRef.current) setCurrentTime(seekController.pendingTime ?? (Number.isFinite(audio.currentTime) ? audio.currentTime : 0));
     if (Number.isFinite(audio.duration) && audio.duration > 0) setDuration(audio.duration);
-  };
+  }, [seekController]);
 
   const ensureAudioSource = (audio: HTMLAudioElement) => {
+    audio.preload = 'auto';
     if (audio.getAttribute('src')) return;
     const source = sourceLinkRef.current?.href;
     if (!source) throw new Error('Home audio source is unavailable.');
@@ -68,7 +88,7 @@ export function HomeSongPlayer() {
     };
     frame = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(frame);
-  }, [audioError, playing]);
+  }, [audioError, playing, syncFromAudio]);
 
   // 浏览器后台标签页会节流 rAF；回到页面时立即重新取真实音频时间。
   useEffect(() => {
@@ -77,7 +97,7 @@ export function HomeSongPlayer() {
     };
     document.addEventListener('visibilitychange', syncOnVisibility);
     return () => document.removeEventListener('visibilitychange', syncOnVisibility);
-  }, []);
+  }, [syncFromAudio]);
 
   const activeIndex = useMemo(() => getLyricIndex(currentTime), [currentTime]);
 
@@ -115,18 +135,76 @@ export function HomeSongPlayer() {
     const audio = audioRef.current;
     if (!audio) return;
     try {
+      const target = seekController.request(value, audio);
+      setCurrentTime(target);
       ensureAudioSource(audio);
-      audio.currentTime = value;
-      syncFromAudio();
+      applyPendingSeek();
+      setAudioError(false);
     } catch {
       setAudioError(true);
     }
+  };
+
+  const applyPendingSeek = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    try {
+      seekController.apply(audio);
+      syncFromAudio();
+      const ranges = audio.seekable;
+      const hasSeekRange = Array.from({ length: ranges.length }, (_, index) => ranges.end(index)).some((end) => end > 0);
+      if (seekController.pendingTime !== null && audio.readyState >= 3 && audio.networkState === 1 && !hasSeekRange) void cacheForSeeking(audio);
+    } catch {
+      setAudioError(true);
+    }
+  };
+
+  // 有些静态服务/内嵌浏览器不支持分段读取；完整缓存为本地音频后仍可跳转。
+  const cacheForSeeking = async (audio: HTMLAudioElement) => {
+    if (cacheAttemptedRef.current || blobSourceRef.current) return;
+    const source = sourceLinkRef.current?.href;
+    if (!source) return;
+    cacheAttemptedRef.current = true;
+    const controller = new AbortController();
+    cacheAbortRef.current = controller;
+    try {
+      const response = await fetch(source, { cache: 'force-cache', signal: controller.signal });
+      if (!response.ok) throw new Error('Audio cache request failed.');
+      const blob = await response.blob();
+      if (!mountedRef.current || audioRef.current !== audio || controller.signal.aborted) return;
+      const shouldResume = !audio.paused;
+      blobSourceRef.current = URL.createObjectURL(blob);
+      audio.src = blobSourceRef.current;
+      audio.load();
+      if (shouldResume) await audio.play();
+    } catch {
+      if (mountedRef.current && !controller.signal.aborted) setAudioError(true);
+    }
+  };
+
+  const cancelScrub = () => {
+    scrubbingRef.current = false;
+    setScrubTime(null);
+    syncFromAudio();
+  };
+
+  const commitScrub = (value: number) => {
+    scrubbingRef.current = false;
+    setScrubTime(null);
+    seek(value);
+  };
+
+  const skip = (seconds: number) => {
+    const base = seekController.pendingTime ?? audioRef.current?.currentTime ?? currentTime;
+    commitScrub(base + seconds);
   };
 
   const reloadAudio = () => {
     const audio = audioRef.current;
     if (!audio) return;
     setAudioError(false);
+    cacheAbortRef.current?.abort();
+    cacheAttemptedRef.current = false;
     try {
       ensureAudioSource(audio);
       audio.load();
@@ -139,6 +217,7 @@ export function HomeSongPlayer() {
   const currentLyric = HOME_SONG.lyrics[lyricIndex].text;
   const nextLyric = lyricIndex + 1 < HOME_SONG.lyrics.length ? HOME_SONG.lyrics[lyricIndex + 1].text : '';
   const safeDuration = duration || HOME_SONG.fallbackDuration;
+  const displayedTime = Math.min(Math.max(0, scrubTime ?? currentTime), safeDuration);
 
   return (
     <div
@@ -146,6 +225,7 @@ export function HomeSongPlayer() {
       role="group" aria-label="向岸音乐播放器"
       onKeyDown={(event) => {
         if (event.key === 'Escape') {
+          cancelScrub();
           setExpanded(false);
           setLyricsOpen(false);
           expandButtonRef.current?.focus();
@@ -156,15 +236,14 @@ export function HomeSongPlayer() {
       <audio
         ref={audioRef}
         preload={getAudioPreload(saveData)}
-        onLoadedMetadata={(event) => {
-          const audio = event.currentTarget;
-          setDuration(audio.duration || HOME_SONG.fallbackDuration);
-          setCurrentTime(audio.currentTime || 0);
-        }}
-        onDurationChange={syncFromAudio}
+        onLoadedMetadata={applyPendingSeek}
+        onCanPlay={applyPendingSeek}
+        onCanPlayThrough={applyPendingSeek}
+        onProgress={applyPendingSeek}
+        onDurationChange={applyPendingSeek}
         onTimeUpdate={syncFromAudio}
         onSeeking={syncFromAudio}
-        onSeeked={syncFromAudio}
+        onSeeked={(event) => { seekController.settle(event.currentTarget); syncFromAudio(); }}
         onPlay={() => {
           setPlaying(true);
           setAudioError(false);
@@ -196,6 +275,7 @@ export function HomeSongPlayer() {
       </div>
 
       <div id="home-song-panel" hidden={!expanded}>
+      <div className="home-song-heading"><span>副刊 · 向岸</span><span>{audioError ? '暂时无法加载' : seekPending ? '正在跳转…' : playing ? '正在播放' : '听一首歌，歇一会儿'}</span></div>
       <div className="home-song-live" aria-live="polite">
         {audioError ? (
           <div className="home-song-error" role="status">
@@ -211,21 +291,39 @@ export function HomeSongPlayer() {
       </div>
 
       <div className="home-song-controls">
-        <button className="home-song-play" type="button" onClick={togglePlay} aria-label={playing ? '暂停' : '播放'}>
-          {playing ? 'Ⅱ' : '▶'}
-        </button>
         <label className="home-song-progress">
           <span className="sr-only">歌曲进度</span>
           <input
             type="range"
             min="0"
             max={safeDuration}
-            step="0.05"
-            value={Math.min(currentTime, safeDuration)}
-            onChange={(event) => seek(Number(event.target.value))}
+            step="1"
+            value={displayedTime}
+            aria-valuetext={`${formatTime(displayedTime)}，总长${formatTime(safeDuration)}`}
+            onPointerDown={() => { scrubbingRef.current = true; setScrubTime(displayedTime); }}
+            onPointerUp={(event) => commitScrub(Number(event.currentTarget.value))}
+            onPointerCancel={cancelScrub}
+            onBlur={(event) => { if (scrubbingRef.current) commitScrub(Number(event.currentTarget.value)); }}
+            onChange={(event) => {
+              const value = Number(event.target.value);
+              if (scrubbingRef.current) setScrubTime(value);
+              else seek(value);
+            }}
+            onKeyDown={(event) => {
+              if (['ArrowRight', 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'Home', 'End'].includes(event.key)) {
+                event.preventDefault();
+                const next = event.key === 'Home' ? 0 : event.key === 'End' ? safeDuration : displayedTime + (['ArrowRight', 'ArrowUp'].includes(event.key) ? 5 : -5);
+                commitScrub(next);
+              }
+            }}
           />
         </label>
-        <span className="home-song-time">{formatTime(currentTime)} / {formatTime(safeDuration)}</span>
+        <div className="home-song-time"><span>{formatTime(displayedTime)}</span><span>{formatTime(safeDuration)}</span></div>
+        <div className="home-song-transport">
+          <button className="home-song-skip" type="button" onClick={() => skip(-10)} aria-label="后退10秒">−10<span>秒</span></button>
+          <button className="home-song-play" type="button" onClick={togglePlay} aria-label={playing ? '暂停' : '播放'}>{playing ? 'Ⅱ' : '▶'}</button>
+          <button className="home-song-skip" type="button" onClick={() => skip(10)} aria-label="前进10秒">+10<span>秒</span></button>
+        </div>
         <button
           className="home-song-lyrics-toggle"
           type="button"

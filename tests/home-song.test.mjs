@@ -49,8 +49,10 @@ test('player resolves the same-origin song without requesting it before user int
   assert.doesNotMatch(player, /https:\/\/cdn1\.suno\.ai/);
 });
 
-test('only the visible play control may start playback and failures can retry', () => {
-  assert.equal(player.match(/\.play\(\)/g)?.length, 1);
+test('play starts on user intent, or resumes already playing audio after a source swap', () => {
+  assert.equal(player.match(/\.play\(\)/g)?.length, 2);
+  assert.match(player, /const shouldResume = !audio\.paused/);
+  assert.match(player, /if \(shouldResume\) await audio\.play\(\)/);
   assert.match(player, /onClick=\{togglePlay\}/);
   assert.doesNotMatch(player, /addEventListener\(['"](?:pointerdown|keydown)['"]/);
   assert.match(player, /if \(audioRef\.current\?\.error\) setAudioError\(true\)/);
@@ -58,6 +60,14 @@ test('only the visible play control may start playback and failures can retry', 
   assert.match(player, /const reloadAudio = \(\) =>/);
   assert.match(player, /ensureAudioSource\(audio\);\s*audio\.load\(\)/);
   assert.match(player, /onClick=\{reloadAudio\}/);
+});
+
+test('non-seekable transports can use a bounded cache that is released on unmount', () => {
+  assert.match(player, /seekController\.pendingTime !== null/);
+  assert.match(player, /audio\.networkState === 1 && !hasSeekRange/);
+  assert.match(player, /cacheAttemptedRef\.current/);
+  assert.match(player, /URL\.revokeObjectURL/);
+  assert.match(player, /cacheAbortRef\.current\?\.abort/);
 });
 
 test('checked-in audio is the exact recovered Xiangan recording', () => {
