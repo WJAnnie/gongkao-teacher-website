@@ -4,7 +4,6 @@ import { FrontHotspots, FrontTerms } from './home-front/front-daily';
 import { getBeijingDate } from './home-front/front-date';
 import { FrontMasthead } from './home-front/front-masthead';
 import { FrontModuleColumn } from './home-front/front-modules';
-import { FrontSong } from './home-front/front-song';
 import { FrontMotion } from './home-front/front-motion';
 
 const editorNotes = [
@@ -72,7 +71,6 @@ export default async function Home() {
         <span>答卷之外 · 云帆老师 · 申论 × 结构化面试</span>
         <a href="#top">返回顶部 ↑</a>
       </footer>
-      <FrontSong />
       <FrontMotion />
     </main>
   );

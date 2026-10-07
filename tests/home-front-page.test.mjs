@@ -18,9 +18,11 @@ const [page, css, layout] = await Promise.all([
 ]);
 
 test('homepage composes the newspaper front without the old gateway', () => {
-  for (const name of ['FrontMasthead', 'FrontModuleColumn', 'FrontHotspots', 'FrontTerms', 'FrontSong']) {
+  for (const name of ['FrontMasthead', 'FrontModuleColumn', 'FrontHotspots', 'FrontTerms']) {
     assert.match(page, new RegExp(`<${name}\\b`), `首页缺少 ${name}`);
   }
+  assert.doesNotMatch(page, /<FrontSong\b/, '首页不应挂载 FrontSong，已由根布局全站悬浮组件统一承载');
+  assert.doesNotMatch(page, /import\s*\{\s*FrontSong\s*\}\s*from/, '首页不应导入 FrontSong');
   for (const legacy of ['SubjectGateway', 'HomeLearningRepeat', 'MotionLayer', 'LearningTopNav', 'about-study-art', 'nav-shell', '展开']) {
     assert.ok(!page.includes(legacy), `首页仍包含 ${legacy}`);
   }

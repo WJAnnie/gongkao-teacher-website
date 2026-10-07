@@ -269,7 +269,12 @@ export function HomeSongPlayer() {
           {playing ? 'Ⅱ' : '▶'}
         </button>
         <button className="home-song-expand" ref={expandButtonRef} type="button" aria-expanded={expanded} aria-controls="home-song-panel" onClick={() => setExpanded((value) => !value)}>
-          <b>向岸</b><span>{audioError ? '点击展开，重新加载音频' : currentLyric}</span><i aria-hidden="true">{expanded ? '⌄' : '⌃'}</i>
+          <span className="home-song-title-group">
+            <span className="home-song-tag">音乐副刊</span>
+            <b>向岸</b>
+          </span>
+          <span className="home-song-status-text">{audioError ? '点击展开，重新加载音频' : currentLyric}</span>
+          <i aria-hidden="true">{expanded ? '⌄' : '⌃'}</i>
           <span className="sr-only">{expanded ? '收起播放器' : '展开播放器'}</span>
         </button>
       </div>

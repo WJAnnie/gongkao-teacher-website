@@ -23,7 +23,7 @@ export function LearningTopNav({ active }: { active?: LearningRouteKey }) {
   const [mobileOpen, setMobileOpen] = useState<string | null>(null);
 
   return (
-    <header className="learning-topnav" data-nav-style="editorial">
+    <header className="learning-topnav" data-nav-style="editorial" data-nav-version="2">
       <a className="learning-topnav-brand" href="/">
         <span>答</span>
         <b>答卷之外</b>
@@ -34,8 +34,11 @@ export function LearningTopNav({ active }: { active?: LearningRouteKey }) {
           <div className={`learning-nav-cluster learning-nav-${group.key}${activeGroup === group.key ? ' current-group' : ''}`} key={group.key}>
             <span className="learning-nav-group-label">{group.label}</span>
             <div className="learning-nav-items">
-              {group.items.map((item) => (
-                <a className={active === item.key ? 'active' : ''} href={item.href} key={item.key} aria-current={active === item.key ? 'page' : undefined}>{item.label}</a>
+              {group.items.map((item, index) => (
+                <a className={active === item.key ? 'active' : ''} href={item.href} key={item.key} aria-current={active === item.key ? 'page' : undefined}>
+                  <span className="learning-nav-item-no" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  <span>{item.label}</span>
+                </a>
               ))}
             </div>
           </div>

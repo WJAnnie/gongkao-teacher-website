@@ -183,6 +183,28 @@ main.interview-site > header.learning-topnav {
 .learning-topnav[data-nav-style="editorial"] .learning-nav-items a[aria-current="page"] { background: transparent; box-shadow: none; border-bottom-color: var(--nav-accent); font-weight: 700; }
 .learning-topnav[data-nav-style="editorial"] .learning-nav-items a.active::after { content: none; }
 
+/* 科目印记与栏目序号让报刊导航在收起状态也有明确辨识度。 */
+.learning-topnav[data-nav-version="2"] { border-bottom: 2px solid var(--ink); box-shadow: none; }
+.learning-topnav[data-nav-version="2"] .learning-nav-cluster { gap: 12px; padding-inline: 0; }
+.learning-topnav[data-nav-version="2"] .learning-nav-group-label {
+  min-height: 34px; padding: 0 10px; border: 0;
+  font: 600 12px/1.4 "Songti SC", "SimSun", serif; letter-spacing: .08em;
+}
+.learning-topnav[data-nav-version="2"] .learning-nav-shenlun .learning-nav-group-label { background: #52649a; color: #fff9ef; }
+.learning-topnav[data-nav-version="2"] .learning-nav-interview .learning-nav-group-label { background: #d99a82; color: #25251f; }
+.learning-topnav[data-nav-version="2"] .learning-nav-items { gap: 4px; }
+.learning-topnav[data-nav-version="2"] .learning-nav-items a { gap: 6px; padding: 10px 7px; min-height: 44px; }
+.learning-topnav[data-nav-version="2"] .learning-nav-item-no { color: #6b675c; font: 12px/1 Georgia, serif; font-variant-numeric: tabular-nums; }
+.learning-topnav[data-nav-version="2"] .learning-nav-items a[aria-current="page"] .learning-nav-item-no { color: var(--nav-accent); }
+
+@media (min-width: 1041px) and (max-width: 1280px) {
+  .learning-topnav[data-nav-version="2"] { gap: 12px; padding-inline: 18px; }
+  .learning-topnav[data-nav-version="2"] .learning-topnav-brand b { display: none; }
+  .learning-topnav[data-nav-version="2"] .learning-topnav-desktop { gap: 24px; }
+  .learning-topnav[data-nav-version="2"] .learning-nav-cluster { gap: 8px; }
+  .learning-topnav[data-nav-version="2"] .learning-nav-items a { gap: 4px; padding-inline: 5px; }
+}
+
 @media (max-width: 1040px) {
   .learning-topnav { grid-template-columns: auto 1fr auto; }
   .learning-topnav-brand > span { width: 40px; height: 40px; }

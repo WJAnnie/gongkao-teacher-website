@@ -1,37 +1,46 @@
-/* 向岸音乐副刊播放器：纸面排版、直角纸边、朱红小印记与清晰时间控制 */
+/* 向岸音乐副刊播放器：纸面排版、直角纸边、朱红常态印章式播放按钮与双层印刷纸影 */
 .home-song-player {
   --song-ink: #25251f; --song-muted: #6b675c; --song-seal: #a84b3f; --song-dot: #cfc8b6;
   --song-border: rgba(37, 37, 31, .36); --song-serif: "Songti SC", "SimSun", Georgia, serif;
-  display: grid; gap: 10px; position: fixed; z-index: 140;
-  right: max(20px, env(safe-area-inset-right, 0px));
-  bottom: max(16px, env(safe-area-inset-bottom, 0px));
-  width: min(360px, calc(100vw - 40px));
-  max-height: calc(100dvh - max(32px, env(safe-area-inset-bottom, 0px) + 16px));
+  display: grid; gap: 10px; position: static;
+  width: min(340px, calc(100vw - 32px));
+  max-height: calc(100dvh - 104px - env(safe-area-inset-bottom, 0px));
   overflow-y: auto; padding: 12px; border: 1px solid var(--song-border); border-radius: 0;
-  background: #f4f0e7; box-shadow: 2px 2px 0 rgba(37, 37, 31, .18); color: var(--song-ink);
+  background: #f4f0e7; box-shadow: 2px 2px 0 rgba(37, 37, 31, .2), 4px 4px 0 rgba(37, 37, 31, .08); color: var(--song-ink);
   font-family: var(--song-serif);
 }
-.home-song-player:not(.is-expanded) { width: min(280px, calc(100vw - 40px)); }
+.home-song-player:not(.is-expanded) { width: min(300px, calc(100vw - 32px)); }
 
-.home-song-summary { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.home-song-summary { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .home-song-compact-play {
-  flex: none; width: 36px; height: 36px; border: 1px solid var(--song-ink); border-radius: 0;
-  background: transparent; color: var(--song-ink); font-size: 13px; cursor: pointer;
+  flex: none; width: 36px; height: 36px; border: 1px solid var(--song-seal); border-radius: 0;
+  background: var(--song-seal); color: #faf7f2; font-size: 13px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; line-height: 1;
+}
+.home-song-compact-play:hover {
+  background: #923e33; border-color: #923e33; color: #faf7f2;
 }
 .home-song-player.is-playing .home-song-compact-play {
   background: var(--song-seal); border-color: var(--song-seal); color: #faf7f2;
 }
 
 .home-song-expand {
-  display: grid; grid-template-columns: auto minmax(0, 1fr) 16px; align-items: center; gap: 10px;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) 16px; align-items: center; gap: 8px;
   flex: 1; min-width: 0; min-height: 36px; padding: 0; border: 0; background: transparent;
   color: var(--song-ink); text-align: left; cursor: pointer;
 }
-.home-song-expand b { font: 700 16px/1.4 var(--song-serif); letter-spacing: .05em; }
-.home-song-expand > span:not(.sr-only) {
+.home-song-title-group {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; flex-shrink: 0;
+}
+.home-song-tag {
+  display: inline-block; padding: 1px 4px; border: 1px solid var(--song-ink); border-radius: 0;
+  background: transparent; color: var(--song-ink); font: 700 12px/1 var(--song-serif); letter-spacing: .02em;
+}
+.home-song-expand b { font: 700 15px/1.3 var(--song-serif); letter-spacing: .05em; color: var(--song-ink); }
+.home-song-status-text {
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--song-muted); font-size: 12px;
 }
-.home-song-expand i { font-size: 14px; font-style: normal; }
+.home-song-expand i { font-size: 14px; font-style: normal; color: var(--song-ink); text-align: right; }
 
 #home-song-panel { display: grid; gap: 10px; padding-top: 8px; border-top: 1px solid var(--song-border); }
 
@@ -84,7 +93,6 @@
 }
 
 .home-song-play:hover { background: #923e33; border-color: #923e33; }
-.home-song-compact-play:hover,
 .home-song-skip:hover,
 .home-song-lyrics-toggle:hover,
 .home-song-error button:hover { border-color: var(--song-seal); color: var(--song-seal); }
@@ -111,14 +119,20 @@
 }
 .home-song-player [hidden] { display: none !important; }
 
+/* 独立宿主回退契约：当播放器不在 dock 容器中时提供 fixed 与安全区兼容 */
+.home-song-player-fallback {
+  position: fixed;
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+}
+
 @media (max-width: 760px) {
   .home-song-player {
-    right: 12px; bottom: max(12px, env(safe-area-inset-bottom, 0px));
-    width: min(360px, calc(100vw - 24px)); padding: 10px;
+    width: min(340px, calc(100vw - 24px)); padding: 10px;
   }
-  .home-song-player:not(.is-expanded) { width: 144px; }
-  .home-song-player:not(.is-expanded) .home-song-expand { grid-template-columns: auto 16px; gap: 8px; }
-  .home-song-player:not(.is-expanded) .home-song-expand > span:not(.sr-only) { display: none; }
+  .home-song-player:not(.is-expanded) { width: min(220px, calc(100vw - 24px)); }
+  .home-song-player:not(.is-expanded) .home-song-expand { grid-template-columns: auto 16px; gap: 6px; }
+  .home-song-player:not(.is-expanded) .home-song-status-text { display: none; }
+  .home-song-player:not(.is-expanded) .home-song-title-group { gap: 4px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

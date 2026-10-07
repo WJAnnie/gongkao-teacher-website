@@ -1,0 +1,59 @@
+/* 表达规则纸面正文：让普通标题、题眼和正文共享同一左边线。 */
+.framework-content .framework-expression-layer {
+  --framework-paper-prose-width: min(756px, 100%);
+}
+
+.framework-content .framework-expression-layer .framework-voice-head,
+.framework-content .framework-expression-layer .framework-voice-topic,
+.framework-content .framework-expression-layer .framework-voice-prose {
+  width: var(--framework-paper-prose-width);
+  max-width: var(--framework-paper-prose-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.framework-content .framework-expression-layer .framework-voice-topic {
+  position: relative;
+  padding-left: 0;
+  border-left: 0;
+}
+
+.framework-content .framework-expression-layer .framework-voice-topic::before {
+  content: "";
+  position: absolute;
+  left: -17px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--learning-accent, var(--shenlun-accent));
+}
+
+.framework-content .framework-expression-layer .framework-voice-head > p,
+.framework-content .framework-expression-layer .framework-voice-topic > p,
+.framework-content .framework-expression-layer .framework-voice-prose p {
+  max-width: none;
+}
+
+.framework-content .framework-expression-layer .framework-voice-head > p,
+.framework-content .framework-expression-layer .framework-voice-topic > p {
+  text-align: justify;
+  text-align-last: start;
+  text-justify: inter-ideograph;
+}
+
+.framework-content .framework-expression-layer .framework-voice-prose p:not(.voice-key) {
+  text-indent: 0;
+  text-align: justify;
+  text-align-last: start;
+  text-justify: inter-ideograph;
+}
+
+@media (max-width: 900px) {
+  .framework-content .framework-expression-layer {
+    --framework-paper-prose-width: 100%;
+  }
+
+  .framework-content .framework-expression-layer .framework-voice-topic::before {
+    left: -8px;
+  }
+}

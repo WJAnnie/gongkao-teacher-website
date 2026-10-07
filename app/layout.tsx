@@ -17,6 +17,8 @@ import './learning-page-upgrade.css';
 import './learning-page-guide-polish.css';
 import './hero-content-index.css';
 import './home-song-player.css';
+import './floating-study-dock.css';
+import { FloatingStudyDock } from './floating-study-dock';
 import './mobile-home-learning-nav.css';
 import './interaction-semantics.css';
 import './learning-page-frame.css';
@@ -49,7 +51,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        {children}
+        <FloatingStudyDock />
+      </body>
     </html>
   );
 }
