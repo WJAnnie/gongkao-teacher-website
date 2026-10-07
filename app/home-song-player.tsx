@@ -11,6 +11,26 @@ function formatTime(value: number) {
   return `${minutes}:${seconds}`;
 }
 
+function PlaybackIcon({ playing }: { playing: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      {playing ? <><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></> : <path d="M8 5.5v13l11-6.5Z" />}
+    </svg>
+  );
+}
+
+function VinylDisc() {
+  return (
+    <svg className="home-song-record" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <circle cx="32" cy="32" r="31" fill="#25251f" />
+      {[26, 22, 18, 14].map((radius) => <circle key={radius} cx="32" cy="32" r={radius} fill="none" stroke="#4c4b43" strokeWidth=".65" />)}
+      <path d="M10 27a23 23 0 0 1 15-17M39 54a23 23 0 0 0 15-15" fill="none" stroke="#a9a394" strokeWidth="1" opacity=".45" />
+      <circle cx="32" cy="32" r="10" fill="#a84b3f" />
+      <circle cx="32" cy="32" r="3" fill="#f4f0e7" />
+    </svg>
+  );
+}
+
 type NavigatorWithSaveData = Navigator & {
   connection?: { saveData?: boolean };
 };
@@ -266,22 +286,22 @@ export function HomeSongPlayer() {
 
       <div className="home-song-summary">
         <button className="home-song-compact-play" type="button" onClick={togglePlay} aria-label={playing ? '暂停向岸' : '播放向岸'}>
-          {playing ? 'Ⅱ' : '▶'}
+          <VinylDisc />
+          <span className="home-song-record-action"><PlaybackIcon playing={playing} /></span>
         </button>
         <button className="home-song-expand" ref={expandButtonRef} type="button" aria-expanded={expanded} aria-controls="home-song-panel" onClick={() => setExpanded((value) => !value)}>
           <span className="home-song-title-group">
-            <span className="home-song-tag">音乐副刊</span>
             <b>向岸</b>
+            <span className="home-song-tag">{audioError ? '暂时无法播放' : seekPending ? '正在跳转…' : playing ? '正在播放' : '音乐副刊'}</span>
           </span>
-          <span className="home-song-status-text">{audioError ? '点击展开，重新加载音频' : currentLyric}</span>
-          <i aria-hidden="true">{expanded ? '⌄' : '⌃'}</i>
+          <svg className="home-song-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={expanded ? 'm7 10 5 5 5-5' : 'm7 14 5-5 5 5'} /></svg>
           <span className="sr-only">{expanded ? '收起播放器' : '展开播放器'}</span>
         </button>
       </div>
 
       <div id="home-song-panel" hidden={!expanded}>
       <div className="home-song-heading"><span>副刊 · 向岸</span><span>{audioError ? '暂时无法加载' : seekPending ? '正在跳转…' : playing ? '正在播放' : '听一首歌，歇一会儿'}</span></div>
-      <div className="home-song-live" aria-live="polite">
+      {(!lyricsOpen || audioError) && <div className="home-song-live" aria-live="polite">
         {audioError ? (
           <div className="home-song-error" role="status">
             <span>音频暂时无法加载。</span>
@@ -293,7 +313,7 @@ export function HomeSongPlayer() {
             {nextLyric && <span>{nextLyric}</span>}
           </>
         )}
-      </div>
+      </div>}
 
       <div className="home-song-controls">
         <label className="home-song-progress">
@@ -326,7 +346,7 @@ export function HomeSongPlayer() {
         <div className="home-song-time"><span>{formatTime(displayedTime)}</span><span>{formatTime(safeDuration)}</span></div>
         <div className="home-song-transport">
           <button className="home-song-skip" type="button" onClick={() => skip(-10)} aria-label="后退10秒">−10<span>秒</span></button>
-          <button className="home-song-play" type="button" onClick={togglePlay} aria-label={playing ? '暂停' : '播放'}>{playing ? 'Ⅱ' : '▶'}</button>
+          <button className="home-song-play" type="button" onClick={togglePlay} aria-label={playing ? '暂停' : '播放'}><PlaybackIcon playing={playing} /></button>
           <button className="home-song-skip" type="button" onClick={() => skip(10)} aria-label="前进10秒">+10<span>秒</span></button>
         </div>
         <button

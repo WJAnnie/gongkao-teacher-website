@@ -4,9 +4,10 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { HOME_SONG, getAudioPreload, getHomeSongSource, getLyricIndex } from '../app/home-song-data.ts';
 
-const [player, playerCss, vendorScript, audioAsset, localLauncher, pagesWorkflow, edgeWorkflow, previewWorkflow, lyricsWorkflow] = await Promise.all([
+const [player, playerCss, dockCss, vendorScript, audioAsset, localLauncher, pagesWorkflow, edgeWorkflow, previewWorkflow, lyricsWorkflow] = await Promise.all([
   readFile(new URL('../app/home-song-player.tsx', import.meta.url), 'utf8'),
   readFile(new URL('../app/home-song-player.css', import.meta.url), 'utf8'),
+  readFile(new URL('../app/floating-study-dock.css', import.meta.url), 'utf8'),
   readFile(new URL('../scripts/vendor-home-audio.mjs', import.meta.url), 'utf8').catch(() => ''),
   readFile(new URL('../public/audio/xiang-an.mp3', import.meta.url)).catch(() => null),
   readFile(new URL('../scripts/start-local.ps1', import.meta.url), 'utf8'),
@@ -122,7 +123,8 @@ test('floating player starts compact and keeps audio mounted when collapsed', ()
   assert.match(player, /aria-controls="home-song-panel"/);
   assert.match(player, /id="home-song-panel" hidden=\{!expanded\}/);
   assert.match(player, /event\.key === 'Escape'/);
-  assert.match(playerCss, /position:\s*fixed/);
+  assert.match(dockCss, /\.floating-study-dock\s*\{[^}]*position:\s*fixed/s);
+  assert.match(playerCss, /\.home-song-player\s*\{[^}]*position:\s*static/s);
   assert.match(playerCss, /env\(safe-area-inset-bottom/);
   assert.doesNotMatch(player, /expanded && \(?\s*<audio/);
   assert.doesNotMatch(playerCss, /gradient/);
