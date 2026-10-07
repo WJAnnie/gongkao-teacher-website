@@ -1,0 +1,20 @@
+/* 阅读层次：章标题、核心判断、例子与老师提醒各有清晰权重。 */
+.learning-reading-surface .framework-voice-topic { margin-block: 36px 18px; padding-left: 14px; border-left: 3px solid var(--learning-accent, #a84b3f); }
+.learning-reading-surface .framework-voice-topic > span { color: var(--learning-muted, #6b675c); font-size: 12px; letter-spacing: .08em; }
+.learning-reading-surface .framework-voice-topic h4 { margin: 6px 0 0; color: var(--learning-ink, #25251f); font-size: clamp(20px, 2vw, 25px); font-weight: 650; line-height: 1.65; }
+.learning-reading-surface .framework-voice-note { border: 0; border-block: 1px solid var(--learning-border, #cfc8b6); border-radius: 0; padding: 18px 0; margin-block: 26px; }
+.learning-reading-surface .framework-voice-note > span { color: var(--learning-accent, #a84b3f); font-size: 12px; font-weight: 600; }
+.learning-reading-surface .framework-voice-example h5 { color: var(--learning-ink, #25251f); font-size: 19px; font-weight: 600; line-height: 1.6; }
+.learning-reading-surface .interview-card > h3,
+.learning-reading-surface .interview-flow-step > h3,
+.learning-reading-surface .writing-case-article > section > h3 { color: var(--learning-ink, #25251f); font-weight: 650; line-height: 1.6; }
+.learning-reading-surface .writing-editorial-paper .writing-paper-inline-thesis,
+.learning-reading-surface .writing-editorial-paper .writing-paper-inline-point { color: var(--learning-ink, #25251f); font-weight: 700; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--module-accent, #a84b3f) 65%, transparent); text-decoration-thickness: 2px; text-underline-offset: .22em; }
+.learning-reading-surface .writing-learning-mark { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--module-accent, #a84b3f) 50%, transparent); text-underline-offset: .18em; }
+.learning-reading-surface .writing-learning-mark small { border-radius: 0; font-size: 11px; font-weight: 600; }
+.learning-reading-surface .writing-quote-section > h3 { border-bottom-width: 2px; }
+
+@media (max-width: 820px) {
+  .learning-reading-surface .framework-voice-topic { margin-block: 28px 14px; padding-left: 10px; }
+  .learning-reading-surface .framework-voice-example h5 { font-size: 18px; }
+}

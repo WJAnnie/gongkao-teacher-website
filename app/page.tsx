@@ -5,6 +5,7 @@ import { getBeijingDate } from './home-front/front-date';
 import { FrontMasthead } from './home-front/front-masthead';
 import { FrontModuleColumn } from './home-front/front-modules';
 import { FrontSong } from './home-front/front-song';
+import { FrontMotion } from './home-front/front-motion';
 
 const editorNotes = [
   { title: '我在教什么。', text: '申论与结构化面试。从审题、找依据、搭结构，到写下来、说出来，重点放在作答过程和做完后的复盘。' },
@@ -72,6 +73,7 @@ export default async function Home() {
         <a href="#top">返回顶部 ↑</a>
       </footer>
       <FrontSong />
+      <FrontMotion />
     </main>
   );
 }

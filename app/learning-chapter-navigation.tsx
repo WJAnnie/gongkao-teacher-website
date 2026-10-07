@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { flushSync } from 'react-dom';
 import type { LearningMacroChapter } from './learning-routes';
+import { LearningReadingGuide } from './learning-reading-guide';
 
 type ActivationOrigin = 'hero' | 'directory' | 'restore';
 type ViewTransitionHandle = { finished: Promise<void> };
@@ -330,7 +331,10 @@ export function LearningContentFrame({
       <LearningMacroDirectory details={details} />
       </div>
     </aside>
-    <article className="learning-reading-surface">{children}</article>
+    <article className="learning-reading-surface">
+      <LearningReadingGuide activeId={activeId} />
+      {children}
+    </article>
     {drawerOpen ? <button aria-label="关闭目录" className="learning-directory-backdrop" onClick={closeDrawer} type="button" /> : null}
   </div>;
 }

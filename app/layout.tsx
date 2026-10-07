@@ -22,6 +22,8 @@ import './interaction-semantics.css';
 import './learning-page-frame.css';
 import './learning-scene-transition.css';
 import './home-front/home-front.css';
+import './learning-reading-guide.css';
+import './editorial-reading.css';
 import './desktop-readability.css';
 
 export const metadata: Metadata = {

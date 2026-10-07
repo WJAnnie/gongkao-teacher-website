@@ -36,7 +36,7 @@ main.interview-site > header.learning-topnav {
   width: 34px;
   height: 34px;
   border: 1px solid rgba(37,37,31,.58);
-  border-radius: 50%;
+  border-radius: 0;
   font-family: Georgia, serif;
   font-size: 13px;
 }
@@ -59,11 +59,11 @@ main.interview-site > header.learning-topnav {
   gap: 10px;
   min-height: 50px;
   padding: 4px 6px 4px 10px;
-  border-radius: 12px;
+  border-radius: 0;
 }
 
 .learning-nav-cluster.current-group {
-  background: rgba(37,37,31,.035);
+  background: transparent;
 }
 
 .learning-nav-cluster + .learning-nav-cluster::before {
@@ -96,7 +96,7 @@ main.interview-site > header.learning-topnav {
 .learning-nav-items {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 .learning-nav-items a {
@@ -106,16 +106,18 @@ main.interview-site > header.learning-topnav {
   align-items: center;
   justify-content: center;
   min-height: 36px;
-  padding: 0 11px;
-  border: 1px solid transparent;
-  border-radius: 8px;
+  padding: 0 10px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
   color: rgba(37,37,31,.62);
   font-size: 10px;
   line-height: 1;
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
-  transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  transition: color .18s ease, border-color .18s ease, transform .18s ease;
 }
 
 .learning-nav-items a:nth-child(1) { --nav-accent: var(--blue); }
@@ -125,8 +127,8 @@ main.interview-site > header.learning-topnav {
 
 .learning-nav-items a:hover {
   color: var(--ink);
-  border-color: rgba(37,37,31,.12);
-  background: rgba(255,255,255,.34);
+  background: transparent;
+  border-bottom-color: color-mix(in srgb, var(--nav-accent) 55%, rgba(37,37,31,.3));
   transform: translateY(-1px);
 }
 
@@ -135,23 +137,14 @@ main.interview-site > header.learning-topnav {
   outline-offset: 2px;
 }
 
-.learning-nav-items a.active {
+.learning-nav-items a.active,
+.learning-nav-items a[aria-current="page"] {
   color: color-mix(in srgb, var(--nav-accent) 80%, var(--ink));
-  border-color: color-mix(in srgb, var(--nav-accent) 25%, rgba(37,37,31,.1));
-  background: color-mix(in srgb, var(--nav-accent) 11%, var(--paper));
-  box-shadow: inset 3px 0 0 var(--nav-accent);
   font-weight: 700;
-}
-
-.learning-nav-items a.active::after {
-  content: "";
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 3px;
-  height: 1px;
-  background: var(--nav-accent);
-  opacity: .75;
+  background: transparent;
+  border-color: transparent;
+  border-bottom: 2px solid var(--nav-accent);
+  box-shadow: none;
 }
 
 .learning-topnav-home {
@@ -160,7 +153,7 @@ main.interview-site > header.learning-topnav {
   width: 36px;
   height: 36px;
   border: 1px solid rgba(37,37,31,.22);
-  border-radius: 50%;
+  border-radius: 0;
   color: var(--ink);
   text-decoration: none;
   font-size: 13px;
@@ -171,7 +164,12 @@ main.interview-site > header.learning-topnav {
 .learning-topnav-home:hover {
   background: var(--acid);
   border-color: color-mix(in srgb, var(--acid) 60%, var(--ink));
-  transform: rotate(-6deg);
+  transform: translateY(-1px);
+}
+
+.learning-topnav-home:focus-visible {
+  outline: 2px solid rgba(37,37,31,.5);
+  outline-offset: 2px;
 }
 
 .learning-topnav-mobile { display: none; }
@@ -196,11 +194,16 @@ main.interview-site > header.learning-topnav {
     gap: 7px;
     padding: 0 11px;
     border: 1px solid rgba(37,37,31,.14);
-    border-radius: 8px;
+    border-radius: 0;
     background: transparent;
     color: rgba(37,37,31,.66);
     font-size: 10px;
     cursor: pointer;
+  }
+
+  .learning-mobile-group-trigger:focus-visible {
+    outline: 2px solid rgba(37,37,31,.5);
+    outline-offset: 2px;
   }
 
   .learning-mobile-group-trigger i {
@@ -226,9 +229,9 @@ main.interview-site > header.learning-topnav {
     max-height: min(70vh, 420px);
     overflow-y: auto;
     transform: translateX(-50%);
-    padding: 7px;
+    padding: 0;
     border: 1px solid rgba(37,37,31,.17);
-    border-radius: 10px;
+    border-radius: 0;
     background: color-mix(in srgb, var(--paper) 98%, white);
     box-shadow: 0 16px 38px rgba(37,37,31,.12);
   }
@@ -238,20 +241,35 @@ main.interview-site > header.learning-topnav {
     display: flex;
     align-items: center;
     padding: 0 12px;
-    border-radius: 7px;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(37,37,31,.08);
     color: rgba(37,37,31,.64);
     text-decoration: none;
     font-size: 11px;
     cursor: pointer;
   }
 
-  .learning-mobile-group-items a:hover { background: rgba(37,37,31,.05); color: var(--ink); }
+  .learning-mobile-group-items a:last-child {
+    border-bottom: none;
+  }
 
-  .learning-mobile-group-items a.active {
+  .learning-mobile-group-items a:hover {
+    background: rgba(37,37,31,.05);
+    color: var(--ink);
+  }
+
+  .learning-mobile-group-items a:focus-visible {
+    outline: 2px solid rgba(37,37,31,.5);
+    outline-offset: -2px;
+  }
+
+  .learning-mobile-group-items a.active,
+  .learning-mobile-group-items a[aria-current="page"] {
     color: var(--blue);
     font-weight: 700;
-    background: color-mix(in srgb, var(--blue) 10%, var(--paper));
-    box-shadow: inset 3px 0 0 var(--blue);
+    background: transparent;
+    box-shadow: none;
+    border-left: 3px solid var(--blue);
   }
 }
 
@@ -266,4 +284,13 @@ main.interview-site > header.learning-topnav {
   .learning-topnav-mobile { justify-content: start; gap: 6px; }
   .learning-mobile-group-trigger { padding-inline: 9px; }
   .learning-topnav-home { width: 40px; height: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-nav-items a,
+  .learning-topnav-home,
+  .learning-mobile-group-trigger i {
+    transition: none !important;
+    transform: none !important;
+  }
 }

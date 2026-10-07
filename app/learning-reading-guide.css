@@ -1,0 +1,153 @@
+.learning-page-frame .learning-reading-guide {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.44fr);
+  gap: clamp(16px, 2.6vw, 28px);
+  margin: 0 0 clamp(20px, 3vw, 32px);
+  padding: 16px 0 16px 18px;
+  border-block: 1px solid color-mix(in srgb, var(--ink) 24%, transparent);
+  color: var(--ink);
+}
+
+.learning-page-frame .learning-reading-guide__rule {
+  position: absolute;
+  inset: 12px auto 12px 0;
+  width: 3px;
+  background: var(--learning-accent, #b7352d);
+}
+
+.learning-page-frame .learning-reading-guide__heading {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+.learning-page-frame .learning-reading-guide__heading > div { display: flex; align-items: baseline; gap: 12px; }
+.learning-page-frame .learning-reading-guide__heading p { order: 1; margin: 0; line-height: 1.4; }
+
+.learning-page-frame .learning-reading-guide__heading > span {
+  border-top: 2px solid currentColor;
+  padding-top: 5px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  line-height: 0.9;
+  font-weight: 700;
+}
+
+.learning-page-frame .learning-reading-guide__heading p,
+.learning-page-frame .learning-reading-guide__exercise h3 {
+  margin: 0 0 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.learning-page-frame .learning-reading-guide h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.learning-page-frame .learning-reading-guide__points {
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 12px 0 0 50px;
+  padding: 0;
+  list-style: none;
+  counter-reset: guide-point;
+}
+
+.learning-page-frame .learning-reading-guide__points li {
+  counter-increment: guide-point;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  min-height: 0;
+  padding: 8px 12px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.learning-page-frame .learning-reading-guide__points li::before {
+  content: counter(guide-point, decimal-leading-zero);
+  flex: 0 0 auto;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--learning-accent, #b7352d);
+}
+
+.learning-page-frame .learning-reading-guide__exercise {
+  grid-column: 2 / 3;
+  grid-row: 1 / span 2;
+  align-self: stretch;
+  padding: 4px 0 4px 18px;
+  border-left: 1px solid color-mix(in srgb, var(--ink) 24%, transparent);
+}
+
+.learning-page-frame .learning-reading-guide__exercise p {
+  margin: 0;
+  max-width: 28em;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+@media (max-width: 760px) {
+  .learning-page-frame .learning-reading-guide {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 10px 0 10px 14px;
+  }
+
+  .learning-page-frame .learning-reading-guide__heading {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .learning-page-frame .learning-reading-guide__heading > span {
+    font-size: 24px;
+  }
+
+  .learning-page-frame .learning-reading-guide__heading p {
+    margin: 0;
+    font-size: 12px;
+  }
+
+  .learning-page-frame .learning-reading-guide__points {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin: 0 0 0 46px;
+  }
+
+  .learning-page-frame .learning-reading-guide__points li {
+    padding: 1px 0 0;
+    border-top: 0;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .learning-page-frame .learning-reading-guide__exercise {
+    grid-column: auto;
+    grid-row: auto;
+    padding: 6px 0 0 46px;
+    border-left: 0;
+    border-top: 1px solid color-mix(in srgb, var(--ink) 24%, transparent);
+  }
+
+  .learning-page-frame .learning-reading-guide__exercise h3 {
+    margin-bottom: 0;
+    font-size: 12px;
+  }
+
+  .learning-page-frame .learning-reading-guide__exercise p {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+}
