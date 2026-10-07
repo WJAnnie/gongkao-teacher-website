@@ -26,7 +26,8 @@ test('homepage composes the newspaper front without the old gateway', () => {
   for (const legacy of ['SubjectGateway', 'HomeLearningRepeat', 'MotionLayer', 'LearningTopNav', 'about-study-art', 'nav-shell', '展开']) {
     assert.ok(!page.includes(legacy), `首页仍包含 ${legacy}`);
   }
-  for (const id of ['top', 'study', 'about', 'contact']) assert.match(page, new RegExp(`id="${id}"`));
+  for (const id of ['top', 'study', 'about']) assert.match(page, new RegExp(`id="${id}"`));
+  assert.doesNotMatch(page, /front-bottom|front-contact|front-qr|id="contact"/);
   assert.match(page, /routes=\{shenlunRoutes\}/);
   assert.match(page, /routes=\{interviewRoutes\}/);
   assert.match(page, /把公考题做懂，<br \/>把话<em>说清<\/em>。/);

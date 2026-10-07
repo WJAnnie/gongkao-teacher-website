@@ -9,7 +9,7 @@ export function FrontMotion() {
     const root = document.querySelector<HTMLElement>('.front-page');
     if (!root) return;
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sections = Array.from(root.querySelectorAll<HTMLElement>('.front-cols, .front-daily-reading, .front-bottom, .front-editorial'));
+    const sections = Array.from(root.querySelectorAll<HTMLElement>('.front-cols, .front-daily-reading, .front-editorial'));
     let observer: IntersectionObserver | undefined;
     let frame = 0;
 

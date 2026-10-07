@@ -18,7 +18,11 @@
 .front-page h3,
 .front-page p { margin: 0; }
 .front-page a { color: inherit; text-decoration: none; }
-.front-page a:focus-visible { outline: 2px solid var(--front-seal); outline-offset: 3px; }
+.front-page a:focus-visible,
+.front-page button:focus-visible { outline: 2px solid var(--front-seal); outline-offset: 3px; }
+
+.front-dateline nav button { padding: 0; border: 0; min-height: 44px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.front-dateline nav button:hover { color: var(--front-seal); }
 
 /* 报头 */
 .front-mast-top {
@@ -69,7 +73,7 @@
   color: var(--front-muted);
 }
 .front-dateline b { color: var(--front-seal); font-weight: 600; }
-.front-dateline nav { display: flex; gap: 6px; }
+.front-dateline nav { display: flex; align-items: center; gap: 6px; }
 .front-dateline nav a:hover { color: var(--front-seal); }
 
 /* 头条 */
@@ -98,11 +102,6 @@
 .front-daily-reading {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  border-top: 3px double var(--front-ink);
-}
-.front-bottom {
-  display: grid;
-  grid-template-columns: 1fr;
   border-top: 3px double var(--front-ink);
 }
 .front-col { min-width: 0; padding: 14px 22px 18px; }
@@ -173,17 +172,6 @@
 .front-term-after { font: 600 14px/1.5 var(--front-serif); text-wrap: balance; }
 .front-note p { text-wrap: pretty; }
 
-/* 获取资料 */
-.front-qr-row { display: flex; align-items: center; gap: 12px; font-size: 13px; line-height: 1.8; }
-.front-qr {
-  flex: none;
-  width: 74px;
-  height: 74px;
-  border: 1px solid var(--front-ink);
-  background: repeating-linear-gradient(45deg, var(--front-ink) 0 3px, transparent 3px 7px);
-  opacity: .75;
-}
-
 /* 编者按 */
 .front-editorial { padding-top: 12px; border-top: 3px double var(--front-ink); }
 .front-editorial-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
@@ -224,7 +212,7 @@
 @keyframes front-stamp { from { opacity: 0; transform: scale(1.3) rotate(-16deg); } to { opacity: 1; transform: scale(1) rotate(-6deg); } }
 .front-reading-line { position: fixed; inset: 0 0 auto; z-index: 150; height: 2px; pointer-events: none; }
 .front-reading-line span { display: block; width: 100%; height: 100%; background: var(--front-seal); transform: scaleX(var(--front-read-progress, 0)); transform-origin: left; }
-[id="study"], [id="about"], [id="contact"] { scroll-margin-top: 24px; }
+[id="study"], [id="about"] { scroll-margin-top: 24px; }
 
 @media (max-width: 760px) {
   .front-page { padding: 16px 16px 180px; }
@@ -236,7 +224,6 @@
   .front-note { padding: 10px 0 0; border-left: 0; border-top: 1px solid var(--front-ink); font-size: 13px; }
   .front-cols,
   .front-daily-reading,
-  .front-bottom,
   .front-editorial-grid { grid-template-columns: 1fr; }
   .front-col { padding: 12px 0; }
   .front-col + .front-col { border-left: 0; border-top: 1px solid var(--front-ink); }

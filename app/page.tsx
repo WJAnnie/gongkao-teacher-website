@@ -42,19 +42,6 @@ export default async function Home() {
         <FrontTerms initialDate={buildDate} terms={terms} />
       </div>
 
-      <div className="front-bottom">
-        <section className="front-col front-contact" id="contact" aria-label="获取资料">
-          <div className="front-kicker">
-            <h2>获取资料</h2>
-            <span>扫码</span>
-          </div>
-          <div className="front-qr-row">
-            <div className="front-qr" role="img" aria-label="二维码（占位）" />
-            <p>申论方法 · 结构化面试<br />真题训练 · 课堂内容</p>
-          </div>
-        </section>
-      </div>
-
       <section className="front-editorial" id="about" aria-label="编者按">
         <div className="front-editorial-head">
           <h2>编者按</h2>

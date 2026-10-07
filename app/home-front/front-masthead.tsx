@@ -2,6 +2,7 @@
 
 import { formatChineseDay, formatMonthIssue, type FrontDate } from './front-date';
 import { useFrontToday } from './use-front-today';
+import { MATERIALS_POPOVER_ID } from '../materials-contact';
 
 export function FrontMasthead({ initialDate }: { initialDate: FrontDate }) {
   const today = useFrontToday(initialDate);
@@ -27,7 +28,7 @@ export function FrontMasthead({ initialDate }: { initialDate: FrontDate }) {
           <span aria-hidden="true">｜</span>
           <a href="#about">编者按</a>
           <span aria-hidden="true">｜</span>
-          <a href="#contact">获取资料</a>
+          <button type="button" popoverTarget={MATERIALS_POPOVER_ID}>获取资料</button>
         </nav>
       </div>
     </header>

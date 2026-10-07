@@ -34,7 +34,9 @@ test('masthead shows the rotating Beijing date and in-page anchors', () => {
   assert.match(masthead, /formatChineseDay\(today\)/);
   assert.match(masthead, /<h1>答卷之外<\/h1>/);
   assert.match(masthead, /云帆<br \/>之印/);
-  for (const anchor of ['#study', '#about', '#contact']) assert.ok(masthead.includes(`href="${anchor}"`), `报头缺少 ${anchor}`);
+  for (const anchor of ['#study', '#about']) assert.ok(masthead.includes(`href="${anchor}"`), `报头缺少 ${anchor}`);
+  assert.match(masthead, /popoverTarget=\{MATERIALS_POPOVER_ID\}/);
+  assert.doesNotMatch(masthead, /href="#contact"/);
 });
 
 test('module columns link every route with its note and no disclosure', () => {

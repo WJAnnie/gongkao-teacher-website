@@ -28,22 +28,23 @@ test('root layout mounts FloatingStudyDock once after children and prevents doub
   assert.doesNotMatch(page, /<HomeSongPlayer\b/);
   assert.doesNotMatch(page, /<FloatingStudyDock\b/);
 
-  // 保留首页 contact 原区块
-  assert.match(page, /id="contact"/);
-  assert.match(page, /aria-label="获取资料"/);
+  assert.doesNotMatch(page, /id="contact"|front-contact|front-qr/);
 });
 
-test('FloatingStudyDock is a server component with a real materials link below the player', () => {
+test('the dock exposes one native QR popover while retaining the real materials fallback', () => {
   assert.doesNotMatch(dockComp, /'use client'/);
   assert.match(dockComp, /import\s*\{\s*HomeSongPlayer\s*\}\s*from\s*'\.\/home-song-player';/);
   assert.match(dockComp, /<HomeSongPlayer \/>/);
   assert.match(dockComp, /href="\/materials\/"/);
   assert.match(dockComp, /获取资料/);
-  assert.doesNotMatch(dockComp, /qrcode|二维码/i);
+  assert.match(dockComp, /id=\{MATERIALS_POPOVER_ID\} popover="auto"/);
+  assert.match(dockComp, /popoverTarget=\{MATERIALS_POPOVER_ID\}/);
+  assert.match(dockComp, /popoverTargetAction="hide"/);
+  assert.match(dockComp, /materialsContact\.qrImage/);
 
   // 播放器在上方，资料入口在最低一行
   const playerIndex = dockComp.indexOf('<HomeSongPlayer />');
-  const materialsIndex = dockComp.indexOf('href="/materials/"');
+  const materialsIndex = dockComp.indexOf('popoverTarget={MATERIALS_POPOVER_ID}');
   assert.ok(playerIndex !== -1 && materialsIndex !== -1, '缺少播放器或资料链接');
   assert.ok(playerIndex < materialsIndex, '播放器应在资料入口上方，资料入口位于最低一行');
 });
