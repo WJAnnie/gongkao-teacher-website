@@ -1,0 +1,46 @@
+/* 全站文字角色：宋体标题、无衬线阅读与操作、等宽数字对齐。 */
+button, input, select, textarea { font-family: var(--font-body); }
+:root :is(.front-page, .learning-page-frame, .learning-page-shell) :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-serif);
+  font-kerning: normal;
+  overflow-wrap: break-word;
+}
+:root .learning-page-shell .learning-page-hero h1 { font-size: clamp(36px, 4.5vw, 64px); line-height: 1.3; letter-spacing: 0; }
+:root .learning-reading-surface h2 { font-size: clamp(26px, 2.3vw, 32px); line-height: 1.45; letter-spacing: 0; }
+:root .learning-reading-surface h3 { font-size: clamp(23px, 2vw, 28px); line-height: 1.5; letter-spacing: 0; }
+:root .learning-reading-surface h4 { font-size: clamp(20px, 1.7vw, 24px); line-height: 1.6; letter-spacing: 0; }
+:root .learning-reading-surface .learning-reading-guide h2 { font-size: 21px; }
+:root .learning-reading-surface .learning-reading-guide__exercise h3 { font: 600 14px/1.6 var(--font-body); }
+
+:root :is(.framework-voice-prose, .expression-v2-prose, .framework-voice-note, .framework-deep-talk, .framework-voice-example,
+  .writing-editorial-paper, .writing-paper-body, .writing-case-source, .writing-case-usage, .tips-article-body,
+  .interview-card, .interview-flow-step, .interview-practice-board, .note-detail) :is(p, li) {
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  line-height: 1.9;
+  letter-spacing: 0;
+}
+:root .learning-reading-surface .framework-voice-prose .voice-key { font-family: var(--font-serif); font-size: 22px; line-height: 1.7; }
+:root .learning-reading-surface .framework-voice-head > p { font-family: var(--font-body); font-size: 16px; line-height: 1.85; }
+:root .learning-page-shell :is(.material-card > p, .note-summary-main > p, .note-count) { font-family: var(--font-body); font-size: 13px; line-height: 1.7; }
+:root .learning-page-shell .note-summary-main > span { font-family: var(--font-body); font-size: 15px; line-height: 1.8; }
+:root .learning-page-frame :is(.learning-hero-bottom > p, .framework-article-intro p) { font-family: var(--font-body); font-size: 16px; line-height: 1.85; }
+:root .learning-page-frame :is(.learning-chapter-strip > button > b, .learning-directory-list > button > b) { font-family: var(--font-body); font-size: var(--type-label); line-height: 1.6; }
+:root .learning-page-frame .learning-macro-directory .learning-directory-group > button > b { font-family: var(--font-body); font-size: 15px; line-height: 1.6; }
+:root .learning-page-frame .learning-reading-guide__points li { font-family: var(--font-body); font-size: 16px; line-height: 1.7; }
+:root .learning-page-frame .learning-reading-guide__exercise p { font-family: var(--font-body); font-size: 15px; line-height: 1.8; }
+:root .learning-page-frame :is(.learning-directory-list > button > span, .learning-chapter-strip > button > span, .learning-hero-topline) { font-size: var(--type-note); }
+:root .learning-topnav .learning-nav-items a { font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
+:root .front-page :is(.front-note p, .front-editorial-grid p) { font-family: var(--font-body); font-size: 15px; line-height: 1.85; }
+:root .front-page .front-module small { font-family: var(--font-body); font-size: 13px; line-height: 1.7; }
+:root .front-page :is(.front-hot-link b, .front-term-after) { line-height: 1.65; }
+:root :is(time, .home-song-time, .question-count) { font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  :root { --type-body: 16px; }
+  :root .learning-reading-surface h2 { font-size: 26px; }
+  :root .learning-reading-surface h3 { font-size: 23px; }
+  :root .learning-reading-surface .learning-reading-guide h2 { font-size: 20px; }
+  :root .learning-page-frame .learning-reading-guide__points li { font-size: 15px; }
+  :root .front-page :is(.front-note p, .front-editorial-grid p) { font-size: 14px; }
+}

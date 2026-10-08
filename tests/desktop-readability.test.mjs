@@ -25,8 +25,8 @@ test('record and mock controls use opaque, accessible text colors', () => {
 
 test('desktop geometry is bounded without changing mobile layout', () => {
   assert.match(css, /@media \(min-width: 1024px\)/);
-  // Hero tightening from 740px to 620px (containing 602px content without clipping bottom routes)
-  assert.match(css, /\.learning-page-frame \.learning-page-hero\s*\{\s*height: 620px;/);
+  // Shared chapter headers grow with their actual content, including eight-entry routes.
+  assert.doesNotMatch(css, /\.learning-page-frame \.learning-page-hero\s*\{[^}]*height:\s*\d+px;/);
   // Prose line length bounded to ~35-42 characters (42em / 756px)
   assert.match(css, /max-width: 756px/);
   assert.match(css, /max-width: 42em/);

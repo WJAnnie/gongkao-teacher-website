@@ -42,9 +42,7 @@ export function LearningPageFrame({
     <main className={`${legacyClassName} learning-page-frame`} data-learning-subject={subject}>
       <LearningTopNav active={active} />
       <header className="learning-page-hero">
-        <div className="learning-hero-topline"><span>{subjectLabel}</span><span>答卷之外 · {subjectName}</span></div>
-        <span className="exam-review-stamp" aria-hidden="true">阅</span>
-        <p className="learning-hero-eyebrow">{eyebrow}</p>
+        <div className="learning-hero-topline"><span>{subjectLabel} / {eyebrow}</span><span>答卷之外</span></div>
         <h1>{title}</h1>
         <div className="learning-hero-bottom">
           <p>{desc}</p>

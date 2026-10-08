@@ -1,4 +1,13 @@
 /* 阅读层次：章标题、核心判断、例子与老师提醒各有清晰权重。 */
+.learning-reading-surface .framework-manual-article { border-left: 0; }
+.learning-reading-surface .framework-article-intro { padding: 8px 0 24px; margin-bottom: 24px; }
+.learning-reading-surface .framework-article-intro > span { display: none; }
+.learning-reading-surface .framework-article-intro h2 { margin: 0 0 12px; font-size: 30px; line-height: 1.45; letter-spacing: 0; }
+.learning-reading-surface .framework-article-intro p { max-width: 48em; font-size: 16px; line-height: 1.85; color: var(--learning-muted); }
+.learning-reading-surface .framework-voice-head { margin-bottom: 28px; }
+.learning-reading-surface .framework-voice-head h3 { margin: 10px 0 16px; font-size: clamp(26px, 2.5vw, 34px); line-height: 1.45; letter-spacing: 0; }
+.learning-reading-surface .framework-voice-section { padding-block: 48px 56px; }
+.learning-reading-surface .framework-voice-section:first-child { padding-top: 12px; }
 .learning-reading-surface .framework-voice-topic { margin-block: 36px 18px; padding-left: 14px; border-left: 3px solid var(--learning-accent, #a84b3f); }
 .learning-reading-surface .framework-voice-topic > span { color: var(--learning-muted, #6b675c); font-size: 12px; letter-spacing: .08em; }
 .learning-reading-surface .framework-voice-topic h4 { margin: 6px 0 0; color: var(--learning-ink, #25251f); font-size: clamp(20px, 2vw, 25px); font-weight: 650; line-height: 1.65; }

@@ -14,7 +14,6 @@
 .score-tool .score-total strong { color: #98452f; }
 
 @media (min-width: 1024px) {
-  .learning-page-frame .learning-page-hero { height: 620px; }
 
   /* Annotation sizes are independent of the mobile overrides. */
   .section-index,

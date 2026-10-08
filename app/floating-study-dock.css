@@ -16,7 +16,13 @@
   max-height: calc(100dvh - 52px - env(safe-area-inset-bottom, 0px));
 }
 .floating-study-dock-player { min-height: 0; flex-shrink: 1; pointer-events: auto; }
-.floating-study-dock-materials { flex-shrink: 0; pointer-events: auto; }
+.floating-study-dock-materials { flex-shrink: 0; pointer-events: auto; margin-left: 72px; }
+.floating-study-music-toggle { position: absolute; bottom: 0; left: 0; display: flex; align-items: center; min-height: 44px; padding: 8px 4px; list-style: none; background: var(--dock-paper); color: #6b675c; font: 12px/1.5 "Songti SC", "SimSun", serif; cursor: pointer; }
+.floating-study-music-toggle::-webkit-details-marker { display: none; }
+.floating-study-dock-player[open] .music-show-label,
+.floating-study-dock-player:not([open]) .music-hide-label { display: none; }
+.floating-study-music-toggle:hover { color: var(--dock-seal); }
+.floating-study-music-toggle:focus-visible { outline: 2px solid var(--dock-seal); outline-offset: 2px; }
 .floating-study-materials-link {
   display: inline-flex;
   align-items: center;

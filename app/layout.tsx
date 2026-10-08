@@ -27,6 +27,7 @@ import './home-front/home-front.css';
 import './learning-reading-guide.css';
 import './editorial-reading.css';
 import './desktop-readability.css';
+import './site-typography.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL ?? 'http://localhost:3000'),

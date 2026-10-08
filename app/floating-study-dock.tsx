@@ -4,9 +4,10 @@ import { MATERIALS_POPOVER_ID, materialsContact } from './materials-contact';
 export function FloatingStudyDock() {
   return (
     <aside className="floating-study-dock" aria-label="全站学习与音乐副刊">
-      <div className="floating-study-dock-player">
+      <details className="floating-study-dock-player" open>
+        <summary className="floating-study-music-toggle"><span className="music-hide-label">收起音乐</span><span className="music-show-label">显示音乐</span></summary>
         <HomeSongPlayer />
-      </div>
+      </details>
       <div className="floating-study-dock-materials">
         <button
           type="button"

@@ -5,7 +5,6 @@ export function LearningReadingGuide({ activeId }: { activeId: string }) {
   if (!guide) return null;
 
   return <aside className="learning-reading-guide" aria-labelledby="learning-reading-guide-title">
-    <div className="learning-reading-guide__rule" aria-hidden="true" />
     <div className="learning-reading-guide__heading">
       <span>{guide.chapterNo}</span>
       <div>

@@ -51,7 +51,7 @@ test('homepage restores restrained motion with a reduced-motion fallback', () =>
   assert.doesNotMatch(css, /radial-gradient|(?<!repeating-)linear-gradient/);
   assert.match(css, /text-wrap:\s*balance/);
   assert.match(css, /@media \(max-width: 760px\)/);
-  assert.match(css, /\.front-module small \{ display: none; \}/);
+  assert.doesNotMatch(css, /\.front-module small\s*\{\s*display:\s*none/);
   const sizes = [...css.matchAll(/font(?:-size)?\s*:[^;{}]*?(\d+(?:\.\d+)?)px/g)].map((match) => Number(match[1]));
   assert.ok(sizes.length > 10, '没有读到字号声明');
   for (const size of sizes) assert.ok(size >= 12, `发现 ${size}px 的文字`);

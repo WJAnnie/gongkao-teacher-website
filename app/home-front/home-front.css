@@ -97,66 +97,200 @@
 .front-note h3 { margin-bottom: 4px; font: 700 15px/1.4 var(--front-serif); }
 .front-sign { margin-top: 4px; font-size: 12px; color: var(--front-muted); }
 
-/* 栏目网格 */
-.front-cols { display: grid; grid-template-columns: 1fr 1fr; }
-.front-daily-reading {
+/* 核心学习入口区：主导读分明，清楚留白与呼吸感 */
+.front-cols {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  border-top: 3px double var(--front-ink);
+  grid-template-columns: 1fr 1fr;
+  margin: 30px 0 34px;
 }
-.front-col { min-width: 0; padding: 14px 22px 18px; }
+.front-col { min-width: 0; padding: 14px 28px 20px; }
 .front-col + .front-col { border-left: 1px solid var(--front-ink); }
-.front-col:first-child { padding-left: 0; }
-.front-col:last-child { padding-right: 0; }
+.front-col:first-child { padding-left: 0; padding-right: 28px; }
+.front-col:last-child { padding-left: 28px; padding-right: 0; }
+
 .front-kicker {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--front-ink);
 }
-.front-kicker h2 { font: 700 20px/1.3 var(--front-serif); text-wrap: balance; }
+.front-kicker h2 { font: 700 20px/1.3 var(--front-serif); text-wrap: balance; letter-spacing: .02em; }
 .front-kicker h2 a:hover { color: var(--front-seal); }
 .front-kicker span { font-size: 12px; color: var(--front-muted); text-align: right; }
+
+/* 学习专栏 Kicker：建立首要视觉锚点 */
+.front-modules .front-kicker {
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--front-ink);
+}
+.front-modules .front-kicker h2 {
+  font-size: 22px;
+  letter-spacing: .04em;
+}
 
 .front-module-list,
 .front-hot-list,
 .front-term-list { margin: 0; padding: 0; list-style: none; }
 
-/* 模块 */
+/* 学习模块通用网格结构：悬停不改变 padding，避免整行跳动 */
 .front-module {
   display: grid;
-  grid-template-columns: 30px minmax(0, 1fr) auto;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
   align-items: baseline;
-  gap: 8px;
-  padding: 9px 0;
+  gap: 10px;
+  border-radius: 2px;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+.front-module-num {
+  font-family: Georgia, serif;
+  font-style: italic;
+  line-height: 1;
+}
+.front-module-headline {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+.front-module-arrow {
+  color: var(--front-muted);
+  transition: color .18s ease;
+}
+
+/* 核心导读第一条：显著更突出，标注「从这里开始」，平铺报刊头条边线式设计 */
+.front-module-item-lead {
+  margin-bottom: 12px;
+}
+.front-module-lead {
+  padding: 12px 10px 13px 12px;
+  background-color: rgba(168, 75, 63, .04);
+  border-bottom: 1px solid var(--front-soft-rule);
+}
+.front-module-lead .front-module-num {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--front-seal);
+}
+.front-module-lead b {
+  font: 700 19px/1.35 var(--front-serif);
+  color: var(--front-ink);
+  letter-spacing: .02em;
+}
+.front-module-lead .front-module-tag {
+  display: inline-block;
+  padding: 1px 0;
+  color: var(--front-seal);
+  font: 600 12px/1.3 var(--front-serif);
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+.front-module-lead small {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #3f3d35;
+}
+.front-module-lead .front-module-arrow {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--front-seal);
+}
+
+/* 第一条悬停反馈：轻量背景与标题下划线，不改变 padding */
+.front-module-lead:hover,
+.front-module-lead:focus-visible {
+  background-color: rgba(168, 75, 63, .085);
+}
+.front-module-lead:hover b,
+.front-module-lead:focus-visible b {
+  color: var(--front-seal);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+/* 其余三条更安静：作为次级路线，紧凑且柔和 */
+.front-module-sub {
+  padding: 8px 6px;
   border-bottom: 1px dotted var(--front-dot);
 }
-.front-module i { font: italic 14px/1 Georgia, serif; color: var(--front-seal); }
-.front-module b { font: 600 17px/1.4 var(--front-serif); }
-.front-module small { display: block; margin-top: 2px; font-size: 12px; color: var(--front-muted); }
-.front-module-arrow { color: var(--front-muted); }
-.front-module:hover b,
-.front-module:hover .front-module-arrow { color: var(--front-seal); }
-.front-module { transition: padding .25s ease, background-color .25s ease; }
-.front-module:hover, .front-module:focus-visible { padding-left: 10px; background-color: rgba(168,75,63,.045); }
-.front-module:hover b, .front-module:focus-visible b { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
-.front-module b, .front-module-arrow, .front-hot-link b, .front-dateline nav a {
+.front-module-sub .front-module-num {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--front-muted);
+}
+.front-module-sub b {
+  font: 500 15px/1.45 var(--front-serif);
+  color: #444138;
+}
+.front-module-sub small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--front-muted);
+}
+.front-module-sub .front-module-arrow {
+  font-size: 13px;
+  color: var(--front-dot);
+}
+
+/* 其余三条悬停反馈：轻量背景与文字朱红，不改变 padding */
+.front-module-sub:hover,
+.front-module-sub:focus-visible {
+  background-color: rgba(37, 37, 31, .035);
+}
+.front-module-sub:hover b,
+.front-module-sub:focus-visible b {
+  color: var(--front-seal);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.front-module-sub:hover .front-module-arrow,
+.front-module-sub:focus-visible .front-module-arrow {
+  color: var(--front-seal);
+}
+
+.front-hot-link b, .front-dateline nav a {
   transition: color .18s ease, transform .22s ease;
 }
-.front-module:hover .front-module-arrow, .front-module:focus-visible .front-module-arrow { transform: translate(5px, -4px); }
 .front-hot-link:hover b, .front-hot-link:focus-visible b { transform: translateX(4px); }
 
+/* 每日积累：降为次层级，与主学习入口形成清晰节奏划分 */
+.front-daily-reading {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  margin-top: 36px;
+  padding-top: 18px;
+  border-top: 1px solid var(--front-soft-rule);
+}
+.front-daily-reading .front-kicker {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--front-soft-rule);
+}
+.front-daily-reading .front-kicker h2 {
+  font: 600 16px/1.35 var(--front-serif);
+  color: var(--front-muted);
+}
+.front-daily-reading .front-col + .front-col {
+  border-left: 1px solid var(--front-soft-rule);
+}
+
 /* 今日热点 */
-.front-hot-link { display: block; padding: 9px 0; border-bottom: 1px dotted var(--front-dot); }
+.front-hot-link { display: block; padding: 8px 0; border-bottom: 1px dotted var(--front-dot); }
 .front-hot-link span { font-size: 12px; color: var(--front-seal); }
-.front-hot-link b { display: block; margin-top: 2px; font: 600 16px/1.5 var(--front-serif); text-wrap: balance; }
+.front-hot-link b { display: block; margin-top: 2px; font: 500 15px/1.5 var(--front-serif); color: #3d3b34; text-wrap: balance; }
 .front-hot-link:hover b { color: var(--front-seal); }
 .front-more { display: inline-block; padding-top: 8px; font-size: 12px; color: var(--front-muted); }
 .front-more:hover { color: var(--front-seal); }
-.front-empty { padding: 9px 0; font-size: 13px; color: var(--front-muted); }
+.front-empty { padding: 8px 0; font-size: 13px; color: var(--front-muted); }
 
 /* 规范用词 */
 .front-term-list li {
@@ -169,20 +303,34 @@
 }
 .front-term-before { color: var(--front-muted); text-wrap: balance; }
 .front-term-arrow { color: var(--front-seal); font-style: normal; }
-.front-term-after { font: 600 14px/1.5 var(--front-serif); text-wrap: balance; }
+.front-term-after { font: 600 13px/1.5 var(--front-serif); text-wrap: balance; }
 .front-note p { text-wrap: pretty; }
 
-/* 编者按 */
-.front-editorial { padding-top: 12px; border-top: 3px double var(--front-ink); }
-.front-editorial-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
-.front-editorial-head h2 { font: 700 20px/1.3 var(--front-serif); }
+/* 编者按：降为次层级，低调沉底 */
+.front-editorial {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--front-soft-rule);
+}
+.front-editorial-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--front-soft-rule);
+}
+.front-editorial-head h2 {
+  font: 600 16px/1.35 var(--front-serif);
+  color: var(--front-muted);
+}
 .front-editorial-head span { font-size: 12px; color: var(--front-muted); }
 .front-editorial-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.front-editorial-grid p { padding: 0 16px; font-size: 13px; line-height: 1.85; text-wrap: pretty; }
+.front-editorial-grid p { padding: 0 16px; font-size: 13px; line-height: 1.8; color: var(--front-muted); text-wrap: pretty; }
 .front-editorial-grid p:first-child { padding-left: 0; }
 .front-editorial-grid p:last-child { padding-right: 0; }
 .front-editorial-grid p + p { border-left: 1px solid var(--front-soft-rule); }
-.front-editorial-grid b { margin-right: 4px; font: 700 14px/1.6 var(--front-serif); }
+.front-editorial-grid b { margin-right: 4px; font: 600 13px/1.6 var(--front-serif); color: var(--front-ink); }
 
 /* 页脚：覆盖 globals.css 中 footer 的三列网格与 11px 字号 */
 .front-foot {
@@ -225,10 +373,40 @@
   .front-cols,
   .front-daily-reading,
   .front-editorial-grid { grid-template-columns: 1fr; }
+  .front-cols { margin: 20px 0 24px; }
+  .front-daily-reading { margin-top: 24px; padding-top: 14px; }
+  .front-editorial { margin-top: 24px; padding-top: 14px; }
   .front-col { padding: 12px 0; }
+  .front-col:first-child, .front-col:last-child { padding-inline: 0; }
   .front-col + .front-col { border-left: 0; border-top: 1px solid var(--front-ink); }
-  .front-module { padding: 12px 0; }
-  .front-module small { display: none; }
+  .front-daily-reading .front-col + .front-col { border-top: 1px solid var(--front-soft-rule); }
+
+  .front-module {
+    grid-template-columns: 24px minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .front-module-item-lead { margin-bottom: 10px; }
+  .front-module-lead {
+    padding: 10px 8px 11px 10px;
+  }
+  .front-module-lead b { font-size: 17px; }
+  .front-module-sub { padding: 8px 4px; }
+  .front-module-sub b { font-size: 15px; }
+
+  /* 窄屏保留入口说明，靠顺序与行距保持可读。 */
+  .front-module small {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .front-module-lead small {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
   .front-editorial-grid p { padding: 6px 0; }
   .front-editorial-grid p + p { border-left: 0; border-top: 1px dotted var(--front-dot); }
 }
@@ -239,5 +417,5 @@
     transition: none !important;
   }
   .front-awaiting { opacity: 1; transform: none; }
-  .front-module:hover .front-module-arrow, .front-hot-link:hover b { transform: none; }
+  .front-hot-link:hover b { transform: none; }
 }

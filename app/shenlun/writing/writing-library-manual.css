@@ -51,7 +51,7 @@
   background: color-mix(in srgb, var(--module-color, var(--learning-accent)) 9%, var(--learning-paper-raised));
 }
 
-.learning-page-frame.writing .learning-content-frame { padding-top: clamp(46px, 6vw, 82px); }
+.learning-page-frame.writing .learning-content-frame { padding-top: var(--learning-content-top); }
 
 .writing-library-search {
   position: relative;
