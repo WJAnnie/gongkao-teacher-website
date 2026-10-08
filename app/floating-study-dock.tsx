@@ -27,8 +27,14 @@ export function FloatingStudyDock() {
             </button>
           </header>
           {materialsContact.qrImage ? (
-            // eslint-disable-next-line @next/next/no-img-element -- 保留原始二维码图像，便于手机长按识别。
-            <img className="materials-contact-qr" src={materialsContact.qrImage} alt="扫码获取申论与面试学习资料" width="208" height="208" />
+            <figure className="materials-contact-code">
+              <a className="materials-contact-qr-window" href={materialsContact.qrImage} target="_blank" rel="noopener noreferrer" aria-label="打开云帆老师微信二维码原图">
+                {/* eslint-disable-next-line @next/next/no-img-element -- 保留用户原图，通过显示窗口聚焦码区，不重绘二维码。 */}
+                <img className="materials-contact-qr" src={materialsContact.qrImage} alt="云帆老师的微信好友二维码" width="938" height="1340" loading="lazy" />
+              </a>
+              <figcaption><strong>云帆老师</strong><span>微信扫码添加好友，获取学习资料</span></figcaption>
+              <a className="materials-contact-original" href={materialsContact.qrImage} target="_blank" rel="noopener noreferrer">打开原图保存或识别 <span aria-hidden="true">↗</span></a>
+            </figure>
           ) : (
             <p className="materials-contact-unavailable" role="status">扫码入口暂未开放<br /><span>可以先查看站内资料</span></p>
           )}
